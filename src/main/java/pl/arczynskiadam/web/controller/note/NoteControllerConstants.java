@@ -1,8 +1,6 @@
-package pl.arczynskiadam.web.controller.constants.note;
+package pl.arczynskiadam.web.controller.note;
 
-import pl.arczynskiadam.web.controller.constants.GlobalControllerConstants;
-
-public interface NoteControllerConstants extends GlobalControllerConstants {
+public interface NoteControllerConstants {
 	
 	interface Pages {
 		final String _notes = "notes";
@@ -27,9 +25,14 @@ public interface NoteControllerConstants extends GlobalControllerConstants {
 	interface URLs {		
 		public static final String manager		= "/notesmanager";
 		public static final String show			= "/show";
+		public static final String showFull		= manager + show;
 		public static final String add			= "/add";
+		public static final String addFull		= manager + add;
 		public static final String addPost 		= "/add.do";
-		public static final String deleteNote	= "/delete/{noteId}";
+		public static final String addPostFull	= manager + addPost;
+		public static final String delete		= "/delete/{noteId}";
+		public static final String deleteFull	= manager + delete;
 		public static final String details 		= "/details/{noteId}";
+		public static final String detailsFull	= manager + details;
 	}
 }

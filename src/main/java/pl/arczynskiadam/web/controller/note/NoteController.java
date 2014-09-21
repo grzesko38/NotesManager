@@ -1,9 +1,11 @@
 package pl.arczynskiadam.web.controller.note;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -26,11 +28,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.arczynskiadam.core.model.note.NoteDTO;
 import pl.arczynskiadam.core.model.note.NoteDetailsDTO;
-import pl.arczynskiadam.web.controller.constants.note.NoteControllerConstants;
+import pl.arczynskiadam.web.controller.GlobalControllerConstants;
 import pl.arczynskiadam.web.facade.note.NoteFacade;
 import pl.arczynskiadam.web.form.note.DateForm;
 import pl.arczynskiadam.web.form.note.NewNoteForm;
 import pl.arczynskiadam.web.form.note.NewNoteForm.All;
+import pl.arczynskiadam.web.tag.navigation.NavigationItem;
 import pl.arczynskiadam.web.validation.note.NotesSelectionValidator;
 
 @Controller
@@ -107,7 +110,18 @@ public class NoteController {
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.add, method = RequestMethod.GET)
-	public String addNote(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.add) NewNoteForm note, final Model model) {
+	public String addNote(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.add) NewNoteForm note,
+			final Model model,
+			HttpServletRequest request) {
+		
+		String servletContext = request.getSession().getServletContext().getContextPath();
+		
+		ArrayList<NavigationItem> navItems = new ArrayList<NavigationItem>();
+		navItems.add(new NavigationItem("Home", servletContext + NoteControllerConstants.URLs.showFull));
+		navItems.add(new NavigationItem("Add note", servletContext + NoteControllerConstants.URLs.addFull));
+		
+		model.addAttribute(GlobalControllerConstants.ModelAttrKeys.Navigation.navItems, navItems);
+		
 		return NoteControllerConstants.Pages.add;
 	}
 	
@@ -128,20 +142,16 @@ public class NoteController {
 			
 			request.getSession().removeAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination);
 			
-			return NoteControllerConstants.Prefixes.redirect + 
-					NoteControllerConstants.URLs.manager +
-					NoteControllerConstants.URLs.show;
+			return GlobalControllerConstants.Prefixes.redirect +	NoteControllerConstants.URLs.showFull;
 		}
 	}
 
-	@RequestMapping(value = NoteControllerConstants.URLs.deleteNote, method = RequestMethod.POST)
+	@RequestMapping(value = NoteControllerConstants.URLs.delete, method = RequestMethod.POST)
 	public String deleteNote(@PathVariable("noteId") Integer noteId) {
 	
 		noteFacade.deleteNote(noteId);
 
-		return NoteControllerConstants.Prefixes.redirect + 
-				NoteControllerConstants.URLs.manager +
-				NoteControllerConstants.URLs.show;
+		return GlobalControllerConstants.Prefixes.redirect + NoteControllerConstants.URLs.showFull;
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.show, method = RequestMethod.POST, params="delete")
@@ -170,9 +180,7 @@ public class NoteController {
 		request.getSession().removeAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination);
 		attrs.addAttribute(PAGE, page);
 
-		return NoteControllerConstants.Prefixes.redirect + 
-				NoteControllerConstants.URLs.manager +
-				NoteControllerConstants.URLs.show;
+		return GlobalControllerConstants.Prefixes.redirect + NoteControllerConstants.URLs.showFull;
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.show, method = RequestMethod.POST, params="!delete")
@@ -186,7 +194,7 @@ public class NoteController {
 			dateForm.setDate(date);
 		}
 		
-		return NoteControllerConstants.Prefixes.redirect + NoteControllerConstants.Pages.list;
+		return GlobalControllerConstants.Prefixes.redirect + NoteControllerConstants.Pages.list;
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.details, method = RequestMethod.GET)

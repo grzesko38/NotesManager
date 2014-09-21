@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="utils" uri="http://arczynskiadam.pl/jsp/tlds/mytags" %>
+<%@ taglib prefix="utils" uri="http://arczynskiadam.pl/jsp/tlds/util" %>
+<%@ taglib prefix="nav" uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
 
 <spring:theme code="theme.name" var="themeName"/>
 <c:set var="isBlueTheme" value="${themeName eq 'blue'}" />
@@ -19,7 +20,7 @@
 <div id="placeholder"></div>
 <header class="top">
 	<div class="topbar">
-		<div class="dateholder">
+		<div class="dateholder">		
 			<utils:date separator="/" />
 		</div>
 	</div>
@@ -132,4 +133,7 @@
 		<canvas class="clockBar" id="clock" width="75" height="75"></canvas>
 	</div>	
 </header>
+<c:if test="${not empty navItems}">
+   <nav:navbar navigationItems="${navItems}" />
+</c:if>
 
