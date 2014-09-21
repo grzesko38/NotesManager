@@ -1,0 +1,92 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<import resource="spring-persistence.xml" />
+
+<!-- 	<context:annotation-config /> -->
+	<context:component-scan base-package="pl.arczynskiadam" />
+	
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/images/**" location="/resources/images/" />
+	<mvc:resources mapping="/themes/**" location="/resources/themes/" />
+	<mvc:resources mapping="/js/**" location="/resources/js/" />
+	<mvc:annotation-driven />
+
+	<!--  i18n -->
+	
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="defaultLocale" value="en_EN" />
+		<property name="cookieName" value="notesManagerUserLocale"></property>
+        <property name="cookieMaxAge" value="3600"></property>
+	</bean>
+
+	<bean name="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"> 
+		<property name="basenames" value="/WEB-INF/classes/messages/messages,
+										  /WEB-INF/classes/messages/jsr303errors"/>
+<!-- 										  classpath:messages/messages -->
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+	<!--  themes -->
+	
+	<bean id="themeSource" class="org.springframework.ui.context.support.ResourceBundleThemeSource">
+	        <property name="basenamePrefix" value="theme-" />
+	</bean>
+	
+	<bean id="themeResolver" class="org.springframework.web.servlet.theme.CookieThemeResolver">
+	    <property name="defaultThemeName" value="blue" />
+	    <property name="cookieName" value="notesManagerUserTheme"></property>
+        <property name="cookieMaxAge" value="3600"></property>
+	</bean>
+	
+	<!--  interceptors -->
+	
+	<mvc:interceptors>
+	    <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+	        <property name="paramName" value="lang" />
+	    </bean>
+	    <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor">
+		    <property name="paramName" value="theme" />
+		</bean>
+	</mvc:interceptors>
+
+	<!-- view -->
+
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<bean id="myResourceHandler" name="myResourceHandler"
+      class="org.springframework.web.servlet.resource.ResourceHttpRequestHandler">
+      <property name="locations" value="/WEB-INF/pages/system/" />
+      <property name="supportedMethods">
+         <list>
+            <value>GET</value>
+            <value>DELETE</value>
+            <value>POST</value>
+         </list>
+     </property>
+     <!-- cacheSeconds: maybe you should set it to zero because of the posts-->
+</bean>
+</beans>

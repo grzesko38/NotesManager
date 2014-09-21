@@ -1,0 +1,17 @@
+#clock
+{
+	display: block;
+    border: 1px solid #000000;
+    border-radius: 100%;
+    box-shadow: 0 0 5px 0 #222222 inset;
+    padding: 5px;
+	
+}
+.clockHolder
+{
+	border-radius: 100%;
+	position: fixed;
+	top: 3px;
+	left: 100%;
+	margin-left: -100px;
+}

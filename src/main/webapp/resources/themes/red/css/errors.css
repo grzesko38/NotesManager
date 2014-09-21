@@ -1,0 +1,11 @@
+.jsr303error {
+	color: #ff0000;
+}
+
+.jsr303ErrorBlock {
+	color: #000;
+	background-color: #EBEBEB;
+	border: 3px solid #000000;
+	display: block;
+	padding-left: 2px;
+}

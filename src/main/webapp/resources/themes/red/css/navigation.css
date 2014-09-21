@@ -1,0 +1,14 @@
+													/* top Bar */
+div.topbar
+{
+	background: url(../../red/images/navigation/bar_top.png);
+}
+													/* Main Layout */
+header
+{
+	width: 100%;
+	border-bottom: 1px solid #800000;
+	position: fixed;
+	top: 0px;
+	z-index: 10000;
+}

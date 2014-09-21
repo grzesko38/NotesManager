@@ -1,0 +1,49 @@
+													/* Main Layout */
+.notes
+{
+	background-color: #C2FAB4;
+}
+.notes div.top, .notes div.bottom
+{
+	background-color: #1C8C00;
+}
+													/* Data Table */
+.notes table.data th
+{
+	background-color: #1C8C00;
+}
+.notes table.data td
+{
+	border-bottom: 1px dotted #1C8C00;
+}
+.notes table.data tr:nth-child(2n)
+{
+    background-color: #AEF29D;
+}
+													/* Data Table - hover & links */
+.notes table.data tr:hover
+{
+	background-color: #DCFFD4;
+}
+													/* Checkboxes */
+.squaredThree label:after
+{
+	background: linear-gradient(to bottom, #68E36A 0%, #90F593 40%, #37CC3A 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+													/* Pagination */
+.notes .paginationHolder
+{
+	background: linear-gradient(to right, #C2FAB4 0%, #1C8C00 50px, #1C8C00 calc(100% - 50px), #C2FAB4 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.notes .paginationHolder .pagingItem
+{
+    background-color: #AEF29D;
+}
+.notes .paginationHolder .pagingItem:hover
+{
+	background-color: #DCFFD4;
+}
+.notes .paginationHolder .pagingItem.active
+{
+    background-color: #DCFFD4;
+}

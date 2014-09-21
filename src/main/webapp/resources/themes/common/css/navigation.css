@@ -1,0 +1,148 @@
+													/* Navigation */
+div.topbar
+{
+	height: 30px;
+	border-bottom: 1px solid #636363;
+}
+header
+{
+	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+}
+header nav a
+{
+	display: inline-block;
+}
+
+													/* misc */
+div#placeholder
+{
+	height: 100px;
+}
+													/* Top Header */
+nav.buttonsBar
+{
+	display: inline-block;
+	margin: 5px 0px 5px 15px; 
+}
+div.menu
+{
+	background: linear-gradient(to bottom, #ededed 0%, #e1e1e1 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+													/* Locale buttons */
+.flagholder
+{
+	width: 45px;
+	height: 45px;
+    border-radius: 100%;
+    box-shadow: 0 0 10px -2px rgba(0, 0, 0, .8) inset;
+    margin: 0px auto;
+    display: inline-block;
+}
+.flagholder:HOVER
+{
+	cursor: pointer;
+	box-shadow: 0 0 6px -2px rgba(0, 0, 0, .8) inset;
+}
+.flagholder.pl
+{
+	background: url(../../common/images/flags/pl.gif);
+	background-size: 45px 45px;
+    background-repeat: no-repeat;
+}
+.flagholder.uk
+{
+	background: url(../../common/images/flags/uk.gif);
+	background-size: 45px 45px;
+    background-repeat: no-repeat;
+}
+.flagholder.de
+{
+	background: url(../../common/images/flags/de.gif);
+	background-size: 45px 45px;
+    background-repeat: no-repeat;
+}
+													/* Theme buttons */
+.themeholder
+{
+	width: 45px;
+	height: 45px;
+	display: inline-block;
+	text-align: center;
+    vertical-align: middle;
+    border-radius: 100%;
+    box-shadow: 0 5px 13px -4px #585858 inset;
+}
+.themeholder:HOVER
+{
+	cursor: pointer;
+	box-shadow: 0 5px 13px -1px rgba(255, 255, 255, .6) inset;
+}
+.themeholder.blue
+{
+	background: linear-gradient(to bottom, #B3CBFF 0%, #00319C 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.themeholder.yellow
+{
+	background: linear-gradient(to bottom, #FFDE96 0%, #9E6C00 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.themeholder.green
+{
+	background: linear-gradient(to bottom, #ADFF85 0%, #267000 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.themeholder.red
+{
+	background: linear-gradient(to bottom, #FF6161 0%, #750000 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+													/* Buttons border */
+.buttonBorder
+{
+	background: linear-gradient(to bottom, #FFFFFF 33%, #B0B0B0 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	box-shadow: 0 3px 1px -2px rgba(170, 170, 170, 0.9) inset;
+	padding: 4px;
+	display: inline-block;
+	width: 45px;
+	height: 45px;
+	border-radius: 100%;
+	vertical-align: middle;
+}
+													/* date holder */
+.dateholder
+{
+	padding: 3px 105px 0px 0px;
+	color: #FFFFFF;
+	text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.95);
+	font-family: Calibri;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: right;
+}
+
+													/* Active elements */
+header.top div.menu nav .buttonBorder.blue.active
+{
+	background: linear-gradient(to bottom, #B8BAFF 33%, #4246C9 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}													
+header.top div.menu nav .buttonBorder.green.active
+{
+	background: linear-gradient(to bottom, #A0EB7A 33%, #348A08 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+header.top div.menu nav .buttonBorder.yellow.active
+{
+	background: linear-gradient(to bottom, #F0D889 33%, #B3924B 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+header.top div.menu nav .buttonBorder.red.active
+{
+	background: linear-gradient(to bottom, #FA7373 33%, #BA2B2B 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+header.top div.menu nav .buttonBorder.active
+{
+	background: linear-gradient(to bottom, #FFFFFF 33%, #F9F9F9 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+header.top div.menu nav .flagholder.active
+{
+	box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 1) inset
+}
+header.top div.menu nav .themeholder.active
+{
+	box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 1) inset
+}
