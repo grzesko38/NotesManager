@@ -27,7 +27,7 @@
 	<mvc:resources mapping="/images/**" location="/resources/images/" />
 	<mvc:resources mapping="/themes/**" location="/resources/themes/" />
 	<mvc:resources mapping="/js/**" location="/resources/js/" />
-	<mvc:annotation-driven />
+	<mvc:annotation-driven validator="validator" />
 
 	<!--  i18n -->
 	
@@ -38,10 +38,28 @@
 	</bean>
 
 	<bean name="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"> 
-		<property name="basenames" value="/WEB-INF/classes/messages/messages,
-										  /WEB-INF/classes/messages/jsr303errors"/>
-<!-- 										  classpath:messages/messages -->
+		<property name="basenames">
+			<list>
+				<value>WEB-INF/classes/messages/messages</value>
+			</list>
+		</property>
 		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+	<bean name="errMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"> 
+		<property name="basenames">
+			<list>
+				<value>classpath:messages/jsr303errors</value>
+			</list>
+		</property>
+		<property name="useCodeAsDefaultMessage" value="true" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+	
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+	    <property name="validationMessageSource">
+	        <ref bean="errMessageSource"/>
+	    </property>
 	</bean>
 	
 	<!--  themes -->
@@ -87,6 +105,5 @@
             <value>POST</value>
          </list>
      </property>
-     <!-- cacheSeconds: maybe you should set it to zero because of the posts-->
 </bean>
 </beans>

@@ -11,21 +11,21 @@ import pl.arczynskiadam.web.form.note.NewNoteForm.Extended;
 import pl.arczynskiadam.web.validation.FieldMatch;
 import pl.arczynskiadam.web.validation.note.FirstCharsUpperCase;
 
-@FieldMatch(groups = {Extended.class}, fieldSource = "email", fieldConfirm = "emailConfirmation")
+@FieldMatch(groups = {Extended.class}, fieldSource = "email", fieldConfirm = "emailConfirmation", message = "{note.email.match}")
 public class NewNoteForm {
 
-	@NotEmpty(groups = {Default.class})
-	@FirstCharsUpperCase(count=1, groups = {Extended.class})
+	@NotEmpty(groups = {Default.class}, message = "{note.required}")
+	@FirstCharsUpperCase(count = 1, groups = {Extended.class}, message = "{note.uppercase}")
 	private String author;
 
-	@NotEmpty(groups = {Default.class})
-	@Email(groups = {Default.class})
+	@NotEmpty(groups = {Default.class}, message = "{note.required}")
+	@Email(groups = {Default.class}, message = "{note.email.invalid}")
 	private String email;
 	
-	@NotEmpty(groups = {Default.class})
+	@NotEmpty(groups = {Default.class}, message = "{note.required}")
 	private String emailConfirmation;
 	
-	@NotEmpty(groups = {Default.class})
+	@NotEmpty(groups = {Default.class}, message = "{note.required}")
 	private String content;
 	
 	public String getAuthor() {
