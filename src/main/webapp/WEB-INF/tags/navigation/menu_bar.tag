@@ -131,11 +131,11 @@
 	</div>
 	<div class="clockHolder">
 		<canvas class="clockBar" id="clock" width="75" height="75"></canvas>
-	</div>	
+	</div>
+		<c:if test="${not empty navItems}">
+		<div class="navbar">
+		   <nav:navbar navigationItems="${navItems}" />
+	   </div>
+	</c:if>	
 </header>
-<c:if test="${not empty navItems}">
-	<div class="navbar">
-	   <nav:navbar navigationItems="${navItems}" />
-   </div>
-</c:if>
 
