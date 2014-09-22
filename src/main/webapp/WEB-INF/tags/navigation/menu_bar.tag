@@ -134,6 +134,8 @@
 	</div>	
 </header>
 <c:if test="${not empty navItems}">
-   <nav:navbar navigationItems="${navItems}" />
+	<div class="navbar">
+	   <nav:navbar navigationItems="${navItems}" />
+   </div>
 </c:if>
 

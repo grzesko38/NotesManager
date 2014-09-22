@@ -1,11 +1,9 @@
 package pl.arczynskiadam.web.controller.note;
 
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -28,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.arczynskiadam.core.model.note.NoteDTO;
 import pl.arczynskiadam.core.model.note.NoteDetailsDTO;
+import pl.arczynskiadam.web.controller.AbstractController;
 import pl.arczynskiadam.web.controller.GlobalControllerConstants;
 import pl.arczynskiadam.web.facade.note.NoteFacade;
 import pl.arczynskiadam.web.form.note.DateForm;
@@ -38,7 +37,7 @@ import pl.arczynskiadam.web.validation.note.NotesSelectionValidator;
 
 @Controller
 @RequestMapping(value = NoteControllerConstants.URLs.manager)
-public class NoteController {
+public class NoteController extends AbstractController {
 	
 	private static final Logger log = Logger.getLogger(NoteController.class);
 	
@@ -114,13 +113,9 @@ public class NoteController {
 			final Model model,
 			HttpServletRequest request) {
 		
-		String servletContext = request.getSession().getServletContext().getContextPath();
-		
-		ArrayList<NavigationItem> navItems = new ArrayList<NavigationItem>();
-		navItems.add(new NavigationItem("Home", servletContext + NoteControllerConstants.URLs.showFull));
-		navItems.add(new NavigationItem("Add note", servletContext + NoteControllerConstants.URLs.addFull));
-		
-		model.addAttribute(GlobalControllerConstants.ModelAttrKeys.Navigation.navItems, navItems);
+		createNavigationAndSaveToModel(model,
+				new NavigationItem("Home", NoteControllerConstants.URLs.showFull),
+				new NavigationItem("Add note", null));
 		
 		return NoteControllerConstants.Pages.add;
 	}
@@ -161,7 +156,6 @@ public class NoteController {
 			final Model model,
 			@RequestParam(value="date", required=false) Date date,
 			@RequestParam(value="delete", required=false) String s,
-			HttpServletResponse response,
 			RedirectAttributes attrs) {
 
 		if (date != null) {
@@ -202,6 +196,10 @@ public class NoteController {
 			@PathVariable("noteId") Integer noteId,
 			final Model model) {
 		
+		createNavigationAndSaveToModel(model,
+				new NavigationItem("Home", NoteControllerConstants.URLs.showFull),
+				new NavigationItem("Note details", null));
+		
 		note.setContent(noteFacade.findNoteById(noteId).getContent());
 
 		return NoteControllerConstants.Pages.details;
@@ -235,5 +233,4 @@ public class NoteController {
 	private PagesData retrievePagesDataFromSession() {
 		return (PagesData) request.getSession().getAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination);
 	}
-	
 }

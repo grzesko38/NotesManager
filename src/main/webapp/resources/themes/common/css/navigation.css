@@ -7,6 +7,10 @@ div.topbar
 header
 {
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+	width: 100%;
+	position: fixed;
+	top: 0px;
+	z-index: 1000;
 }
 header nav a
 {
@@ -16,7 +20,7 @@ header nav a
 													/* misc */
 div#placeholder
 {
-	height: 100px;
+	height: 120px;
 }
 													/* Top Header */
 nav.buttonsBar
@@ -27,6 +31,17 @@ nav.buttonsBar
 div.menu
 {
 	background: linear-gradient(to bottom, #ededed 0%, #e1e1e1 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+div.navbar
+{
+	background: linear-gradient(to bottom, #e1e1e1 0%, #dedede 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	z-index: 1001;
+	position: fixed;
+	top: 92px;
+	left: 0px;
+	padding: 7px 25px 7px 10px;
+	
+	
 }
 													/* Locale buttons */
 .flagholder

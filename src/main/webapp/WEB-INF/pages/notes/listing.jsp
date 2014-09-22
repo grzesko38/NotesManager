@@ -9,10 +9,10 @@
 <head>
 	<title>Spring 3 MVC Series - Contact Manager</title>
 	
-	<link href="${pageContext.request.contextPath}/themes/common/css/default.css" rel="stylesheet" type="text/css"/>
-	<link href="${pageContext.request.contextPath}/themes/common/css/navigation.css" rel="stylesheet" type="text/css"/>
-	<link href="${pageContext.request.contextPath}/themes/common/css/notes.css" rel="stylesheet" type="text/css"/>
-	<link href="${pageContext.request.contextPath}/themes/common/css/widgets.css" rel="stylesheet" type="text/css"/>
+	<link href="<c:url value="/themes/common/css/default.css"/>" rel="stylesheet" type="text/css"/>
+	<link href="<c:url value="/themes/common/css/navigation.css"/>" rel="stylesheet" type="text/css"/>
+	<link href="<c:url value="/themes/common/css/notes.css"/>" rel="stylesheet" type="text/css"/>
+	<link href="<c:url value="/themes/common/css/widgets.css"/>" rel="stylesheet" type="text/css"/>
 	
 	<link href="${pageContext.request.contextPath}/themes/<spring:theme code="css.navigation"/>" rel="stylesheet" type="text/css"/>
 	<link href="${pageContext.request.contextPath}/themes/<spring:theme code="css.notes"/>" rel="stylesheet" type="text/css"/>

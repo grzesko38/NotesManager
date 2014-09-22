@@ -4,12 +4,8 @@ div.topbar
 	background: url(../../blue/images/navigation/bar_top.png);
 }
 													/* Main Layout */
-header
+header, div.navbar
 {
-	width: 100%;
 	border-bottom: 1px solid #0059B8;
-	position: fixed;
-	top: 0px;
-	z-index: 10000;
 }
 

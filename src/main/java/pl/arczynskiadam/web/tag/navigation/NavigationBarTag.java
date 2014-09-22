@@ -8,9 +8,12 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.SkipPageException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
+import org.apache.log4j.Logger;
+
 public class NavigationBarTag extends SimpleTagSupport {
 	
-	private static final String URL_SEPARATOR = "/";
+	private static final Logger log = Logger.getLogger(NavigationBarTag.class);
+
 	ArrayList<NavigationItem> navigationItems;
 	
 	public NavigationBarTag() {
@@ -33,11 +36,18 @@ public class NavigationBarTag extends SimpleTagSupport {
         	while (it.hasNext()) {
         		NavigationItem item = it.next();
         		if (it.hasNext()) {
-        			sb.append("<a href=\"").append(item.getUrl()).append("\">").append(item.getName()).append("</a>").append(" / ");
+        			sb.append("<a href=\"")
+        			.append(item.getUrl())
+        			.append("\">")
+        			.append(item.getName())
+        			.append("</a>")
+        			.append(" &gt; ");
         		} else {
         			sb.append(item.getName());
         		}
         	}
+        	
+        	log.debug("writting output: " + sb.toString());
             getJspContext().getOut().write(sb.toString());
         } catch (Exception e) {
             e.printStackTrace();

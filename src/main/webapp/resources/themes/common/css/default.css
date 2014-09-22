@@ -2,6 +2,11 @@ body
 {
 	margin: 0px;
 }
+a
+{
+	text-decoration: none;
+	color: #000000;
+}
 input::-webkit-input-placeholder { /* WebKit browsers */
     color:    #AFAFAF;
     opacity:  1;

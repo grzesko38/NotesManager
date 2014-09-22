@@ -1,7 +1,6 @@
 package pl.arczynskiadam.web.form.note;
 
 import javax.validation.GroupSequence;
-import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
 
 import org.hibernate.validator.constraints.Email;
