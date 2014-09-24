@@ -8,4 +8,9 @@ header, div.navbar
 {
 	border-bottom: 1px solid #0059B8;
 }
-
+div.navbar_corner
+{
+	left: 100%;
+    position: absolute;
+    top: 2px;
+}

@@ -40,7 +40,7 @@ div.navbar
 	top: 92px;
 	left: 0px;
 	padding: 7px 25px 7px 10px;
-	box-shadow: 0 4px 4px -4px rgba(0, 0, 0, 0.5);
+	box-shadow: 4px 4px 4px -4px rgba(0, 0, 0, 0.5);
 }
 													/* Locale buttons */
 .flagholder

@@ -134,8 +134,14 @@
 	</div>
 		<c:if test="${not empty navItems}">
 		<div class="navbar">
-		   <nav:navbar navigationItems="${navItems}" />
-	   </div>
+			<div>
+				<nav:navbar navigationItems="${navItems}" />
+			</div>
+			<div class="navbar_corner">
+				<img id="goimg" src="${pageContext.request.contextPath}/themes/<spring:theme code="img.nav.bar.corner"/>"
+				width="44" height="37"/>
+			</div>
+		</div>
 	</c:if>	
 </header>
 

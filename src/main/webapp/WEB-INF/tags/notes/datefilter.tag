@@ -25,7 +25,7 @@
 						<div class="submitBbutton" class="divbutton" onClick="document.forms['dateForm'].submit();">
 				        	<span><spring:message code="button.go"/></span>
 				            <img id="goimg" src="${pageContext.request.contextPath}/themes/<spring:theme code="img.nav.arrow.right"/>"
-				            	 width="25" width="25"/>
+				            	 width="25" height="25"/>
 				        </div>
 					</td>
 					<td/>
