@@ -139,7 +139,7 @@
 			</div>
 			<div class="navbar_corner">
 				<img id="goimg" src="${pageContext.request.contextPath}/themes/<spring:theme code="img.nav.bar.corner"/>"
-				width="44" height="37"/>
+				width="33" height="37"/>
 			</div>
 		</div>
 	</c:if>	

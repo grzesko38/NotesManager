@@ -39,8 +39,14 @@ div.navbar
 	position: fixed;
 	top: 92px;
 	left: 0px;
-	padding: 7px 25px 7px 10px;
+	padding: 7px 10px 7px 20px;
 	box-shadow: 4px 4px 4px -4px rgba(0, 0, 0, 0.5);
+}
+div.navbar_corner
+{
+	left: 100%;
+    position: absolute;
+    top: 2px;
 }
 													/* Locale buttons */
 .flagholder
