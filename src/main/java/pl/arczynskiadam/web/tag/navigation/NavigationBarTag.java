@@ -36,14 +36,16 @@ public class NavigationBarTag extends SimpleTagSupport {
         	while (it.hasNext()) {
         		NavigationItem item = it.next();
         		if (it.hasNext()) {
-        			sb.append("<a href=\"")
+        			sb.append("<span class=\"navitem\"><a href=\"")
         			.append(item.getUrl())
         			.append("\">")
         			.append(item.getName())
-        			.append("</a>")
-        			.append(" &gt; ");
+        			.append("</a></span>")
+        			.append("<span class=\"navitem\">&nbsp;&gt;&nbsp;</a></span>");
         		} else {
-        			sb.append(item.getName());
+        			sb.append("<span class=\"navitem\">")
+        			.append(item.getName())
+        			.append("<span class=\"navitem\">");
         		}
         	}
         	

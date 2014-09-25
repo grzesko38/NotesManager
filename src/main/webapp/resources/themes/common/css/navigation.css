@@ -42,6 +42,14 @@ div.navbar
 	padding: 7px 10px 7px 20px;
 	box-shadow: 4px 4px 4px -4px rgba(0, 0, 0, 0.5);
 }
+.navitem
+{
+	font-family: Calibri;
+}
+.navitem a
+{
+	text-decoration: underline;
+}
 div.navbar_corner
 {
 	left: 100%;
