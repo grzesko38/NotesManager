@@ -17,9 +17,15 @@ public class AbstractController {
 	protected void createNavigationAndSaveToModel(Model model, NavigationItem... items) {
 		ArrayList<NavigationItem> navItems = new ArrayList<NavigationItem>();
 		
+		NavigationItem prev = null;
 		for (NavigationItem item : items) {
-			item.setUrl(ctx.getContextPath() + item.getUrl());
+			if (prev == null) {
+				item.setUrl(ctx.getContextPath() + item.getUrl());
+			} else {
+				item.setUrl(prev.getUrl() + item.getUrl());
+			}
 			navItems.add(item);
+			prev = item;
 		}
 		
 		model.addAttribute(GlobalControllerConstants.ModelAttrKeys.Navigation.navItems, navItems);

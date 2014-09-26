@@ -41,11 +41,11 @@ public class NoteController extends AbstractController {
 	
 	private static final Logger log = Logger.getLogger(NoteController.class);
 	
-	private static final String PAGE = "p";
+		private static final String PAGE = "p";
 	private static final int NOTES_PER_PAGE = 15;
 	private static final int MAX_LINKED_PAGES = 11;
 	private static final int FIRST = 0;
-
+	
 	@Autowired
 	private NoteFacade noteFacade;
 	
@@ -115,7 +115,7 @@ public class NoteController extends AbstractController {
 		
 		createNavigationAndSaveToModel(model,
 				new NavigationItem("Home", NoteControllerConstants.URLs.showFull),
-				new NavigationItem("Add note", null));
+				new NavigationItem("Add note", GlobalControllerConstants.Misc.hash));
 		
 		return NoteControllerConstants.Pages.add;
 	}
@@ -198,7 +198,7 @@ public class NoteController extends AbstractController {
 		
 		createNavigationAndSaveToModel(model,
 				new NavigationItem("Home", NoteControllerConstants.URLs.showFull),
-				new NavigationItem("Note details", null));
+				new NavigationItem("Note details", GlobalControllerConstants.Misc.hash));
 		
 		note.setContent(noteFacade.findNoteById(noteId).getContent());
 
