@@ -22,15 +22,16 @@ public class DefaultNoteDAO implements NoteDAO {
 	private SessionFactory sessionFactory;
 
 	public void addNote(NoteVO note) {
-		log.debug("NoteDAO#addNote: " + note);
+		log.info("note added: " + note);
 		sessionFactory.getCurrentSession().save(note);
 	}
 
 	public List<NoteVO> listNotes() {
 		Session session = sessionFactory.getCurrentSession();
 		List<NoteVO> result = session.getNamedQuery("findAllNotes").list();
+		log.info("fetched " + result.size() + " from database.");
 		for (NoteVO note : result) {
-			log.debug("NoteDAO#listNotes: " + note);
+			log.debug("fetched note: " + note);
 		}
 		return result;
 	}
@@ -41,6 +42,7 @@ public class DefaultNoteDAO implements NoteDAO {
 		for (NoteVO note : result) {
 			log.debug("NoteDAO#listNotesFromDate: " + note);
 		}
+		log.info("fetched " + result.size() + " notes from database.");
 		return result;
 	}
 
@@ -50,6 +52,7 @@ public class DefaultNoteDAO implements NoteDAO {
 		NoteVO note = (NoteVO) session.load(NoteVO.class, id);
 		if (note != null) {
 			session.delete(note);
+			log.info("deleted note from database: " + note.toString());
 		}
 	}
 	
@@ -62,6 +65,8 @@ public class DefaultNoteDAO implements NoteDAO {
 	    
 		Session session = sessionFactory.getCurrentSession();
 		session.getNamedQuery("deleteNotesByIds").setParameterList("ids", idsList).executeUpdate();
+		log.info("deleted " + ids.length + " notes from database");
+		log.debug("deleted ids: " + ids.toString());
 	}
 	
 	public NoteVO findNoteById(int id) {

@@ -22,7 +22,7 @@ public class NotesSelectionValidator implements Validator {
 		log.debug("NotesSelectionValidator#validate called");
 		int[] selection = ((PagesData) target).getSelectedNotesIds();
 		if (selection.length == 0) {
-			log.debug("NotesSelectionValidator value rejected");
+			log.debug("value rejected");
 			 ((PagesData) target).setSelectedNotesIds(new int[]{66,67});
 			errors.rejectValue("selectedNotesIds", "NotesSelectionForm.ids.lessThenOne");
 		}
