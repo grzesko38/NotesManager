@@ -8,7 +8,7 @@
 	<description>Navigation bar for site</description>
 	<tlib-version>2.1</tlib-version>
 	<short-name>nav-bar</short-name>
-	<uri>http://arczynskiadam.pl/jsp/tlds/mytags</uri>
+	<uri>http://arczynskiadam.pl/jsp/tlds/navigation</uri>
 	<tag>
 	    <name>navbar</name>
 	    <tag-class>pl.arczynskiadam.web.tag.navigation.NavigationBarTag</tag-class>
