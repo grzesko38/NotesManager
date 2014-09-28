@@ -1,7 +1,7 @@
 AnalogClock = {
 	start: function() {
-		setTimeout(updateClocks, 0);
-		setInterval(updateClocks, 1000);
+		setTimeout(AnalogClock.update, 0);
+		setInterval(AnalogClock.update, 1000);
 	},
 
 	update: function() {
@@ -11,7 +11,6 @@ AnalogClock = {
 		var s = now.getSeconds();
 		
 		// --- Analog clock ---//
-	
 		var canvas = document.getElementById("clock");
 		var context = canvas.getContext("2d");
 		
@@ -28,8 +27,6 @@ AnalogClock = {
 		
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		
-		// Draw background
-	
 		for (var i = 0; i < 12; i++)
 		{
 			var innerDist		= (i % 3) ? 0.75 : 0.7;
@@ -48,10 +45,8 @@ AnalogClock = {
 			context.lineTo(x2, y2); // Draw a line outwards
 			context.stroke();
 		}
-	
 		
 		// Draw arms
-	
 		function drawArm(progress, armThickness, armLength, armColor, offset) {
 			var armRadians = (Math.TAU * progress) - (Math.TAU/4);
 			var targetX = clockX + Math.cos(armRadians) * (armLength * clockRadius);
