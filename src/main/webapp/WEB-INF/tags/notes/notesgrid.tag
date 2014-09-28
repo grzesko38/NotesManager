@@ -22,7 +22,7 @@
 			<c:forEach items="${notesPaginationData.pagedListHolder.pageList}" var="note" varStatus="loopStatus">
 				<tr>
 					<td class="left">
-						<div class="squaredThree">
+						<div class="checkbox">
 							<form:checkbox path="selectedNotesIds" value="${note.id}" />
 							<label for="selectedNotesIds${loopStatus.index + 1}"><spring:message text=""/></label>
 						</div>

@@ -26,7 +26,7 @@
 	background-color: #DCFFD4;
 }
 													/* Checkboxes */
-.squaredThree label:after
+.notes .checkboxe label:after
 {
 	background: linear-gradient(to bottom, #68E36A 0%, #90F593 40%, #37CC3A 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
