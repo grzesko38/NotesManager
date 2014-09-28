@@ -2,6 +2,15 @@
 <%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
 
+<script>
+function toggle(source) {
+	checkboxes = document.getElementsByName('selectedNotesIds');
+  	for(var i = 0, n = checkboxes.length; i < n; i++) {
+    	checkboxes[i].checked = source.checked;
+	}
+}
+</script>
+
 <form:form method="post" action="${pageContext.request.contextPath}/notesmanager/show" modelAttribute="notesPaginationData">
 	<table class="data">
 		<colgroup>
@@ -10,7 +19,12 @@
 		</colgroup>
 		<thead>
 			<tr>
-				<th class="corner"/>
+				<th class="corner">
+					<div class="checkbox">
+						<input id="selectall" class="chceckbox" type="checkbox" onClick="toggle(this)">
+						<label for="selectall"></label>
+					</div>
+				</th>
 				<th class="corner"/>
 				<th><spring:message code="label.author"/></th>
 				<th><spring:message code="label.email"/></th>

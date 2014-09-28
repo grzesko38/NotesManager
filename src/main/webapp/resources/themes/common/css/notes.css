@@ -44,9 +44,9 @@
 	border-spacing: 1px;
 	empty-cells: show;
 }
-.notes table.data th.corner, .notes .data .errmsg
+.notes table.data th.corner
 {
-	empty-cells: hide;
+	background: transparent;
 }
 .notes table.data th
 {
@@ -169,7 +169,7 @@
     cursor: pointer;
 }
 													/* Checkboxes */
-input[type=checkbox] {
+.notes input[type=checkbox] {
 	visibility: hidden;
 }
 
