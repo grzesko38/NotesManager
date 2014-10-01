@@ -44,12 +44,12 @@
 	
 	<jsp-config>
  		<taglib>
-   			<taglib-uri>http://arczynskiadam.pl/jsp/tlds/util</taglib-uri>
-    		<taglib-location>/WEB-INF/tld/date.tld</taglib-location>
+   			<taglib-uri>http://arczynskiadam.pl/jsp/tlds/utils</taglib-uri>
+    		<taglib-location>/WEB-INF/tld/utils.tld</taglib-location>
   		</taglib>
   		<taglib>
    			<taglib-uri>http://arczynskiadam.pl/jsp/tlds/navigation</taglib-uri>
-    		<taglib-location>/WEB-INF/tld/navbar.tld</taglib-location>
+    		<taglib-location>/WEB-INF/tld/navigation.tld</taglib-location>
   		</taglib>
   	</jsp-config>
   	

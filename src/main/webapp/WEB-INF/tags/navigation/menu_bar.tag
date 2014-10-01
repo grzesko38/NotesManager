@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="utils" uri="http://arczynskiadam.pl/jsp/tlds/util" %>
+<%@ taglib prefix="utils" uri="http://arczynskiadam.pl/jsp/tlds/utils" %>
 <%@ taglib prefix="nav" uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
 
 <spring:theme code="theme.name" var="themeName"/>

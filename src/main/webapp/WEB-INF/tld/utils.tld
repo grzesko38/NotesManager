@@ -8,7 +8,7 @@
 	<description>Current date tag</description>
 	<tlib-version>2.1</tlib-version>
 	<short-name>current-date</short-name>
-	<uri>http://arczynskiadam.pl/jsp/tlds/util</uri>
+	<uri>http://arczynskiadam.pl/jsp/tlds/utils</uri>
 	<tag>
 	    <name>date</name>
 	    <tag-class>pl.arczynskiadam.web.tag.DateTag</tag-class>
