@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,11 +43,9 @@ public class NoteController extends AbstractController {
 	
 	private static final Logger log = Logger.getLogger(NoteController.class);
 	
-		private static final String PAGE = "p";
 	private static final int NOTES_PER_PAGE = 15;
 	private static final int MAX_LINKED_PAGES = 11;
-	private static final int FIRST = 0;
-	
+		
 	@Autowired
 	private NoteFacade noteFacade;
 	
@@ -61,7 +61,9 @@ public class NoteController extends AbstractController {
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.show, method = RequestMethod.GET, params={"!date"})
-	public String listNotes(@RequestParam(value=PAGE, required=false) Integer page,
+	public String listNotes(@RequestParam(value=NoteControllerConstants.RequestParams.PAGE, required=false) Integer page,
+			@RequestParam(value=NoteControllerConstants.RequestParams.SORT_COLUMN, required=false) String sortCol,
+			@RequestParam(value=NoteControllerConstants.RequestParams.SORT_ORDER, required=false) String sortOrder,
 			@ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.date) DateForm dateForm,
 			@ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination) PagesData pd,
 			HttpServletResponse response,
@@ -69,9 +71,22 @@ public class NoteController extends AbstractController {
 
 		moveNotesPaginationDataFromSessionToModel(pd);
 		
+		if (StringUtils.isNotBlank(sortCol)) {
+			pd.setSortColumn(sortCol);
+		}
+		if(StringUtils.isNotBlank(sortOrder)) {
+			 pd.setSortAscending("asc".equals(sortOrder));
+		}
+		
+		pd.getPagedListHolder().setSort(new MutableSortDefinition(pd.sortColumn, true, pd.sortAscending));
+		pd.getPagedListHolder().resort();
+		
 		if (page != null) {
 			pd.getPagedListHolder().setPage(page);
 		}
+		
+		log.debug("sortcol: "+pd.getSortColumn());
+		log.debug("sortAsc: "+pd.sortAscending);
 		
 		request.getSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pd);
 		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pd);
@@ -98,7 +113,7 @@ public class NoteController extends AbstractController {
 			notes = noteFacade.listNotesFromDate(date);
 		}
 		
-		PagedListHolder<NoteDTO> pagesData = paginateData(notes, NOTES_PER_PAGE, FIRST);
+		PagedListHolder<NoteDTO> pagesData = paginateData(notes, NOTES_PER_PAGE, NoteControllerConstants.Defaults.FIRST_PAGE);
 		PagesData pd = new PagesData();
 		pd.pagedListHolder = pagesData;
 		
@@ -172,7 +187,7 @@ public class NoteController extends AbstractController {
 		
 		noteFacade.deleteNotes(((PagesData)(model.asMap().get(NoteControllerConstants.ModelAttrKeys.View.pagination))).getSelectedNotesIds());
 		request.getSession().removeAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination);
-		attrs.addAttribute(PAGE, page);
+		attrs.addAttribute(NoteControllerConstants.RequestParams.PAGE, page);
 
 		return GlobalControllerConstants.Prefixes.redirect + NoteControllerConstants.URLs.showFull;
 	}
@@ -209,16 +224,18 @@ public class NoteController extends AbstractController {
 		PagesData sessionPagesData = retrievePagesDataFromSession();
 		PagedListHolder<NoteDTO> pagedListHolder;
 		int[] selectedNotesIds = null;
-		
+				
 		if (sessionPagesData != null) {
 			pagedListHolder = sessionPagesData.pagedListHolder;
 			selectedNotesIds = sessionPagesData.selectedNotesIds;
+			pd.setSortColumn(sessionPagesData.sortColumn);
+			pd.setSortAscending(sessionPagesData.sortAscending);
 		} else {
 			List<NoteDTO> notes = noteFacade.listNotesFromDate(new Date(0, 0, 1));
-			pagedListHolder = paginateData(notes, NOTES_PER_PAGE, FIRST);
+			pagedListHolder = paginateData(notes, NOTES_PER_PAGE, NoteControllerConstants.Defaults.FIRST_PAGE);
 		}
 		
-		pd.setPagedListHolder(pagedListHolder);
+		pd.setPagedListHolder(pagedListHolder);	
 		pd.setSelectedNotesIds(selectedNotesIds);
 	}
 	

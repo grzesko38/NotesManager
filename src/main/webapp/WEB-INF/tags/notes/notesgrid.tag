@@ -42,9 +42,18 @@ NotesGridScripts = {
 					</div>
 				</th>
 				<th class="corner"/>
-				<th><spring:message code="label.author"/></th>
-				<th><spring:message code="label.email"/></th>
-				<th><spring:message code="label.createdon"/></th>
+				<th>
+					<spring:message code="label.author"/>
+					<a href="?col=author&sort=asc">a</a>&nbsp;<a href="?col=author&sort=desc">d</a>
+				</th>
+				<th>
+					<spring:message code="label.email"/>
+					<a href="?col=email&sort=asc">a</a>&nbsp;<a href="?col=email&sort=desc">d</a>
+				</th>
+				<th>
+					<spring:message code="label.createdon"/>
+					<a href="?col=dateCreated&sort=asc">a</a>&nbsp;<a href="?col=dateCreated&sort=desc">d</a>
+				</th>
 				<th><spring:message code="label.actions"/></th>
 			</tr>
 		</thead>
