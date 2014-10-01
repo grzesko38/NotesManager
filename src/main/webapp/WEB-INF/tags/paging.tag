@@ -1,4 +1,3 @@
-<%@ tag import="org.springframework.util.StringUtils" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ attribute name="pagedListHolder" required="true" type="org.springframework.beans.support.PagedListHolder" %>
 <%@ attribute name="linkCore" required="true" type="java.lang.String" %>
