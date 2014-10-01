@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="utils" uri="http://arczynskiadam.pl/jsp/tlds/utils" %>
-<%@ taglib prefix="nav" uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
+<%@ taglib prefix="navigation" uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
 
 <spring:theme code="theme.name" var="themeName"/>
 <c:set var="isBlueTheme" value="${themeName eq 'blue'}" />
@@ -135,7 +135,7 @@
 		<c:if test="${not empty navItems}">
 		<div class="navbar">
 			<div>
-				<nav:navBar navigationItems="${navItems}" />
+				<navigation:navBar navigationItems="${navItems}" />
 			</div>
 			<div class="navbar_corner">
 				<img id="goimg" src="${pageContext.request.contextPath}/themes/<spring:theme code="img.nav.bar.corner"/>"

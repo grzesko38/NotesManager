@@ -1,8 +1,7 @@
 <%@ taglib prefix="spring" 	uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form"   	uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c"      	uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="nav"		uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
-<%@ taglib prefix="navigation"  tagdir="/WEB-INF/tags/navigation" %>
+<%@ taglib prefix="navigation"	uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
 
 <script>
 NotesGridScripts = {
@@ -50,19 +49,19 @@ NotesGridScripts = {
 				</th>
 				<th class="corner"/>
 				<th>
-					<nav:sortHeader sortColumn="author" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
+					<navigation:sortHeader sortColumn="author" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
 						<span><spring:message code="label.author"/></span>
-					</nav:sortHeader>
+					</navigation:sortHeader>
 				</th>
 				<th>
-					<nav:sortHeader sortColumn="email" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
+					<navigation:sortHeader sortColumn="email" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
 						<span><spring:message code="label.email"/></span>
-					</nav:sortHeader>
+					</navigation:sortHeader>
 				</th>
 				<th>
-					<nav:sortHeader sortColumn="dateCreated" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
+					<navigation:sortHeader sortColumn="dateCreated" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
 						<span><spring:message code="label.createdon"/></span>
-					</nav:sortHeader>
+					</navigation:sortHeader>
 				</th>
 				<th><spring:message code="label.actions"/></th>
 			</tr>

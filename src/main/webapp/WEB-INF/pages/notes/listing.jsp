@@ -26,7 +26,7 @@
 	
 </head>
 <body>
-	<navigation:menu_bar />
+	<navigation:menubar />
 	<notes:noteslisting />
 	<a href="${pageContext.request.contextPath}/notesmanager/add">new</a>
 </body>

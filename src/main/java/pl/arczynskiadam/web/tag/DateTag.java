@@ -8,12 +8,11 @@ import javax.servlet.jsp.SkipPageException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 public class DateTag extends SimpleTagSupport {
-	
-	private String separator;
-	
-	public DateTag() {
+	{
 		separator = "-";
 	}
+	
+	private String separator;
 
 	public String getSeparator() {
 		return separator;

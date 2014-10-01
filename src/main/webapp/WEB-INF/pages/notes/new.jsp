@@ -27,7 +27,7 @@
 </head>
 <body>
 
-<navigation:menu_bar />
+<navigation:menubar />
 
 <h2>Contact Manager</h2>
 
