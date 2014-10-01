@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="navigation"  tagdir="/WEB-INF/tags/navigation" %>
 
 <script>
 NotesGridScripts = {
@@ -43,16 +44,22 @@ NotesGridScripts = {
 				</th>
 				<th class="corner"/>
 				<th>
-					<spring:message code="label.author"/>
-					<a href="?col=author&sort=asc">a</a>&nbsp;<a href="?col=author&sort=desc">d</a>
+					<c:set var="x">
+						<spring:message code="label.author"/>
+					</c:set>
+					<navigation:sort_header	colLabel="${x}" colName="author" imgSize="16" />
 				</th>
 				<th>
-					<spring:message code="label.email"/>
-					<a href="?col=email&sort=asc">a</a>&nbsp;<a href="?col=email&sort=desc">d</a>
+					<c:set var="x">
+						<spring:message code="label.email"/>
+					</c:set>
+					<navigation:sort_header	colLabel="${x}" colName="email" imgSize="16" />
 				</th>
 				<th>
-					<spring:message code="label.createdon"/>
-					<a href="?col=dateCreated&sort=asc">a</a>&nbsp;<a href="?col=dateCreated&sort=desc">d</a>
+					<c:set var="x">
+						<spring:message code="label.createdon"/>
+					</c:set>
+					<navigation:sort_header	colLabel="${x}" colName="dateCreated" imgSize="16" />
 				</th>
 				<th><spring:message code="label.actions"/></th>
 			</tr>
