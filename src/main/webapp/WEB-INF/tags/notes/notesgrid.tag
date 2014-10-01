@@ -1,6 +1,7 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" 	uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form"   	uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c"      	uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="nav"		uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
 <%@ taglib prefix="navigation"  tagdir="/WEB-INF/tags/navigation" %>
 
 <script>
@@ -28,6 +29,11 @@ NotesGridScripts = {
 }
 </script>
 
+<c:set var="asc"><spring:theme code="img.sort.asc"/></c:set>
+<c:set var="desc"><spring:theme code="img.sort.desc"/></c:set>
+<c:url var="ascImgUrl" value="/themes/${asc}"/>
+<c:url var="descImgUrl" value="/themes/${desc}"/>
+
 <form:form method="post" action="${pageContext.request.contextPath}/notesmanager/show" modelAttribute="notesPaginationData">
 	<table class="data">
 		<colgroup>
@@ -44,22 +50,19 @@ NotesGridScripts = {
 				</th>
 				<th class="corner"/>
 				<th>
-					<c:set var="x">
-						<spring:message code="label.author"/>
-					</c:set>
-					<navigation:sort_header	colLabel="${x}" colName="author" imgSize="16" />
+					<nav:sortHeader sortColumn="author" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
+						<span><spring:message code="label.author"/></span>
+					</nav:sortHeader>
 				</th>
 				<th>
-					<c:set var="x">
-						<spring:message code="label.email"/>
-					</c:set>
-					<navigation:sort_header	colLabel="${x}" colName="email" imgSize="16" />
+					<nav:sortHeader sortColumn="email" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
+						<span><spring:message code="label.email"/></span>
+					</nav:sortHeader>
 				</th>
 				<th>
-					<c:set var="x">
-						<spring:message code="label.createdon"/>
-					</c:set>
-					<navigation:sort_header	colLabel="${x}" colName="dateCreated" imgSize="16" />
+					<nav:sortHeader sortColumn="dateCreated" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
+						<span><spring:message code="label.createdon"/></span>
+					</nav:sortHeader>
 				</th>
 				<th><spring:message code="label.actions"/></th>
 			</tr>

@@ -7,14 +7,39 @@
 	
 	<description>Navigation bar for site</description>
 	<tlib-version>2.1</tlib-version>
-	<short-name>nav-bar</short-name>
+	<short-name>nav-utils</short-name>
 	<uri>http://arczynskiadam.pl/jsp/tlds/navigation</uri>
 	<tag>
-	    <name>navbar</name>
+	    <name>navBar</name>
 	    <tag-class>pl.arczynskiadam.web.tag.navigation.NavigationBarTag</tag-class>
 	    <body-content>empty</body-content>
 	    <attribute>
 		    <name>navigationItems</name>
+		    <required>true</required>
+		    <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	</tag>
+	<tag>
+	    <name>sortHeader</name>
+	    <tag-class>pl.arczynskiadam.web.tag.navigation.SortHeaderTag</tag-class>
+	    <body-content>scriptless</body-content>
+	    <attribute>
+		    <name>sortColumn</name>
+		    <required>true</required>
+		    <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+		    <name>ascImgUrl</name>
+		    <required>true</required>
+		    <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+		    <name>descImgUrl</name>
+		    <required>true</required>
+		    <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+		    <name>imgSize</name>
 		    <required>true</required>
 		    <rtexprvalue>true</rtexprvalue>
 	    </attribute>
