@@ -15,11 +15,15 @@ public class SortHeaderTag extends SimpleTagSupport {
 	String sortColumn;
 	String ascImgUrl;
 	String descImgUrl;
+	String divClass;
 	Integer imgSize;
 	
 	public void doTag() throws JspException, IOException {
 		StringWriter sw = new StringWriter();
 		getJspBody().invoke(sw);
+		
+		String divOpen = String.format("<div class=\"%s\">", divClass);
+		String divClose = "</div>"; 
 		
 		String sortAsc = String.format("<a href=\"?col=%s&sort=asc\">"
 				+ "<img src=\"%s\" width=\"%d\" height=\"%d\"/>"
@@ -30,21 +34,15 @@ public class SortHeaderTag extends SimpleTagSupport {
 				+ "</a>", sortColumn, descImgUrl, imgSize, imgSize);
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append(sw.toString()).append(sortAsc).append(sortDesc);
+		sb.append(divOpen)
+		   .append(sw.toString())
+		   .append(sortAsc)
+		   .append(sortDesc)
+		   .append(divClose);
 
 		log.debug("writting output: " + sb.toString());
 		getJspContext().getOut().println(sb.toString());
     }
-	
-//	<span>${colLabel}</span>
-//	<a href="?col=${colName}&sort=asc">
-//		<img src="${pageContext.request.contextPath}/themes/<spring:theme code="img.sort.asc"/>"
-//             	width="${imgSize}" height="${imgSize}"/>
-//	</a>
-//	<a href="?col=${colName}&sort=desc">
-//		<img src="${pageContext.request.contextPath}/themes/<spring:theme code="img.sort.desc"/>"
-//             	width="${imgSize}" height="${imgSize}"/>
-//	</a>
 	
 	public String getSortColumn() {
 		return sortColumn;
@@ -77,5 +75,12 @@ public class SortHeaderTag extends SimpleTagSupport {
 	public void setImgSize(Integer imgSize) {
 		this.imgSize = imgSize;
 	}
-	
+
+	public String getDivClass() {
+		return divClass;
+	}
+
+	public void setDivClass(String divClass) {
+		this.divClass = divClass;
+	}
 }

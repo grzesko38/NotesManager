@@ -49,17 +49,17 @@ NotesGridScripts = {
 				</th>
 				<th class="corner"/>
 				<th>
-					<navigation:sortHeader sortColumn="author" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
+					<navigation:sortHeader divClass="sort" sortColumn="author" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
 						<span><spring:message code="label.author"/></span>
 					</navigation:sortHeader>
 				</th>
 				<th>
-					<navigation:sortHeader sortColumn="email" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
+					<navigation:sortHeader divClass="sort" sortColumn="email" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
 						<span><spring:message code="label.email"/></span>
 					</navigation:sortHeader>
 				</th>
 				<th>
-					<navigation:sortHeader sortColumn="dateCreated" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
+					<navigation:sortHeader divClass="sort" sortColumn="dateCreated" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
 						<span><spring:message code="label.createdon"/></span>
 					</navigation:sortHeader>
 				</th>
