@@ -21,7 +21,7 @@
     background-color: #FFEEAD;
 }
 													/* Data Table - hover & links */
-.notes table.data tr:hover
+.notes table.data tbody tr:hover
 {
 	background-color: #FFF5D6;
 }
@@ -34,14 +34,6 @@
 .notes .paginationHolder
 {
 	background: linear-gradient(to right, #FFF3C4 0%, #CDAA58 50px, #CDAA58 calc(100% - 50px), #FFF3C4 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
-}
-.notes .paginationHolder .pagingItem
-{
-    background-color: #CDAA58;
-}
-.notes .paginationHolder .pagingItem.active
-{
-    background-color: #EDEDED;
 }
 .notes .paginationHolder .pagingItem
 {

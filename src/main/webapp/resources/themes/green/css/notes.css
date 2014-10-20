@@ -21,7 +21,7 @@
     background-color: #AEF29D;
 }
 													/* Data Table - hover & links */
-.notes table.data tr:hover
+.notes table.data tbody tr:hover
 {
 	background-color: #DCFFD4;
 }

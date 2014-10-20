@@ -22,7 +22,7 @@
     background-color: #BAD5FF;
 }
 													/* Data Table - hover & links */
-.notes table.data tr:hover
+.notes table.data tbody tr:hover
 {
 	background-color: #E3EEFF;
 }
@@ -48,5 +48,3 @@
 {
     background-color: #EDF4FF;
 }
-
-	
