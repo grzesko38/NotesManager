@@ -1,6 +1,6 @@
 NotesGridScripts = {
-	toggleAll: function() {alert("j");
-		$("input[name='selectedNotesIds']").each(function() {
+	toggleAll: function() {
+		$("input[id^='selectedNotesIds']").each(function() {
 			this.checked = $("#selectAll").is(':checked');
 		});
 	},
@@ -22,7 +22,6 @@ NotesGridScripts = {
 }
 
 $(document).ready(function() {
-	
-	$("#selectAll").change(NotesGridScripts.toggleAll());
-	$("input[id^='selectedNotesIds']").change(NotesGridScripts.updateCheckboxes());
+	$("#selectAll").change(NotesGridScripts.toggleAll);
+	$("input[id^='selectedNotesIds']").change(NotesGridScripts.updateCheckboxes);
 });

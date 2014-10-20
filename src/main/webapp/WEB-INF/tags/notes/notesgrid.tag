@@ -3,30 +3,7 @@
 <%@ taglib prefix="c"      	uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="navigation"	uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
 
-<script>
-NotesGridScripts = {
-	toggleAll: function() {
-		$("input[name='selectedNotesIds']").each(function() {
-			this.checked = $("#selectAll").is(':checked');
-		});
-	},
-	updateCheckboxes: function() {
-		var allChecked  = true;
-		$("input[name='selectedNotesIds']").each(function() {
-			if( this.checked ) {
-				allUnchecked = false;
-			} else {
-				allChecked = false;
-			}
-		});
-		if (allChecked) {
-			$("#selectAll").prop('checked', true);
-		} else {
-			$("#selectAll").prop('checked', false);
-		}
-	}
-}
-</script>
+<script src="${pageContext.request.contextPath}/js/notes/notesgrid.js"></script>
 
 <c:set var="asc"><spring:theme code="img.sort.asc"/></c:set>
 <c:set var="desc"><spring:theme code="img.sort.desc"/></c:set>
@@ -43,7 +20,7 @@ NotesGridScripts = {
 			<tr>
 				<th class="corner">
 					<div class="checkbox">
-						<input id="selectAll" class="chceckbox" type="checkbox" onChange="NotesGridScripts.toggleAll()">
+						<input id="selectAll" class="chceckbox" type="checkbox"y>
 						<label for="selectAll"></label>
 					</div>
 				</th>
@@ -71,7 +48,7 @@ NotesGridScripts = {
 				<tr>
 					<td class="left">
 						<div class="checkbox">
-							<form:checkbox path="selectedNotesIds" value="${note.id}" onchange="NotesGridScripts.updateCheckboxes()" />
+							<form:checkbox path="selectedNotesIds" value="${note.id}" />
 							<label for="selectedNotesIds${loopStatus.index + 1}"><spring:message text=""/></label>
 						</div>
 					</td>
