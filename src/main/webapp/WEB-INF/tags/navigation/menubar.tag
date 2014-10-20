@@ -26,61 +26,40 @@
 	</div>
 	<div class="menu">
 		<nav class="buttonsBar">
-			<a href="?theme=blue">
-				<c:choose>
-					<c:when test="${isBlueTheme}">
-						<span class="blue buttonBorder active">
-							<span class="blue themeholder active"></span>
-						</span>
-					</c:when>
-					<c:otherwise>
-						<span class="blue buttonBorder">
-							<span class="blue themeholder"></span>
-						</span>
-					</c:otherwise>
-				</c:choose>
+			<c:url value="/" var="themeUrl">
+				<c:param name="theme" value="blue"/>
+			</c:url>
+			<a href="${themeUrl}">
+				<span class="blue buttonBorder${isBlueTheme?" active":""}">
+					<span class="blue themeholder${isBlueTheme?" active":""}"></span>
+				</span>
 			</a>
-			<a href="?theme=yellow">
-				<c:choose>
-					<c:when test="${isYellowTheme}">
-						<span class="yellow buttonBorder active">
-							<span class="yellow themeholder active"></span>
-						</span>
-					</c:when>
-					<c:otherwise>
-						<span class="yellow buttonBorder">
-							<span class="yellow themeholder"></span>
-						</span>
-					</c:otherwise>
-				</c:choose>
+			
+			<c:url value="/" var="themeUrl">
+				<c:param name="theme" value="yellow"/>
+			</c:url>
+			<a href="${themeUrl}">
+				<span class="yellow buttonBorder${isYellowTheme?" active":""}">
+					<span class="yellow themeholder${isYellowTheme?" active":""}"></span>
+				</span>
 			</a>
-			<a href="?theme=green">
-				<c:choose>
-					<c:when test="${isGreenTheme}">
-						<span class="green buttonBorder active">
-							<span class="green themeholder active"></span>
-						</span>
-					</c:when>
-					<c:otherwise>
-						<span class="green buttonBorder">
-							<span class="green themeholder"></span>
-						</span>
-					</c:otherwise>
-				</c:choose>
+			
+			<c:url value="/" var="themeUrl">
+				<c:param name="theme" value="green"/>
+			</c:url>
+			<a href="${themeUrl}">
+				<span class="green buttonBorder${isGreenTheme?" active":""}">
+					<span class="green themeholder${isGreenTheme?" active":""}"></span>
+				</span>
 			</a>
-			<a href="?theme=red">
-				<c:choose>
-					<c:when test="${isRedTheme}">
-						<span class="red buttonBorder active">
-							<span class="red themeholder active"></span>
-						</span>
-					</c:when>
-					<c:otherwise>
-						<span class="red buttonBorder">
-							<span class="red themeholder"></span>
-						</span>
-					</c:otherwise>
-				</c:choose>
+			
+			<c:url value="/" var="themeUrl">
+				<c:param name="theme" value="red"/>
+			</c:url>
+			<a href="${themeUrl}">
+				<span class="red buttonBorder${isRedTheme?" active":""}">
+					<span class="red themeholder${isRedTheme?" active":""}"></span>
+				</span>
 			</a>
 		</nav>
 		<nav class="buttonsBar">
