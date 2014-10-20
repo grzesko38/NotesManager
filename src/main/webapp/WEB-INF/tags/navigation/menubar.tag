@@ -26,7 +26,7 @@
 	</div>
 	<div class="menu">
 		<nav class="buttonsBar">
-			<c:url value="/" var="themeUrl">
+			<c:url value="" var="themeUrl">
 				<c:param name="theme" value="blue"/>
 			</c:url>
 			<a href="${themeUrl}">
@@ -35,7 +35,7 @@
 				</span>
 			</a>
 			
-			<c:url value="/" var="themeUrl">
+			<c:url value="" var="themeUrl">
 				<c:param name="theme" value="yellow"/>
 			</c:url>
 			<a href="${themeUrl}">
@@ -44,7 +44,7 @@
 				</span>
 			</a>
 			
-			<c:url value="/" var="themeUrl">
+			<c:url value="" var="themeUrl">
 				<c:param name="theme" value="green"/>
 			</c:url>
 			<a href="${themeUrl}">
@@ -53,7 +53,7 @@
 				</span>
 			</a>
 			
-			<c:url value="/" var="themeUrl">
+			<c:url value="" var="themeUrl">
 				<c:param name="theme" value="red"/>
 			</c:url>
 			<a href="${themeUrl}">
