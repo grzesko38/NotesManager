@@ -32,6 +32,11 @@
 	background: linear-gradient(to bottom, #8EB4F5 0%, #ACC9FA 40%, #5A8DE6 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 													/* Pagination */
+.notes .paginationRow
+{
+	border-bottom: 1px solid #0059B8;
+	border-top: 1px solid #0059B8;
+}
 .notes .paginationHolder
 {
 	background: linear-gradient(to right, #C9DEFF 0%, #0059B8 50px, #0059B8 calc(100% - 50px), #C9DEFF 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
