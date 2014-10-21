@@ -13,4 +13,5 @@ public interface NoteFacade {
 	public void deleteNote(int id);
 	public void deleteNotes(int[] ids);
 	public NoteDetailsDTO findNoteById(int id);
+	public int[] convertSelectionsToNotesIds(String[] selections);
 }

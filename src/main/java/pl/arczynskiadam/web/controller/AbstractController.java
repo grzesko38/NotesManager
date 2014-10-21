@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 
 import pl.arczynskiadam.web.tag.navigation.NavigationItem;
 
-public class AbstractController {
+public abstract class AbstractController {
 
 	@Autowired
     private ServletContext ctx;

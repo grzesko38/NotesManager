@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    					http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+   
+	<bean id="selectedNotesValidator" class="pl.arczynskiadam.web.validation.SelectedCheckboxesValidator">
+		<property name="errCode">
+			<value>NotesSelectionForm.ids.NoneSelected</value>
+		</property>
+	</bean>
+   
+	<util:list id="notesPageSizes" value-type="java.lang.Integer">
+		<value>5</value>
+	    <value>10</value>
+	    <value>15</value>
+	    <value>25</value>
+	    <value>50</value>
+	    <value>100</value>
+	</util:list>
+</beans>

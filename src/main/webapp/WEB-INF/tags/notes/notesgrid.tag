@@ -10,7 +10,7 @@
 <c:url var="ascImgUrl" value="/themes/${asc}"/>
 <c:url var="descImgUrl" value="/themes/${desc}"/>
 
-<form:form method="post" action="${pageContext.request.contextPath}/notesmanager/show" modelAttribute="notesPaginationData">
+<form:form method="post" action="${pageContext.request.contextPath}/notesmanager/show" modelAttribute="selectedCheckboxesForm">
 	<table class="data">
 		<colgroup>
 			<col class="narrowCheckbox" span="1"/>
@@ -20,7 +20,7 @@
 			<tr>
 				<th class="corner">
 					<div class="checkbox">
-						<input id="selectAll" class="chceckbox" type="checkbox"y>
+						<input id="selectAll" class="chceckbox" type="checkbox">
 						<label for="selectAll"></label>
 					</div>
 				</th>
@@ -48,8 +48,8 @@
 				<tr>
 					<td class="left">
 						<div class="checkbox">
-							<form:checkbox path="selectedNotesIds" value="${note.id}" />
-							<label for="selectedNotesIds${loopStatus.index + 1}"><spring:message text=""/></label>
+							<form:checkbox path="selections" value="${note.id}" />
+							<label for="selections${loopStatus.index + 1}"><spring:message text=""/></label>
 						</div>
 					</td>
 <!-- 							onClick="document.forms['selectedNotes'].submit();" -->
@@ -71,5 +71,5 @@
 	</table>
 <!-- 	<input type="submit" value="del" name="delete" title="aaaa"/> -->
 	<button type="submit" value="del" name="delete" title="aaaa">delete</button>
-	<div><form:errors path="selectedNotesIds" cssClass="jsr303ErrorBlock" /></div>
+	<div><form:errors path="selections" cssClass="jsr303ErrorBlock" /></div>
 </form:form>

@@ -20,7 +20,12 @@ public interface GlobalControllerConstants {
 			
 		}
 		interface Form {
-			public static final String entriesPerPage 	= "entriesPerPageForm";
+			public static final String entriesPerPage 			= "entriesPerPageForm";
+			public static final String selectedCheckboxesForm 	= "selectedCheckboxesForm";
 		}
+	}
+	
+	interface Defaults {
+		public static final int FIRST_PAGE = 0;
 	}
 }

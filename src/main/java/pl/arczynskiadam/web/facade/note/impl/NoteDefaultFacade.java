@@ -81,4 +81,15 @@ public class NoteDefaultFacade implements NoteFacade {
 	public void deleteNotes(int[] ids) {
 		noteService.deleteNotes(ids);
 	}
+	
+	@Override
+	public int[] convertSelectionsToNotesIds(String[] selections) {
+		int[] ids = new int[selections.length];
+		
+		for (int i = 0; i < selections.length; ++i) {
+			ids[i] = Integer.parseInt(selections[i]);
+		}
+		
+		return ids;
+	}
 }

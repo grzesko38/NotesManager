@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EntriesPerPageForm {
 	
-	public EntriesPerPageForm(int selected, int... sizes) {
+	public EntriesPerPageForm(Integer selected, List<Integer> sizes) {
 		pageSizes = new ArrayList<EntriesPerPageForm.ComboListItem>();
 		for (int size : sizes) {
 			pageSizes.add(new ComboListItem(Integer.toString(size), Integer.toString(size)));

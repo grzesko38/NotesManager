@@ -1,12 +1,12 @@
 NotesGridScripts = {
 	toggleAll: function() {
-		$("input[id^='selectedNotesIds']").each(function() {
+		$("input[id^='selections']").each(function() {
 			this.checked = $("#selectAll").is(':checked');
 		});
 	},
 	updateCheckboxes: function() {
 		var allChecked  = true;
-		$("input[name='selectedNotesIds']").each(function() {
+		$("input[name='selections']").each(function() {
 			if( this.checked ) {
 				allUnchecked = false;
 			} else {
@@ -26,6 +26,6 @@ NotesGridScripts = {
 
 $(document).ready(function() {
 	$("#selectAll").change(NotesGridScripts.toggleAll);
-	$("input[id^='selectedNotesIds']").change(NotesGridScripts.updateCheckboxes);
+	$("input[id^='selections']").change(NotesGridScripts.updateCheckboxes);
 	$("#entriesPerPage").change(NotesGridScripts.submitEntriesPerPageForm);
 });
