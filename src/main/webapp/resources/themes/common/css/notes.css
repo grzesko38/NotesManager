@@ -234,7 +234,10 @@
 													/* Pagination */
 .notes .paginationRow
 {
+	padding: 2px 0;
 	text-align: center;
+	border-bottom: 1px solid #0059B8;
+	border-top: 1px solid #0059B8;
 }
 .notes .paginationHolder
 {
@@ -251,12 +254,36 @@
 	padding-top: 1px;
 	border-radius: 4px;
 }
+.notes .paginationHolder .pagingItem:hover
+{
+	cursor: pointer;
+}
 .notes .paginationHolder .pagingItem.active:hover
 {
 	box-shadow: inherit;
 	cursor: inherit;
 }
-.notes .paginationHolder .pagingItem:hover
+.notes .paginationRow .margin, .notes .paginationRow .center
 {
-	cursor: pointer;
+	display: inline-block;
+	vertical-align: middle;
+}
+.notes .paginationRow .margin:AFTER, .notes .paginationRow .center:AFTER, .notes .paginationHolder:AFTER
+{
+	content: "";
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
+}
+.notes .paginationRow .margin
+{
+	width: 9%;
+}
+.notes .paginationRow .center
+{
+	width: 81%;
+}
+#entriesPerPageForm
+{	
+	display: inline-block;
 }

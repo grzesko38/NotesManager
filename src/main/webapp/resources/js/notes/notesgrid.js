@@ -18,10 +18,14 @@ NotesGridScripts = {
 		} else {
 			$("#selectAll").prop('checked', false);
 		}
+	},
+	submitEntriesPerPageForm: function() {
+		$("#entriesPerPageForm").submit();
 	}
 }
 
 $(document).ready(function() {
 	$("#selectAll").change(NotesGridScripts.toggleAll);
 	$("input[id^='selectedNotesIds']").change(NotesGridScripts.updateCheckboxes);
+	$("#entriesPerPage").change(NotesGridScripts.submitEntriesPerPageForm);
 });

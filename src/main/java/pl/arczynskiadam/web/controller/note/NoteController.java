@@ -32,6 +32,7 @@ import pl.arczynskiadam.web.controller.AbstractController;
 import pl.arczynskiadam.web.controller.GlobalControllerConstants;
 import pl.arczynskiadam.web.facade.note.NoteFacade;
 import pl.arczynskiadam.web.form.note.DateForm;
+import pl.arczynskiadam.web.form.note.EntriesPerPageForm;
 import pl.arczynskiadam.web.form.note.NewNoteForm;
 import pl.arczynskiadam.web.form.note.NewNoteForm.All;
 import pl.arczynskiadam.web.tag.navigation.NavigationItem;
@@ -43,7 +44,6 @@ public class NoteController extends AbstractController {
 	
 	private static final Logger log = Logger.getLogger(NoteController.class);
 	
-	private static final int NOTES_PER_PAGE = 15;
 	private static final int MAX_LINKED_PAGES = 11;
 		
 	@Autowired
@@ -60,41 +60,47 @@ public class NoteController extends AbstractController {
 		 binder.addValidators(notesSelectionValidator);
 	}
 	
-	@RequestMapping(value = NoteControllerConstants.URLs.show, method = RequestMethod.GET, params={"!date"})
-	public String listNotes(@RequestParam(value=NoteControllerConstants.RequestParams.PAGE, required=false) Integer page,
-			@RequestParam(value=NoteControllerConstants.RequestParams.SORT_COLUMN, required=false) String sortCol,
-			@RequestParam(value=NoteControllerConstants.RequestParams.SORT_ORDER, required=false) String sortOrder,
+	@RequestMapping(value = NoteControllerConstants.URLs.show, method = RequestMethod.GET, params = {"!date"})
+	public String listNotes(@RequestParam(value = NoteControllerConstants.RequestParams.PAGE, required=false) Integer page,
+			@RequestParam(value = GlobalControllerConstants.RequestParams.ENTRIES, required=false) Integer entriesPerPage,
+			@RequestParam(value = NoteControllerConstants.RequestParams.SORT_COLUMN, required=false) String sortCol,
+			@RequestParam(value = NoteControllerConstants.RequestParams.SORT_ORDER, required=false) String sortOrder,
 			@ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.date) DateForm dateForm,
-			@ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination) PagesData pd,
+			@ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination) PagesData pagesData,
 			HttpServletResponse response,
 			final Model model) {
 
-		moveNotesPaginationDataFromSessionToModel(pd);
+		moveNotesPaginationDataFromSessionToModel(pagesData);
 		
 		if (StringUtils.isNotBlank(sortCol)) {
-			pd.setSortColumn(sortCol);
+			pagesData.setSortColumn(sortCol);
 		}
 		if(StringUtils.isNotBlank(sortOrder)) {
-			 pd.setSortAscending("asc".equals(sortOrder));
+			 pagesData.setSortAscending("asc".equals(sortOrder));
 		}
 		
-		pd.getPagedListHolder().setSort(new MutableSortDefinition(pd.sortColumn, true, pd.sortAscending));
-		pd.getPagedListHolder().resort();
+		pagesData.getPagedListHolder().setSort(new MutableSortDefinition(pagesData.getSortColumn(), true, pagesData.isSortAscending()));
+		pagesData.getPagedListHolder().resort();
 		
+		if (entriesPerPage != null) {
+			pagesData.getPagedListHolder().setPageSize(entriesPerPage);
+		}
 		if (page != null) {
-			pd.getPagedListHolder().setPage(page);
+			pagesData.getPagedListHolder().setPage(page);
 		}
 		
-		log.debug("sortcol: "+pd.getSortColumn());
-		log.debug("sortAsc: "+pd.sortAscending);
+		log.debug("sortcol: " + pagesData.getSortColumn());
+		log.debug("sortAsc: " + pagesData.isSortAscending());
 		
-		request.getSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pd);
-		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pd);
+		model.addAttribute(GlobalControllerConstants.ModelAttrKeys.Form.entriesPerPage,
+				this.preparePageSizesComboBox(pagesData.getPagedListHolder().getPageSize()));
 			
+		request.getSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pagesData);
+		
 		return NoteControllerConstants.Pages.list;
 	}
 	
-	@RequestMapping(value = NoteControllerConstants.URLs.show, method = RequestMethod.GET, params={"!p", "date"})
+	@RequestMapping(value = NoteControllerConstants.URLs.show, method = RequestMethod.GET, params = {"!p", "date"})
 	public String listNotesFromDate(@Valid @ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.date) DateForm dateForm,
 			BindingResult result,
 			HttpServletResponse response,
@@ -113,12 +119,14 @@ public class NoteController extends AbstractController {
 			notes = noteFacade.listNotesFromDate(date);
 		}
 		
-		PagedListHolder<NoteDTO> pagesData = paginateData(notes, NOTES_PER_PAGE, NoteControllerConstants.Defaults.FIRST_PAGE);
-		PagesData pd = new PagesData();
-		pd.pagedListHolder = pagesData;
+		PagesData pagesdata = new PagesData();
+		PagedListHolder<NoteDTO> pagedListHolder = paginateData(notes,
+				NoteControllerConstants.Defaults.ENTRIES_PER_PAGE,
+				NoteControllerConstants.Defaults.FIRST_PAGE);
+		pagesdata.setPagedListHolder(pagedListHolder);
 		
-		request.getSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pd);
-		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pd);
+		request.getSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pagesdata);
+		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pagesdata);
 			
 		return NoteControllerConstants.Pages.list;
 	}
@@ -165,7 +173,7 @@ public class NoteController extends AbstractController {
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.show, method = RequestMethod.POST, params="delete")
-	public String deleteNotes(@Valid @ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination) PagesData pd,
+	public String deleteNotes(@Valid @ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination) PagesData pagesData,
 			BindingResult result,
 			@ModelAttribute("dateForm") DateForm dateForm,
 			final Model model,
@@ -178,7 +186,7 @@ public class NoteController extends AbstractController {
 		}
 
 		if (result.hasErrors()) {
-			moveNotesPaginationDataFromSessionToModel(pd);
+			moveNotesPaginationDataFromSessionToModel(pagesData);
 			return NoteControllerConstants.Pages.list;
 		}
 		
@@ -193,7 +201,7 @@ public class NoteController extends AbstractController {
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.show, method = RequestMethod.POST, params="!delete")
-	public String selectNotes(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination) PagesData pd,
+	public String selectNotes(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination) PagesData pagesData,
 			BindingResult result,
 			final Model model,
 			@ModelAttribute("dateForm") DateForm dateForm,
@@ -220,23 +228,25 @@ public class NoteController extends AbstractController {
 		return NoteControllerConstants.Pages.details;
 	}
 	
-	private void moveNotesPaginationDataFromSessionToModel(PagesData pd) {
+	private void moveNotesPaginationDataFromSessionToModel(PagesData pagesData) {
 		PagesData sessionPagesData = retrievePagesDataFromSession();
 		PagedListHolder<NoteDTO> pagedListHolder;
 		int[] selectedNotesIds = null;
 				
 		if (sessionPagesData != null) {
-			pagedListHolder = sessionPagesData.pagedListHolder;
-			selectedNotesIds = sessionPagesData.selectedNotesIds;
-			pd.setSortColumn(sessionPagesData.sortColumn);
-			pd.setSortAscending(sessionPagesData.sortAscending);
+			pagedListHolder = sessionPagesData.getPagedListHolder();
+			selectedNotesIds = sessionPagesData.getSelectedNotesIds();
+			pagesData.setSortColumn(sessionPagesData.getSortColumn());
+			pagesData.setSortAscending(sessionPagesData.isSortAscending());
 		} else {
 			List<NoteDTO> notes = noteFacade.listNotesFromDate(new Date(0, 0, 1));
-			pagedListHolder = paginateData(notes, NOTES_PER_PAGE, NoteControllerConstants.Defaults.FIRST_PAGE);
+			pagedListHolder = paginateData(notes,
+					NoteControllerConstants.Defaults.ENTRIES_PER_PAGE,
+					NoteControllerConstants.Defaults.FIRST_PAGE);
 		}
 		
-		pd.setPagedListHolder(pagedListHolder);	
-		pd.setSelectedNotesIds(selectedNotesIds);
+		pagesData.setPagedListHolder(pagedListHolder);	
+		pagesData.setSelectedNotesIds(selectedNotesIds);
 	}
 	
 	private PagedListHolder<NoteDTO> paginateData(List<NoteDTO> notes, int size, int page) {
@@ -249,5 +259,10 @@ public class NoteController extends AbstractController {
 	
 	private PagesData retrievePagesDataFromSession() {
 		return (PagesData) request.getSession().getAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination);
+	}
+	
+	private EntriesPerPageForm preparePageSizesComboBox(int selected) {
+		log.debug("selected page size: " + selected);
+		return new EntriesPerPageForm(selected, 5, 10, 15, 25, 50, 100);
 	}
 }

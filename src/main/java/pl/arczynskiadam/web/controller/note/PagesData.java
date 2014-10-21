@@ -9,10 +9,11 @@ public class PagesData {
 		sortColumn = NoteControllerConstants.Defaults.DEFAULT_SORT_COLUMN;
 		sortAscending = true;
 	}
-	PagedListHolder<NoteDTO> pagedListHolder;
-	String sortColumn;
-	boolean sortAscending;
-	int[] selectedNotesIds;
+	
+	private PagedListHolder<NoteDTO> pagedListHolder;
+	private String sortColumn;
+	private boolean sortAscending;
+	private int[] selectedNotesIds;
 	
 	public PagedListHolder<NoteDTO> getPagedListHolder() {
 		return pagedListHolder;

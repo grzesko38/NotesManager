@@ -1,9 +1,11 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" 		uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="form"   	uri="http://www.springframework.org/tags/form" %>
 <%@ attribute name="pagedListHolder" required="true" type="org.springframework.beans.support.PagedListHolder" %>
 <%@ attribute name="linkCore" required="true" type="java.lang.String" %>
 
-<c:if test="${pagedListHolder.pageCount > 1}">
-	<div class="paginationRow">
+<div class="paginationRow">
+	<div class="margin"></div>
+	<div class="center">
 		<div class="paginationHolder">
 			<c:if test="${!pagedListHolder.firstPage}">
 				<c:url value="${linkCore}" var="pagedLink">
@@ -58,6 +60,12 @@
 					<span class="pagingItem">&gt;</span>
 				</a>
 			</c:if>
+			<span style="clear:both;"></span>
 		</div>
 	</div>
-</c:if>
+	<div class="margin">
+		<form:form id="entriesPerPageForm" commandName="entriesPerPageForm" method="GET">
+				<form:select  id="entriesPerPage" path="entries" items="${entriesPerPageForm.pageSizes}" itemLabel="name" itemValue="value" multiple="false"/>
+		</form:form>
+	</div>
+</div>

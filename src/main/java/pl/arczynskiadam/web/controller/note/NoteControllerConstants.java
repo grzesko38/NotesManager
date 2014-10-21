@@ -17,8 +17,8 @@ public interface NoteControllerConstants {
 		}
 
 		interface View {			
-			public static final String pagination 	= "notesPaginationData";
-			public static final String note 		= "note";
+			public static final String pagination 		= "notesPaginationData";
+			public static final String note 			= "note";
 		}
 	}
 	
@@ -44,6 +44,7 @@ public interface NoteControllerConstants {
 	
 	interface Defaults {
 		public static final int FIRST_PAGE 				= 0;
+		public static final int ENTRIES_PER_PAGE 		= 15;
 		public static final String DEFAULT_SORT_COLUMN 	= "author";
 	}
 }
