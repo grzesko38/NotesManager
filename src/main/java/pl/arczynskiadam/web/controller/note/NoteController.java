@@ -112,20 +112,22 @@ public class NoteController extends AbstractController {
 			HttpServletResponse response,
 			final Model model) {
 	    
-		List<NoteDTO> notes = null;
+		populateModelWithPaginationData(model);
+		PagesData pagesData = (PagesData) model.asMap().get(NoteControllerConstants.ModelAttrKeys.View.pagination);
 		
+		List<NoteDTO> notes = null;
+		Date date = dateForm.getDate();	
 		if (result.hasErrors()) {
 			notes = noteFacade.listNotesFromDate(new Date(0, 0, 1));
+			pagesData.setFromDate(null);
 		} else {
-			Date date = dateForm.getDate();
+			pagesData.setFromDate(date);
 			if (date == null) {
 				date = new Date(0, 0, 1);
 			}
-			
 			notes = noteFacade.listNotesFromDate(date);
 		}
 		
-		PagesData pagesData = retrievePagesDataFromSession();
 		pagesData.getPagedListHolder().setSource(notes);
 		pagesData.getPagedListHolder().setPage(GlobalControllerConstants.Defaults.FIRST_PAGE);
 		pagesData.getPagedListHolder().resort();
@@ -194,7 +196,6 @@ public class NoteController extends AbstractController {
 		}
 
 		if (result.hasErrors()) {
-			//moveNotesPaginationDataFromSessionToModel(pagesData);
 			populateModelWithSessionPaginationData(model);
 			return NoteControllerConstants.Pages.list;
 		}
@@ -202,7 +203,6 @@ public class NoteController extends AbstractController {
 		PagesData sessionPagesData = retrievePagesDataFromSession();
 		int page = sessionPagesData != null ? sessionPagesData.getPagedListHolder().getPage() : 0; 
 		
-		//noteFacade.deleteNotes(((PagesData)(model.asMap().get(NoteControllerConstants.ModelAttrKeys.View.pagination))).getSelectedNotesIds());
 		noteFacade.deleteNotes(noteFacade.convertSelectionsToNotesIds(selectedCheckboxesForm.getSelections()));
 		request.getSession().removeAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination);
 		attrs.addAttribute(NoteControllerConstants.RequestParams.PAGE, page);
@@ -270,11 +270,18 @@ public class NoteController extends AbstractController {
 		pagesData.setSelectedNotesIds(sessionPagesData.getSelectedNotesIds());
 		pagesData.setSortAscending(sessionPagesData.isSortAscending());
 		pagesData.setSortColumn(sessionPagesData.getSortColumn());
+		pagesData.setFromDate(sessionPagesData.getFromDate());
 		
 		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pagesData);
 		populateModelWithPageSizes(model);
 		
 		return true;
+	}
+	
+	private void populateModelWithPageSizes(Model model) {
+		PagesData pagesData = (PagesData) model.asMap().get(NoteControllerConstants.ModelAttrKeys.View.pagination);
+		model.addAttribute(GlobalControllerConstants.ModelAttrKeys.Form.entriesPerPage,
+				preparePageSizesComboBox(pagesData.getPagedListHolder().getPageSize(), this.notesPageSizes));
 	}
 	
 	private PagedListHolder<NoteDTO> paginateData(List<NoteDTO> notes, int size, int page) {
@@ -291,12 +298,6 @@ public class NoteController extends AbstractController {
 	
 	private void savePagesDataToSession(PagesData pagesData) {
 		request.getSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pagesData);
-	}
-	
-	private void populateModelWithPageSizes(Model model) {
-		PagesData pagesData = (PagesData) model.asMap().get(NoteControllerConstants.ModelAttrKeys.View.pagination);
-		model.addAttribute(GlobalControllerConstants.ModelAttrKeys.Form.entriesPerPage,
-				preparePageSizesComboBox(pagesData.getPagedListHolder().getPageSize(), this.notesPageSizes));
 	}
 	
 	private EntriesPerPageForm preparePageSizesComboBox(Integer selected, List<Integer> sizes) {

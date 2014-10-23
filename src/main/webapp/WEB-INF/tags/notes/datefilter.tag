@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
 
 <spring:message code="tooltip.dateFormat" var="dateFormatTooltip" text="properties err"/>
 <form:form method="get" modelAttribute="dateForm" class="dateForm">
@@ -16,6 +17,9 @@
 						<form:label path="date"><spring:message code="label.dateFrom"/></form:label>
 					</span>
 					<span id="inputspan">
+						<c:if test="${not empty notesPaginationData.fromDate}">
+							<c:set var="dateFormatTooltip" value="${notesPaginationData.fromDate}"/>
+						</c:if>
 						<form:input path="date" title="${dateFormatTooltip}" placeholder="${dateFormatTooltip}" />
 					</span>
 				</div>
