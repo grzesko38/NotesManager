@@ -70,6 +70,7 @@ div.navbar_corner
 {
 	cursor: pointer;
 	box-shadow: 0 0 6px -2px rgba(0, 0, 0, .8) inset;
+	transition: all 0.4s;
 }
 .flagholder.pl
 {
@@ -99,6 +100,7 @@ div.navbar_corner
     vertical-align: middle;
     border-radius: 100%;
     box-shadow: 0 5px 13px -4px #585858 inset;
+    transition: all 0.4s;
 }
 .themeholder:HOVER
 {
