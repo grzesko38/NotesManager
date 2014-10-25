@@ -14,7 +14,6 @@
 <!--end of workarround -->
 
 <c:set var="isUKLocale" value="${locale eq 'en_EN'}" />
-<c:set var="isDELocale" value="${locale eq 'de_DE'}" />
 <c:set var="isPLLocale" value="${locale eq 'pl_PL'}" />
 		
 <div id="placeholder"></div>
@@ -63,47 +62,24 @@
 			</a>
 		</nav>
 		<nav class="buttonsBar">
-			<a href="?lang=en_EN">
-				<c:choose>
-					<c:when test="${isUKLocale}">
-						<span class="buttonBorder active">
-							<span class="uk flagholder active"></span>
-						</span>
-					</c:when>
-					<c:otherwise>
-						<span class="buttonBorder">
-							<span class="uk flagholder"></span>
-						</span>
-					</c:otherwise>
-				</c:choose>
+			<c:url value="" var="langUrl">
+				<c:param name="lang" value="en_EN"/>
+			</c:url>
+			<a href="${langUrl}">
+				<span class="uk buttonBorder${isUKLocale?" active":""}">
+					<span class="uk flagholder dark"></span>
+					<span class="uk flagholder${isUKLocale?" active":""}"></span>
+				</span>
 			</a>
-			<a href="?lang=de_DE">
-				<c:choose>
-					<c:when test="${isDELocale}">
-						<span class="buttonBorder active">
-							<span class="de flagholder active"></span>
-						</span>
-					</c:when>
-					<c:otherwise>
-						<span class="buttonBorder">
-							<span class="de flagholder"></span>
-						</span>
-					</c:otherwise>
-				</c:choose>
-			</a>
-			<a href="?lang=pl_PL">
-				<c:choose>
-					<c:when test="${isPLLocale}">
-						<span class="buttonBorder active">
-							<span class="pl flagholder active"></span>
-						</span>
-					</c:when>
-					<c:otherwise>
-						<span class="buttonBorder">
-							<span class="pl flagholder"></span>
-						</span>
-					</c:otherwise>
-				</c:choose>
+			
+			<c:url value="" var="langUrl">
+				<c:param name="lang" value="pl_PL"/>
+			</c:url>
+			<a href="${langUrl}">
+				<span class="pl buttonBorder${isPLLocale?" active":""}">
+					<span class="pl flagholder dark"></span>
+					<span class="pl flagholder${isPLLocale?" active":""}"></span>
+				</span>
 			</a>
 		</nav>
 

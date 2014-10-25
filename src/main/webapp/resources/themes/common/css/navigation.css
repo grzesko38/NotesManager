@@ -70,25 +70,41 @@ div.navbar_corner
 {
 	cursor: pointer;
 	box-shadow: 0 0 6px -2px rgba(0, 0, 0, .8) inset;
-	transition: all 0.4s;
-}
-.flagholder.pl
-{
-	background: url(../../common/images/flags/pl.gif);
-	background-size: 45px 45px;
-    background-repeat: no-repeat;
 }
 .flagholder.uk
 {
 	background: url(../../common/images/flags/uk.gif);
-	background-size: 45px 45px;
-    background-repeat: no-repeat;
 }
-.flagholder.de
+.flagholder.pl
 {
-	background: url(../../common/images/flags/de.gif);
-	background-size: 45px 45px;
+	background: url(../../common/images/flags/pl.gif);
+}
+.flagholder.uk, .flagholder.pl
+{
+	background-size: 100%;
     background-repeat: no-repeat;
+    position: absolute;
+    opacity: 0;
+}
+.flagholder.uk.dark
+{
+	background: url(../../common/images/flags/uk_dark.gif);
+}
+.flagholder.pl.dark
+{
+	background: url(../../common/images/flags/pl_dark.gif);
+}
+.flagholder.uk.dark, .flagholder.pl.dark
+{
+	background-size: 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    opacity: 1;
+}
+.flagholder.uk:HOVER, .flagholder.pl:HOVER
+{
+	opacity: 1;
+	transition: opacity 0.4s ease-in-out;
 }
 													/* Theme buttons */
 .themeholder
@@ -100,7 +116,7 @@ div.navbar_corner
     vertical-align: middle;
     border-radius: 100%;
     box-shadow: 0 5px 13px -4px #585858 inset;
-    transition: all 0.4s;
+    transition: all 0.4s ease-in-out;
 }
 .themeholder:HOVER
 {
@@ -134,6 +150,7 @@ div.navbar_corner
 	height: 45px;
 	border-radius: 100%;
 	vertical-align: middle;
+	position: relative;;
 }
 													/* date holder */
 .dateholder
@@ -164,12 +181,21 @@ header.top div.menu nav .buttonBorder.red.active
 {
 	background: linear-gradient(to bottom, #FA7373 33%, #BA2B2B 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
-header.top div.menu nav .buttonBorder.active
+header.top div.menu nav .buttonBorder.pl.active
 {
 	background: linear-gradient(to bottom, #FFFFFF 33%, #F9F9F9 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	background-image: url(../../common/images/flags/pl.gif);
+	background-size: 100%;
+}
+header.top div.menu nav .buttonBorder.uk.active
+{
+	background: linear-gradient(to bottom, #FFFFFF 33%, #F9F9F9 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	background-image: url(../../common/images/flags/uk.gif);
+	background-size: 100%;
 }
 header.top div.menu nav .flagholder.active
 {
+	opacity: 1;
 	box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 1) inset
 }
 header.top div.menu nav .themeholder.active
