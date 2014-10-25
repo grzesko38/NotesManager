@@ -1,26 +1,13 @@
-package pl.arczynskiadam.web.form.note;
+package pl.arczynskiadam.web.form;
 
 import java.util.ArrayList;
 import java.util.List;
+//import pl.arczynskiadam.web.form.EntriesPerPageForm.ComboListItem;
 
 public class EntriesPerPageForm {
 	
-	public EntriesPerPageForm(Integer selected, List<Integer> sizes) {
-		pageSizes = new ArrayList<EntriesPerPageForm.ComboListItem>();
-		for (int size : sizes) {
-			pageSizes.add(new ComboListItem(Integer.toString(size), Integer.toString(size)));
-		}
-		
-		if (!containsPageSize(selected)) {
-			throw new IllegalArgumentException("chosen selection must be in set of given page sizes."
-					+ "given sizes: " + printSizes() + " selected size: " + selected);
-		}
-		
-		entries = Integer.toString(selected);
-	}
-	
 	private List<ComboListItem> pageSizes;
-	private String entries; //selected item
+	private String size; //selected item
 	
 	public boolean containsPageSize(int pageSize) {
 		for (ComboListItem item : pageSizes) {
@@ -48,15 +35,25 @@ public class EntriesPerPageForm {
 		this.pageSizes = pageSizes;
 	}
 
-	public String getEntries() {
-		return entries;
+	public String getSize() {
+		return size;
 	}
 
-	public void setEntries(String entries) {
-		this.entries = entries;
+	public void setSize(String size) {
+		this.size = size;
 	}
 
-	private class ComboListItem {
+	
+	public static ArrayList<EntriesPerPageForm.ComboListItem> convertToPageSizesItemsList(List<Integer> sizes) {
+		ArrayList<EntriesPerPageForm.ComboListItem> pageSizes = new ArrayList<EntriesPerPageForm.ComboListItem>();
+		for (int size : sizes) {
+			pageSizes.add(new ComboListItem(Integer.toString(size), Integer.toString(size)));
+		}
+		return pageSizes;
+	}
+	
+	@SuppressWarnings("unused")
+	static class ComboListItem {
 		private String name;
 		private String value;
 		

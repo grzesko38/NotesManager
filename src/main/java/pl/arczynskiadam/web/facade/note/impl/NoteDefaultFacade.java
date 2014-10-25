@@ -46,6 +46,10 @@ public class NoteDefaultFacade implements NoteFacade {
 	
 	@Override
 	public List<NoteDTO> listNotesFromDate(Date date) {
+		if (date ==null) {
+			throw new IllegalArgumentException("date cannot be null.");
+		}
+		
 		List<NoteVO> notes = noteService.listNotesFromDate(date);
 		List<NoteDTO> result = new ArrayList<>();
 		for (NoteVO note : notes) {

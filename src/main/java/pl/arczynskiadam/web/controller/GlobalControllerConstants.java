@@ -11,6 +11,10 @@ public interface GlobalControllerConstants {
 	}
 	
 	interface RequestParams {
+		public static final String PAGE 						= "p";
+		public static final String RESTORE_PAGE_FROM_SESSION 	= "p_restore";
+		public static final String SORT_COLUMN 	= "col";
+		public static final String SORT_ORDER 	= "sort";
 		public static final String ENTRIES = "entries";
 	}
 	
@@ -20,7 +24,7 @@ public interface GlobalControllerConstants {
 			
 		}
 		interface Form {
-			public static final String entriesPerPage 			= "entriesPerPageForm";
+			public static final String entriesPerPageForm 		= "entriesPerPageForm";
 			public static final String selectedCheckboxesForm 	= "selectedCheckboxesForm";
 		}
 	}

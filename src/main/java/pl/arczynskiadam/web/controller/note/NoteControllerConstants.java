@@ -36,12 +36,6 @@ public interface NoteControllerConstants {
 		public static final String detailsFull	= manager + details;
 	}
 	
-	interface RequestParams {
-		public static final String PAGE 		= "p";
-		public static final String SORT_COLUMN 	= "col";
-		public static final String SORT_ORDER 	= "sort";
-	}
-	
 	interface Defaults {
 		public static final int ENTRIES_PER_PAGE 		= 15;
 		public static final String DEFAULT_SORT_COLUMN 	= "author";
