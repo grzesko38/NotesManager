@@ -1,6 +1,6 @@
-<%@ taglib prefix="spring" 	uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form"   	uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c"      	uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" 		uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form"   		uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c"      		uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="navigation"	uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
 
 <script src="${pageContext.request.contextPath}/js/notes/notesgrid.js"></script>
