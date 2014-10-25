@@ -9,6 +9,10 @@
 <c:set var="desc"><spring:theme code="img.sort.desc"/></c:set>
 <c:url var="ascImgUrl" value="/themes/${asc}"/>
 <c:url var="descImgUrl" value="/themes/${desc}"/>
+<c:url var="ascActiveImgUrl" value="/themes/common/images/navigation/sort_asc.png"/>
+<c:url var="descActiveImgUrl" value="/themes/common/images/navigation/sort_desc.png"/>
+<c:set var="sortCol" value="${notesPaginationData.pagedListHolder.sort.property}"/>
+<c:set var="isSortAsc" value="${notesPaginationData.pagedListHolder.sort.ascending}"/>
 
 <form:form method="post" action="${pageContext.request.contextPath}/notesmanager/show" modelAttribute="selectedCheckboxesForm">
 	<table class="data">
@@ -26,17 +30,23 @@
 				</th>
 				<th class="corner"/>
 				<th>
-					<navigation:sortHeader divClass="sort" sortColumn="author" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
+					<navigation:sortHeader divClass="sort" sortColumn="author" imgSize="16"
+							ascImgUrl="${sortCol eq 'author' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
+							descImgUrl="${sortCol eq 'author' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
 						<span><spring:message code="label.author"/></span>
 					</navigation:sortHeader>
 				</th>
 				<th>
-					<navigation:sortHeader divClass="sort" sortColumn="email" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
+					<navigation:sortHeader divClass="sort" sortColumn="email" imgSize="16"
+							ascImgUrl="${sortCol eq 'email' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
+							descImgUrl="${sortCol eq 'email' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
 						<span><spring:message code="label.email"/></span>
 					</navigation:sortHeader>
 				</th>
 				<th>
-					<navigation:sortHeader divClass="sort" sortColumn="dateCreated" ascImgUrl="${ascImgUrl}" descImgUrl="${descImgUrl}" imgSize="16">
+					<navigation:sortHeader divClass="sort" sortColumn="dateCreated" imgSize="16"
+							ascImgUrl="${sortCol eq 'dateCreated' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
+							descImgUrl="${sortCol eq 'dateCreated' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
 						<span><spring:message code="label.createdon"/></span>
 					</navigation:sortHeader>
 				</th>
