@@ -9,8 +9,12 @@
 <c:set var="desc"><spring:theme code="img.sort.desc"/></c:set>
 <c:url var="ascImgUrl" value="/themes/${asc}"/>
 <c:url var="descImgUrl" value="/themes/${desc}"/>
-<c:url var="ascActiveImgUrl" value="/themes/common/images/navigation/sort_asc.png"/>
-<c:url var="descActiveImgUrl" value="/themes/common/images/navigation/sort_desc.png"/>
+
+<c:set var="ascActive"><spring:theme code="img.sort.asc.active"/></c:set>
+<c:set var="descActive"><spring:theme code="img.sort.desc.active"/></c:set>
+<c:url var="ascActiveImgUrl" value="/themes/${ascActive}"/>
+<c:url var="descActiveImgUrl" value="/themes/${descActive}"/>
+
 <c:set var="sortCol" value="${notesPaginationData.pagedListHolder.sort.property}"/>
 <c:set var="isSortAsc" value="${notesPaginationData.pagedListHolder.sort.ascending}"/>
 
