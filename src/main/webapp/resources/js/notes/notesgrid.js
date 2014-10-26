@@ -19,13 +19,19 @@ NotesGridScripts = {
 			$("#selectAll").prop('checked', false);
 		}
 	},
-	submitEntriesPerPageForm: function() {
-		$("#entriesPerPageForm").submit();
+	handleEntriesPerPageForms: function() {
+		$(".entriesPerPage").each(
+			function() {
+				$(this).change(function() {
+					$(this).parents('form:first').submit();
+				})
+			}
+		);
 	}
 }
 
 $(document).ready(function() {
 	$("#selectAll").change(NotesGridScripts.toggleAll);
 	$("input[id^='selections']").change(NotesGridScripts.updateCheckboxes);
-	$("#entriesPerPage").change(NotesGridScripts.submitEntriesPerPageForm);
+	NotesGridScripts.handleEntriesPerPageForms();
 });

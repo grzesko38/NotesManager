@@ -63,8 +63,8 @@
 		</div>
 	</div>
 	<div class="margin">
-		<form:form id="entriesPerPageForm" commandName="entriesPerPageForm" method="GET">
-			<form:select  id="entriesPerPage" path="size" items="${entriesPerPageForm.pageSizes}" itemLabel="name" itemValue="value" multiple="false"/>
+		<form:form class="entriesPerPageForm" commandName="entriesPerPageForm" method="GET">
+			<form:select class="entriesPerPage" path="size" items="${entriesPerPageForm.pageSizes}" itemLabel="name" itemValue="value" multiple="false"/>
 		</form:form>
 	</div>
 </div>
