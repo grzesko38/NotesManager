@@ -6,9 +6,7 @@
 
 <template:notesPage>
     <jsp:attribute name="banner">
-		<fragment:banner>
-			
-		</fragment:banner>
+		<fragment:banner />
     </jsp:attribute>
     
     <jsp:body>
