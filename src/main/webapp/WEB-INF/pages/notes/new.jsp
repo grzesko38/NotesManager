@@ -1,14 +1,19 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="template" tagdir="/WEB-INF/tags/_templates" %>
-<%@ taglib prefix="fragment" tagdir="/WEB-INF/tags/_fragments" %>
+<%@ taglib prefix="notes" tagdir="/WEB-INF/tags/notes" %>
+<%@ taglib prefix="template" tagdir="/WEB-INF/tags/_templates/notes" %>
 
 <template:notesPage>
-    <jsp:attribute name="banner">
-		<fragment:banner />
+   <jsp:attribute name="banner">
+		<template:banner backgroundImgClass="listing"></template:banner>
     </jsp:attribute>
     
+    <jsp:attribute name="topText">
+		<spring:message code="addnote.banner.text" />
+    </jsp:attribute>
+        
     <jsp:body>
 		<form:form method="post" action="${pageContext.request.contextPath}/notesmanager/add.do" modelAttribute="noteForm">
 			<table>
