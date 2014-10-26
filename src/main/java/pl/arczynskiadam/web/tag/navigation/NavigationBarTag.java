@@ -45,7 +45,7 @@ public class NavigationBarTag extends SimpleTagSupport {
         		} else {
         			sb.append("<span class=\"navitem\">")
         			.append(item.getName())
-        			.append("<span class=\"navitem\">");
+        			.append("</a></span>");
         		}
         	}
         	
