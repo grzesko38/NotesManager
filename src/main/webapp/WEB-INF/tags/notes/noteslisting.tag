@@ -8,6 +8,9 @@
 </div>
 	<c:set value="/notesmanager/show/" var="linkCore" />
 	<notes:datefilter />
+	<c:if test="${notesPaginationData.pagedListHolder.pageSize > 10}">
+		<tg:paging pagedListHolder="${notesPaginationData.pagedListHolder}" linkCore="${linkCore}" />
+	</c:if>
 	<notes:notesgrid />
 	<tg:paging pagedListHolder="${notesPaginationData.pagedListHolder}" linkCore="${linkCore}" />
 <div class="bottom"></div>
