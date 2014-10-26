@@ -89,10 +89,6 @@ public class NoteController extends AbstractController {
 			notes = noteFacade.listNotes();
 		}
 		
-//		List<NoteDTO> notes = sessionPagesData != null && sessionPagesData.getFromDate() != null ?
-//				noteFacade.listNotesFromDate(sessionPagesData.getFromDate()) :
-//					noteFacade.listNotes();
-		
 		pagesData.setPagedListHolder(paginateData(notes,
 				page,
 				entriesPerPageForm.getSize() != null ? Integer.parseInt(entriesPerPageForm.getSize()) : null,
@@ -142,6 +138,12 @@ public class NoteController extends AbstractController {
 		
 		pagesData.setPagedListHolder(paginateData(notes));
 		
+		entriesPerPageForm.setPageSizes(EntriesPerPageForm.convertToPageSizesItemsList(this.notesPageSizes));
+		if (entriesPerPageForm.getSize() == null) {
+			entriesPerPageForm.setSize(Integer.toString(pagesData.getPagedListHolder().getPageSize()));
+		}
+		
+		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pagesData);
 		savePagesDataToSession(pagesData);
 			
 		return NoteControllerConstants.Pages.list;
