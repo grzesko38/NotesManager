@@ -40,6 +40,29 @@ div.menu
 	height: 3px;
  	margin: 5px 0 0 0;
 }
+													/* Banner */
+.notes .banner
+{
+	position: relative;
+}
+.notes .banner .aboveBanner
+{
+	height: 10px;
+}
+.notes .banner .imgHolder
+{
+	background-attachment: fixed;
+    background-image: url("../../common/images/banners/oldscript.png");
+    background-position: center top;
+    background-repeat: no-repeat;
+    height: 250px;
+}
+
+.notes .banner > img {
+    left: 10%;
+    position: absolute;
+    top: 100px;
+}
 													/* Data Table */
 .notes table.data
 {	
