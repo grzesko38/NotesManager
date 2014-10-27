@@ -7,7 +7,9 @@
 
 <template:notesPage>
    <jsp:attribute name="banner">
-		<template:banner backgroundImgClass="listing"></template:banner>
+		<template:banner bannerClass="listing">
+			<img src="<spring:theme code="img.banner.notes.listing" />" width="200" height="200" />
+		</template:banner>
     </jsp:attribute>
     
     <jsp:attribute name="topText">

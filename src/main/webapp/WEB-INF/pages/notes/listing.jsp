@@ -7,7 +7,7 @@
 
 <template:notesPage>
     <jsp:attribute name="banner">
-		<template:banner backgroundImgClass="listing">
+		<template:banner bannerClass="listing">
 			<img src="<c:url value="/themes/common/images/banners/quillpen.png" />" width="200" height="200" />
 		</template:banner>
     </jsp:attribute>
