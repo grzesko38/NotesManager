@@ -10,31 +10,31 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import org.apache.log4j.Logger;
 
-public class NavigationBarTag extends SimpleTagSupport {
+public class BreadcrumbsTag extends SimpleTagSupport {
 	
-	private static final Logger log = Logger.getLogger(NavigationBarTag.class);
+	private static final Logger log = Logger.getLogger(BreadcrumbsTag.class);
 
-	ArrayList<NavigationItem> navigationItems;
+	ArrayList<BreadcrumbsItem> items;
 	
-	public NavigationBarTag() {
-		navigationItems = new ArrayList<NavigationItem>();
+	public BreadcrumbsTag() {
+		items = new ArrayList<BreadcrumbsItem>();
 	}
 	
-	public ArrayList<NavigationItem> getNavigationItems() {
-		return navigationItems;
+	public ArrayList<BreadcrumbsItem> getItems() {
+		return items;
 	}
 
-	public void setNavigationItems(ArrayList<NavigationItem> navigationItems) {
-		this.navigationItems = navigationItems;
+	public void setItems(ArrayList<BreadcrumbsItem> items) {
+		this.items = items;
 	}
 
 	@Override
     public void doTag() throws JspException, IOException {
         try {
         	StringBuilder sb = new StringBuilder();
-        	Iterator<NavigationItem> it = navigationItems.iterator();
+        	Iterator<BreadcrumbsItem> it = items.iterator();
         	while (it.hasNext()) {
-        		NavigationItem item = it.next();
+        		BreadcrumbsItem item = it.next();
         		if (it.hasNext()) {
         			sb.append("<span class=\"navitem\"><a href=\"")
         			.append(item.getUrl())

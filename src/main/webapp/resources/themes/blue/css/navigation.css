@@ -1,10 +1,10 @@
 													/* top Bar */
-div.topbar
+.topbar
 {
 	background: url(../../blue/images/navigation/bar_top.png);
 }
 													/* Main Layout */
-header, div.navbar
+header, .breadcrumbs
 {
 	border-bottom: 1px solid #3C517C;
 }

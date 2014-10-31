@@ -39,7 +39,7 @@ import pl.arczynskiadam.web.form.SelectedCheckboxesForm;
 import pl.arczynskiadam.web.form.note.DateForm;
 import pl.arczynskiadam.web.form.note.NewNoteForm;
 import pl.arczynskiadam.web.form.note.NewNoteForm.All;
-import pl.arczynskiadam.web.tag.navigation.NavigationItem;
+import pl.arczynskiadam.web.tag.navigation.BreadcrumbsItem;
 import pl.arczynskiadam.web.validation.SelectedCheckboxesValidator;
 
 @Controller
@@ -158,9 +158,9 @@ public class NoteController extends AbstractController {
 			final Model model,
 			HttpServletRequest request) {
 		
-		createNavigationAndSaveToModel(model,
-				new NavigationItem("Home", NoteControllerConstants.URLs.showFull),
-				new NavigationItem("Add note", GlobalControllerConstants.Misc.hash));
+		createBreadcrumpAndSaveToModel(model,
+				new BreadcrumbsItem("Home", NoteControllerConstants.URLs.showFull),
+				new BreadcrumbsItem("Add note", GlobalControllerConstants.Misc.hash));
 		
 		return NoteControllerConstants.Pages.add;
 	}
@@ -171,9 +171,9 @@ public class NoteController extends AbstractController {
 			Model model) {
 		
 		if (result.hasErrors()) {
-			createNavigationAndSaveToModel(model,
-					new NavigationItem("Home", NoteControllerConstants.URLs.showFull),
-					new NavigationItem("Add note", GlobalControllerConstants.Misc.hash));
+			createBreadcrumpAndSaveToModel(model,
+					new BreadcrumbsItem("Home", NoteControllerConstants.URLs.showFull),
+					new BreadcrumbsItem("Add note", GlobalControllerConstants.Misc.hash));
 			
 			return NoteControllerConstants.Pages.add;
 		} else {
@@ -233,9 +233,9 @@ public class NoteController extends AbstractController {
 			@PathVariable("noteId") Integer noteId,
 			final Model model) {
 		
-		createNavigationAndSaveToModel(model,
-				new NavigationItem("Home", NoteControllerConstants.URLs.showFull),
-				new NavigationItem("Note details", GlobalControllerConstants.Misc.hash));
+		createBreadcrumpAndSaveToModel(model,
+				new BreadcrumbsItem("Home", NoteControllerConstants.URLs.showFull),
+				new BreadcrumbsItem("Note details", GlobalControllerConstants.Misc.hash));
 		
 		note.setContent(noteFacade.findNoteById(noteId).getContent());
 

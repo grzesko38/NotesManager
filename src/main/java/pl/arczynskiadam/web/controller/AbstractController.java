@@ -7,27 +7,21 @@ import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
-import pl.arczynskiadam.web.tag.navigation.NavigationItem;
+import pl.arczynskiadam.web.tag.navigation.BreadcrumbsItem;
 
 public abstract class AbstractController {
 
 	@Autowired
     private ServletContext ctx;
 	
-	protected void createNavigationAndSaveToModel(Model model, NavigationItem... items) {
-		ArrayList<NavigationItem> navItems = new ArrayList<NavigationItem>();
+	protected void createBreadcrumpAndSaveToModel(Model model, BreadcrumbsItem... items) {
+		ArrayList<BreadcrumbsItem> navItems = new ArrayList<BreadcrumbsItem>();
 		
-		NavigationItem prev = null;
-		for (NavigationItem item : items) {
-			if (prev == null) {
-				item.setUrl(ctx.getContextPath() + item.getUrl());
-			} else {
-				item.setUrl(prev.getUrl() + item.getUrl());
-			}
+		for (BreadcrumbsItem item : items) {
+			item.setUrl(ctx.getContextPath() + item.getUrl());
 			navItems.add(item);
-			prev = item;
 		}
 		
-		model.addAttribute(GlobalControllerConstants.ModelAttrKeys.Navigation.navItems, navItems);
+		model.addAttribute(GlobalControllerConstants.ModelAttrKeys.Navigation.breadcrumbs, navItems);
 	}
 }

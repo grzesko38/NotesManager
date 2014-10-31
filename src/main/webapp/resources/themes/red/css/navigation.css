@@ -4,7 +4,7 @@ div.topbar
 	background: url(../../red/images/navigation/bar_top.png);
 }
 													/* Main Layout */
-header, div.navbar
+header, .breadcrumbs
 {
 	border-bottom: 1px solid #880808;
 }

@@ -20,7 +20,7 @@ public interface GlobalControllerConstants {
 	
 	interface ModelAttrKeys {
 		interface Navigation {
-			public static final String navItems = "navItems";
+			public static final String breadcrumbs = "breadcrumbs";
 			
 		}
 		interface Form {

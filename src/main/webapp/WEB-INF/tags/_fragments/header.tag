@@ -88,11 +88,11 @@
 	<div class="clockHolder">
 		<canvas class="clockBar" id="clock" width="75" height="75"></canvas>
 	</div>
-		<c:if test="${not empty navItems}">
-		<div class="navbar">
-				<navigation:navBar navigationItems="${navItems}" />
-			<div class="navbar_corner">
-				<img id="goimg" src="${pageContext.request.contextPath}/themes/<spring:theme code="img.nav.bar.corner"/>"
+	<c:if test="${not empty breadcrumbs}">
+		<div class="breadcrumbs">
+			<navigation:breadcrumbs items="${breadcrumbs}" />
+			<div class="breadcrumbs_corner">
+				<img src="${pageContext.request.contextPath}/themes/<spring:theme code="img.nav.bar.corner"/>"
 				width="33" height="37"/>
 			</div>
 		</div>

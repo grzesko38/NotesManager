@@ -32,7 +32,7 @@ div.menu
 {
 	background: linear-gradient(to bottom, #ededed 0%, #e1e1e1 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
-div.navbar
+.breadcrumbs
 {
 	background: linear-gradient(to bottom, #e1e1e1 0%, #dedede 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
 	z-index: 1001;
@@ -50,7 +50,7 @@ div.navbar
 {
 	text-decoration: underline;
 }
-div.navbar_corner
+.breadcrumbs_corner
 {
 	left: 100%;
     position: absolute;

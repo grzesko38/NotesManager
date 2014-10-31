@@ -10,11 +10,11 @@
 	<short-name>nav-utils</short-name>
 	<uri>http://arczynskiadam.pl/jsp/tlds/navigation</uri>
 	<tag>
-	    <name>navBar</name>
-	    <tag-class>pl.arczynskiadam.web.tag.navigation.NavigationBarTag</tag-class>
+	    <name>breadcrumbs</name>
+	    <tag-class>pl.arczynskiadam.web.tag.navigation.BreadcrumbsTag</tag-class>
 	    <body-content>empty</body-content>
 	    <attribute>
-		    <name>navigationItems</name>
+		    <name>items</name>
 		    <required>true</required>
 		    <rtexprvalue>true</rtexprvalue>
 	    </attribute>
