@@ -290,7 +290,7 @@ div.menu
 {
 	width: 81%;
 }
-#entriesPerPageForm
+.entriesPerPageForm
 {	
 	display: inline-block;
 }
