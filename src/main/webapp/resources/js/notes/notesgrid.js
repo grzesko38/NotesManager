@@ -6,7 +6,7 @@ NotesGridScripts = {
 		});
 		NotesGridScripts.postAjaxSelectedIds();
 	},
-	updateCheckboxes: function() {
+	updateSelectAllCheckbox: function() {
 		var allChecked  = true;
 		$("input[name='selections']").each(function() {
 			if( !this.checked ) {
@@ -54,7 +54,8 @@ NotesGridScripts = {
 
 $(document).ready(function() {
 	$("#selectAll").change(NotesGridScripts.toggleAll);
-	$("input[id^='selections']").change(NotesGridScripts.updateCheckboxes);
+	$("input[id^='selections']").change(NotesGridScripts.updateSelectAllCheckbox);
+	NotesGridScripts.updateSelectAllCheckbox();
 	NotesGridScripts.handleEntriesPerPageForms();
 	
 	

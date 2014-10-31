@@ -1,7 +1,6 @@
 package pl.arczynskiadam.web.controller.note;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
