@@ -106,8 +106,10 @@ public class NoteController extends AbstractController {
 		log.debug("sortCol: " + pagesData.getPagedListHolder().getSort().getProperty());
 		log.debug("SortAsc: " + pagesData.getPagedListHolder().getSort().isAscending());
 		
-		if (request.getParameter("theme") != null && retrievePagesDataFromSession() != null) {
-			pagesData.getPagedListHolder().setPage(retrievePagesDataFromSession().getPagedListHolder().getPage());
+		if (request.getParameter("theme") != null || request.getParameter("lang") != null) {
+			if (retrievePagesDataFromSession() != null) {
+				pagesData.getPagedListHolder().setPage(retrievePagesDataFromSession().getPagedListHolder().getPage());
+			}
 		}
 		
 		entriesPerPageForm.setPageSizes(EntriesPerPageForm.convertToPageSizesItemsList(this.notesPageSizes));
