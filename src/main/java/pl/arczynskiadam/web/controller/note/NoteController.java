@@ -86,14 +86,13 @@ public class NoteController extends AbstractController {
 				notes = noteFacade.listNotesFromDate(sessionPagesData.getFromDate());
 				pagesData.setFromDate(sessionPagesData.getFromDate());
 				dateForm.setDate(sessionPagesData.getFromDate());
-			} else {
-				notes = noteFacade.listNotes();
 			}
 			if (sessionPagesData.getSelectedNotesIds() != null) {
 				pagesData.setSelectedNotesIds(sessionPagesData.getSelectedNotesIds());
 				selectedCheckboxesForm.setSelections(noteFacade.convertNotesIdsToSelections(sessionPagesData.getSelectedNotesIds()));
 			}
-		} else {
+		}
+		if (notes == null) {
 			notes = noteFacade.listNotes();
 		}
 		
