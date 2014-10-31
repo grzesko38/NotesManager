@@ -314,14 +314,6 @@ public class NoteController extends AbstractController {
 		return pagedListHolder;
 	}
 	
-	private PagesData retrievePagesDataFromSession() {
-		PagesData sessionsPagesData = (PagesData) request.getSession().getAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination);
-		if (sessionsPagesData == null) {
-			return null;
-		}
-		return new PagesData(sessionsPagesData);
-	}
-	
 	private void populateEntriesPerPageForm(EntriesPerPageForm entriesPerPageForm, int pageSize) {
 		entriesPerPageForm.setPageSizes(EntriesPerPageForm.convertToPageSizesItemsList(this.notesPageSizes));
 		entriesPerPageForm.setSize(Integer.toString(pageSize));
@@ -337,7 +329,16 @@ public class NoteController extends AbstractController {
 		}
 	}
 	
+	private PagesData retrievePagesDataFromSession() {
+		PagesData sessionsPagesData = (PagesData) request.getSession().getAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination);
+		if (sessionsPagesData == null) {
+			return null;
+		}
+		return new PagesData(sessionsPagesData);
+	}
+	
 	private void savePagesDataToSession(PagesData pagesData) {
-		request.getSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pagesData);
+		PagesData copy = new PagesData(pagesData);
+		request.getSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, copy);
 	}
 }
