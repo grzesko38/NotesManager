@@ -102,6 +102,7 @@ public class NoteController extends AbstractController {
 				entriesPerPageForm.getSize() != null ? Integer.parseInt(entriesPerPageForm.getSize()) : null,
 				sortCol,
 				sortOrder));
+		populateEntriesPerPageForm(entriesPerPageForm, pagesData.getPagedListHolder().getPageSize());
 		
 		log.debug("sortCol: " + pagesData.getPagedListHolder().getSort().getProperty());
 		log.debug("SortAsc: " + pagesData.getPagedListHolder().getSort().isAscending());
@@ -110,11 +111,6 @@ public class NoteController extends AbstractController {
 			if (retrievePagesDataFromSession() != null) {
 				pagesData.getPagedListHolder().setPage(retrievePagesDataFromSession().getPagedListHolder().getPage());
 			}
-		}
-		
-		entriesPerPageForm.setPageSizes(EntriesPerPageForm.convertToPageSizesItemsList(this.notesPageSizes));
-		if (entriesPerPageForm.getSize() == null) {
-			entriesPerPageForm.setSize(Integer.toString(pagesData.getPagedListHolder().getPageSize()));
 		}
 		
 		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pagesData);
@@ -130,14 +126,17 @@ public class NoteController extends AbstractController {
 			BindingResult result,
 			HttpServletResponse response,
 			final Model model) {
-	    
+		
 		PagesData pagesData = new PagesData();
 		List<NoteDTO> notes = null;
 		Date date = dateForm.getDate();	
 		
 		if (result.hasErrors()) {
-			notes = noteFacade.listNotesFromDate(new Date(0, 0, 1));
-			pagesData.setFromDate(null);
+			PagesData sessionPagesData = retrievePagesDataFromSession();
+			model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, sessionPagesData);
+			populateEntriesPerPageForm(entriesPerPageForm);
+			
+			return NoteControllerConstants.Pages.list;
 		} else {
 			pagesData.setFromDate(date);
 			if (date == null) {
@@ -147,11 +146,7 @@ public class NoteController extends AbstractController {
 		}
 		
 		pagesData.setPagedListHolder(paginateData(notes));
-		
-		entriesPerPageForm.setPageSizes(EntriesPerPageForm.convertToPageSizesItemsList(this.notesPageSizes));
-		if (entriesPerPageForm.getSize() == null) {
-			entriesPerPageForm.setSize(Integer.toString(pagesData.getPagedListHolder().getPageSize()));
-		}
+		populateEntriesPerPageForm(entriesPerPageForm, pagesData.getPagedListHolder().getPageSize());
 		
 		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pagesData);
 		savePagesDataToSession(pagesData);
@@ -214,7 +209,12 @@ public class NoteController extends AbstractController {
 
 		if (result.hasErrors()) {
 			PagesData sessionPagesData = retrievePagesDataFromSession();
+			if (sessionPagesData.getFromDate() != null) {
+				dateForm.setDate(sessionPagesData.getFromDate());
+			}
+			
 			model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, sessionPagesData);
+			populateEntriesPerPageForm(entriesPerPageForm);
 			
 			return NoteControllerConstants.Pages.list;
 		}
@@ -227,20 +227,6 @@ public class NoteController extends AbstractController {
 		attrs.addAttribute(GlobalControllerConstants.RequestParams.PAGE, page);
 		
 		return GlobalControllerConstants.Prefixes.redirect + NoteControllerConstants.URLs.showFull;
-	}
-	
-	@RequestMapping(value = NoteControllerConstants.URLs.show, method = RequestMethod.POST, params="!delete")
-	public String selectNotes(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination) PagesData pagesData,
-			BindingResult result,
-			final Model model,
-			@ModelAttribute("dateForm") DateForm dateForm,
-			@RequestParam(value="date", required=false) Date date) {
-		
-		if (date != null) {
-			dateForm.setDate(date);
-		}
-		
-		return GlobalControllerConstants.Prefixes.redirect + NoteControllerConstants.Pages.list;
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.details, method = RequestMethod.GET)
@@ -335,6 +321,21 @@ public class NoteController extends AbstractController {
 			return null;
 		}
 		return new PagesData(sessionsPagesData);
+	}
+	
+	private void populateEntriesPerPageForm(EntriesPerPageForm entriesPerPageForm, int pageSize) {
+		entriesPerPageForm.setPageSizes(EntriesPerPageForm.convertToPageSizesItemsList(this.notesPageSizes));
+		entriesPerPageForm.setSize(Integer.toString(pageSize));
+	}
+	
+	private void populateEntriesPerPageForm(EntriesPerPageForm entriesPerPageForm) {
+		entriesPerPageForm.setPageSizes(EntriesPerPageForm.convertToPageSizesItemsList(this.notesPageSizes));
+		PagesData sessionPagesData = retrievePagesDataFromSession();
+		if (sessionPagesData != null) {
+			entriesPerPageForm.setSize(Integer.toString(sessionPagesData.getPagedListHolder().getPageSize()));
+		} else {
+			entriesPerPageForm.setSize(Integer.toString(NoteControllerConstants.Defaults.ENTRIES_PER_PAGE));
+		}
 	}
 	
 	private void savePagesDataToSession(PagesData pagesData) {
