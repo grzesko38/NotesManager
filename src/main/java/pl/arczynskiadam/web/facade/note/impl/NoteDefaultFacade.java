@@ -2,7 +2,9 @@ package pl.arczynskiadam.web.facade.note.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -87,13 +89,34 @@ public class NoteDefaultFacade implements NoteFacade {
 	}
 	
 	@Override
-	public int[] convertSelectionsToNotesIds(String[] selections) {
-		int[] ids = new int[selections.length];
+	public void deleteNotes(Set<Integer> ids) {
+		int[] convertedIds = new int[ids.size()];
+		int i = 0;
+		for (Integer id: ids) {
+			convertedIds[i++] = id;
+		}
+		deleteNotes(convertedIds);
+	}
+	
+	@Override
+	public Set<Integer> convertSelectionsToNotesIds(Set<String> selections) {
+		Set<Integer> ids = new HashSet<Integer>();
 		
-		for (int i = 0; i < selections.length; ++i) {
-			ids[i] = Integer.parseInt(selections[i]);
+		for (String selection : selections) {
+			ids.add(Integer.parseInt(selection));
 		}
 		
 		return ids;
+	}
+	
+	@Override
+	public Set<String> convertNotesIdsToSelections(Set<Integer> ids) {
+		Set<String> selections = new HashSet<String>();
+		
+		for (Integer id : ids) {
+			selections.add(Integer.toString(id));
+		}
+		
+		return selections;
 	}
 }

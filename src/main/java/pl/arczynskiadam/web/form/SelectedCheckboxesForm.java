@@ -1,24 +1,25 @@
 package pl.arczynskiadam.web.form;
 
-import java.io.Serializable;
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
-public class SelectedCheckboxesForm implements Serializable {
+public class SelectedCheckboxesForm {
+	{
+		selections = new HashSet<String>();
+	}
 	
-	private static final long serialVersionUID = 1L;
-	
-	private String[] selections;
+	private Set<String> selections;
 
-	public String[] getSelections() {
+	public Set<String> getSelections() {
 		return selections;
 	}
 
-	public void setSelections(String[] selections) {
+	public void setSelections(Set<String> selections) {
 		this.selections = selections;
 	}
 
 	@Override
 	public String toString() {
-		return "selected checkboxes=" + Arrays.toString(selections) + "]";
+		return "selected checkboxes=" + selections.toString();
 	}
 }

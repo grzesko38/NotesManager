@@ -1,8 +1,9 @@
 package pl.arczynskiadam.web.controller.note;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +12,9 @@ import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,9 +23,11 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.arczynskiadam.core.model.note.NoteDTO;
@@ -60,12 +63,10 @@ public class NoteController extends AbstractController {
 	@Resource(name="notesPageSizes")
 	List<Integer> notesPageSizes;
 	
-	@InitBinder
-    public void initBinder2(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
+	@InitBinder(GlobalControllerConstants.ModelAttrKeys.Form.selectedCheckboxesForm) //argument = command/modelattr name
+		public void initBinder(WebDataBinder binder) {
+		binder.addValidators(selectedCheckboxesValidator);
+	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.show, method = RequestMethod.GET, params = {"!date"})
 	public String listNotes(@RequestParam(value = GlobalControllerConstants.RequestParams.PAGE, required = false) Integer page,
@@ -81,10 +82,18 @@ public class NoteController extends AbstractController {
 		PagesData pagesData = new PagesData();
 		
 		PagesData sessionPagesData = retrievePagesDataFromSession();
-		if (sessionPagesData != null && sessionPagesData.getFromDate() != null) {
-			notes = noteFacade.listNotesFromDate(sessionPagesData.getFromDate());
-			pagesData.setFromDate(sessionPagesData.getFromDate());
-			dateForm.setDate(sessionPagesData.getFromDate());
+		if (sessionPagesData != null) {
+			if (sessionPagesData.getFromDate() != null) {
+				notes = noteFacade.listNotesFromDate(sessionPagesData.getFromDate());
+				pagesData.setFromDate(sessionPagesData.getFromDate());
+				dateForm.setDate(sessionPagesData.getFromDate());
+			} else {
+				notes = noteFacade.listNotes();
+			}
+			if (sessionPagesData.getSelectedNotesIds() != null) {
+				pagesData.setSelectedNotesIds(sessionPagesData.getSelectedNotesIds());
+				selectedCheckboxesForm.setSelections(noteFacade.convertNotesIdsToSelections(sessionPagesData.getSelectedNotesIds()));
+			}
 		} else {
 			notes = noteFacade.listNotes();
 		}
@@ -209,7 +218,8 @@ public class NoteController extends AbstractController {
 			return NoteControllerConstants.Pages.list;
 		}
 		
-		noteFacade.deleteNotes(noteFacade.convertSelectionsToNotesIds(selectedCheckboxesForm.getSelections()));
+		Set<Integer> ids = noteFacade.convertSelectionsToNotesIds(selectedCheckboxesForm.getSelections());
+		noteFacade.deleteNotes(ids);
 
 		PagesData sessionPagesData = retrievePagesDataFromSession();
 		int page = sessionPagesData != null ? sessionPagesData.getPagedListHolder().getPage() : 0; 
@@ -244,6 +254,17 @@ public class NoteController extends AbstractController {
 		note.setContent(noteFacade.findNoteById(noteId).getContent());
 
 		return NoteControllerConstants.Pages.details;
+	}
+	
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@RequestMapping(value = "/updateSelections.ajax", method = RequestMethod.POST, consumes = "application/json")
+	public void noteSelected(@RequestBody SelectedCheckboxesForm selectedCheckboxesForm) {
+		log.debug("checboxes vals to update from ajax: " + selectedCheckboxesForm.toString());
+		
+		PagesData sessionPagesData = retrievePagesDataFromSession();
+		Set<Integer> ids = noteFacade.convertSelectionsToNotesIds(selectedCheckboxesForm.getSelections());
+		sessionPagesData.setSelectedNotesIds(ids);
+		savePagesDataToSession(sessionPagesData);
 	}
 	
 	private PagedListHolder<NoteDTO> paginateData(List<NoteDTO> notes) {

@@ -90,6 +90,13 @@
       <version>${spring.version}</version>
     </dependency>
     
+    <!-- Spring MVC JSON -->
+    <dependency>
+		<groupId>org.codehaus.jackson</groupId>
+		<artifactId>jackson-jaxrs</artifactId>
+		<version>1.9.13</version>
+	</dependency>
+    
     <!-- Hibernate -->
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -123,6 +130,7 @@
 		<artifactId>hibernate-validator</artifactId>
 		<version>4.2.0.Final</version>
 	</dependency>
+	
 	<!-- SQL -->
 	<dependency>
       <groupId>mysql</groupId>
@@ -173,6 +181,7 @@
 	        <groupId>org.slf4j</groupId>
 	        <artifactId>slf4j-log4j12</artifactId>
 	        <version>1.6.1</version>
-	</dependency> 
+	</dependency>
+
   </dependencies>
 </project>

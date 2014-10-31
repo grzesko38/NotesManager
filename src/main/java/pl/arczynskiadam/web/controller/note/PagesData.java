@@ -2,6 +2,9 @@ package pl.arczynskiadam.web.controller.note;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PagedListHolder;
@@ -9,9 +12,12 @@ import org.springframework.beans.support.PagedListHolder;
 import pl.arczynskiadam.core.model.note.NoteDTO;
 
 public class PagesData {
+	{
+		selectedNotesIds = new HashSet<Integer>();
+	}
 	
 	private PagedListHolder<NoteDTO> pagedListHolder;
-	private int[] selectedNotesIds;
+	private Set<Integer> selectedNotesIds;
 	private Date fromDate;
 	
 	public PagesData() { }
@@ -27,12 +33,8 @@ public class PagesData {
 		}
 		
 		//selected ids
-		if (other.getSelectedNotesIds() != null) {
-			this.selectedNotesIds = new int[other.selectedNotesIds.length];
-			for (int i = 0; i < this.selectedNotesIds.length; ++i) {
-				this.selectedNotesIds[i] = other.selectedNotesIds[i];
-			}
-		}
+		this.selectedNotesIds = new HashSet<Integer>(other.getSelectedNotesIds());
+
 		// from date
 		if (other.fromDate != null) {
 			this.fromDate = new Date(other.fromDate.getTime());
@@ -46,15 +48,13 @@ public class PagesData {
 	public void setPagedListHolder(PagedListHolder<NoteDTO> pagedListHolder) {
 		this.pagedListHolder = pagedListHolder;
 	}
-
-	public int[] getSelectedNotesIds() {
+	
+	public Set<Integer> getSelectedNotesIds() {
 		return selectedNotesIds;
 	}
-	
-	public void setSelectedNotesIds(int[] selectedNotesIds) {
+	public void setSelectedNotesIds(Set<Integer> selectedNotesIds) {
 		this.selectedNotesIds = selectedNotesIds;
 	}
-
 	public Date getFromDate() {
 		return fromDate;
 	}

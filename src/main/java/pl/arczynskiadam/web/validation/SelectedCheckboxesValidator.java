@@ -1,7 +1,8 @@
 package pl.arczynskiadam.web.validation;
 
+import java.util.Set;
+
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -20,8 +21,8 @@ public class SelectedCheckboxesValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		log.debug("SelectedCheckboxesValidator#validate called");
-		String[] selections = ((SelectedCheckboxesForm) target).getSelections();
-		if (selections.length == 0) {
+		Set<String> selections = ((SelectedCheckboxesForm) target).getSelections();
+		if (selections == null || selections.size() == 0) {
 			log.debug("value rejected");
 			errors.rejectValue("selections", errCode);
 		}	
