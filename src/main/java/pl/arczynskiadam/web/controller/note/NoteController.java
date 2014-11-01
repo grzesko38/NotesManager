@@ -338,7 +338,6 @@ public class NoteController extends AbstractController {
 	}
 	
 	private void savePagesDataToSession(PagesData pagesData) {
-		PagesData copy = new PagesData(pagesData);
-		request.getSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, copy);
+		request.getSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pagesData);
 	}
 }
