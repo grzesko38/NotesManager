@@ -2,7 +2,6 @@
 
 <footer>
 	<div class="content">
-		<div class="x">
-		</div>
+		<div class="connector"></div>
 	</div>
 </footer>
