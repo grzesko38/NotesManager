@@ -15,10 +15,12 @@
 	
 	<link href="<c:url value="/themes/common/css/default.css"/>" rel="stylesheet" type="text/css"/>
 	<link href="<c:url value="/themes/common/css/navigation.css"/>" rel="stylesheet" type="text/css"/>
+	<link href="<c:url value="/themes/common/css/footer.css"/>" rel="stylesheet" type="text/css"/>
 	<link href="<c:url value="/themes/common/css/widgets.css"/>" rel="stylesheet" type="text/css"/>
 
 	<link href="${pageContext.request.contextPath}/themes/<spring:theme code="css.main"/>" rel="stylesheet" type="text/css"/>
 	<link href="${pageContext.request.contextPath}/themes/<spring:theme code="css.navigation"/>" rel="stylesheet" type="text/css"/>
+	<link href="${pageContext.request.contextPath}/themes/<spring:theme code="css.footer"/>" rel="stylesheet" type="text/css"/>
 	<link href="${pageContext.request.contextPath}/themes/<spring:theme code="css.widgets"/>" rel="stylesheet" type="text/css"/>
 
 	<jsp:invoke fragment="additionalCSS" />
@@ -32,6 +34,7 @@
 	<div id="placeholder"></div>
 	<fragment:header />
 	<jsp:doBody />
+	<fragment:footer />
 </body>
 </html>
 
