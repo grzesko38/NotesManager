@@ -12,10 +12,6 @@
 {
 	background-color: #CDAA58;
 }
-.banner.listing .imgHolder
-{
-	background-image: url("/NotesManager/themes/yellow/images/banners/oldscript.png");
-}
 													/* Data Table */
 .notes table.data th
 {

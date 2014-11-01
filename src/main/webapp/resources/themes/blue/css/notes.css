@@ -1,9 +1,12 @@
 													/* Main Layout */
 .notes
 {
+	background-image: url("/NotesManager/themes/blue/images/background/main.png");
+}
+.notes .content
+{
 	background-color: #C9DEFF;
 }
-
 .notes .top, .notes .bottom
 {
 	background-color: #0059B8;
@@ -13,9 +16,10 @@
 {
 	background-color: #0059B8;
 }
-.banner.listing .imgHolder
+.notes .banner .imgHolder .colorizer
 {
-	background-image: url("/NotesManager/themes/blue/images/banners/oldscript.png");
+    background-color: #0b4b90;
+    opacity: 0.35;
 }
 													/* Data Table */
 .notes table.data th

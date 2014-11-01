@@ -21,11 +21,11 @@
 	
 	<jsp:body>
 		<div class="notes">
-			<jsp:invoke fragment="banner" />
-			<div class=top>
-				<span>${topText}</span>
-			</div>
 			<div class="content">
+				<jsp:invoke fragment="banner" />
+				<div class=top>
+					<span>${topText}</span>			
+				</div>
 				<jsp:doBody/>
 			</div>
 			<div class="bottom"></div>

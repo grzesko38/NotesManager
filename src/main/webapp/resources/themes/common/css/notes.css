@@ -3,6 +3,10 @@ div.menu
 {
 	min-width: 500px;
 }
+.notes
+{
+	padding-top: 15px;
+}
 .notes .content
 {
 	width: 90%;
@@ -11,6 +15,9 @@ div.menu
 	margin-left: auto;
 	margin-right: auto;
 	font-family: arial;
+	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 15px;
 }
 .notes a
 {
@@ -37,29 +44,43 @@ div.menu
 .notes .bottom
 {
 	height: 3px;
- 	margin: 5px 0 0 0;
+ 	margin: 15px 0 0 0;
 }
 													/* Banner */
-.banner
+.notes .banner, .notes .top
+{
+	margin: 0px -15px;
+}												
+.notes .banner
 {
 	position: relative;
 }
-.banner .aboveBanner
+.notes .banner .aboveBanner
 {
 	height: 10px;
 }
-.banner.listing .imgHolder
+.notes .banner .imgHolder
 {
-	background-attachment: fixed;
-    background-position: center top;
-    background-repeat: no-repeat;
-    height: 280px;
+	position: relative;
 }
-.banner.listing > img
+.notes .banner .imgHolder .colorizer
+{
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+.notes .banner .imgHolder img
+{
+	display: block;
+    height: auto;
+    width: 100%;
+}
+.notes .banner.listing > img
 {
     left: 10%;
     position: absolute;
-    top: 120px;
+    bottom: -25%;
+    z-index: 1;
 }
 													/* Data Table */
 .notes table.data
