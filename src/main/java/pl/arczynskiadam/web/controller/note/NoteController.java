@@ -307,7 +307,7 @@ public class NoteController extends AbstractController {
 						NoteControllerConstants.Defaults.DEFAULT_SORT_COLUMN : 
 							sortColumn,
 				true,
-				Boolean.TRUE.equals(ascending)));
+				ascending == null || Boolean.TRUE.equals(ascending)));
 		pagedListHolder.resort();
 		pagedListHolder.setPageSize(size == null ? NoteControllerConstants.Defaults.ENTRIES_PER_PAGE : size);
 		pagedListHolder.setPage(page == null ? GlobalControllerConstants.Defaults.FIRST_PAGE : page);
