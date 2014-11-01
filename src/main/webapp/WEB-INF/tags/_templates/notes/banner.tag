@@ -8,7 +8,6 @@
 	<div class="aboveBanner"></div>
 	<jsp:doBody />
 	<div class="imgHolder">
-		<div class="colorizer"></div>
 		<div>
 			<c:set var="path">
 				<spring:theme code="img.banner.notes"/>
