@@ -17,7 +17,7 @@ div.menu
 	font-family: arial;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
     padding: 15px;
-    border-radius: 15px;
+    border-radius: 15px 15px 0px 0px;
 }
 .notes a
 {
@@ -44,7 +44,6 @@ div.menu
 .notes .bottom
 {
 	height: 3px;
- 	margin: 15px 0 0 0;
 }
 													/* Banner */
 .notes .banner, .notes .top
