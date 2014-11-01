@@ -47,7 +47,7 @@
 }
 .notes .paginationHolder
 {
-	background: linear-gradient(to right, #C2FAB4 0%, #1C8C00 50px, #1C8C00 calc(100% - 50px), #C2FAB4 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	background: linear-gradient(to right, #AEF29D 0%, #1C8C00 50px, #1C8C00 calc(100% - 50px), #AEF29D 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .notes .paginationHolder .pagingItem
 {
