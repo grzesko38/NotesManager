@@ -1,6 +1,10 @@
 													/* Main Layout */
 .notes
 {
+	background-image: url("/NotesManager/themes/yellow/images/background/main.png");
+}
+.notes .content
+{
 	background-color: #FFF3C4;
 }
 .notes .top, .notes div.bottom
