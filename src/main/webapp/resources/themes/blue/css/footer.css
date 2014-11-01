@@ -1,5 +1,5 @@
 													/* Footer */
-footer
+footer .content
 {
-	background-image: url("/NotesManager/themes/blue/images/background/footer.png");
+	background-color: #C9DEFF;
 }

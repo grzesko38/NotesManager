@@ -1,6 +1,4 @@
-.notesWrapper
+body
 {
-	background-color: #FF7C7C;
-	background-image: url("/NotesManager/themes/red/images/background/x.png");
-	background-repeat: repeat-x;
+	background-image: url("/NotesManager/themes/red/images/background/footer.png");
 }

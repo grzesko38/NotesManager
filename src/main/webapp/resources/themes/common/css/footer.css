@@ -1,6 +1,19 @@
 													/* Footer */
 footer
 {
-	height: 150px;
 	width: 100%;
+	padding-top: 15px;
+}
+footer .content
+{
+	height: 100px;
+	width: 90%;
+	max-width: 1200px;
+	min-width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+	font-family: arial;
+	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 15px;
 }
