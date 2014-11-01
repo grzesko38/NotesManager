@@ -3,16 +3,16 @@
 {
 	background-color: #FFF3C4;
 }
-.notes div.top, .notes div.bottom
+.notes .top, .notes div.bottom
 {
 	background-color: #CDAA58;
 }
 													/* Banner */
-.notes .banner
+.banner
 {
 	background-color: #CDAA58;
 }
-.notes .banner.listing .imgHolder
+.banner.listing .imgHolder
 {
 	background-image: url("/NotesManager/themes/yellow/images/banners/oldscript.png");
 }
