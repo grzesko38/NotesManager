@@ -1,9 +1,8 @@
 													/* Footer */
 footer
 {
-	width: 100%;
-	padding-top: 15px;
 	margin-bottom: 30px;
+	width: 100%;
 }
 footer .content
 {
@@ -15,6 +14,11 @@ footer .content
 	margin-right: auto;
 	font-family: arial;
 	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
-    padding: 15px;
-    border-radius: 15px;
+	padding: 15px;
+	border-radius: 0px 0px 15px 15px;
+}
+footer .connector
+{
+	height: 9px;
+	margin: -21px -15px 0px -15px;
 }
