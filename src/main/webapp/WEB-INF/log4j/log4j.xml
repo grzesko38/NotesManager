@@ -14,7 +14,7 @@
 	<appender name="fileAppender" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="File" value="${catalina.base}/logs/mylog" />
 		<param name="Encoding" value="UTF-8" />
-		<param name="DatePattern" value="'-'yyyy-MM-dd'.log'" />
+		<param name="DatePattern" value="'_'yyyy-MM-dd'.log'" />
 		<param name="Threshold" value="info" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n" />
@@ -23,7 +23,7 @@
 	<appender name="fileAppenderDebug" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="File" value="${catalina.base}/logs/mylog_debug" />
 		<param name="Encoding" value="UTF-8" />
-		<param name="DatePattern" value="'-'yyyy-MM-dd'.log'" />
+		<param name="DatePattern" value="'_'yyyy-MM-dd'.log'" />
 		<param name="Threshold" value="debug" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n" />
