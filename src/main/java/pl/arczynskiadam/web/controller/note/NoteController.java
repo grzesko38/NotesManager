@@ -89,10 +89,6 @@ public class NoteController extends AbstractController {
 				pagesData.setFromDate(sessionPagesData.getFromDate());
 				dateForm.setDate(sessionPagesData.getFromDate());
 			}
-//			if (sessionPagesData.getSelectedNotesIds() != null) {
-//				pagesData.setSelectedNotesIds(sessionPagesData.getSelectedNotesIds());
-//				selectedCheckboxesForm.setSelections(noteFacade.convertNotesIdsToSelections(sessionPagesData.getSelectedNotesIds()));
-//			}
 		}
 		if (notes == null) {
 			notes = noteFacade.listNotes();
@@ -108,12 +104,6 @@ public class NoteController extends AbstractController {
 		
 		log.debug("sortCol: " + pagesData.getPagedListHolder().getSort().getProperty());
 		log.debug("SortAsc: " + pagesData.getPagedListHolder().getSort().isAscending());
-		
-//		if (request.getParameter("theme") != null || request.getParameter("lang") != null) {
-//			if (retrievePagesDataFromSession() != null) {
-//				pagesData.getPagedListHolder().setPage(retrievePagesDataFromSession().getPagedListHolder().getPage());
-//			}
-//		}
 		
 		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pagesData);
 		savePagesDataToSession(pagesData);
@@ -259,7 +249,7 @@ public class NoteController extends AbstractController {
 	}
 	
 	private void paginateData(PagesData pagesData, List<NoteDTO> notes) {
-		paginateData(pagesData, notes, null, null, null, null);
+		paginateData(pagesData, notes, 0, null, null, null);
 	}
 	
 	private void paginateData(PagesData pagesData, List<NoteDTO> notes,
