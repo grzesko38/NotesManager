@@ -14,8 +14,6 @@ NotesGridScripts = {
 			}
 		});
 		$("#selectAll").prop('checked', allChecked);
-		
-		NotesGridScripts.postAjaxSelectedIds();
 	},
 	postAjaxSelectedIds: function() {
 		var params = {
@@ -53,8 +51,11 @@ NotesGridScripts = {
 }
 
 $(document).ready(function() {
-	$("#selectAll").change(NotesGridScripts.toggleAll);
-	$("input[id^='selections']").change(NotesGridScripts.updateSelectAllCheckbox);
+	$("#selectAll").click(NotesGridScripts.toggleAll);
+	$("input[id^='selections']").click(function() {
+		NotesGridScripts.updateSelectAllCheckbox();
+		NotesGridScripts.postAjaxSelectedIds();
+	});
 	NotesGridScripts.updateSelectAllCheckbox();
 	NotesGridScripts.handleEntriesPerPageForms();
 	
