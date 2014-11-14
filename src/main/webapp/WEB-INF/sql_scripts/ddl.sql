@@ -1,3 +1,8 @@
+DROP DATABASE If EXISTS notesmanager;
+CREATE DATABASE notesmanager;
+USE notesmanager
+GRANT ALL ON notesmanager TO Adam@localhost;
+
 DROP TABLE IF EXISTS NOTES;
 CREATE TABLE NOTES
 (
