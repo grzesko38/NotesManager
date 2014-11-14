@@ -2,11 +2,9 @@
 <!DOCTYPE hibernate-configuration PUBLIC
     "-//Hibernate/Hibernate Configuration DTD//EN"
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
- 
+
 <hibernate-configuration>
-    <session-factory>
-<!--     	logging sql moved to log4j -->
-        <property name="show_sql">false</property>
-        <property name="javax.persistence.validation.mode">none</property>
-    </session-factory>
+	<session-factory>
+		<mapping class="pl.arczynskiadam.core.model.note.NoteVO" />
+    </session-factory>    
 </hibernate-configuration>
