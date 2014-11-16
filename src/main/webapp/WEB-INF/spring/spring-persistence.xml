@@ -55,10 +55,6 @@
 <!-- 	        <value>pl.arczynskiadam.core.model.note</value> -->
 <!-- 	      </array> -->
 <!-- 	    </property> -->
-			<!-- required for Hibernate 3 -->
-<!-- 		<property name="configurationClass"> -->
-<!-- 			<value>org.hibernate.cfg.AnnotationConfiguration</value> -->
-<!-- 		</property> -->
 	</bean>
 	
 	<tx:annotation-driven />
@@ -79,6 +75,5 @@
 <!--             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" /> -->
 <!--         </property> -->
 <!--     </bean> -->
-	
-	
+
 </beans>
