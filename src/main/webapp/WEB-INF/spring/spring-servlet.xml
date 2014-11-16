@@ -125,5 +125,5 @@
             <value>POST</value>
          </list>
      </property>
-</bean>
+	</bean>
 </beans>

@@ -47,18 +47,11 @@
 <!-- 	        <value>pl.arczynskiadam.core.model.note</value> -->
 <!-- 	      </array> -->
 <!-- 	    </property> -->
-			<!-- required for Hibernate 3 -->
-<!-- 		<property name="configurationClass"> -->
-<!-- 			<value>org.hibernate.cfg.AnnotationConfiguration</value> -->
-<!-- 		</property> -->
 	</bean>
 	
 	<tx:annotation-driven />
 
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
-	
 </beans>
