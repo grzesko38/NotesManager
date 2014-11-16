@@ -22,6 +22,6 @@ public abstract class AbstractController {
 			navItems.add(item);
 		}
 		
-		model.addAttribute(GlobalControllerConstants.ModelAttrKeys.Navigation.breadcrumbs, navItems);
+		model.addAttribute(GlobalControllerConstants.ModelAttrKeys.Navigation.Breadcrumbs, navItems);
 	}
 }

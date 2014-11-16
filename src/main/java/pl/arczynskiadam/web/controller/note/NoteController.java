@@ -43,7 +43,7 @@ import pl.arczynskiadam.web.tag.navigation.BreadcrumbsItem;
 import pl.arczynskiadam.web.validation.SelectedCheckboxesValidator;
 
 @Controller
-@RequestMapping(value = NoteControllerConstants.URLs.manager)
+@RequestMapping(value = NoteControllerConstants.URLs.MANAGER)
 public class NoteController extends AbstractController {
 	
 	private static final Logger log = Logger.getLogger(NoteController.class);
@@ -62,30 +62,30 @@ public class NoteController extends AbstractController {
 	@Resource(name="notesPageSizes")
 	List<Integer> notesPageSizes;
 	
-	@InitBinder(GlobalControllerConstants.ModelAttrKeys.Form.selectedCheckboxesForm) //argument = command/modelattr name
+	@InitBinder(GlobalControllerConstants.ModelAttrKeys.Form.SelectedCheckboxes) //argument = command/modelattr name
 		public void initBinder(WebDataBinder binder) {
 		binder.addValidators(selectedCheckboxesValidator);
 	}
 	
-	@RequestMapping(value = NoteControllerConstants.URLs.show, method = RequestMethod.GET, params = {"!date"})
+	@RequestMapping(value = NoteControllerConstants.URLs.SHOW, method = RequestMethod.GET, params = {"!date"})
 	public String listNotes(@RequestParam(value = GlobalControllerConstants.RequestParams.PAGE, required = false) Integer page,
 			@RequestParam(value = GlobalControllerConstants.RequestParams.SORT_COLUMN, required = false) String sortCol,
 			@RequestParam(value = GlobalControllerConstants.RequestParams.SORT_ORDER, required = false) String sortOrder,
-			@ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.date) DateForm dateForm,
-			@ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.selectedCheckboxesForm) SelectedCheckboxesForm selectedCheckboxesForm,
-			@ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.entriesPerPageForm) EntriesPerPageForm entriesPerPageForm,
+			@ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.Date) DateForm dateForm,
+			@ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.SelectedCheckboxes) SelectedCheckboxesForm selectedCheckboxesForm,
+			@ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.EntriesPerPage) EntriesPerPageForm entriesPerPageForm,
 			HttpServletResponse response,
 			final Model model) {
 		
 		List<NoteDTO> notes = null;
 		
-		PagesData sessionPagesData = retrievePagesDataFromSession();
+		NotesPagesData sessionPagesData = retrievePagesDataFromSession();
 		if (sessionPagesData != null) {
 			if (sessionPagesData.getFromDate() != null) {
 				notes = noteFacade.listNotesFromDate(sessionPagesData.getFromDate());
 			} 
 		} else {
-			sessionPagesData = new PagesData();
+			sessionPagesData = new NotesPagesData();
 		}
 		if (notes == null) {
 			notes = noteFacade.listNotes();
@@ -101,32 +101,32 @@ public class NoteController extends AbstractController {
 		log.debug("sortCol: " + sessionPagesData.getPagedListHolder().getSort().getProperty());
 		log.debug("SortAsc: " + sessionPagesData.getPagedListHolder().getSort().isAscending());
 		
-		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, sessionPagesData);
+		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, sessionPagesData);
 		
 		dateForm.setDate(sessionPagesData.getFromDate());
 		selectedCheckboxesForm.setSelections(noteFacade.convertNotesIdsToSelections(sessionPagesData.getSelectedNotesIds()));
 		populateEntriesPerPageForm(entriesPerPageForm, sessionPagesData.getPagedListHolder().getPageSize());
 
-		return NoteControllerConstants.Pages.list;
+		return NoteControllerConstants.Pages.LISTING;
 	}
 	
-	@RequestMapping(value = NoteControllerConstants.URLs.show, method = RequestMethod.GET, params = {"!p", "date"})
-	public String listNotesFromDate(@ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.entriesPerPageForm) EntriesPerPageForm entriesPerPageForm,
-			@ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.selectedCheckboxesForm) SelectedCheckboxesForm selectedCheckboxesForm,
-			@Valid @ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.date) DateForm dateForm,
+	@RequestMapping(value = NoteControllerConstants.URLs.SHOW, method = RequestMethod.GET, params = {"!p", "date"})
+	public String listNotesFromDate(@ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.EntriesPerPage) EntriesPerPageForm entriesPerPageForm,
+			@ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.SelectedCheckboxes) SelectedCheckboxesForm selectedCheckboxesForm,
+			@Valid @ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.Date) DateForm dateForm,
 			BindingResult result,
 			HttpServletResponse response,
 			final Model model) {
 		
-		PagesData sessionPagesData = retrievePagesDataFromSession();
+		NotesPagesData sessionPagesData = retrievePagesDataFromSession();
 		List<NoteDTO> notes = null;
 		Date date = dateForm.getDate();	
 		
 		if (result.hasErrors()) {
-			model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, sessionPagesData);
+			model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, sessionPagesData);
 			populateEntriesPerPageForm(entriesPerPageForm);
 			
-			return NoteControllerConstants.Pages.list;
+			return NoteControllerConstants.Pages.LISTING;
 		} else {
 			sessionPagesData.setFromDate(date);
 			if (date == null) {
@@ -138,34 +138,34 @@ public class NoteController extends AbstractController {
 		paginateData(sessionPagesData, notes);
 		populateEntriesPerPageForm(entriesPerPageForm, sessionPagesData.getPagedListHolder().getPageSize());
 		
-		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, sessionPagesData);
+		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, sessionPagesData);
 			
-		return NoteControllerConstants.Pages.list;
+		return NoteControllerConstants.Pages.LISTING;
 	}
 	
-	@RequestMapping(value = NoteControllerConstants.URLs.add, method = RequestMethod.GET)
-	public String addNote(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.add) NewNoteForm note,
+	@RequestMapping(value = NoteControllerConstants.URLs.ADD, method = RequestMethod.GET)
+	public String addNote(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.Add) NewNoteForm note,
 			final Model model,
 			HttpServletRequest request) {
 		
 		createBreadcrumpAndSaveToModel(model,
-				new BreadcrumbsItem("Home", NoteControllerConstants.URLs.showFull),
-				new BreadcrumbsItem("Add note", GlobalControllerConstants.Misc.hash));
+				new BreadcrumbsItem("Home", NoteControllerConstants.URLs.SHOW_FULL),
+				new BreadcrumbsItem("Add note", GlobalControllerConstants.Misc.HASH));
 		
-		return NoteControllerConstants.Pages.add;
+		return NoteControllerConstants.Pages.ADD;
 	}
 	
-	@RequestMapping(value = NoteControllerConstants.URLs.addPost, method = RequestMethod.POST)
-	public String saveNote(@Validated(All.class) @ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.add) NewNoteForm note,
+	@RequestMapping(value = NoteControllerConstants.URLs.ADD_POST, method = RequestMethod.POST)
+	public String saveNote(@Validated(All.class) @ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.Add) NewNoteForm note,
 			BindingResult result,
 			Model model) {
 		
 		if (result.hasErrors()) {
 			createBreadcrumpAndSaveToModel(model,
-					new BreadcrumbsItem("Home", NoteControllerConstants.URLs.showFull),
-					new BreadcrumbsItem("Add note", GlobalControllerConstants.Misc.hash));
+					new BreadcrumbsItem("Home", NoteControllerConstants.URLs.SHOW_FULL),
+					new BreadcrumbsItem("Add note", GlobalControllerConstants.Misc.HASH));
 			
-			return NoteControllerConstants.Pages.add;
+			return NoteControllerConstants.Pages.ADD;
 		} else {
 			NoteDetailsDTO noteDetails = new NoteDetailsDTO();
 			noteDetails.setAuthor(note.getAuthor());
@@ -174,62 +174,62 @@ public class NoteController extends AbstractController {
 			noteDetails.setContent(note.getContent());
 			noteFacade.addNote(noteDetails);
 			
-			request.getSession().removeAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination);
+			request.getSession().removeAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination);
 			
-			return GlobalControllerConstants.Prefixes.redirect + NoteControllerConstants.URLs.showFull;
+			return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
 		}
 	}
 
-	@RequestMapping(value = NoteControllerConstants.URLs.delete, method = RequestMethod.POST)
+	@RequestMapping(value = NoteControllerConstants.URLs.DELETE, method = RequestMethod.POST)
 	public String deleteNote(@PathVariable("noteId") Integer noteId) {
 	
 		noteFacade.deleteNote(noteId);
 
-		return GlobalControllerConstants.Prefixes.redirect + NoteControllerConstants.URLs.showFull;
+		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
 	}
 	
-	@RequestMapping(value = NoteControllerConstants.URLs.show, method = RequestMethod.POST, params="delete")
-	public String deleteNotes(@ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.entriesPerPageForm) EntriesPerPageForm entriesPerPageForm,
-			@ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.date) DateForm dateForm,
-			@Valid @ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.selectedCheckboxesForm) SelectedCheckboxesForm selectedCheckboxesForm,	
+	@RequestMapping(value = NoteControllerConstants.URLs.SHOW, method = RequestMethod.POST, params="delete")
+	public String deleteNotes(@ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.EntriesPerPage) EntriesPerPageForm entriesPerPageForm,
+			@ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.Date) DateForm dateForm,
+			@Valid @ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.SelectedCheckboxes) SelectedCheckboxesForm selectedCheckboxesForm,	
 			BindingResult result,
 			RedirectAttributes attrs,
 			final Model model) {
 
 		if (result.hasErrors()) {
-			PagesData sessionPagesData = retrievePagesDataFromSession();
+			NotesPagesData sessionPagesData = retrievePagesDataFromSession();
 			if (sessionPagesData.getFromDate() != null) {
 				dateForm.setDate(sessionPagesData.getFromDate());
 			}
 			
-			model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, sessionPagesData);
+			model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, sessionPagesData);
 			populateEntriesPerPageForm(entriesPerPageForm);
 			
-			return NoteControllerConstants.Pages.list;
+			return NoteControllerConstants.Pages.LISTING;
 		}
 		
 		Set<Integer> ids = noteFacade.convertSelectionsToNotesIds(selectedCheckboxesForm.getSelections());
 		noteFacade.deleteNotes(ids);
 
-		PagesData sessionPagesData = retrievePagesDataFromSession();
+		NotesPagesData sessionPagesData = retrievePagesDataFromSession();
 		int page = sessionPagesData != null ? sessionPagesData.getPagedListHolder().getPage() : 0; 
 		attrs.addAttribute(GlobalControllerConstants.RequestParams.PAGE, page);
 		
-		return GlobalControllerConstants.Prefixes.redirect + NoteControllerConstants.URLs.showFull;
+		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
 	}
 	
-	@RequestMapping(value = NoteControllerConstants.URLs.details, method = RequestMethod.GET)
-	public String noteDetails(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.note) NoteDetailsDTO note,
+	@RequestMapping(value = NoteControllerConstants.URLs.DETAILS, method = RequestMethod.GET)
+	public String noteDetails(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.Note) NoteDetailsDTO note,
 			@PathVariable("noteId") Integer noteId,
 			final Model model) {
 		
 		createBreadcrumpAndSaveToModel(model,
-				new BreadcrumbsItem("Home", NoteControllerConstants.URLs.showFull),
-				new BreadcrumbsItem("Note details", GlobalControllerConstants.Misc.hash));
+				new BreadcrumbsItem("Home", NoteControllerConstants.URLs.SHOW_FULL),
+				new BreadcrumbsItem("Note details", GlobalControllerConstants.Misc.HASH));
 		
 		note.setContent(noteFacade.findNoteById(noteId).getContent());
 
-		return NoteControllerConstants.Pages.details;
+		return NoteControllerConstants.Pages.DETAILS;
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -237,17 +237,17 @@ public class NoteController extends AbstractController {
 	public void noteSelected(@RequestBody SelectedCheckboxesForm selectedCheckboxesForm) {
 		log.debug("checboxes vals to update from ajax: " + selectedCheckboxesForm.toString());
 		
-		PagesData sessionPagesData = retrievePagesDataFromSession();
+		NotesPagesData sessionPagesData = retrievePagesDataFromSession();
 		Set<Integer> ids = noteFacade.convertSelectionsToNotesIds(selectedCheckboxesForm.getSelections());
 		sessionPagesData.setSelectedNotesIds(ids);
 //		savePagesDataToSession(sessionPagesData);
 	}
 	
-	private void paginateData(PagesData pagesData, List<NoteDTO> notes) {
+	private void paginateData(NotesPagesData pagesData, List<NoteDTO> notes) {
 		paginateData(pagesData, notes, 0, null, null, null);
 	}
 	
-	private void paginateData(PagesData pagesData, List<NoteDTO> notes,
+	private void paginateData(NotesPagesData pagesData, List<NoteDTO> notes,
 			Integer page, Integer size,	String sortColumn, String sortOrder) {
 		
 		Boolean ascending = sortOrder == null ? null : "asc".equals(sortOrder);
@@ -260,7 +260,7 @@ public class NoteController extends AbstractController {
 		}
 	}
 	
-	private void updatePaginationData(PagesData pagesData, List<NoteDTO> notes, Integer page,
+	private void updatePaginationData(NotesPagesData pagesData, List<NoteDTO> notes, Integer page,
 			Integer size, String sortColumn, Boolean ascending) {
 		
 		PagedListHolder<NoteDTO> pagedListHolder = pagesData.getPagedListHolder();
@@ -296,7 +296,7 @@ public class NoteController extends AbstractController {
 		pagesData.setPagedListHolder(pagedListHolder);
 	}
 	
-	private void paginateDataToDefaults(PagesData pagesData, List<NoteDTO> notes,
+	private void paginateDataToDefaults(NotesPagesData pagesData, List<NoteDTO> notes,
 			Integer page, Integer size, String sortColumn, Boolean ascending) {
 		PagedListHolder<NoteDTO> pagedListHolder = new PagedListHolder<NoteDTO>(notes);
 
@@ -314,7 +314,7 @@ public class NoteController extends AbstractController {
 		pagesData.setPagedListHolder(pagedListHolder);
 	}
 	
-	private void clearSelectedNotesIds(PagesData pagesData) {
+	private void clearSelectedNotesIds(NotesPagesData pagesData) {
 		pagesData.getSelectedNotesIds().clear();
 	}
 	
@@ -325,7 +325,7 @@ public class NoteController extends AbstractController {
 	
 	private void populateEntriesPerPageForm(EntriesPerPageForm entriesPerPageForm) {
 		entriesPerPageForm.setPageSizes(EntriesPerPageForm.convertToPageSizesItemsList(this.notesPageSizes));
-		PagesData sessionPagesData = retrievePagesDataFromSession();
+		NotesPagesData sessionPagesData = retrievePagesDataFromSession();
 		if (sessionPagesData != null) {
 			entriesPerPageForm.setSize(Integer.toString(sessionPagesData.getPagedListHolder().getPageSize()));
 		} else {
@@ -333,15 +333,15 @@ public class NoteController extends AbstractController {
 		}
 	}
 	
-	private PagesData retrievePagesDataFromSession() {
-		PagesData sessionsPagesData = (PagesData) request.getSession().getAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination);
+	private NotesPagesData retrievePagesDataFromSession() {
+		NotesPagesData sessionsPagesData = (NotesPagesData) request.getSession().getAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination);
 		if (sessionsPagesData == null) {
 			return null;
 		}
 		return sessionsPagesData;
 	}
 	
-	private void savePagesDataToSession(PagesData pagesData) {
-		request.getSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.pagination, pagesData);
+	private void savePagesDataToSession(NotesPagesData pagesData) {
+		request.getSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, pagesData);
 	}
 }

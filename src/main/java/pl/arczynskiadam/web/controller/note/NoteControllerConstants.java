@@ -5,35 +5,35 @@ public interface NoteControllerConstants {
 	interface Pages {
 		final String _notes = "notes";
 		
-		public static final String add 		= _notes + "/new";
-		public static final String details 	= _notes + "/details";
-		public static final String list 	= _notes + "/listing";
+		public static final String ADD 		= _notes + "/new";
+		public static final String DETAILS 	= _notes + "/details";
+		public static final String LISTING 	= _notes + "/listing";
 	}
 	
 	interface ModelAttrKeys {
 		interface Form {
-			public static final String add	= "noteForm";
-			public static final String date = "dateForm";
+			public static final String Add	= "noteForm";
+			public static final String Date = "dateForm";
 		}
 
 		interface View {			
-			public static final String pagination 		= "notesPaginationData";
-			public static final String note 			= "note";
+			public static final String Pagination = "notesPaginationData";
+			public static final String Note 	  = "note";
 		}
 	}
 	
 	interface URLs {		
-		public static final String manager		= "/notesmanager";
-		public static final String show			= "/show";
-		public static final String showFull		= manager + show;
-		public static final String add			= "/add";
-		public static final String addFull		= manager + add;
-		public static final String addPost 		= "/add.do";
-		public static final String addPostFull	= manager + addPost;
-		public static final String delete		= "/delete/{noteId}";
-		public static final String deleteFull	= manager + delete;
-		public static final String details 		= "/details/{noteId}";
-		public static final String detailsFull	= manager + details;
+		public static final String MANAGER			= "/notesmanager";
+		public static final String SHOW				= "/show";
+		public static final String SHOW_FULL		= MANAGER + SHOW;
+		public static final String ADD				= "/add";
+		public static final String ADD_FULL			= MANAGER + ADD;
+		public static final String ADD_POST 		= "/add.do";
+		public static final String ADD_POST_FULL	= MANAGER + ADD_POST;
+		public static final String DELETE			= "/delete/{noteId}";
+		public static final String DELETE_FULL		= MANAGER + DELETE;
+		public static final String DETAILS 			= "/details/{noteId}";
+		public static final String DETAILS_FULL		= MANAGER + DETAILS;
 	}
 	
 	interface Defaults {
