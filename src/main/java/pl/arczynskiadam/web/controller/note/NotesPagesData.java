@@ -11,7 +11,7 @@ import org.springframework.beans.support.PagedListHolder;
 
 import pl.arczynskiadam.core.model.note.NoteDTO;
 
-public class PagesData {
+public class NotesPagesData {
 	{
 		selectedNotesIds = new HashSet<Integer>();
 	}
@@ -20,8 +20,8 @@ public class PagesData {
 	private Set<Integer> selectedNotesIds;
 	private Date fromDate;
 	
-	public PagesData() { }
-	public PagesData(PagesData other) {
+	public NotesPagesData() { }
+	public NotesPagesData(NotesPagesData other) {
 		//pagedlistholder
 		this.pagedListHolder = new PagedListHolder<NoteDTO>();
 		if (other.pagedListHolder != null) {
