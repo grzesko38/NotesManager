@@ -9,16 +9,17 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import pl.arczynskiadam.core.dao.note.NoteDAO;
 import pl.arczynskiadam.core.model.note.NoteVO;
 
-@Repository
+@Service
 public class DefaultNoteDAO implements NoteDAO {
 	
 	private static final Logger log = Logger.getLogger(DefaultNoteDAO.class);
 
-	@Autowired
+//	@Autowired
 	private SessionFactory sessionFactory;
 
 	public void addNote(NoteVO note) {

@@ -9,6 +9,7 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
@@ -16,7 +17,8 @@
 		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 		
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
@@ -29,14 +31,20 @@
 		p:password="${jdbc.password}" />
 
 	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocations">
-			<list>
-				<value>/WEB-INF/hibernate/hibernate.cfg.xml</value>
-				<value>/WEB-INF/hibernate/hibernate.mappings.xml</value>
-			</list>
-		</property>
+		<property name="packagesToScan" value="pl.arczynskiadam.core.model.note" />
+	    <property name="jpaVendorAdapter">
+	        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+	    </property>
+		
+		
+<!-- 		<property name="configLocations"> -->
+<!-- 			<list> -->
+<!-- 				<value>/WEB-INF/hibernate/hibernate.cfg.xml</value> -->
+<!-- 				<value>/WEB-INF/hibernate/hibernate.mappings.xml</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
 <!-- 		<property name="hibernateProperties"> -->
 <!-- 			<props> -->
 <!-- 				<prop key="hibernate.dialect">${jdbc.dialect}</prop> -->
@@ -56,9 +64,21 @@
 	<tx:annotation-driven />
 
 	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+<!-- 		<property name="sessionFactory" ref="sessionFactory" /> -->
+		<property name="entityManagerFactory" ref="sessionFactory" />
 	</bean>
+	
+	<jpa:repositories base-package="pl.arczynskiadam.core.dao.note" />
+	
+<!--     <bean id="entityManagerFactory"  -->
+<!--           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" -->
+<!--     	  p:dataSource-ref="dataSource" -->
+<!--           p:persistenceUnitName="hsql"> -->
+<!--         <property name="jpaVendorAdapter"> -->
+<!--             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" /> -->
+<!--         </property> -->
+<!--     </bean> -->
 	
 	
 </beans>
