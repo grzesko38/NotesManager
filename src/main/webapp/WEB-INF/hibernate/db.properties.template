@@ -1,4 +1,4 @@
-jdbc.driverClassName= com.mysql.jdbc.Driver
+jdbc.driverClassName=com.mysql.jdbc.Driver
 jdbc.dialect=org.hibernate.dialect.MySQLDialect
 jdbc.databaseurl=jdbc:mysql://127.0.0.1:15000/notesmanager
 jdbc.username=adam
