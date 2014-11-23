@@ -10,24 +10,24 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@NamedQueries({
-	@NamedQuery(
-			name = "findAllNotes",
-			query = "FROM NoteVO"
-	),
-	@NamedQuery(
-			name = "findNotesFromDate",
-			query = "FROM NoteVO WHERE dateCreated >= :date"
-	),
-	@NamedQuery(
-			name = "findNoteById",
-			query = "FROM NoteVO N where N.id = :id"
-	),
-	@NamedQuery(
-			name = "deleteNotesByIds",
-			query = "DELETE NoteVO N where N.id IN (:ids)"
-	)
-})
+//@NamedQueries({
+//	@NamedQuery(
+//			name = "findAllNotes",
+//			query = "FROM NoteVO"
+//	),
+//	@NamedQuery(
+//			name = "findNotesFromDate",
+//			query = "FROM NoteVO WHERE dateCreated >= :date"
+//	),
+//	@NamedQuery(
+//			name = "findNoteById",
+//			query = "FROM NoteVO N where N.id = :id"
+//	),
+//	@NamedQuery(
+//			name = "deleteNotesByIds",
+//			query = "DELETE NoteVO N where N.id IN (:ids)"
+//	)
+//})
 @Entity
 @Table(name="NOTES")
 public class NoteVO {

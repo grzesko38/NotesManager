@@ -2,15 +2,13 @@ package pl.arczynskiadam.core.service.note.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
-import javax.persistence.PersistenceContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import pl.arczynskiadam.core.dao.note.NoteDAO;
 import pl.arczynskiadam.core.dao.note.NoteRepository;
 import pl.arczynskiadam.core.model.note.NoteVO;
 import pl.arczynskiadam.core.service.note.NoteService;
@@ -43,8 +41,8 @@ public class DefaultNoteService implements NoteService {
 	}
 	
 	@Transactional
-	public void deleteNotes(int[] ids) {
-		//noteDAO.deleteNotes(ids);
+	public void deleteNotes(Set<Integer> ids) {
+		noteDAO.deleteByIds(ids);
 	}
 	
 	@Transactional

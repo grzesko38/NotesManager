@@ -1,11 +1,13 @@
 package pl.arczynskiadam.web.facade.note.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -85,17 +87,16 @@ public class NoteDefaultFacade implements NoteFacade {
 	
 	@Override
 	public void deleteNotes(int[] ids) {
-		noteService.deleteNotes(ids);
+		HashSet<Integer> toDelete = new HashSet<>();
+		for (int id : ids) {
+			toDelete.add(new Integer(id));
+		}
+		deleteNotes(toDelete);
 	}
 	
 	@Override
 	public void deleteNotes(Set<Integer> ids) {
-		int[] convertedIds = new int[ids.size()];
-		int i = 0;
-		for (Integer id: ids) {
-			convertedIds[i++] = id;
-		}
-		deleteNotes(convertedIds);
+		noteService.deleteNotes(ids);
 	}
 	
 	@Override
