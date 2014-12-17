@@ -6,20 +6,10 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-<<<<<<< HEAD
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-=======
-import javax.annotation.Resource;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import pl.arczynskiadam.core.dao.note.NoteDAO;
->>>>>>> jpa data draft
+import pl.arczynskiadam.core.dao.note.NotePredicates;
 import pl.arczynskiadam.core.dao.note.NoteRepository;
 import pl.arczynskiadam.core.model.note.NoteVO;
 import pl.arczynskiadam.core.service.note.NoteService;
@@ -43,7 +33,7 @@ public class DefaultNoteService implements NoteService {
 	
 	@Transactional
 	public List<NoteVO> listNotesFromDate(Date date) {
-		return null;//noteDAO.listNotesFromDate(date);
+		return (List<NoteVO>) noteDAO.findAll(NotePredicates.from(date));
 	}
 
 	@Transactional
