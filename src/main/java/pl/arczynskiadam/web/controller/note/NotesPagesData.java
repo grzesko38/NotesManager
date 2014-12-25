@@ -1,54 +1,51 @@
 package pl.arczynskiadam.web.controller.note;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import org.springframework.beans.support.MutableSortDefinition;
-import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
 
-import pl.arczynskiadam.core.model.note.NoteDTO;
+import pl.arczynskiadam.core.model.note.NoteVO;
 
 public class NotesPagesData {
 	{
 		selectedNotesIds = new HashSet<Integer>();
+		maxLinkedPages = 5;
 	}
 	
-	private PagedListHolder<NoteDTO> pagedListHolder;
+	private Page<NoteVO> page;
 	private Set<Integer> selectedNotesIds;
 	private Date fromDate;
+	private int maxLinkedPages;
 	
 	public NotesPagesData() { }
-	public NotesPagesData(NotesPagesData other) {
-		//pagedlistholder
-		this.pagedListHolder = new PagedListHolder<NoteDTO>();
-		if (other.pagedListHolder != null) {
-			this.pagedListHolder.setMaxLinkedPages(other.pagedListHolder.getMaxLinkedPages());
-			this.pagedListHolder.setPage(other.pagedListHolder.getPage());
-			this.pagedListHolder.setPageSize(other.pagedListHolder.getPageSize());
-			this.pagedListHolder.setSort(new MutableSortDefinition(other.pagedListHolder.getSort()));
-			this.pagedListHolder.setSource(new ArrayList<NoteDTO>(other.pagedListHolder.getSource()));
-		}
-		
-		//selected ids
-		this.selectedNotesIds = new HashSet<Integer>(other.getSelectedNotesIds());
-
-		// from date
-		if (other.fromDate != null) {
-			this.fromDate = new Date(other.fromDate.getTime());
-		} 
+	public NotesPagesData(int maxLinkedPages) {
+		this.maxLinkedPages = maxLinkedPages;
 	}
 	
-	public PagedListHolder<NoteDTO> getPagedListHolder() {
-		return pagedListHolder;
+	public String getSortCol() {
+		return page.getSort().iterator().next().getProperty();
 	}
 	
-	public void setPagedListHolder(PagedListHolder<NoteDTO> pagedListHolder) {
-		this.pagedListHolder = pagedListHolder;
+	public boolean isSortAscending() {
+		return page.getSort().getOrderFor(getSortCol()).isAscending();
 	}
 	
+	public int getFirstLinkedPage() {
+  		return Math.max(0, page.getNumber() - (maxLinkedPages / 2));
+	}
+	
+	public int getLastLinkedPage() {
+		return Math.min(getFirstLinkedPage() + maxLinkedPages - 1, page.getTotalPages() - 1);
+	}
+	
+	public Page<NoteVO> getPage() {
+		return page;
+	}
+	public void setPage(Page<NoteVO> page) {
+		this.page = page;
+	}
 	public Set<Integer> getSelectedNotesIds() {
 		return selectedNotesIds;
 	}
@@ -58,8 +55,13 @@ public class NotesPagesData {
 	public Date getFromDate() {
 		return fromDate;
 	}
-
 	public void setFromDate(Date fromDate) {
 		this.fromDate = fromDate;
+	}
+	public int getMaxLinkedPages() {
+		return maxLinkedPages;
+	}
+	public void setMaxLinkedPages(int linkedPages) {
+		this.maxLinkedPages = linkedPages;
 	}
 }

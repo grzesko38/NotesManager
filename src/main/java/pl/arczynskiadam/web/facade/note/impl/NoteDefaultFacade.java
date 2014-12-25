@@ -9,19 +9,28 @@ import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import pl.arczynskiadam.core.model.note.NoteDTO;
 import pl.arczynskiadam.core.model.note.NoteDetailsDTO;
 import pl.arczynskiadam.core.model.note.NoteVO;
+import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.core.service.note.NoteService;
+import pl.arczynskiadam.web.controller.GlobalControllerConstants;
+import pl.arczynskiadam.web.controller.note.NoteControllerConstants;
+import pl.arczynskiadam.web.controller.note.NotesPagesData;
 import pl.arczynskiadam.web.facade.note.NoteFacade;
 
 @Repository
 public class NoteDefaultFacade implements NoteFacade {
 
-	@Autowired
+	@Autowired(required = true)
 	private NoteService noteService;
+	
+	@Autowired(required = true)
+	private SessionService sessionService;
 
 	@Override
 	public void addNote(NoteDetailsDTO note) {
@@ -34,37 +43,16 @@ public class NoteDefaultFacade implements NoteFacade {
 	}
 
 	@Override
-	public List<NoteDTO> listNotes() {
-		List<NoteVO> notes = noteService.listNotes();
-		List<NoteDTO> result = new ArrayList<>();
-		for (NoteVO note : notes) {
-			NoteDTO n = new NoteDTO();
-			n.setId(note.getId());
-			n.setAuthor(note.getAuthor());
-			n.setEmail(note.getEmail());
-			n.setDateCreated(note.getDateCreated());
-			result.add(n);
-		}
-		return result;
+	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
+		return noteService.listNotes(pageId, pageSize, sortCol, asc);
 	}
 	
 	@Override
-	public List<NoteDTO> listNotesFromDate(Date date) {
-		if (date ==null) {
+	public Page<NoteVO> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date) {
+		if (date == null) {
 			throw new IllegalArgumentException("date cannot be null.");
 		}
-		
-		List<NoteVO> notes = noteService.listNotesFromDate(date);
-		List<NoteDTO> result = new ArrayList<>();
-		for (NoteVO note : notes) {
-			NoteDTO n = new NoteDTO();
-			n.setId(note.getId());
-			n.setAuthor(note.getAuthor());
-			n.setEmail(note.getEmail());
-			n.setDateCreated(note.getDateCreated());
-			result.add(n);
-		}
-		return result;
+		return noteService.listNotesFromDate(pageId, pageSize, sortCol, asc, date);
 	}
 	
 	@Override
@@ -120,4 +108,5 @@ public class NoteDefaultFacade implements NoteFacade {
 		
 		return selections;
 	}
+
 }

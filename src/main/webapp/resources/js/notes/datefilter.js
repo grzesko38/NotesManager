@@ -1,18 +1,18 @@
 NotesDateFilterScripts = {
 	clearDateFilter: function() {
 		$("#dateForm").find("input[name='date']" ).val("");
-		$("#dateForm").submit();
+//		$("#dateForm").submit();
 		
-//		var params = {
-//			url: $("#dateForm").attr("action"),
-//			data: {
-//				date: ""
-//			},
-//			dataType: "html",
-//			success: function(data) {$("html").html(data);},
-//			type: "get"
-//		};
-//		$.ajax(params);
+		$.ajax({
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json' 
+		    },
+			method: "GET",
+		    url: "/NotesManager/notesmanager/resetDateFilter.ajax",
+		    data: JSON.stringify({"selections":["521"]}),
+		    dataType: 'json',
+		});
 	},
 	
 	submitDateFilterForm: function() {

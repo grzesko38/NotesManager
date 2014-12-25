@@ -4,14 +4,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import pl.arczynskiadam.core.model.note.NoteDTO;
 import pl.arczynskiadam.core.model.note.NoteVO;
+import pl.arczynskiadam.web.controller.note.NoteControllerConstants;
+import pl.arczynskiadam.web.controller.note.NotesPagesData;
 
 public interface NoteService {
 	
 	public void addNote(NoteVO note);
-	public List<NoteVO> listNotes();
-	public List<NoteVO> listNotesFromDate(Date date);
+	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc);
+	public Page<NoteVO> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date);
 	public void deleteNote(int id);
 	public void deleteNotes(Set<Integer> ids);
 	public NoteVO findNoteById(int id);
+	public NotesPagesData retrievePagesDataFromSession();
+	public void savePagesDataToSession(NotesPagesData pagesData);
+	public void removePaginationDataFromSession();
 }
