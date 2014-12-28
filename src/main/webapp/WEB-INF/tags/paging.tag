@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" 		uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="form"   	uri="http://www.springframework.org/tags/form" %>
-<%@ attribute name="paginationData" required="true" type="pl.arczynskiadam.web.controller.note.NotesPagesData" %>
+<%@ attribute name="paginationData" required="true" type="pl.arczynskiadam.web.data.NotesPagesData" %>
 <%@ attribute name="linkCore" required="true" type="java.lang.String" %>
 
 <div class="paginationRow">

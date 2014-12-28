@@ -1,12 +1,12 @@
-package pl.arczynskiadam.core.service.note;
+package pl.arczynskiadam.core.service;
 
 import java.util.Date;
 import java.util.Set;
 
 import org.springframework.data.domain.Page;
 
-import pl.arczynskiadam.core.model.note.NoteVO;
-import pl.arczynskiadam.web.controller.note.NotesPagesData;
+import pl.arczynskiadam.core.model.NoteVO;
+import pl.arczynskiadam.web.data.NotesPagesData;
 
 public interface NoteService {
 	

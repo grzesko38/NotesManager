@@ -1,4 +1,4 @@
-package pl.arczynskiadam.web.validation.note;
+package pl.arczynskiadam.web.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

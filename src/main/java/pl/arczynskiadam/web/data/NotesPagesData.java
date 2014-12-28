@@ -1,4 +1,4 @@
-package pl.arczynskiadam.web.controller.note;
+package pl.arczynskiadam.web.data;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.springframework.data.domain.Page;
 
-import pl.arczynskiadam.core.model.note.NoteVO;
+import pl.arczynskiadam.core.model.NoteVO;
 
 public class NotesPagesData {
 	{

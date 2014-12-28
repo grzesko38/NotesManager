@@ -22,8 +22,8 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.4</version>
 			</plugin>
-			<!-- Data JPS querydsl-->
 			
+			<!-- Data JPS querydsl-->
 			<plugin>
 			    <groupId>com.mysema.maven</groupId>
 			    <artifactId>maven-apt-plugin</artifactId>

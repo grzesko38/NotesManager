@@ -1,8 +1,8 @@
-package pl.arczynskiadam.core.dao.note;
+package pl.arczynskiadam.core.dao;
 
 import java.util.Date;
 
-import pl.arczynskiadam.core.model.note.QNoteVO;
+import pl.arczynskiadam.core.model.QNoteVO;
 
 import com.mysema.query.types.Predicate;
 

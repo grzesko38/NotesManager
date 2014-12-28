@@ -1,4 +1,4 @@
-package pl.arczynskiadam.web.form.note;
+package pl.arczynskiadam.web.form;
 
 import javax.validation.GroupSequence;
 import javax.validation.groups.Default;
@@ -6,9 +6,9 @@ import javax.validation.groups.Default;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import pl.arczynskiadam.web.form.note.NewNoteForm.Extended;
+import pl.arczynskiadam.web.form.NewNoteForm.Extended;
 import pl.arczynskiadam.web.validation.FieldMatch;
-import pl.arczynskiadam.web.validation.note.FirstCharsUpperCase;
+import pl.arczynskiadam.web.validation.FirstCharsUpperCase;
 
 @FieldMatch(groups = {Extended.class}, fieldSource = "email", fieldConfirm = "emailConfirmation", message = "{note.email.match}")
 public class NewNoteForm {

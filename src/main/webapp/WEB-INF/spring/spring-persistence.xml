@@ -33,7 +33,7 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="pl.arczynskiadam.core.model.note" />
+		<property name="packagesToScan" value="pl.arczynskiadam.core.model" />
 	    <property name="jpaVendorAdapter">
 	        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 	    </property>
@@ -46,6 +46,6 @@
 		<property name="entityManagerFactory" ref="sessionFactory" />
 	</bean>
 	
-	<jpa:repositories base-package="pl.arczynskiadam.core.dao.note" />
+	<jpa:repositories base-package="pl.arczynskiadam.core.dao" />
 
 </beans>

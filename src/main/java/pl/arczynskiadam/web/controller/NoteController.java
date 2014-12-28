@@ -1,4 +1,4 @@
-package pl.arczynskiadam.web.controller.note;
+package pl.arczynskiadam.web.controller;
 
 import java.util.Date;
 import java.util.List;
@@ -28,16 +28,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pl.arczynskiadam.core.model.note.NoteVO;
-import pl.arczynskiadam.core.service.note.NoteService;
-import pl.arczynskiadam.web.controller.AbstractController;
-import pl.arczynskiadam.web.controller.GlobalControllerConstants;
-import pl.arczynskiadam.web.facade.note.NoteFacade;
+import pl.arczynskiadam.core.model.NoteVO;
+import pl.arczynskiadam.core.service.NoteService;
+import pl.arczynskiadam.web.data.NotesPagesData;
+import pl.arczynskiadam.web.facade.NoteFacade;
+import pl.arczynskiadam.web.form.DateForm;
 import pl.arczynskiadam.web.form.EntriesPerPageForm;
+import pl.arczynskiadam.web.form.NewNoteForm;
+import pl.arczynskiadam.web.form.NewNoteForm.All;
 import pl.arczynskiadam.web.form.SelectedCheckboxesForm;
-import pl.arczynskiadam.web.form.note.DateForm;
-import pl.arczynskiadam.web.form.note.NewNoteForm;
-import pl.arczynskiadam.web.form.note.NewNoteForm.All;
 import pl.arczynskiadam.web.tag.navigation.BreadcrumbsItem;
 import pl.arczynskiadam.web.validation.SelectedCheckboxesValidator;
 
@@ -190,15 +189,6 @@ public class NoteController extends AbstractController {
 		note.setContent(noteFacade.findNoteById(noteId).getContent());
 
 		return NoteControllerConstants.Pages.DETAILS;
-	}
-	
-	
-	@RequestMapping(value = "/resetDateFilter.ajax", method = RequestMethod.GET)
-	public String resetDateFilter(@RequestBody SelectedCheckboxesForm selectedCheckboxesForm) {
-		noteService.retrievePagesDataFromSession().setFromDate(null);
-		
-		return NoteControllerConstants.Pages.ADD;
-		//return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)

@@ -1,4 +1,4 @@
-package pl.arczynskiadam.core.service.note.impl;
+package pl.arczynskiadam.core.service.impl;
 
 import java.util.Date;
 import java.util.Set;
@@ -13,13 +13,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import pl.arczynskiadam.core.dao.note.NotePredicates;
-import pl.arczynskiadam.core.dao.note.NoteRepository;
-import pl.arczynskiadam.core.model.note.NoteVO;
+import pl.arczynskiadam.core.dao.NotePredicates;
+import pl.arczynskiadam.core.dao.NoteRepository;
+import pl.arczynskiadam.core.model.NoteVO;
+import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
-import pl.arczynskiadam.core.service.note.NoteService;
-import pl.arczynskiadam.web.controller.note.NoteControllerConstants;
-import pl.arczynskiadam.web.controller.note.NotesPagesData;
+import pl.arczynskiadam.web.controller.NoteControllerConstants;
+import pl.arczynskiadam.web.data.NotesPagesData;
 
 @Service
 public class DefaultNoteService implements NoteService {

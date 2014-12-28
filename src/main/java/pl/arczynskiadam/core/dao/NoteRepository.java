@@ -1,4 +1,4 @@
-package pl.arczynskiadam.core.dao.note;
+package pl.arczynskiadam.core.dao;
 
 import java.util.Set;
 
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
-import pl.arczynskiadam.core.model.note.NoteVO;
+import pl.arczynskiadam.core.model.NoteVO;
 
 public interface NoteRepository extends JpaRepository<NoteVO, Integer>, QueryDslPredicateExecutor<NoteVO> {
 	

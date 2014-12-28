@@ -3,8 +3,7 @@ package pl.arczynskiadam.web.form;
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.arczynskiadam.web.controller.note.NoteControllerConstants;
-//import pl.arczynskiadam.web.form.EntriesPerPageForm.ComboListItem;
+import pl.arczynskiadam.web.controller.NoteControllerConstants;
 
 public class EntriesPerPageForm {
 	{

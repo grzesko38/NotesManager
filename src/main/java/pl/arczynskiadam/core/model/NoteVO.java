@@ -1,4 +1,4 @@
-package pl.arczynskiadam.core.model.note;
+package pl.arczynskiadam.core.model;
 
 import java.util.Date;
 

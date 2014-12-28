@@ -1,11 +1,11 @@
-package pl.arczynskiadam.web.facade.note;
+package pl.arczynskiadam.web.facade;
 
 import java.util.Date;
 import java.util.Set;
 
 import org.springframework.data.domain.Page;
 
-import pl.arczynskiadam.core.model.note.NoteVO;
+import pl.arczynskiadam.core.model.NoteVO;
 
 public interface NoteFacade {
 	public void addNote(NoteVO note);

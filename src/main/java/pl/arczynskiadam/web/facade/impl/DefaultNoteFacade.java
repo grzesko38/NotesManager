@@ -1,4 +1,4 @@
-package pl.arczynskiadam.web.facade.note.impl;
+package pl.arczynskiadam.web.facade.impl;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 
-import pl.arczynskiadam.core.model.note.NoteVO;
+import pl.arczynskiadam.core.model.NoteVO;
+import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
-import pl.arczynskiadam.core.service.note.NoteService;
-import pl.arczynskiadam.web.facade.note.NoteFacade;
+import pl.arczynskiadam.web.facade.NoteFacade;
 
 @Repository
-public class NoteDefaultFacade implements NoteFacade {
+public class DefaultNoteFacade implements NoteFacade {
 
 	@Autowired(required = true)
 	private NoteService noteService;
