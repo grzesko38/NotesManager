@@ -1,4 +1,4 @@
-package pl.arczynskiadam.web.form.note;
+package pl.arczynskiadam.web.form;
 
 import java.util.Date;
 

@@ -1,21 +1,21 @@
 <%@ taglib prefix="c" 		uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="form"   	uri="http://www.springframework.org/tags/form" %>
-<%@ attribute name="pagedListHolder" required="true" type="org.springframework.beans.support.PagedListHolder" %>
+<%@ attribute name="paginationData" required="true" type="pl.arczynskiadam.web.data.NotesPagesData" %>
 <%@ attribute name="linkCore" required="true" type="java.lang.String" %>
 
 <div class="paginationRow">
 	<div class="margin"></div>
 	<div class="center">
 		<div class="paginationHolder">
-			<c:if test="${!pagedListHolder.firstPage}">
+			<c:if test="${!paginationData.page.firstPage}">
 				<c:url value="${linkCore}" var="pagedLink">
-					<c:param name="p" value="${pagedListHolder.page - 1}"/>
+					<c:param name="p" value="${paginationData.page.number - 1}"/>
 				</c:url>
 				<a href="${pagedLink}">
 					<span class="pagingItem">&lt;</span>
 				</a>
 			</c:if>
-			<c:if test="${pagedListHolder.firstLinkedPage > 0}">
+			<c:if test="${paginationData.firstLinkedPage > 0}">
 				<c:url value="${linkCore}" var="pagedLink">
 					<c:param name="p" value="0"/>
 				</c:url>
@@ -23,12 +23,12 @@
 					<span class="pagingItem">1</span>
 				</a>
 			</c:if>
-			<c:if test="${pagedListHolder.firstLinkedPage > 1}">
+			<c:if test="${paginationData.firstLinkedPage > 1}">
 				<span class="pagingDots">...</span>
 			</c:if>
-			<c:forEach begin="${pagedListHolder.firstLinkedPage}" end="${pagedListHolder.lastLinkedPage}" var="i">
+			<c:forEach begin="${paginationData.firstLinkedPage}" end="${paginationData.lastLinkedPage}" var="i">
 				<c:choose>
-					<c:when test="${pagedListHolder.page == i}">
+					<c:when test="${paginationData.page.number == i}">
 						<span class="pagingItem active">${i + 1}</span>
 					</c:when>
 					<c:otherwise>
@@ -41,20 +41,20 @@
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-			<c:if test="${pagedListHolder.lastLinkedPage < pagedListHolder.pageCount - 2}">
+			<c:if test="${paginationData.lastLinkedPage < paginationData.page.totalPages - 2}">
 				<span class="pagingDots">...</span>
 			</c:if>
-			<c:if test="${pagedListHolder.lastLinkedPage < pagedListHolder.pageCount - 1}">
+			<c:if test="${paginationData.lastLinkedPage < paginationData.page.totalPages - 1}">
 				<c:url value="${linkCore}" var="pagedLink">
-					<c:param name="p" value="${pagedListHolder.pageCount - 1}"/>
+					<c:param name="p" value="${paginationData.page.totalPages - 1}"/>
 				</c:url>
 				<a href="${pagedLink}">
-					<span class="pagingItem">${pagedListHolder.pageCount}</span>
+					<span class="pagingItem">${paginationData.page.totalPages}</span>
 				</a>
 			</c:if>
-			<c:if test="${!pagedListHolder.lastPage}">
+			<c:if test="${!paginationData.page.lastPage}">
 				<c:url value="${linkCore}" var="pagedLink">
-					<c:param name="p" value="${pagedListHolder.page + 1}"/>
+					<c:param name="p" value="${paginationData.page.number + 1}"/>
 				</c:url>
 				<a href="${pagedLink}">
 					<span class="pagingItem">&gt;</span>

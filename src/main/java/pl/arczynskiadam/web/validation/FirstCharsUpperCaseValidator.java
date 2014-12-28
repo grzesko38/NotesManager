@@ -1,4 +1,4 @@
-package pl.arczynskiadam.web.validation.note;
+package pl.arczynskiadam.web.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -20,5 +20,4 @@ public class FirstCharsUpperCaseValidator implements ConstraintValidator<FirstCh
 
         return object.length() >= count && StringUtils.isAllUpperCase(object.substring(0, count));
     }
-
 }

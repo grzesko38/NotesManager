@@ -12,6 +12,7 @@ public interface GlobalControllerConstants {
 	
 	interface RequestParams {
 		public static final String PAGE 		= "p";
+		public static final String PAGE_SIZE	= "size";
 		public static final String SORT_COLUMN 	= "col";
 		public static final String SORT_ORDER 	= "sort";
 		public static final String ENTRIES 		= "entries";
@@ -29,6 +30,8 @@ public interface GlobalControllerConstants {
 	}
 	
 	interface Defaults {
-		public static final int FIRST_PAGE = 0;
+		interface Pagination {
+			public static final int FIRST_PAGE = 0;
+		}
 	}
 }

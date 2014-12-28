@@ -15,8 +15,8 @@
 <c:url var="ascActiveImgUrl" value="/themes/${ascActive}"/>
 <c:url var="descActiveImgUrl" value="/themes/${descActive}"/>
 
-<c:set var="sortCol" value="${notesPaginationData.pagedListHolder.sort.property}"/>
-<c:set var="isSortAsc" value="${notesPaginationData.pagedListHolder.sort.ascending}"/>
+<c:set var="sortCol" value="${notesPaginationData.sortCol}"/>
+<c:set var="isSortAsc" value="${notesPaginationData.sortAscending}"/>
 
 <form:form method="post" action="${pageContext.request.contextPath}/notesmanager/show" modelAttribute="selectedCheckboxesForm">
 	<div><form:errors path="selections" cssClass="jsr303ErrorBlock" /></div>
@@ -59,7 +59,7 @@
 			</tr>
 		</thead>
 		<tbody>	
-			<c:forEach items="${notesPaginationData.pagedListHolder.pageList}" var="note" varStatus="loopStatus">
+			<c:forEach items="${notesPaginationData.page.content}" var="note" varStatus="loopStatus">
 				<tr>
 					<td class="left">
 						<div class="checkbox">
@@ -68,7 +68,7 @@
 						</div>
 					</td>
 <!-- 							onClick="document.forms['selectedNotes'].submit();" -->
-					<td class="left"><spring:message text="${notesPaginationData.pagedListHolder.page * notesPaginationData.pagedListHolder.pageSize + loopStatus.index + 1}."/></td>
+					<td class="left"><spring:message text="${notesPaginationData.page.number * notesPaginationData.page.size + loopStatus.index + 1}."/></td>
 					<td>${note.author}</td>
 					<td>${note.email}</td>
 					<td>${note.dateCreated}</td>

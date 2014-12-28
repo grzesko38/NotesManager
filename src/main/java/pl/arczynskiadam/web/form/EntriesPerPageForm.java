@@ -2,9 +2,13 @@ package pl.arczynskiadam.web.form;
 
 import java.util.ArrayList;
 import java.util.List;
-//import pl.arczynskiadam.web.form.EntriesPerPageForm.ComboListItem;
+
+import pl.arczynskiadam.web.controller.NoteControllerConstants;
 
 public class EntriesPerPageForm {
+	{
+		size = Integer.toString(NoteControllerConstants.Defaults.Pagination.ENTRIES_PER_PAGE);
+	}
 	
 	private List<ComboListItem> pageSizes;
 	private String size; //selected item
@@ -42,7 +46,6 @@ public class EntriesPerPageForm {
 	public void setSize(String size) {
 		this.size = size;
 	}
-
 	
 	public static ArrayList<EntriesPerPageForm.ComboListItem> convertToPageSizesItemsList(List<Integer> sizes) {
 		ArrayList<EntriesPerPageForm.ComboListItem> pageSizes = new ArrayList<EntriesPerPageForm.ComboListItem>();
