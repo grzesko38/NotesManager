@@ -1,26 +1,16 @@
 package pl.arczynskiadam.web.facade.note.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import pl.arczynskiadam.core.model.note.NoteDTO;
-import pl.arczynskiadam.core.model.note.NoteDetailsDTO;
 import pl.arczynskiadam.core.model.note.NoteVO;
 import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.core.service.note.NoteService;
-import pl.arczynskiadam.web.controller.GlobalControllerConstants;
-import pl.arczynskiadam.web.controller.note.NoteControllerConstants;
-import pl.arczynskiadam.web.controller.note.NotesPagesData;
 import pl.arczynskiadam.web.facade.note.NoteFacade;
 
 @Repository
@@ -33,13 +23,8 @@ public class NoteDefaultFacade implements NoteFacade {
 	private SessionService sessionService;
 
 	@Override
-	public void addNote(NoteDetailsDTO note) {
-		NoteVO noteModel = new NoteVO();
-		noteModel.setAuthor(note.getAuthor());
-		noteModel.setContent(note.getContent());
-		noteModel.setEmail(note.getEmail());
-		noteModel.setDateCreated(note.getDateCreated());
-		noteService.addNote(noteModel);
+	public void addNote(NoteVO note) {
+		noteService.addNote(note);
 	}
 
 	@Override
@@ -56,16 +41,8 @@ public class NoteDefaultFacade implements NoteFacade {
 	}
 	
 	@Override
-	public NoteDetailsDTO findNoteById(int id) {
-		NoteVO note = noteService.findNoteById(id);
-		NoteDetailsDTO n = new NoteDetailsDTO();
-		n.setId(id);
-		n.setAuthor(note.getAuthor());
-		n.setEmail(note.getEmail());
-		n.setDateCreated(note.getDateCreated());
-		n.setContent(note.getContent());
-		
-		return n;
+	public NoteVO findNoteById(int id) {
+		return noteService.findNoteById(id);
 	}
 
 	@Override

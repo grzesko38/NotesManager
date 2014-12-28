@@ -11,8 +11,6 @@ import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.MutableSortDefinition;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -30,10 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pl.arczynskiadam.core.model.note.NoteDTO;
-import pl.arczynskiadam.core.model.note.NoteDetailsDTO;
 import pl.arczynskiadam.core.model.note.NoteVO;
-import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.core.service.note.NoteService;
 import pl.arczynskiadam.web.controller.AbstractController;
 import pl.arczynskiadam.web.controller.GlobalControllerConstants;
@@ -80,7 +75,7 @@ public class NoteController extends AbstractController {
 			HttpServletRequest request,
 			final Model model) {
 		
-		NotesPagesData pagination = processRequestPageParams(page, size ,sortCol, sortOrder, null);
+		NotesPagesData pagination = prepareNotesPage(page, size ,sortCol, sortOrder, null);
 		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, pagination);
 		
 		populateEntriesPerPageForm(entriesPerPageForm, pagination.getPage().getSize());
@@ -90,7 +85,7 @@ public class NoteController extends AbstractController {
 		return NoteControllerConstants.Pages.LISTING;
 	}
 	
-	@RequestMapping(value = NoteControllerConstants.URLs.SHOW, method = RequestMethod.GET, params = {"!p", "date"})
+	@RequestMapping(value = NoteControllerConstants.URLs.SHOW, method = RequestMethod.GET, params = {"date"})
 	public String listNotesFromDate(@ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.EntriesPerPage) EntriesPerPageForm entriesPerPageForm,
 			@ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.SelectedCheckboxes) SelectedCheckboxesForm selectedCheckboxesForm,
 			@Valid @ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.Date) DateForm dateForm,
@@ -103,7 +98,7 @@ public class NoteController extends AbstractController {
 		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, pagination);	
 		
 		if (result.hasErrors()) {
-			pagination = processRequestPageParams(null, null, null, null, null);
+			pagination = prepareNotesPage(null, null, null, null, null);
 			model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, pagination);
 			populateEntriesPerPageForm(entriesPerPageForm);
 			
@@ -111,10 +106,10 @@ public class NoteController extends AbstractController {
 		} else {
 			Integer pageId = null;
 			if (date == null) {
-				noteService.retrievePagesDataFromSession().setFromDate(null);
+				noteService.clearFromDateFilter();
 				pageId = GlobalControllerConstants.Defaults.Pagination.FIRST_PAGE;
 			}
-			pagination = processRequestPageParams(pageId, null, null, null, date);
+			pagination = prepareNotesPage(pageId, null, null, null, date);
 			pagination.setFromDate(date);
 		}
 		
@@ -137,7 +132,7 @@ public class NoteController extends AbstractController {
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.ADD_POST, method = RequestMethod.POST)
-	public String saveNote(@Validated(All.class) @ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.Add) NewNoteForm note,
+	public String saveNote(@Validated(All.class) @ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.Add) NewNoteForm noteForm,
 			BindingResult result,
 			Model model) {
 		
@@ -148,12 +143,12 @@ public class NoteController extends AbstractController {
 			
 			return NoteControllerConstants.Pages.ADD;
 		} else {
-			NoteDetailsDTO noteDetails = new NoteDetailsDTO();
-			noteDetails.setAuthor(note.getAuthor());
-			noteDetails.setEmail(note.getEmail());
-			noteDetails.setDateCreated(new Date());
-			noteDetails.setContent(note.getContent());
-			noteFacade.addNote(noteDetails);
+			NoteVO note = new NoteVO();
+			note.setAuthor(noteForm.getAuthor());
+			note.setEmail(noteForm.getEmail());
+			note.setDateCreated(new Date());
+			note.setContent(noteForm.getContent());
+			noteFacade.addNote(note);
 			
 			noteService.removePaginationDataFromSession();
 			
@@ -184,7 +179,7 @@ public class NoteController extends AbstractController {
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.DETAILS, method = RequestMethod.GET)
-	public String noteDetails(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.Note) NoteDetailsDTO note,
+	public String noteDetails(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.Note) NoteVO note,
 			@PathVariable("noteId") Integer noteId,
 			final Model model) {
 		
@@ -217,7 +212,7 @@ public class NoteController extends AbstractController {
 		noteService.savePagesDataToSession(sessionPagesData);
 	}
 	
-	private NotesPagesData processRequestPageParams(Integer pageId, Integer pageSize, String sortCol, String sortOrder, Date from) {
+	private NotesPagesData prepareNotesPage(Integer pageId, Integer pageSize, String sortCol, String sortOrder, Date from) {
 		NotesPagesData sessionPagesData = noteService.retrievePagesDataFromSession();
 		
 		if (sessionPagesData == null) {
@@ -238,12 +233,7 @@ public class NoteController extends AbstractController {
 			sortCol = NoteControllerConstants.Defaults.Pagination.DEFAULT_SORT_COLUMN;
 		}
 		
-		Page<NoteVO> page = null;
-		if (from == null) {
-			page = noteFacade.listNotes(pageId, pageSize, sortCol, true);
-		} else {
-			page = noteFacade.listNotesFromDate(pageId, pageSize, sortCol, "asc".equals(sortOrder), from);
-		}
+		Page<NoteVO> page = buildPageSpec(pageId, pageSize, sortCol, true, from);
 		
 		NotesPagesData pagination = new NotesPagesData(NoteControllerConstants.Defaults.Pagination.MAX_LINKED_PAGES);
 		pagination.setPage(page);
@@ -267,17 +257,13 @@ public class NoteController extends AbstractController {
 			clearSelectedNotesIds(sessionPagesData);
 		}
 		
+		boolean asc;
 		if (sortCol == null) {
 			sortCol = sessionPagesData.getSortCol();
-		} else {
-			clearSelectedNotesIds(sessionPagesData);
-		}
-		
-		boolean asc = "asc".equals(sortOrder);
-		if (sortOrder == null) {
 			asc = sessionPagesData.isSortAscending();
 		} else {
 			clearSelectedNotesIds(sessionPagesData);
+			asc = "asc".equals(sortOrder);
 		}
 		
 		if (from == null) {
@@ -286,15 +272,20 @@ public class NoteController extends AbstractController {
 			pageId = GlobalControllerConstants.Defaults.Pagination.FIRST_PAGE;
 		}
 		
+		Page<NoteVO> page = buildPageSpec(pageId, pageSize, sortCol, asc, from);
+		sessionPagesData.setPage(page);
+		noteService.savePagesDataToSession(sessionPagesData);
+		return sessionPagesData;
+	}
+	
+	private Page<NoteVO> buildPageSpec(Integer pageId, Integer pageSize, String sortCol, boolean asc, Date from) {
 		Page<NoteVO> page = null;
 		if (from == null) {
 			page = noteFacade.listNotes(pageId, pageSize, sortCol, asc);
 		} else {
 			page = noteFacade.listNotesFromDate(pageId, pageSize, sortCol, asc, from);
 		}
-		sessionPagesData.setPage(page);
-		noteService.savePagesDataToSession(sessionPagesData);
-		return sessionPagesData;
+		return page;
 	}
 	
 	private void clearSelectedNotesIds(NotesPagesData pagesData) {
@@ -315,6 +306,4 @@ public class NoteController extends AbstractController {
 			entriesPerPageForm.setSize(Integer.toString(NoteControllerConstants.Defaults.Pagination.ENTRIES_PER_PAGE));
 		}
 	}
-	
-	
 }

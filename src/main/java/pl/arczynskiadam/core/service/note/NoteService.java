@@ -1,15 +1,11 @@
 package pl.arczynskiadam.core.service.note;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
-import pl.arczynskiadam.core.model.note.NoteDTO;
 import pl.arczynskiadam.core.model.note.NoteVO;
-import pl.arczynskiadam.web.controller.note.NoteControllerConstants;
 import pl.arczynskiadam.web.controller.note.NotesPagesData;
 
 public interface NoteService {
@@ -23,4 +19,5 @@ public interface NoteService {
 	public NotesPagesData retrievePagesDataFromSession();
 	public void savePagesDataToSession(NotesPagesData pagesData);
 	public void removePaginationDataFromSession();
+	public void clearFromDateFilter();
 }

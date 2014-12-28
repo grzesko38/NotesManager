@@ -24,16 +24,11 @@
 
 	<import resource="spring-persistence.xml" />
 
-<!-- 	<context:annotation-config /> -->
-	
-	
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:resources mapping="/images/**" location="/resources/images/" />
 	<mvc:resources mapping="/themes/**" location="/resources/themes/" />
 	<mvc:resources mapping="/js/**" location="/resources/js/" />
 	<mvc:annotation-driven validator="validator" />
-	
-	
 
 	<!--  i18n -->
 	

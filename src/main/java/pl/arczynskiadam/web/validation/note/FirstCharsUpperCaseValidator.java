@@ -20,5 +20,4 @@ public class FirstCharsUpperCaseValidator implements ConstraintValidator<FirstCh
 
         return object.length() >= count && StringUtils.isAllUpperCase(object.substring(0, count));
     }
-
 }

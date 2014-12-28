@@ -1,18 +1,15 @@
 package pl.arczynskiadam.core.service.note.impl;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +18,6 @@ import pl.arczynskiadam.core.dao.note.NoteRepository;
 import pl.arczynskiadam.core.model.note.NoteVO;
 import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.core.service.note.NoteService;
-import pl.arczynskiadam.web.controller.GlobalControllerConstants;
 import pl.arczynskiadam.web.controller.note.NoteControllerConstants;
 import pl.arczynskiadam.web.controller.note.NotesPagesData;
 
@@ -72,6 +68,11 @@ public class DefaultNoteService implements NoteService {
 	
 	public void setNoteDAO(NoteRepository noteDAO) {
 		this.noteDAO = noteDAO;
+	}
+	
+	@Override
+	public void clearFromDateFilter() {
+		retrievePagesDataFromSession().setFromDate(null);
 	}
 	
 	@Override
