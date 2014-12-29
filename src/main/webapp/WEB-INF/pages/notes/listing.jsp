@@ -8,12 +8,8 @@
 <template:notesPage>
     <jsp:attribute name="banner">
 		<template:banner bannerClass="listing">
-			<img src="<c:url value="/themes/common/images/banners/quillpen.png" />" width="200" height="200" />
+			<spring:message code="label.notes" />
 		</template:banner>
-    </jsp:attribute>
-    
-    <jsp:attribute name="topText">
-		<spring:message code="label.notes" />
     </jsp:attribute>
     
     <jsp:body>

@@ -6,15 +6,18 @@
 
 <div class="banner ${bannerClass}">
 	<div class="aboveBanner"></div>
-	<jsp:doBody />
+	<img src="<c:url value="/themes/common/images/banners/quillpen.png" />" width="200" height="200" />
 	<div class="imgHolder">
-		<div>
-			<c:set var="path">
-				<spring:theme code="img.banner.notes"/>
-			</c:set>
-			<c:url var="url" value="/themes/${path}"/>
-			<img src="${url}" />
-		</div>
+		<c:set var="path">
+			<spring:theme code="img.banner.notes"/>
+		</c:set>
+		<c:url var="url" value="/themes/${path}"/>
+		<img src="${url}" />
+	</div>
+	<div class="top">
+		<span>
+			<jsp:doBody />
+		</span>			
 	</div>
 </div>
 

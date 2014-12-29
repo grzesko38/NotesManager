@@ -45,7 +45,7 @@ div.menu
 	height: 3px;
 }
 													/* Banner */
-.notes .banner, .notes .top
+.notes .banner
 {
 	margin: 0px -15px;
 }												
@@ -70,8 +70,8 @@ div.menu
 .notes .banner.listing > img
 {
     left: 10%;
+    bottom: 10%;
     position: absolute;
-    bottom: -25%;
     z-index: 1;
 }
 													/* Data Table */

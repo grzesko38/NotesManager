@@ -8,12 +8,8 @@
 <template:notesPage>
    <jsp:attribute name="banner">
 		<template:banner bannerClass="listing">
-			
+			<spring:message code="addnote.banner.text" />
 		</template:banner>
-    </jsp:attribute>
-    
-    <jsp:attribute name="topText">
-		<spring:message code="addnote.banner.text" />
     </jsp:attribute>
         
     <jsp:body>

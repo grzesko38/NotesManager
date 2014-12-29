@@ -1,6 +1,5 @@
 <%@ tag description="Master Page template" body-content="scriptless" pageEncoding="UTF-8"%>
 <%@ attribute name="banner" fragment="true" %>
-<%@ attribute name="topText" fragment="false" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -23,9 +22,6 @@
 		<div class="notes">
 			<div class="content">
 				<jsp:invoke fragment="banner" />
-				<div class=top>
-					<span>${topText}</span>			
-				</div>
 				<jsp:doBody/>
 			</div>
 			<div class="bottom"></div>
