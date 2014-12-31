@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,12 +19,15 @@ import pl.arczynskiadam.core.dao.NoteRepository;
 import pl.arczynskiadam.core.model.NoteVO;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
+import pl.arczynskiadam.web.controller.NoteController;
 import pl.arczynskiadam.web.controller.NoteControllerConstants;
 import pl.arczynskiadam.web.data.NotesPagesData;
 
 @Service
 public class DefaultNoteService implements NoteService {
 
+	private static final Logger log = Logger.getLogger(DefaultNoteService.class);
+	
 	@Resource
 	private NoteRepository noteDAO;
 	
@@ -63,15 +67,19 @@ public class DefaultNoteService implements NoteService {
 		Page<NoteVO> sessionPage = sessionPagination.getPage();
 		boolean deletedAllResultsFromLastPage = sessionPage.isLastPage() && ids.size() == sessionPage.getNumberOfElements();
 		
+		log.debug("page number = " + sessionPage.getNumber() + " / " + sessionPage.getTotalPages());
+		
 		if (deletedAllResultsFromLastPage) {
 			Page<NoteVO> page = null;
+			int pageIndexOffset = sessionPage.isFirstPage() ? 0 : 1;
+			
 			if (sessionPagination.getFromDate() == null) {
-				page = listNotes(sessionPage.getTotalPages() - 2,
+				page = listNotes(sessionPage.getNumber() - pageIndexOffset,
 						sessionPage.getSize(),
 						sessionPagination.getSortCol(),
 						sessionPagination.isSortAscending());
 			} else {
-				page = listNotesFromDate(sessionPage.getTotalPages() - 2,
+				page = listNotesFromDate(sessionPage.getNumber() - pageIndexOffset,
 						sessionPage.getSize(),
 						sessionPagination.getSortCol(),
 						sessionPagination.isSortAscending(),
