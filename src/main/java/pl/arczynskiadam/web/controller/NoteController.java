@@ -150,7 +150,7 @@ public class NoteController extends AbstractController {
 			
 			noteFacade.addNote(note);
 			noteService.removePaginationDataFromSession();
-			GlobalMessages.addInfoFlashMessage("notes.addnew.confirmation", null, attrs);
+			GlobalMessages.addInfoFlashMessage("notes.addnew.confirmation", attrs);
 			
 			return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
 		}
@@ -177,6 +177,7 @@ public class NoteController extends AbstractController {
 			model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, pagination);
 			populateEntriesPerPageForm(entriesPerPageForm);
 			dateForm.setDate(pagination.getFromDate());
+			GlobalMessages.addErrorMessage("notes.delete.nothingSelected", model);
 			
 			return NoteControllerConstants.Pages.LISTING;
 		}
@@ -227,7 +228,7 @@ public class NoteController extends AbstractController {
 		}
 		
 		if(pagination.getPage().getNumberOfElements() == 0) {
-			GlobalMessages.addWarningMessage("notes.list.empty", null, model);
+			GlobalMessages.addWarningMessage("notes.list.empty", model);
 		}
 		
 		return pagination;

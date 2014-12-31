@@ -19,7 +19,6 @@
 <c:set var="isSortAsc" value="${notesPaginationData.sortAscending}"/>
 
 <form:form method="post" action="${pageContext.request.contextPath}/notesmanager/show" modelAttribute="selectedCheckboxesForm">
-	<div><form:errors path="selections" cssClass="jsr303ErrorBlock" /></div>
 	<table class="data">
 		<colgroup>
 			<col class="narrowCheckbox" span="1"/>

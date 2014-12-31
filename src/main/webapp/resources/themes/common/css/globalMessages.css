@@ -11,7 +11,15 @@
 	align-self: center;
 	margin: 0px;
 }
-.notes .content .globalMessages
+.notes .content .globalMessages.info
 {
 	color: #1C8C00;
+}
+.notes .content .globalMessages.warn
+{
+	color: #CDAA58;
+}
+.notes .content .globalMessages.err
+{
+	color: #9F1212;
 }
