@@ -78,7 +78,6 @@ public class NoteController extends AbstractController {
 		
 		NotesPagesData pagination = prepareNotesPage(page, size ,sortCol, sortOrder, null);
 		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, pagination);
-		
 		populateEntriesPerPageForm(entriesPerPageForm, pagination.getPage().getSize());
 		selectedCheckboxesForm.setSelections(noteFacade.convertNotesIdsToSelections(pagination.getSelectedNotesIds()));
 		dateForm.setDate(pagination.getFromDate());
@@ -175,6 +174,15 @@ public class NoteController extends AbstractController {
 			BindingResult result,
 			RedirectAttributes attrs,
 			final Model model) {
+		
+		if (result.hasErrors()) {
+			NotesPagesData pagination = prepareNotesPage(null, null, null, null, dateForm.getDate());
+			model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, pagination);
+			populateEntriesPerPageForm(entriesPerPageForm);
+			dateForm.setDate(pagination.getFromDate());
+			
+			return NoteControllerConstants.Pages.LISTING;
+		}
 		
 		Set<Integer> ids = noteFacade.convertSelectionsToNotesIds(selectedCheckboxesForm.getSelections());
 		
