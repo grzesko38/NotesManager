@@ -1,4 +1,6 @@
 <%@ tag description="Master Page template" body-content="scriptless" pageEncoding="UTF-8"%>
+<%@ attribute name="additionalCSS" fragment="true" %>
+<%@ attribute name="additionalJS" fragment="true" %>
 <%@ attribute name="banner" fragment="true" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -12,10 +14,11 @@
 		<link href="<c:url value="/themes/common/css/notes.css"/>" rel="stylesheet" type="text/css"/>
 		<link href="${pageContext.request.contextPath}/themes/<spring:theme code="css.notes"/>" rel="stylesheet" type="text/css"/>
 		<link href="${pageContext.request.contextPath}/themes/<spring:theme code="css.notes.errors"/>" rel="stylesheet" type="text/css"/>
+		<jsp:invoke fragment="additionalCSS" />
 	</jsp:attribute>
 
 	<jsp:attribute name="additionalJS">
-		
+		<jsp:invoke fragment="additionalJS" />
 	</jsp:attribute>
 	
 	<jsp:body>

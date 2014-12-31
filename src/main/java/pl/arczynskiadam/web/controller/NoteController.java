@@ -1,5 +1,6 @@
 package pl.arczynskiadam.web.controller;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +38,7 @@ import pl.arczynskiadam.web.form.EntriesPerPageForm;
 import pl.arczynskiadam.web.form.NewNoteForm;
 import pl.arczynskiadam.web.form.NewNoteForm.All;
 import pl.arczynskiadam.web.form.SelectedCheckboxesForm;
+import pl.arczynskiadam.web.messages.GlobalMessages;
 import pl.arczynskiadam.web.tag.navigation.BreadcrumbsItem;
 import pl.arczynskiadam.web.validation.SelectedCheckboxesValidator;
 
@@ -133,7 +135,8 @@ public class NoteController extends AbstractController {
 	@RequestMapping(value = NoteControllerConstants.URLs.ADD_POST, method = RequestMethod.POST)
 	public String saveNote(@Validated(All.class) @ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.Add) NewNoteForm noteForm,
 			BindingResult result,
-			Model model) {
+			Model model,
+			RedirectAttributes attrs) {
 		
 		if (result.hasErrors()) {
 			createBreadcrumpAndSaveToModel(model,
@@ -147,9 +150,11 @@ public class NoteController extends AbstractController {
 			note.setEmail(noteForm.getEmail());
 			note.setDateCreated(new Date());
 			note.setContent(noteForm.getContent());
-			noteFacade.addNote(note);
 			
+			noteFacade.addNote(note);
 			noteService.removePaginationDataFromSession();
+			
+			GlobalMessages.addInfoFlashMessage("note.addnew.confirmation", null, attrs);
 			
 			return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
 		}
@@ -172,7 +177,11 @@ public class NoteController extends AbstractController {
 			final Model model) {
 		
 		Set<Integer> ids = noteFacade.convertSelectionsToNotesIds(selectedCheckboxesForm.getSelections());
+		
 		noteFacade.deleteNotes(ids);
+		
+		String count = Integer.toString(selectedCheckboxesForm.getSelections().size());
+		GlobalMessages.addInfoFlashMessage("note.delete.confirmation", Collections.singletonList(count), attrs);
 		
 		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
 	}

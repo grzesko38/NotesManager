@@ -32,7 +32,7 @@
 													/* Data Table - hover & links */
 .notes table.data tbody tr:hover
 {
-	background-color: #FFF5D6;
+	background-color: #FFF6DB;
 }
 													/* Checkboxes */
 .notes .checkbox label:after
@@ -55,9 +55,9 @@
 }
 .notes .paginationHolder .pagingItem:hover
 {
-	background-color: #FFF5D6;
+	background-color: #FFF6DB;
 }
 .notes .paginationHolder .pagingItem.active
 {
-    background-color: #FFF5D6;
+    background-color: #FFF6DB;
 }

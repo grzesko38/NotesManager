@@ -27,6 +27,11 @@ public interface GlobalControllerConstants {
 			public static final String EntriesPerPage 		= "entriesPerPageForm";
 			public static final String SelectedCheckboxes 	= "selectedCheckboxesForm";
 		}
+		interface Messages {
+			public static final String ERROR_MSG 	= "errorMsgs";
+			public static final String WARN_MSG		= "warnMsgs";
+			public static final String INFO_MSG		= "infoMsgs"; 
+		}
 	}
 	
 	interface Defaults {
