@@ -76,7 +76,7 @@ public class NoteController extends AbstractController {
 			HttpServletRequest request,
 			final Model model) {
 		
-		NotesPagesData pagination = prepareNotesPage(page, size ,sortCol, sortOrder, null);
+		NotesPagesData pagination = prepareNotesPage(page, size ,sortCol, sortOrder, null, model);
 		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, pagination);
 		populateEntriesPerPageForm(entriesPerPageForm, pagination.getPage().getSize());
 		selectedCheckboxesForm.setSelections(noteFacade.convertNotesIdsToSelections(pagination.getSelectedNotesIds()));
@@ -98,18 +98,16 @@ public class NoteController extends AbstractController {
 		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, pagination);	
 		
 		if (result.hasErrors()) {
-			pagination = prepareNotesPage(null, null, null, null, null);
+			pagination = prepareNotesPage(null, null, null, null, null, model);
 			model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, pagination);
-			populateEntriesPerPageForm(entriesPerPageForm);
-			
-			return NoteControllerConstants.Pages.LISTING;
+			clearSelectedNotesIds(pagination);
 		} else {
 			Integer pageId = null;
 			if (date == null) {
 				noteService.clearFromDateFilter();
 				pageId = GlobalControllerConstants.Defaults.Pagination.FIRST_PAGE;
 			}
-			pagination = prepareNotesPage(pageId, null, null, null, date);
+			pagination = prepareNotesPage(pageId, null, null, null, date, model);
 			pagination.setFromDate(date);
 		}
 		
@@ -152,8 +150,7 @@ public class NoteController extends AbstractController {
 			
 			noteFacade.addNote(note);
 			noteService.removePaginationDataFromSession();
-			
-			GlobalMessages.addInfoFlashMessage("note.addnew.confirmation", null, attrs);
+			GlobalMessages.addInfoFlashMessage("notes.addnew.confirmation", null, attrs);
 			
 			return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
 		}
@@ -172,11 +169,11 @@ public class NoteController extends AbstractController {
 			@ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.Date) DateForm dateForm,
 			@Valid @ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.SelectedCheckboxes) SelectedCheckboxesForm selectedCheckboxesForm,	
 			BindingResult result,
-			RedirectAttributes attrs,
-			final Model model) {
+			Model model,
+			RedirectAttributes attrs) {
 		
 		if (result.hasErrors()) {
-			NotesPagesData pagination = prepareNotesPage(null, null, null, null, dateForm.getDate());
+			NotesPagesData pagination = prepareNotesPage(null, null, null, null, dateForm.getDate(), model);
 			model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, pagination);
 			populateEntriesPerPageForm(entriesPerPageForm);
 			dateForm.setDate(pagination.getFromDate());
@@ -189,7 +186,7 @@ public class NoteController extends AbstractController {
 		noteFacade.deleteNotes(ids);
 		
 		String count = Integer.toString(selectedCheckboxesForm.getSelections().size());
-		GlobalMessages.addInfoFlashMessage("note.delete.confirmation", Collections.singletonList(count), attrs);
+		GlobalMessages.addInfoFlashMessage("notes.delete.confirmation", Collections.singletonList(count), attrs);
 		
 		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
 	}
@@ -219,14 +216,21 @@ public class NoteController extends AbstractController {
 		noteService.savePagesDataToSession(sessionPagesData);
 	}
 	
-	private NotesPagesData prepareNotesPage(Integer pageId, Integer pageSize, String sortCol, String sortOrder, Date from) {
+	private NotesPagesData prepareNotesPage(Integer pageId, Integer pageSize, String sortCol, String sortOrder, Date from, Model model) {
 		NotesPagesData sessionPagesData = noteService.retrievePagesDataFromSession();
+		NotesPagesData pagination = null;
 		
 		if (sessionPagesData == null) {
-			return loadDefaultPage(pageId, pageSize, sortCol, sortOrder, from);
+			pagination = loadDefaultPage(pageId, pageSize, sortCol, sortOrder, from);
 		} else {
-			return updateSessionPage(pageId, pageSize, sortCol, sortOrder, from);
+			pagination = updateSessionPage(pageId, pageSize, sortCol, sortOrder, from);
 		}
+		
+		if(pagination.getPage().getNumberOfElements() == 0) {
+			GlobalMessages.addWarningMessage("notes.list.empty", null, model);
+		}
+		
+		return pagination;
 	}
 	
 	private NotesPagesData loadDefaultPage(Integer pageId, Integer pageSize, String sortCol, String sortOrder, Date from) {
