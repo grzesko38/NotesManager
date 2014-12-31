@@ -5,6 +5,7 @@
 	padding: 15px;
 	border-radius: 10px;
 	box-shadow: 0 2px 10px -4px #a2a2a2 inset;
+	font-weight: bold;
 }
 .notes .content .globalMessages > ul
 {
