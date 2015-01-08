@@ -8,7 +8,7 @@
 <template:notesPage>
    <jsp:attribute name="banner">
 		<template:banner bannerClass="listing">
-			<spring:message code="addnote.banner.text" />
+			<spring:message code="notes.addNew.label.title" />
 		</template:banner>
     </jsp:attribute>
         
@@ -16,28 +16,28 @@
 		<form:form method="post" action="${pageContext.request.contextPath}/notesmanager/add.do" modelAttribute="noteForm">
 			<table>
 				<tr>
-					<td><form:label path="author"><spring:message code="addnote.label.nick"/></form:label></td>
+					<td><form:label path="author"><spring:message code="notes.addNew.label.nick"/>:</form:label></td>
 					<td><form:input path="author" /></td> 
 					<td><form:errors path="author" cssClass="jsr303error" /></td>
 				</tr>
 				<tr>
-					<td><form:label path="email"><spring:message code="addnote.label.email"/></form:label></td>
+					<td><form:label path="email"><spring:message code="notes.addNew.label.email"/>:</form:label></td>
 					<td><form:input path="email" /></td>
 					<td><form:errors path="email" cssClass="jsr303error" /></td>
 				</tr>
 				<tr>
-					<td><form:label path="emailConfirmation"><spring:message code="addnote.label.confirmemail"/></form:label></td>
+					<td><form:label path="emailConfirmation"><spring:message code="notes.addNew.label.email.confirm"/>:</form:label></td>
 					<td><form:input path="emailConfirmation" /></td>
 					<td><form:errors path="emailConfirmation" cssClass="jsr303error" /></td>
 				</tr>
 				<tr>
-					<td><form:label path="content"><spring:message code="addnote.label.content"/></form:label></td>
+					<td><form:label path="content"><spring:message code="notes.addNew.label.content"/>:</form:label></td>
 					<td><form:textarea path="content" rows="5" cols="30" /></td>
 					<td><form:errors path="content" cssClass="jsr303error" /></td>
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="submit" value="<spring:message code="addnote.button.addnote"/>" />
+						<input type="submit" value="<spring:message code="notes.addNew.button.save"/>" />
 					</td>
 				</tr>
 			</table>	

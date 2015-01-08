@@ -5,7 +5,7 @@
 
 <script src="${pageContext.request.contextPath}/js/notes/datefilter.js"></script>
 
-<spring:message code="tooltip.dateFormat" var="dateFormatTooltip" text="properties err"/>
+<spring:message code="notes.listing.dateFilter.tooltip.dateFormat" var="dateFormatTooltip"/>
 <form:form action="${pageContext.request.contextPath}/notesmanager/show" method="get" modelAttribute="dateForm" class="dateForm">
 	<table class="dateFilter">
 		<colgroup>
@@ -17,7 +17,7 @@
 			<td>
 				<div id="inputholder">
 					<span id="labelspan">
-						<form:label path="date"><spring:message code="label.dateFrom"/></form:label>
+						<form:label path="date"><spring:message code="notes.listing.dateFilter.label.from"/>:</form:label>
 					</span>
 					<span id="inputspan">
 						<form:input path="date" title="${dateFormatTooltip}" placeholder="${dateFormatTooltip}" />
@@ -30,7 +30,7 @@
 			<td>
 <%-- 						<input type="submit" value="<spring:message code="button.ok"/>" /> --%>
 				<div id="dateFilterFormSubmitButton" class="submitBbutton">
-		        	<span><spring:message code="button.go"/></span>
+		        	<span><spring:message code="notes.listing.dateFilter.button.go"/></span>
 		            <img id="goimg" src="${pageContext.request.contextPath}/themes/<spring:theme code="img.nav.arrow.right"/>"
 		            	 width="25" height="25"/>
 		        </div>

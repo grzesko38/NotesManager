@@ -37,24 +37,24 @@
 					<navigation:sortHeader divClass="sort" sortColumn="author" imgSize="16"
 							ascImgUrl="${sortCol eq 'author' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
 							descImgUrl="${sortCol eq 'author' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
-						<span><spring:message code="label.author"/></span>
+						<span><spring:message code="notes.listing.label.author"/></span>
 					</navigation:sortHeader>
 				</th>
 				<th>
 					<navigation:sortHeader divClass="sort" sortColumn="email" imgSize="16"
 							ascImgUrl="${sortCol eq 'email' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
 							descImgUrl="${sortCol eq 'email' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
-						<span><spring:message code="label.email"/></span>
+						<span><spring:message code="notes.listing.label.email"/></span>
 					</navigation:sortHeader>
 				</th>
 				<th>
 					<navigation:sortHeader divClass="sort" sortColumn="dateCreated" imgSize="16"
 							ascImgUrl="${sortCol eq 'dateCreated' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
 							descImgUrl="${sortCol eq 'dateCreated' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
-						<span><spring:message code="label.createdon"/></span>
+						<span><spring:message code="notes.listing.label.createdon"/></span>
 					</navigation:sortHeader>
 				</th>
-				<th><spring:message code="label.actions"/></th>
+				<th><spring:message code="notes.listing.label.actions"/></th>
 			</tr>
 		</thead>
 		<tbody>	
