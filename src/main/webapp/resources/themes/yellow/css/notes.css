@@ -41,6 +41,10 @@
 {
 	background: linear-gradient(to right, #FFF3C4 0%, #CDAA58 50px, #CDAA58 calc(100% - 50px), #FFF3C4 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
+.notes .paginationRow .margin
+{
+	color: #CDAA58;
+}
 .notes .paginationHolder .pagingItem
 {
     background-color: #FFEEAD;

@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" 		uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="form"   	uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ attribute name="paginationData" required="true" type="pl.arczynskiadam.web.data.NotesPagesData" %>
 <%@ attribute name="linkCore" required="true" type="java.lang.String" %>
 
@@ -63,6 +64,9 @@
 		</div>
 	</div>
 	<div class="margin">
+		<span>
+			<spring:message code="notes.listing.label.pageSize"/>:
+		</span>
 		<form:form id="" class="entriesPerPageForm" commandName="entriesPerPageForm" method="GET">
 			<form:select class="entriesPerPage" path="size" items="${entriesPerPageForm.pageSizes}" itemLabel="name" itemValue="value" multiple="false"/>
 		</form:form>

@@ -237,18 +237,21 @@ div.menu
 .notes .paginationRow
 {
 	padding: 2px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	text-align: center;
 }
 .notes .paginationHolder
 {
-	display: inline-block;
+	display: inline-flex;
 	padding: 2px 65px 2px 65px;
 	margin: 0 auto;
 }
 .notes .paginationHolder .pagingItem, .notes .paginationHolder .pagingDots
 {
 	width: 22px;
-	float: left;
+	display: block;
 	text-align: center;
 	margin: 0 1px 0 1px;
 	padding-top: 1px;
@@ -265,23 +268,19 @@ div.menu
 }
 .notes .paginationRow .margin, .notes .paginationRow .center
 {
-	display: inline-block;
 	vertical-align: middle;
 }
-.notes .paginationRow .margin:AFTER, .notes .paginationRow .center:AFTER, .notes .paginationHolder:AFTER
-{
-	content: "";
-	display: inline-block;
-	height: 100%;
-	vertical-align: middle;
-}
+
 .notes .paginationRow .margin
 {
-	width: 9%;
+	width: 20%;
+	text-align: right;
+	font-size: 14px;
+    font-weight: bold;
 }
 .notes .paginationRow .center
 {
-	width: 81%;
+	width: 60%;
 }
 .entriesPerPageForm
 {	

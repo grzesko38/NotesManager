@@ -45,6 +45,10 @@
 {
     background-color: #FA6868;
 }
+.notes .paginationRow .margin
+{
+	color: #9F1212;
+}
 .notes .paginationHolder .pagingItem:hover
 {
 	background-color: #FF9F9F;
