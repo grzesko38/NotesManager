@@ -3,7 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="formUtil" tagdir="/WEB-INF/tags/form" %>
-<%@ taglib prefix="tg" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="utils" tagdir="/WEB-INF/tags/utils" %>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/_templates/notes" %>
 
 <template:notesPage>
@@ -23,7 +23,7 @@
     </jsp:attribute>
         
     <jsp:body>
-    	<tg:globalMessages />
+    	<utils:globalMessages />
 		<formUtil:form method="post" action="${pageContext.request.contextPath}/notesmanager/add.do" modelAttribute="noteForm">
 			<formUtil:input path="author" mandatory="true" labelKey="notes.addNew.label.nick" />
 			<formUtil:input path="email"  mandatory="true" labelKey="notes.addNew.label.email" />

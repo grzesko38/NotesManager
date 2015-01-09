@@ -3,7 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="notes" tagdir="/WEB-INF/tags/notes" %>
-<%@ taglib prefix="tg" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="utils" tagdir="/WEB-INF/tags/utils" %>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/_templates/notes" %>
 
 <template:notesPage>
@@ -23,7 +23,7 @@
     </jsp:attribute>
     
     <jsp:body>
-    	<tg:globalMessages />
+    	<utils:globalMessages />
 		<notes:noteslisting />
 		<a href="${pageContext.request.contextPath}/notesmanager/add">new</a>
     </jsp:body>
