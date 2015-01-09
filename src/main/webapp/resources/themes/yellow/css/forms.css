@@ -1,0 +1,25 @@
+													/* Form */
+.formWrapper .formRow input, .formWrapper .formRow textarea
+{
+	background-color: #FFFBE3;
+	border: 2px inset #FFFBE3;
+}
+													/* Errors */
+.formWrapper .formRow.error input, .formWrapper .formRow.error textarea
+{
+	background-color: #FFEEEE;
+	border: 2px inset #FFEEEE;
+}
+.jsr303error
+{
+	color: #ff0000;
+}
+
+.jsr303ErrorBlock
+{
+	color: #000;
+	background-color: #ffEEEE;
+	border: 3px solid #ff0000;
+	display: block;
+	padding-left: 2px;
+}
