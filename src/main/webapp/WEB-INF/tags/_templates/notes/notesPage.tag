@@ -1,4 +1,4 @@
-<%@ tag description="Master Page template" body-content="scriptless" pageEncoding="UTF-8"%>
+<%@ tag description="Notes Page template" body-content="scriptless" pageEncoding="UTF-8"%>
 <%@ attribute name="additionalCSS" fragment="true" %>
 <%@ attribute name="additionalJS" fragment="true" %>
 <%@ attribute name="banner" fragment="true" %>
