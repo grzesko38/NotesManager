@@ -1,4 +1,13 @@
-body
+													/* Master Layout */
+.master
 {
-	background-image: url("/NotesManager/themes/green/images/background/footer.png");
+	background-image: url("/NotesManager/themes/green/images/background/main.png");
+}
+.master .page
+{
+	background-color: #AEF29D;
+}
+.master .bottom
+{
+	background-color: #1C8C00;
 }

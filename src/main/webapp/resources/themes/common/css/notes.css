@@ -3,21 +3,6 @@ div.menu
 {
 	min-width: 500px;
 }
-.notes
-{
-	padding-top: 15px;
-}
-.notes .content
-{
-	width: 80%;
-	min-width: 960px;
-	margin-left: auto;
-	margin-right: auto;
-	font-family: arial;
-	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
-    padding: 15px;
-    border-radius: 15px 15px 0px 0px;
-}
 .notes a
 {
 	color: #000000;
@@ -39,10 +24,6 @@ div.menu
 	font-size: 25px;
 	height: 75px;
 	line-height: 75px;
-}
-.notes .bottom
-{
-	height: 3px;
 }
 													/* Banner */
 .notes .banner

@@ -13,7 +13,7 @@
 <head>
 	<title>Notes Manager</title>
 	
-	<link href="<c:url value="/themes/common/css/default.css"/>" rel="stylesheet" type="text/css"/>
+	<link href="<c:url value="/themes/common/css/main.css"/>" rel="stylesheet" type="text/css"/>
 	<link href="<c:url value="/themes/common/css/header.css"/>" rel="stylesheet" type="text/css"/>
 	<link href="<c:url value="/themes/common/css/footer.css"/>" rel="stylesheet" type="text/css"/>
 	<link href="<c:url value="/themes/common/css/widgets.css"/>" rel="stylesheet" type="text/css"/>
@@ -35,7 +35,12 @@
 <body>
 	<div id="placeholder"></div>
 	<fragment:header />
-	<jsp:doBody />
+		<div class="master">
+			<div class="page">
+			<jsp:doBody />
+		</div>
+		<div class="bottom"></div>
+	</div>
 	<fragment:footer />
 </body>
 </html>

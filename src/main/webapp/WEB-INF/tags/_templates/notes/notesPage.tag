@@ -26,7 +26,6 @@
 				<jsp:invoke fragment="banner" />
 				<jsp:doBody/>
 			</div>
-			<div class="bottom"></div>
 		</div>
 	</jsp:body>
 	

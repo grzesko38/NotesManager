@@ -1,13 +1,5 @@
 													/* Main Layout */
-.notes
-{
-	background-image: url("/NotesManager/themes/red/images/background/main.png");
-}
-.notes .content
-{
-	background-color: #FF7C7C;
-}
-.notes .top, .notes div.bottom
+.notes .top
 {
 	background-color: #9F1212;
 }
