@@ -1,4 +1,4 @@
-INSERT INTO notes
+INSERT INTO NOTES
 (
 	author, email, date_created, content
 )
@@ -36,3 +36,12 @@ VALUES
 (
 	'ReRe',	'rere@wp.pl', '2000-01-01 00:00:00', 'rererererer erererere ererere'
 );
+
+INSERT INTO USERS
+(
+	nick, email, date_registered, password_hash, password_encoding, password_salt
+)
+VALUES
+(
+	'Adam',	'adam.arczynski@gmail.com',	'1990-01-01 00:00:00', 'hash', 'sha-256', 'salt'
+)
