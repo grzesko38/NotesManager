@@ -20,7 +20,7 @@ import pl.arczynskiadam.core.model.NoteVO;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.web.controller.NoteController;
-import pl.arczynskiadam.web.controller.NoteControllerConstants;
+import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
 import pl.arczynskiadam.web.data.NotesPagesData;
 
 @Service

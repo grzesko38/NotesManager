@@ -7,8 +7,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import pl.arczynskiadam.web.form.NewNoteForm.Extended;
-import pl.arczynskiadam.web.validation.FieldMatch;
-import pl.arczynskiadam.web.validation.FirstCharsUpperCase;
+import pl.arczynskiadam.web.form.validation.FieldMatch;
+import pl.arczynskiadam.web.form.validation.FirstCharsUpperCase;
 
 @FieldMatch(groups = {Extended.class}, fieldSource = "email", fieldConfirm = "emailConfirmation", message = "{note.email.match}")
 public class NewNoteForm {

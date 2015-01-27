@@ -1,8 +1,8 @@
 package pl.arczynskiadam.web.messages;
 
-import static pl.arczynskiadam.web.controller.GlobalControllerConstants.ModelAttrKeys.Messages.INFO_MSG;
-import static pl.arczynskiadam.web.controller.GlobalControllerConstants.ModelAttrKeys.Messages.WARN_MSG;
-import static pl.arczynskiadam.web.controller.GlobalControllerConstants.ModelAttrKeys.Messages.ERR_MSG;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.ModelAttrKeys.Messages.ERR_MSG;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.ModelAttrKeys.Messages.INFO_MSG;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.ModelAttrKeys.Messages.WARN_MSG;
 
 import java.util.Collection;
 import java.util.Collections;

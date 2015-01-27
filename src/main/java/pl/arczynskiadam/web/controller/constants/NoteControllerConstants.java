@@ -1,4 +1,4 @@
-package pl.arczynskiadam.web.controller;
+package pl.arczynskiadam.web.controller.constants;
 
 public interface NoteControllerConstants {
 	

@@ -3,7 +3,7 @@ package pl.arczynskiadam.web.form;
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.arczynskiadam.web.controller.NoteControllerConstants;
+import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
 
 public class EntriesPerPageForm {
 	{

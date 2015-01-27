@@ -1,4 +1,4 @@
-package pl.arczynskiadam.web.validation;
+package pl.arczynskiadam.web.form.validation;
 
 import java.util.Set;
 
