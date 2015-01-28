@@ -63,6 +63,7 @@ div.menu
 	font-size: 18px;
 	border-spacing: 1px;
 	empty-cells: show;
+	margin-bottom: 5px;
 }
 .notes table.data th.corner
 {
@@ -236,6 +237,7 @@ div.menu
 													/* Pagination */
 .notes .paginationRow
 {
+	margin: 7px 0;
 	padding: 2px 0;
 	display: flex;
 	align-items: center;

@@ -30,7 +30,9 @@
 			<formUtil:input path="email"  mandatory="true" labelKey="notes.addNew.label.email" />
 			<formUtil:input path="emailConfirmation"  mandatory="true" labelKey="notes.addNew.label.email.confirm" />
 			<formUtil:textArea path="content"  mandatory="true" labelKey="notes.addNew.label.content" />
-			<input type="submit" class="buttonPositive" value="<spring:message code="notes.addNew.button.save"/>" />
+			<div class="buttonHolder">
+				<input type="submit" class="buttonPositive" value="<spring:message code="notes.addNew.button.save"/>" />
+			</div>
 		</formUtil:form>
     </jsp:body>
 </template:notesPage>

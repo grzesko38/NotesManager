@@ -53,11 +53,15 @@
 	text-decoration: none;
 	text-shadow: 0px 1px 0px #3D768A;
 	border: medium none;
-	float: right;
-	margin-top: 25px;
 }
 .buttonPositive:active
 {
 	position: relative;
 	top: 1px;
+}
+.buttonHolder
+{
+	text-align: right;
+	padding-right: 5px;
+	padding-top: 20px;
 }

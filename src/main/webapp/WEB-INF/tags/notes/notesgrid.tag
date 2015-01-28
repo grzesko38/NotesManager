@@ -83,6 +83,5 @@
 			</c:forEach>
 		</tbody>
 	</table>
-<!-- 	<input type="submit" value="del" name="delete" title="aaaa"/> -->
-	<button type="submit" value="del" name="delete" title="aaaa">delete</button>
+	<button class="buttonPositive" type="submit" value="del" name="delete" title="aaaa">delete selected</button>
 </form:form>
