@@ -23,3 +23,13 @@
 	display: block;
 	padding-left: 2px;
 }
+													/* Buttons */
+.buttonPositive
+{
+	box-shadow: 1px 1px 0 1px #cc9f52;
+	background: linear-gradient(to bottom, #ffc477 5%, #eeb44f 100%);
+}
+.buttonPositive:hover
+{
+	background: linear-gradient(to bottom, #eeb44f 5%, #ffc477 100%);
+}

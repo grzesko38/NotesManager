@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="formUtil" tagdir="/WEB-INF/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="utils" tagdir="/WEB-INF/tags/utils" %>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/_templates/notes" %>
 
@@ -29,10 +30,7 @@
 			<formUtil:input path="email"  mandatory="true" labelKey="notes.addNew.label.email" />
 			<formUtil:input path="emailConfirmation"  mandatory="true" labelKey="notes.addNew.label.email.confirm" />
 			<formUtil:textArea path="content"  mandatory="true" labelKey="notes.addNew.label.content" />
-			<div>
-				<input type="submit" value="<spring:message code="notes.addNew.button.save"/>" />
-			</div>	
+			<input type="submit" class="buttonPositive" value="<spring:message code="notes.addNew.button.save"/>" />
 		</formUtil:form>
-		<a href="${pageContext.request.contextPath}/notesmanager/show/">BACK</a>
     </jsp:body>
 </template:notesPage>

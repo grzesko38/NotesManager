@@ -30,19 +30,19 @@ a
 	text-decoration: none;
 	color: #000000;
 }
-input::-webkit-input-placeholder { /* WebKit browsers */
+input[type="text"]::-webkit-input-placeholder { /* WebKit browsers */
     color:    #AFAFAF;
     opacity:  1;
 }
-input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+input[type="text"]:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
     color:    #AFAFAF;
     opacity:  1;
 }
-input::-moz-placeholder { /* Mozilla Firefox 19+ */
+input[type="text"]::-moz-placeholder { /* Mozilla Firefox 19+ */
     color:    #AFAFAF;
     opacity:  1;
 }
-input:-ms-input-placeholder { /* Internet Explorer 10+ */
+input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10+ */
     color:    #AFAFAF;
     opacity:  1;
 }
