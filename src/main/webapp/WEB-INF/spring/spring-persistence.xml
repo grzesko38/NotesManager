@@ -28,20 +28,20 @@
 		p:url="${jdbc.databaseurl}" p:username="${jdbc.username}"
 		p:password="${jdbc.password}" />
 
-	<bean id="sessionFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
+		<property name="persistenceUnitName" value="hibernatePersistenceUnit" />
 		<property name="packagesToScan" value="pl.arczynskiadam.core.model" />
 	    <property name="jpaVendorAdapter">
 	        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 	    </property>
 	</bean>
-	
+ 
 	<tx:annotation-driven />
 
 	<bean id="transactionManager"
 		class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="sessionFactory" />
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 	
 	<jpa:repositories base-package="pl.arczynskiadam.core.dao" />

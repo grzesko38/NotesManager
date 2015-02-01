@@ -147,8 +147,8 @@ public class NoteController extends AbstractController {
 			return NoteControllerConstants.Pages.ADD;
 		} else {
 			NoteVO note = new NoteVO();
-			note.setAuthor(noteForm.getAuthor());
-			note.setEmail(noteForm.getEmail());
+//			note.setAuthor(noteForm.getAuthor());
+//			note.setEmail(noteForm.getEmail());
 			note.setDateCreated(new Date());
 			note.setContent(noteForm.getContent());
 			

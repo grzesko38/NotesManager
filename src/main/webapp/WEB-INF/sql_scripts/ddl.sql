@@ -7,8 +7,7 @@ DROP TABLE IF EXISTS NOTES;
 CREATE TABLE NOTES
 (
     id				INT PRIMARY KEY AUTO_INCREMENT,
-    author			VARCHAR(30),
-    email	   		VARCHAR(30),
+    user_fk			INT,
     date_created    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     last_modified   TIMESTAMP,
     content			VARCHAR(4096)

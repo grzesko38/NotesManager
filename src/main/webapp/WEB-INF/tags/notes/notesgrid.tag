@@ -68,8 +68,8 @@
 					</td>
 <!-- 							onClick="document.forms['selectedNotes'].submit();" -->
 					<td class="left"><spring:message text="${notesPaginationData.page.number * notesPaginationData.page.size + loopStatus.index + 1}."/></td>
-					<td>${note.author}</td>
-					<td>${note.email}</td>
+					<td>${note.user.nick}</td>
+					<td>${note.user.email}</td>
 					<td>${note.dateCreated}</td>
 					<td>
 						<a href="${pageContext.request.contextPath}/notesmanager/details/${note.id}">[details]</a> |
