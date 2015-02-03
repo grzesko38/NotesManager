@@ -19,7 +19,6 @@ import pl.arczynskiadam.core.dao.NoteRepository;
 import pl.arczynskiadam.core.model.NoteVO;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
-import pl.arczynskiadam.web.controller.NoteController;
 import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
 import pl.arczynskiadam.web.data.NotesPagesData;
 
@@ -37,6 +36,9 @@ public class DefaultNoteService implements NoteService {
 	@Override
 	@Transactional
 	public void addNote(NoteVO note) {
+		if (note.getDateCreated() == null) {
+			note.setDateCreated(new Date());
+		}
 		noteDAO.save(note);
 	}
 

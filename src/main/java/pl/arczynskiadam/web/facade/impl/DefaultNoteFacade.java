@@ -6,14 +6,14 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import pl.arczynskiadam.core.model.NoteVO;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.web.facade.NoteFacade;
 
-@Repository
+@Component
 public class DefaultNoteFacade implements NoteFacade {
 
 	@Autowired(required = true)

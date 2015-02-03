@@ -30,11 +30,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.arczynskiadam.core.model.NoteVO;
+import pl.arczynskiadam.core.model.UserVO;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.web.controller.constants.GlobalControllerConstants;
 import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
 import pl.arczynskiadam.web.data.NotesPagesData;
 import pl.arczynskiadam.web.facade.NoteFacade;
+import pl.arczynskiadam.web.facade.UserFacade;
 import pl.arczynskiadam.web.form.DateForm;
 import pl.arczynskiadam.web.form.EntriesPerPageForm;
 import pl.arczynskiadam.web.form.NewNoteForm;
@@ -55,6 +57,9 @@ public class NoteController extends AbstractController {
 	
 	@Autowired
 	private NoteFacade noteFacade;
+	
+	@Autowired
+	private UserFacade userFacade;
 	
 	@Resource(name="selectedNotesValidator")
     private SelectedCheckboxesValidator selectedCheckboxesValidator;
@@ -146,10 +151,9 @@ public class NoteController extends AbstractController {
 			
 			return NoteControllerConstants.Pages.ADD;
 		} else {
+			UserVO user = userFacade.findUserById(1);
 			NoteVO note = new NoteVO();
-//			note.setAuthor(noteForm.getAuthor());
-//			note.setEmail(noteForm.getEmail());
-			note.setDateCreated(new Date());
+			note.setAuthor(user);
 			note.setContent(noteForm.getContent());
 			
 			noteFacade.addNote(note);
