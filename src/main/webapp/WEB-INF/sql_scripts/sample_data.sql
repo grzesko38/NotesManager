@@ -5,6 +5,9 @@ INSERT INTO USERS
 VALUES
 (
 	1, 'Adam', 'adam.arczynski@gmail.com', '1990-01-01 00:00:00', 'hash', 'sha-256', 'salt'
+),
+(
+	2, 'Olka', 'ola.o@op.pl', '1995-01-01 00:00:00', 'hash', 'sha-256', 'salt'
 );
 
 INSERT INTO NOTES
@@ -44,4 +47,10 @@ VALUES
 ),
 (
 	null, '2000-01-01 00:00:00', 'rererererer erererere ererere'
+),
+(
+	2, '2004-05-21 00:00:00', 'ola ola ola ola'
+),
+(
+	2, '2014-12-01 00:00:00', 'o2o2o2o2o2o2'
 );

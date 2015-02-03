@@ -34,16 +34,16 @@
 				</th>
 				<th class="corner"/>
 				<th>
-					<navigation:sortHeader divClass="sort" sortColumn="author" imgSize="16"
-							ascImgUrl="${sortCol eq 'author' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
-							descImgUrl="${sortCol eq 'author' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
+					<navigation:sortHeader divClass="sort" sortColumn="author.nick" imgSize="16"
+							ascImgUrl="${sortCol eq 'author.nick' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
+							descImgUrl="${sortCol eq 'author.nick' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
 						<span><spring:message code="notes.listing.label.author"/></span>
 					</navigation:sortHeader>
 				</th>
 				<th>
-					<navigation:sortHeader divClass="sort" sortColumn="email" imgSize="16"
-							ascImgUrl="${sortCol eq 'email' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
-							descImgUrl="${sortCol eq 'email' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
+					<navigation:sortHeader divClass="sort" sortColumn="author.email" imgSize="16"
+							ascImgUrl="${sortCol eq 'author.email' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
+							descImgUrl="${sortCol eq 'author.email' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
 						<span><spring:message code="notes.listing.label.email"/></span>
 					</navigation:sortHeader>
 				</th>
@@ -68,8 +68,8 @@
 					</td>
 <!-- 							onClick="document.forms['selectedNotes'].submit();" -->
 					<td class="left"><spring:message text="${notesPaginationData.page.number * notesPaginationData.page.size + loopStatus.index + 1}."/></td>
-					<td>${note.user.nick}</td>
-					<td>${note.user.email}</td>
+					<td>${note.author.nick}</td>
+					<td>${note.author.email}</td>
 					<td>${note.dateCreated}</td>
 					<td>
 						<a href="${pageContext.request.contextPath}/notesmanager/details/${note.id}">[details]</a> |

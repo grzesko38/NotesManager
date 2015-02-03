@@ -31,7 +31,7 @@ public class NoteVO {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_FK")
-	public UserVO user;
+	public UserVO author;
 
 	public Integer getId() {
 		return id;
@@ -65,12 +65,12 @@ public class NoteVO {
 		this.lastModified = lastModified;
 	}
 
-	public UserVO getUser() {
-		return user;
+	public UserVO getAuthor() {
+		return author;
 	}
 
-	public void setUser(UserVO user) {
-		this.user = user;
+	public void setAuthor(UserVO user) {
+		this.author = user;
 	}
 
 	@Override

@@ -29,7 +29,7 @@ public class DefaultNoteFacade implements NoteFacade {
 
 	@Override
 	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
-		return noteService.listNotes(pageId, pageSize, "dateCreated", asc);
+		return noteService.listNotes(pageId, pageSize, sortCol, asc);
 	}
 	
 	@Override

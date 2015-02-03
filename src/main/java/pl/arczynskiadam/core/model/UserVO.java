@@ -38,7 +38,7 @@ public class UserVO {
 	@Column(name="PASSWORD_SALT")
 	private String passwordSalt;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
 	private Set<NoteVO> notes;
 
 	public Integer getId() {
