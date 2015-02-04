@@ -35,6 +35,14 @@
 	    <property name="jpaVendorAdapter">
 	        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 	    </property>
+	    <property name="jpaProperties">
+	        <props>
+	            <prop key="hibernate.hbm2ddl.auto">update</prop>
+	            <prop key="hibernate.show_sql">true</prop>
+	            <prop key="dialect">${jdbc.dialect}</prop>
+	            <prop key="hibernate.connection.driver_class">${jdbc.driverClassName}</prop>
+	        </props>
+        </property>
 	</bean>
  
 	<tx:annotation-driven />

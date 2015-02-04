@@ -1,7 +1,21 @@
-DROP DATABASE If EXISTS notesmanager;
+DROP DATABASE IF EXISTS notesmanager;
 CREATE DATABASE notesmanager;
-USE notesmanager
-GRANT ALL ON notesmanager TO Adam@localhost;
+USE notesmanager;
+
+CREATE USER 'notes_admin'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON `notesmanager`.* TO 'notes_admin'@'localhost'WITH GRANT OPTION;
+
+DROP TABLE IF EXISTS USERS;
+CREATE TABLE USERS
+(
+    id					INT PRIMARY KEY AUTO_INCREMENT,
+    nick				VARCHAR(32) NOT NULL,
+    email	   			VARCHAR(128),
+    date_registered    	TIMESTAMP,
+	password_hash		VARCHAR(128),
+	password_encoding	VARCHAR(16),
+	password_salt		VARCHAR(32)
+);
 
 DROP TABLE IF EXISTS NOTES;
 CREATE TABLE NOTES
@@ -11,16 +25,4 @@ CREATE TABLE NOTES
     date_created    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     last_modified   TIMESTAMP,
     content			VARCHAR(4096)
-);
-
-DROP TABLE IF EXISTS USERS;
-CREATE TABLE USERS
-(
-    id					INT PRIMARY KEY AUTO_INCREMENT,
-    nick				VARCHAR(32) NOT NULL,
-    email	   			VARCHAR(128) NOT NULL,
-    date_registered    	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	password_hash		VARCHAR(128) NOT NULL,
-	password_encoding	VARCHAR(16) NOT NULL,
-	password_salt		VARCHAR(32) NOT NULL
 );
