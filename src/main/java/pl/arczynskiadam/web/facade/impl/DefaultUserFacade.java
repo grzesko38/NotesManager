@@ -4,23 +4,29 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
-import pl.arczynskiadam.core.dao.UserRepository;
+import pl.arczynskiadam.core.model.AnonymousUserVO;
 import pl.arczynskiadam.core.model.UserVO;
+import pl.arczynskiadam.core.service.UserService;
 import pl.arczynskiadam.web.facade.UserFacade;
 
 @Component
 public class DefaultUserFacade implements UserFacade {
 
 	@Resource
-	UserRepository userDao;
+	UserService userService;
 	
 	@Override
-	public void addUser(UserVO user) {
-		userDao.save(user);
+	public void saveNewUser(UserVO user) {
+		userService.saveNewUser(user);
 	}
 
 	@Override
 	public UserVO findUserById(int id) {
-		return userDao.findOne(id);
+		return userService.findUserById(id);
+	}
+	
+	@Override
+	public AnonymousUserVO findAnonymousUserByNick(String nick) {
+		return userService.findAnonymousUserByNick(nick);
 	}
 }

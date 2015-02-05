@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import pl.arczynskiadam.core.model.NoteVO;
 
 public interface NoteFacade {
-	public void addNote(NoteVO note);
+	public void saveNewNote(NoteVO note);
 	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc);
 	public Page<NoteVO> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date);
 	public void deleteNote(int id);

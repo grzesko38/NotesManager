@@ -35,7 +35,7 @@ public class DefaultNoteService implements NoteService {
 	
 	@Override
 	@Transactional
-	public void addNote(NoteVO note) {
+	public void saveNewNote(NoteVO note) {
 		if (note.getDateCreated() == null) {
 			note.setDateCreated(new Date());
 		}

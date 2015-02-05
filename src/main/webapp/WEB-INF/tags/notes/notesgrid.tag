@@ -41,13 +41,6 @@
 					</navigation:sortHeader>
 				</th>
 				<th>
-					<navigation:sortHeader divClass="sort" sortColumn="author.email" imgSize="16"
-							ascImgUrl="${sortCol eq 'author.email' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
-							descImgUrl="${sortCol eq 'author.email' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
-						<span><spring:message code="notes.listing.label.email"/></span>
-					</navigation:sortHeader>
-				</th>
-				<th>
 					<navigation:sortHeader divClass="sort" sortColumn="dateCreated" imgSize="16"
 							ascImgUrl="${sortCol eq 'dateCreated' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
 							descImgUrl="${sortCol eq 'dateCreated' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
@@ -66,18 +59,15 @@
 							<label for="selections${loopStatus.index + 1}"><spring:message text=""/></label>
 						</div>
 					</td>
-<!-- 							onClick="document.forms['selectedNotes'].submit();" -->
 					<td class="left"><spring:message text="${notesPaginationData.page.number * notesPaginationData.page.size + loopStatus.index + 1}."/></td>
 					<td>${note.author.nick}</td>
-					<td>${note.author.email}</td>
-					<td>${note.dateCreated}</td>
+					<td>${note.formattedDateCreated}</td>
 					<td>
 						<a href="${pageContext.request.contextPath}/notesmanager/details/${note.id}">[details]</a> |
 						<a href="${pageContext.request.contextPath}/notesmanager/edit/${note.id}">[edit]</a> |
 						<span>
 							<a href="${pageContext.request.contextPath}/notesmanager/delete/${note.id}">[delete]</a>
 						</span>
-<%-- 								<div onClick="document.forms['selectedNotes'].submit();">xxx ${note.id}</div>	 --%>
 					</td>
 				</tr>
 			</c:forEach>

@@ -23,13 +23,18 @@ public class DefaultNoteFacade implements NoteFacade {
 	private SessionService sessionService;
 
 	@Override
-	public void addNote(NoteVO note) {
-		noteService.addNote(note);
+	public void saveNewNote(NoteVO note) {
+		noteService.saveNewNote(note);
 	}
 
 	@Override
 	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
-		return noteService.listNotes(pageId, pageSize, sortCol, asc);
+		Page<NoteVO> result = noteService.listNotes(pageId, pageSize, sortCol, asc);
+		for (NoteVO note : result.getContent()) {
+			Date created = note.getDateCreated();
+			note.setFormattedDateCreated(created.getDate() + "-" + (created.getMonth() +1 ) + "-" + (created.getYear() + 1900));
+		}
+		return result;
 	}
 	
 	@Override

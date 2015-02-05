@@ -29,8 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import pl.arczynskiadam.core.model.AnonymousUserVO;
 import pl.arczynskiadam.core.model.NoteVO;
-import pl.arczynskiadam.core.model.UserVO;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.web.controller.constants.GlobalControllerConstants;
 import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
@@ -41,8 +41,8 @@ import pl.arczynskiadam.web.form.DateForm;
 import pl.arczynskiadam.web.form.EntriesPerPageForm;
 import pl.arczynskiadam.web.form.NewNoteForm;
 import pl.arczynskiadam.web.form.NewNoteForm.All;
-import pl.arczynskiadam.web.form.validation.SelectedCheckboxesValidator;
 import pl.arczynskiadam.web.form.SelectedCheckboxesForm;
+import pl.arczynskiadam.web.form.validation.SelectedCheckboxesValidator;
 import pl.arczynskiadam.web.messages.GlobalMessages;
 import pl.arczynskiadam.web.tag.navigation.BreadcrumbsItem;
 
@@ -151,13 +151,18 @@ public class NoteController extends AbstractController {
 			
 			return NoteControllerConstants.Pages.ADD;
 		} else {
-			UserVO user = userFacade.findUserById(1);
+			AnonymousUserVO anonymous = userFacade.findAnonymousUserByNick(noteForm.getAuthor());
+			if (anonymous == null) {
+				anonymous = new AnonymousUserVO();
+				anonymous.setNick(noteForm.getAuthor());
+			}
 			NoteVO note = new NoteVO();
-			note.setAuthor(user);
 			note.setContent(noteForm.getContent());
+			anonymous.addNote(note);
 			
-			noteFacade.addNote(note);
+			noteFacade.saveNewNote(note);
 			noteService.removePaginationDataFromSession();
+			
 			GlobalMessages.addInfoFlashMessage("notes.addNew.msg.confirmation", attrs);
 			
 			return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;

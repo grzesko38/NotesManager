@@ -2,6 +2,7 @@ package pl.arczynskiadam.core.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="NOTES")
@@ -29,9 +31,12 @@ public class NoteVO {
 	@Column(name="LAST_MODIFIED")
 	private Date lastModified;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
 	@JoinColumn(name = "USER_FK")
-	public UserVO author;
+	private AnonymousUserVO author;
+	
+	@Transient
+	private String formattedDateCreated;
 
 	public Integer getId() {
 		return id;
@@ -65,12 +70,22 @@ public class NoteVO {
 		this.lastModified = lastModified;
 	}
 
-	public UserVO getAuthor() {
+
+	public AnonymousUserVO getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(UserVO user) {
-		this.author = user;
+	public void setAuthor(AnonymousUserVO author) {
+		this.author = author;
+		author.addNote(this);
+	}
+
+	public String getFormattedDateCreated() {
+		return formattedDateCreated;
+	}
+
+	public void setFormattedDateCreated(String formattedDateCreated) {
+		this.formattedDateCreated = formattedDateCreated;
 	}
 
 	@Override

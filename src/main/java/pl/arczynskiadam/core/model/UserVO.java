@@ -1,27 +1,15 @@
 package pl.arczynskiadam.core.model;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="USERS")
-public class UserVO {
-
-	@Id
-	@Column(name="ID")
-	@GeneratedValue
-	private Integer id;
-	
-	@Column(name="NICK")
-	private String nick;
+public class UserVO extends AnonymousUserVO {
 	
 	@Column(name="EMAIL")
 	private String email;
@@ -37,21 +25,6 @@ public class UserVO {
 	
 	@Column(name="PASSWORD_SALT")
 	private String passwordSalt;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
-	private Set<NoteVO> notes;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getNick() {
-		return nick;
-	}
 
 	public void setNick(String nick) {
 		this.nick = nick;
@@ -72,16 +45,6 @@ public class UserVO {
 	public void setDateRegistered(Date dateRegistered) {
 		this.dateRegistered = dateRegistered;
 	}
-	
-	public Set<NoteVO> getNotes() {
-		return notes;
-	}
-
-	public void setNotes(Set<NoteVO> notes) {
-		this.notes = notes;
-	}
-	
-	
 
 	public String getPasswordHash() {
 		return passwordHash;
@@ -109,9 +72,9 @@ public class UserVO {
 
 	@Override
 	public String toString() {
-		return "UserVO [id=" + id + ", nick=" + nick + ", email=" + email
-				+ ", dateRegistered=" + dateRegistered + ", passwordHash="
-				+ passwordHash + ", passwordEncoding=" + passwordEncoding
-				+ ", passwordSalt=" + passwordSalt + "]";
+		return "UserVO [email=" + email + ", dateRegistered=" + dateRegistered
+				+ ", passwordHash=" + passwordHash + ", passwordEncoding="
+				+ passwordEncoding + ", passwordSalt=" + passwordSalt + ", id="
+				+ id + ", nick=" + nick + "]";
 	}
 }
