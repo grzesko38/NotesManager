@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -150,17 +151,8 @@ public class NoteController extends AbstractController {
 			GlobalMessages.addErrorMessage("notes.addNew.msg.error", model);
 			
 			return NoteControllerConstants.Pages.ADD;
-		} else {
-			AnonymousUserVO anonymous = userFacade.findAnonymousUserByNick(noteForm.getAuthor());
-			if (anonymous == null) {
-				anonymous = new AnonymousUserVO();
-				anonymous.setNick(noteForm.getAuthor());
-			}
-			NoteVO note = new NoteVO();
-			note.setContent(noteForm.getContent());
-			anonymous.addNote(note);
-			
-			noteFacade.saveNewNote(note);
+		} else {		
+			noteFacade.addNewNoteForAnonymousUer(noteForm.getContent(), noteForm.getAuthor());
 			noteService.removePaginationDataFromSession();
 			
 			GlobalMessages.addInfoFlashMessage("notes.addNew.msg.confirmation", attrs);

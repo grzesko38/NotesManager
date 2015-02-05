@@ -7,10 +7,13 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import pl.arczynskiadam.core.model.AnonymousUserVO;
 import pl.arczynskiadam.core.model.NoteVO;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
+import pl.arczynskiadam.core.service.UserService;
 import pl.arczynskiadam.web.facade.NoteFacade;
 
 @Component
@@ -20,10 +23,24 @@ public class DefaultNoteFacade implements NoteFacade {
 	private NoteService noteService;
 	
 	@Autowired(required = true)
+	private UserService userService;
+	
+	@Autowired(required = true)
 	private SessionService sessionService;
 
 	@Override
-	public void saveNewNote(NoteVO note) {
+	@Transactional
+	public void addNewNoteForAnonymousUer(String noteContent, String userNick) {
+		AnonymousUserVO anonymous = userService.findAnonymousUserByNick(userNick);
+		if (anonymous == null) {
+			anonymous = new AnonymousUserVO();
+		}
+		
+		NoteVO note = new NoteVO();
+		note.setContent(noteContent);
+		note.setDateCreated(new Date());
+		anonymous.addNote(note);
+		
 		noteService.saveNewNote(note);
 	}
 

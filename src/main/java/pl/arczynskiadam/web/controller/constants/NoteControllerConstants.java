@@ -40,7 +40,7 @@ public interface NoteControllerConstants {
 		interface Pagination {
 			public static final int MAX_LINKED_PAGES		= 11;
 			public static final int ENTRIES_PER_PAGE 		= 15;
-			public static final String DEFAULT_SORT_COLUMN 	= "author";
+			public static final String DEFAULT_SORT_COLUMN 	= "author.nick";
 		}
 	}
 }

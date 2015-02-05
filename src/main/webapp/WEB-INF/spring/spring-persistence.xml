@@ -39,8 +39,7 @@
 	        <props>
 	            <prop key="hibernate.hbm2ddl.auto">update</prop>
 	            <prop key="hibernate.show_sql">true</prop>
-	            <prop key="dialect">${jdbc.dialect}</prop>
-	            <prop key="hibernate.connection.driver_class">${jdbc.driverClassName}</prop>
+	            <prop key="hibernate.dialect">${jdbc.dialect}</prop>
 	        </props>
         </property>
 	</bean>
