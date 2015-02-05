@@ -1,5 +1,6 @@
 package pl.arczynskiadam.web.facade.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -47,9 +48,9 @@ public class DefaultNoteFacade implements NoteFacade {
 	@Override
 	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
 		Page<NoteVO> result = noteService.listNotes(pageId, pageSize, sortCol, asc);
-		for (NoteVO note : result.getContent()) {
-			Date created = note.getDateCreated();
-			note.setFormattedDateCreated(created.getDate() + "-" + (created.getMonth() +1 ) + "-" + (created.getYear() + 1900));
+		for (NoteVO note : result.getContent()) {		
+			String formattedDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(note.getDateCreated());	
+			note.setFormattedDateCreated(formattedDate);
 		}
 		return result;
 	}
