@@ -35,6 +35,7 @@ public class DefaultNoteFacade implements NoteFacade {
 		AnonymousUserVO anonymous = userService.findAnonymousUserByNick(userNick);
 		if (anonymous == null) {
 			anonymous = new AnonymousUserVO();
+			anonymous.setNick(userNick);
 		}
 		
 		NoteVO note = new NoteVO();
