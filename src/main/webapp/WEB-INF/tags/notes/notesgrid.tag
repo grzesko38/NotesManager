@@ -81,14 +81,3 @@
 	</table>
 </form:form>
 <utils:pagination paginationData="${notesPaginationData}" linkCore="${linkCore}" />
-<span id="deleteSelectedNotes" class="buttonPositive">
-	<spring:message code="notes.listing.delete.selected" />
-</span>
-<span id="deleteAllNotes" class="buttonPositive">
-	<spring:message code="notes.listing.delete.all" />
-</span>
-<a href="<c:url value="/notesmanager/add" />">
-	<span class="buttonPositive">
-		<spring:message code="notes.listing.addNew" />
-	</span>
-</a>

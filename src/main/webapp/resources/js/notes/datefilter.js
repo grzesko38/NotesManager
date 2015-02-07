@@ -1,17 +1,24 @@
 NotesDateFilterScripts = {
-	clearDateFilter: function() {
-		$("#dateForm").find("input[name='date']" ).val("");
-		$("#dateForm").submit();
+	bindClearDateFilter: function() {
+		$("#cancelDateFilter").click(function() {
+			$("#dateForm").find("input[name='date']" ).val("");
+			$("#dateForm").submit();
+		});
 	},
 	
-	submitDateFilterForm: function() {
-		if ($("#dateForm").find( "input[name='date']" ).val().trim()) {
-			$("#dateForm").submit();
-		}
+	bindApplyDateFilter: function() {
+		$("#dateFilterFormSubmitButton").click(function() {
+			if ($("#dateForm").find( "input[name='date']" ).val().trim()) {
+				$("#dateForm").submit();
+			}
+		});
+	},
+	bindAll: function() {
+		NotesDateFilterScripts.bindApplyDateFilter();
+		NotesDateFilterScripts.bindClearDateFilter();
 	}
 }
 
 $(document).ready(function() {
-	$("#cancelDateFilter").click(NotesDateFilterScripts.clearDateFilter)
-	$("#dateFilterFormSubmitButton").click(NotesDateFilterScripts.submitDateFilterForm);
+	NotesDateFilterScripts.bindAll();
 });

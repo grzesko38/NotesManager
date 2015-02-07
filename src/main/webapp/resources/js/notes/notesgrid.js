@@ -1,10 +1,18 @@
 NotesGridScripts = {
 	// === checkboxes === 
-	toggleAll: function() {
-		$("input[id^='selections']").each(function() {
-			this.checked = $("#selectAll").is(':checked');
+	bindSelectAll: function() {
+		$("#selectAll").click(function() {
+			$("input[id^='selections']").each(function() {
+				this.checked = $("#selectAll").is(':checked');
+			});
+			NotesGridScripts.postAjaxSelectedIds();
 		});
-		NotesGridScripts.postAjaxSelectedIds();
+	},
+	bindNoteCheckbox: function() {
+		$("input[id^='selections']").click(function() {
+			NotesGridScripts.updateSelectAllCheckbox();
+			NotesGridScripts.postAjaxSelectedIds();
+		});
 	},
 	updateSelectAllCheckbox: function() {
 		var allChecked  = true;
@@ -39,7 +47,7 @@ NotesGridScripts = {
 	},
 	
 	// === entries per page form ===
-	handleEntriesPerPageForms: function() {
+	bindEntriesPerPage: function() {
 		$(".entriesPerPage").each(
 			function() {
 				$(this).change(function() {
@@ -50,22 +58,23 @@ NotesGridScripts = {
 	},
 	
 	// === delete buttons ===
-	handleDeleteNotes: function() {
+	bindDeleteNotes: function() {
 		$("#deleteSelectedNotes").click(function() {
 			var input = $("<input>").attr("type", "hidden").attr("name", "delete").val("selected");
 			$('#notesGridForm').append($(input));
 			$("#notesGridForm").submit();
 		});
+	},
+	
+	// === all ===
+	bindAll: function() {
+		NotesGridScripts.bindSelectAll();
+		NotesGridScripts.bindNoteCheckbox();
+		NotesGridScripts.bindEntriesPerPage();
+		NotesGridScripts.bindDeleteNotes();
 	}
 }
 
 $(document).ready(function() {
-	$("#selectAll").click(NotesGridScripts.toggleAll);
-	$("input[id^='selections']").click(function() {
-		NotesGridScripts.updateSelectAllCheckbox();
-		NotesGridScripts.postAjaxSelectedIds();
-	});
-	NotesGridScripts.updateSelectAllCheckbox();
-	NotesGridScripts.handleEntriesPerPageForms();
-	NotesGridScripts.handleDeleteNotes();
+	NotesGridScripts.bindAll();
 });

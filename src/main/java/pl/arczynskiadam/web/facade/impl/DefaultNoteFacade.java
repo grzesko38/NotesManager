@@ -3,6 +3,7 @@ package pl.arczynskiadam.web.facade.impl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +56,7 @@ public class DefaultNoteFacade implements NoteFacade {
 	@Override
 	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
 		Page<NoteVO> result = noteService.listNotes(pageId, pageSize, sortCol, asc);
-		for (NoteVO note : result.getContent()) {		
-			String formattedDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(note.getDateCreated());	
-			note.setFormattedDateCreated(formattedDate);
-		}
+		fillFormattedDates(result.getContent());
 		return result;
 	}
 	
@@ -67,7 +65,10 @@ public class DefaultNoteFacade implements NoteFacade {
 		if (date == null) {
 			throw new IllegalArgumentException("date cannot be null.");
 		}
-		return noteService.listNotesFromDate(pageId, pageSize, sortCol, asc, date);
+		
+		Page<NoteVO> result = noteService.listNotesFromDate(pageId, pageSize, sortCol, asc, date);
+		fillFormattedDates(result.getContent());
+		return result;
 	}
 	
 	@Override
@@ -116,4 +117,10 @@ public class DefaultNoteFacade implements NoteFacade {
 		return selections;
 	}
 
+	private void fillFormattedDates(List<NoteVO> notes) {
+		for (NoteVO note : notes) {		
+			String formattedDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(note.getDateCreated());	
+			note.setFormattedDateCreated(formattedDate);
+		}
+	}
 }
