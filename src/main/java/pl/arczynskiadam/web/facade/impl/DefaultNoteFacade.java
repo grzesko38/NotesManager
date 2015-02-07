@@ -30,6 +30,12 @@ public class DefaultNoteFacade implements NoteFacade {
 	private SessionService sessionService;
 
 	@Override
+	public int fetchCurrentUserNotesCount() {
+		//TODO implement when login system is ready
+		return 0;
+	}
+	
+	@Override
 	@Transactional
 	public void addNewNoteForAnonymousUer(String noteContent, String userNick) {
 		AnonymousUserVO anonymous = userService.findAnonymousUserByNick(userNick);

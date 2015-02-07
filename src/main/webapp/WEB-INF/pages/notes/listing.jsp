@@ -25,6 +25,5 @@
     <jsp:body>
     	<utils:globalMessages />
 		<notes:noteslisting />
-		<a href="${pageContext.request.contextPath}/notesmanager/add">new</a>
     </jsp:body>
 </template:notesPage>

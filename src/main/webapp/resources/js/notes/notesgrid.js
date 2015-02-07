@@ -47,6 +47,15 @@ NotesGridScripts = {
 				})
 			}
 		);
+	},
+	
+	// === delete buttons ===
+	handleDeleteNotes: function() {
+		$("#deleteSelectedNotes").click(function() {
+			var input = $("<input>").attr("type", "hidden").attr("name", "delete").val("selected");
+			$('#notesGridForm').append($(input));
+			$("#notesGridForm").submit();
+		});
 	}
 }
 
@@ -58,6 +67,5 @@ $(document).ready(function() {
 	});
 	NotesGridScripts.updateSelectAllCheckbox();
 	NotesGridScripts.handleEntriesPerPageForms();
-	
-	
+	NotesGridScripts.handleDeleteNotes();
 });

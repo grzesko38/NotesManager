@@ -1,7 +1,9 @@
 <%@ taglib prefix="spring" 		uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form"   		uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c"      		uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" 	   		uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="navigation"	uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
+<%@ taglib prefix="utils" 		tagdir="/WEB-INF/tags/utils" %>
 
 <script src="${pageContext.request.contextPath}/js/notes/notesgrid.js"></script>
 
@@ -18,7 +20,11 @@
 <c:set var="sortCol" value="${notesPaginationData.sortCol}"/>
 <c:set var="isSortAsc" value="${notesPaginationData.sortAscending}"/>
 
-<form:form method="post" action="${pageContext.request.contextPath}/notesmanager/show" modelAttribute="selectedCheckboxesForm">
+<c:if test="${notesPaginationData.page.size > 10
+			and fn:length(notesPaginationData.page.content) gt 10}">
+	<utils:pagination paginationData="${notesPaginationData}" linkCore="${linkCore}" />
+</c:if>
+<form:form id="notesGridForm" method="post" action="${pageContext.request.contextPath}/notesmanager/show" modelAttribute="selectedCheckboxesForm">
 	<table class="data">
 		<colgroup>
 			<col class="narrowCheckbox" span="1"/>
@@ -73,5 +79,16 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<button class="buttonPositive" type="submit" value="del" name="delete" title="aaaa">delete selected</button>
 </form:form>
+<utils:pagination paginationData="${notesPaginationData}" linkCore="${linkCore}" />
+<span id="deleteSelectedNotes" class="buttonPositive">
+	<spring:message code="notes.listing.delete.selected" />
+</span>
+<span id="deleteAllNotes" class="buttonPositive">
+	<spring:message code="notes.listing.delete.all" />
+</span>
+<a href="<c:url value="/notesmanager/add" />">
+	<span class="buttonPositive">
+		<spring:message code="notes.listing.addNew" />
+	</span>
+</a>

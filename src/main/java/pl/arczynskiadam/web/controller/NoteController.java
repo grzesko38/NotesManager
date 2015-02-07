@@ -170,28 +170,32 @@ public class NoteController extends AbstractController {
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.SHOW, method = RequestMethod.POST, params="delete")
-	public String deleteNotes(@ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.EntriesPerPage) EntriesPerPageForm entriesPerPageForm,
+	public String deleteNotes(@RequestParam(value = GlobalControllerConstants.RequestParams.DELETE) String delete,
+			@ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.EntriesPerPage) EntriesPerPageForm entriesPerPageForm,
 			@ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.Date) DateForm dateForm,
 			@Valid @ModelAttribute(GlobalControllerConstants.ModelAttrKeys.Form.SelectedCheckboxes) SelectedCheckboxesForm selectedCheckboxesForm,	
 			BindingResult result,
 			Model model,
 			RedirectAttributes attrs) {
 		
-		if (result.hasErrors()) {
-			NotesPagesData pagination = prepareNotesPage(null, null, null, null, dateForm.getDate(), model);
-			model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, pagination);
-			populateEntriesPerPageForm(entriesPerPageForm);
-			dateForm.setDate(pagination.getFromDate());
-			GlobalMessages.addErrorMessage("notes.delete.msg.nothingSelected", model);
-			
-			return NoteControllerConstants.Pages.LISTING;
+		String count = null;
+		
+		if ("all".equals(delete)) {
+			//TODO implement when login system is ready
+		} else if ("selected".equals(delete)) {
+			if (result.hasErrors()) {
+				NotesPagesData pagination = prepareNotesPage(null, null, null, null, dateForm.getDate(), model);
+				model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, pagination);
+				populateEntriesPerPageForm(entriesPerPageForm);
+				dateForm.setDate(pagination.getFromDate());
+				GlobalMessages.addErrorMessage("notes.delete.msg.nothingSelected", model);
+				return NoteControllerConstants.Pages.LISTING;
+			}
+			count = Integer.toString(selectedCheckboxesForm.getSelections().size());
+			Set<Integer> ids = noteFacade.convertSelectionsToNotesIds(selectedCheckboxesForm.getSelections());
+			noteFacade.deleteNotes(ids);
 		}
 		
-		Set<Integer> ids = noteFacade.convertSelectionsToNotesIds(selectedCheckboxesForm.getSelections());
-		
-		noteFacade.deleteNotes(ids);
-		
-		String count = Integer.toString(selectedCheckboxesForm.getSelections().size());
 		GlobalMessages.addInfoFlashMessage("notes.delete.msg.confirmation", Collections.singletonList(count), attrs);
 		
 		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;

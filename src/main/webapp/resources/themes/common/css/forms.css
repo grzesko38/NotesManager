@@ -41,18 +41,21 @@
 													/* Buttons */
 .buttonPositive
 {
-	-webkit-border-radius: 8px;
 	border-radius: 8px;
-	display: inline-block;
+	display: inline-flex;
 	cursor: pointer;
 	color: #FFFFFF;
 	font-family: arial;
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: bold;
-	padding: 13px 32px;
+	text-align: center;
 	text-decoration: none;
 	text-shadow: 0px 1px 0px #3D768A;
-	border: medium none;
+	border: 0px none;
+	width: 190px;
+	height: 45px;
+	align-items: center;
+	justify-content: center;
 }
 .buttonPositive:active
 {

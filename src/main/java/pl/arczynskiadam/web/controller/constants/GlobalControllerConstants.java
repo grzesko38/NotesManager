@@ -16,6 +16,7 @@ public interface GlobalControllerConstants {
 		public static final String SORT_COLUMN 	= "col";
 		public static final String SORT_ORDER 	= "sort";
 		public static final String ENTRIES 		= "entries";
+		public static final String DELETE 		= "delete";
 	}
 	
 	interface ModelAttrKeys {

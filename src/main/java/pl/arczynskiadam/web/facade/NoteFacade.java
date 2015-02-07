@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import pl.arczynskiadam.core.model.NoteVO;
 
 public interface NoteFacade {
+	public int fetchCurrentUserNotesCount();
 	public void addNewNoteForAnonymousUer(String noteContent, String userNick);
 	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc);
 	public Page<NoteVO> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date);
