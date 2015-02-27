@@ -71,9 +71,9 @@
 					<td>
 						<a href="${pageContext.request.contextPath}/notesmanager/details/${note.id}">[details]</a> |
 						<a href="${pageContext.request.contextPath}/notesmanager/edit/${note.id}">[edit]</a> |
-						<span>
-							<a href="${pageContext.request.contextPath}/notesmanager/delete/${note.id}">[delete]</a>
-						</span>
+						<a href="${pageContext.request.contextPath}/notesmanager/delete/${note.id}">
+							<span>[delete]</span>
+						</a>
 					</td>
 				</tr>
 			</c:forEach>
