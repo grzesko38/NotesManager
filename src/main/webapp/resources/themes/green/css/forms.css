@@ -2,7 +2,12 @@
 .formWrapper .formRow input, .formWrapper .formRow textarea
 {
 	background-color: #F1FFED;
-	border: 2px inset #F1FFED;
+	border: 1px inset #F1FFED;
+}
+.formWrapper .formRow input:FOCUS, .formWrapper .formRow textarea:FOCUS,
+.formWrapper .formRow.error input:FOCUS, .formWrapper .formRow.error textarea:FOCUS
+{
+	border: 1px inset #1c8c00;
 }
 													/* Errors */
 .formWrapper .formRow.error input, .formWrapper .formRow.error textarea
