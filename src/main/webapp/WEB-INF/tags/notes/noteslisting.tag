@@ -18,11 +18,11 @@
 </c:choose>
 
 <div class="buttonsRow">
-	<a href="<c:url value="/notesmanager/add" />">
-		<span class="buttonPositive">
-			<spring:message code="notes.listing.addNew" />
-		</span>
-	</a>
+	<span class="buttonPositive">
+		<a href="<c:url value="/notesmanager/add" />">
+			<spring:message code="notes.listing.addNew" />	
+		</a>
+	</span>
 	<c:if test="${fn:length(notesPaginationData.page.content) gt 0}">
 		<span id="deleteSelectedNotes" class="buttonPositive">
 			<spring:message code="notes.listing.delete.selected" />

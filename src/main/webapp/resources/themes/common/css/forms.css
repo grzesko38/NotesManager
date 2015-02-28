@@ -48,6 +48,10 @@
 {
 	display: flex;
 }
+.buttonPositive a
+{
+	color: #FFFFFF !important;
+}
 .buttonPositive
 {
 	border-radius: 8px;
