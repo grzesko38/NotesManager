@@ -32,9 +32,9 @@
 .buttonPositive
 {
 	box-shadow: 1px 1px 0 1px #942911;
-	background: linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
+	background: linear-gradient(to bottom, #DE4B40 5%, #D63E33 100%);
 }
 .buttonPositive:hover
 {
-	background: linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+	background: linear-gradient(to bottom, #D63E33 5%, #DE4B40 100%);
 }

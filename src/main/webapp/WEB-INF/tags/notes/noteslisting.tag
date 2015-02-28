@@ -16,17 +16,19 @@
 		</c:if>
 	</c:otherwise>
 </c:choose>
-		
-<a href="<c:url value="/notesmanager/add" />">
-	<span class="buttonPositive">
-		<spring:message code="notes.listing.addNew" />
-	</span>
-</a>
-<c:if test="${fn:length(notesPaginationData.page.content) gt 0}">
-	<span id="deleteSelectedNotes" class="buttonPositive">
-		<spring:message code="notes.listing.delete.selected" />
-	</span>
-	<span id="deleteAllNotes" class="buttonPositive">
-		<spring:message code="notes.listing.delete.all" />
-	</span>
-</c:if>
+
+<div class="buttonsRow">
+	<a href="<c:url value="/notesmanager/add" />">
+		<span class="buttonPositive">
+			<spring:message code="notes.listing.addNew" />
+		</span>
+	</a>
+	<c:if test="${fn:length(notesPaginationData.page.content) gt 0}">
+		<span id="deleteSelectedNotes" class="buttonPositive">
+			<spring:message code="notes.listing.delete.selected" />
+		</span>
+		<span id="deleteAllNotes" class="buttonPositive">
+			<spring:message code="notes.listing.delete.all" />
+		</span>
+	</c:if>
+</div>

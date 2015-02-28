@@ -44,6 +44,10 @@
 	padding-top: 2px;
 }
 													/* Buttons */
+.buttonsRow
+{
+	display: flex;
+}
 .buttonPositive
 {
 	border-radius: 8px;
@@ -61,6 +65,7 @@
 	height: 45px;
 	align-items: center;
 	justify-content: center;
+	margin: 0px 3px;
 }
 .buttonPositive:active
 {
