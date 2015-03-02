@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,7 +20,7 @@ public class NoteVO {
 	
 	@Id
 	@Column(name="ID")
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Column(name="CONTENT")
@@ -31,7 +32,7 @@ public class NoteVO {
 	@Column(name="LAST_MODIFIED")
 	private Date lastModified;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	@JoinColumn(name = "USER_FK")
 	private AnonymousUserVO author;
 	

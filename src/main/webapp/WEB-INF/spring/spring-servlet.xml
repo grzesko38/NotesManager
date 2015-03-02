@@ -22,8 +22,6 @@
 
 	<context:component-scan base-package="pl.arczynskiadam" />
 
-	<import resource="spring-persistence.xml" />
-
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:resources mapping="/images/**" location="/resources/images/" />
 	<mvc:resources mapping="/themes/**" location="/resources/themes/" />

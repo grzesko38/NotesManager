@@ -25,6 +25,9 @@ public class UserVO extends AnonymousUserVO {
 	
 	@Column(name="PASSWORD_SALT")
 	private String passwordSalt;
+	
+	@Column(name="ENABLED")
+	private boolean enabled;
 
 	public void setNick(String nick) {
 		this.nick = nick;
@@ -68,6 +71,14 @@ public class UserVO extends AnonymousUserVO {
 
 	public void setPasswordSalt(String passwordSalt) {
 		this.passwordSalt = passwordSalt;
+	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	@Override

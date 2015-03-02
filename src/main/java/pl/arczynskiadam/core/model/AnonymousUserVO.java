@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -20,14 +21,17 @@ public class AnonymousUserVO {
 	
 	@Id
 	@Column(name="ID")
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
 	
-	@Column(name="NICK")
+	@Column(name="NICK", unique=true)
 	protected String nick;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "author")
 	protected Set<NoteVO> notes = new HashSet<>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<UserRoleVO> userRoles = new HashSet<UserRoleVO>(0);
 		
 	public Integer getId() {
 		return id;
@@ -55,6 +59,14 @@ public class AnonymousUserVO {
 		}
 		notes.add(note);
 		note.setAuthor(this);
+	}
+	
+	public Set<UserRoleVO> getUserRoles() {
+		return userRoles;
+	}
+
+	public void setUserRoles(Set<UserRoleVO> userRoles) {
+		this.userRoles = userRoles;
 	}
 
 	@Override

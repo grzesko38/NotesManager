@@ -36,12 +36,29 @@
 	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/beans.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/spring-persistence.xml
+			/WEB-INF/spring/spring-security.xml
+			/WEB-INF/spring/beans.xml
+		</param-value>
 	</context-param>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
+	<!-- Spring Security -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy
+		</filter-class>
+	</filter>
+ 
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- TLDs -->
 	<jsp-config>
  		<taglib>
    			<taglib-uri>http://arczynskiadam.pl/jsp/tlds/utils</taglib-uri>
