@@ -1,5 +1,6 @@
 package pl.arczynskiadam.core.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -16,7 +17,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name="NOTES")
-public class NoteVO {
+public class NoteVO implements Serializable {
 	
 	@Id
 	@Column(name="ID")

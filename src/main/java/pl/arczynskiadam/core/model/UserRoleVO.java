@@ -1,5 +1,7 @@
 package pl.arczynskiadam.core.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +16,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "USER_ROLES", uniqueConstraints = @UniqueConstraint(columnNames = { "ROLE", "USER_NICK" }))
-public class UserRoleVO {
+public class UserRoleVO implements Serializable {
 	private Integer id;
 	private AnonymousUserVO user;
 	private String role;

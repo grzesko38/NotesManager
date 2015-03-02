@@ -5,7 +5,10 @@ USE notesmanager;
 CREATE USER 'notes_admin'@'localhost' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON `notesmanager`.* TO 'notes_admin'@'localhost'WITH GRANT OPTION;
 
+DROP TABLE IF EXISTS NOTES;
+DROP TABLE IF EXISTS USER_ROLES;
 DROP TABLE IF EXISTS USERS;
+
 CREATE TABLE USERS
 (
     id					INT PRIMARY KEY AUTO_INCREMENT,
@@ -14,10 +17,18 @@ CREATE TABLE USERS
     date_registered    	TIMESTAMP,
 	password_hash		VARCHAR(128),
 	password_encoding	VARCHAR(16),
-	password_salt		VARCHAR(32)
+	password_salt		VARCHAR(32),
+	enabled				TINYINT(1),
+	dtype				VARCHAR(32)
 );
 
-DROP TABLE IF EXISTS NOTES;
+CREATE TABLE USER_ROLES
+(
+    id				INT PRIMARY KEY AUTO_INCREMENT,
+    user_nick		VARCHAR(32) NOT NULL,
+    role			VARCHAR(32) NOT NULL
+);
+
 CREATE TABLE NOTES
 (
     id				INT PRIMARY KEY AUTO_INCREMENT,

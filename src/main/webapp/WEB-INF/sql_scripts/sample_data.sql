@@ -1,13 +1,25 @@
 INSERT INTO USERS
 (
-	id, nick, email, date_registered, password_hash, password_encoding, password_salt
+	id, nick, email, date_registered, password_hash, password_encoding, password_salt, enabled, dtype
 )
 VALUES
 (
-	1, 'Adam', 'adam.arczynski@gmail.com', '1990-01-01 00:00:00', 'hash', 'sha-256', 'salt'
+	1, 'Adam', 'adam.arczynski@gmail.com', '1990-01-01 00:00:00', 'hash', 'sha-256', 'salt', 1, 'UserVO'
 ),
 (
-	2, 'Olka', 'ola.o@op.pl', '1995-01-01 00:00:00', 'hash', 'sha-256', 'salt'
+	2, 'Olka', 'ola.o@op.pl', '1995-01-01 00:00:00', 'hash', 'sha-256', 'salt', 1, 'UserVO'
+);
+
+INSERT INTO USER_ROLES
+(
+	id, user_nick, role
+)
+VALUES
+(
+	1, 'Adam', 'ROLE_USER'
+),
+(
+	2, 'Adam', 'ROLE_ADMIN'
 );
 
 INSERT INTO NOTES

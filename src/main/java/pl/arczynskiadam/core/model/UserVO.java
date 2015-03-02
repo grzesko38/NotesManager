@@ -1,5 +1,6 @@
 package pl.arczynskiadam.core.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="USERS")
-public class UserVO extends AnonymousUserVO {
+public class UserVO extends AnonymousUserVO implements Serializable {
 	
 	@Column(name="EMAIL")
 	private String email;

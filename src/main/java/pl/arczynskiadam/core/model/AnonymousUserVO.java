@@ -1,5 +1,6 @@
 package pl.arczynskiadam.core.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="USERS")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public class AnonymousUserVO {
+public class AnonymousUserVO implements Serializable {
 	
 	@Id
 	@Column(name="ID")
