@@ -11,7 +11,7 @@ import pl.arczynskiadam.core.model.NoteVO;
 public class NotesPagesData {
 	{
 		selectedNotesIds = new HashSet<Integer>();
-		maxLinkedPages = 5;
+		maxLinkedPages = 10;
 	}
 	
 	private Page<NoteVO> page;
@@ -37,7 +37,7 @@ public class NotesPagesData {
 	}
 	
 	public int getLastLinkedPage() {
-		return Math.min(getFirstLinkedPage() + maxLinkedPages - 1, page.getTotalPages() - 1);
+		return Math.min(page.getNumber() + (maxLinkedPages / 2), page.getTotalPages() - 1);
 	}
 	
 	public Page<NoteVO> getPage() {
