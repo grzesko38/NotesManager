@@ -32,12 +32,30 @@ public class NotesPagesData {
 		return page.getSort().getOrderFor(getSortCol()).isAscending();
 	}
 	
-	public int getFirstLinkedPage() {
-  		return Math.max(0, page.getNumber() - (maxLinkedPages / 2));
+	public int getFirstLinkedPage()
+	{
+		if (maxLinkedPages > page.getTotalPages())
+		{
+			return 0;
+		}
+		if (page.getNumber() > page.getTotalPages() - maxLinkedPages)
+		{
+			return Math.min(page.getTotalPages() - maxLinkedPages, page.getNumber() - maxLinkedPages / 2);
+		}
+		return Math.max(0, page.getNumber() - (maxLinkedPages / 2));
 	}
-	
-	public int getLastLinkedPage() {
-		return Math.min(page.getNumber() + (maxLinkedPages / 2), page.getTotalPages() - 1);
+
+	public int getLastLinkedPage()
+	{
+		if (maxLinkedPages > page.getTotalPages())
+		{
+			return page.getTotalPages() - 1;
+		}
+		if (page.getNumber() < maxLinkedPages - 1)
+		{
+			return Math.max(maxLinkedPages - 1, page.getNumber() + maxLinkedPages / 2);
+		}
+		return Math.min(page.getNumber() + (maxLinkedPages / 2), page.getTotalPages()- 1);
 	}
 	
 	public Page<NoteVO> getPage() {
