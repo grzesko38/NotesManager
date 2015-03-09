@@ -27,8 +27,8 @@
 
 	<jsp:invoke fragment="additionalCSS" />
 	
-	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-	<script src="${pageContext.request.contextPath}/js/clock.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-2.1.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/clock.js" ></script>
 	
 	<jsp:invoke fragment="additionalJS" />
 </head>
