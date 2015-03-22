@@ -21,6 +21,7 @@
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
 	<context:component-scan base-package="pl.arczynskiadam" />
+	<tx:annotation-driven />
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:resources mapping="/images/**" location="/resources/images/" />
@@ -125,4 +126,5 @@
          </list>
      </property>
 	</bean>
+	
 </beans>
