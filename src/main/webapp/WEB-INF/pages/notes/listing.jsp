@@ -8,8 +8,7 @@
 
 <template:notesPage>
 	<jsp:attribute name="additionalCSS">
-		<link href="<c:url value="/themes/common/css/globalMessages.css"/>" rel="stylesheet" type="text/css"/>
-		<link href="${pageContext.request.contextPath}/themes/<spring:theme code="css.globalMessages"/>" rel="stylesheet" type="text/css"/>
+		
 	</jsp:attribute>
 
 	<jsp:attribute name="additionalJS">

@@ -4,6 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="formUtil" tagdir="/WEB-INF/tags/form" %>
+<%@ taglib prefix="utils" tagdir="/WEB-INF/tags/utils" %>
 
 <template:master>
 	<c:if test="${not empty error}">
@@ -12,6 +13,7 @@
 	<c:if test="${not empty msg}">
 		<div class="msg">${msg}</div>
 	</c:if>
+	<utils:globalMessages />
 
 	<c:url value='j_spring_security_check' var="loginUrl"/>
 
@@ -44,4 +46,7 @@
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<button>ok</button>
 	</formUtil:form>
+	<a href="<c:url value="/notesmanager/show" />">
+		<spring:message code="login.contunueAsAnonymous" />
+	</a>
 </template:master>

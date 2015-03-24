@@ -11,11 +11,11 @@
 <!-- 		<access-denied-handler error-page="/403" /> -->
 		<form-login 
 		    login-page="/login" 
-		    default-target-url="/welcome" 
+		    default-target-url="/notesmanager/show" 
 			authentication-failure-url="/login?error" 
 			username-parameter="nick"
 			password-parameter="password" />
-		<logout logout-success-url="/login?logout" />
+		<logout logout-url="/j_spring_security_logout" logout-success-url="/logout" />
 		<!-- enable csrf protection -->
 		<csrf/>
 	</http>

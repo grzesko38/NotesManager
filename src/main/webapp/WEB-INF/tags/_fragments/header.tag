@@ -4,6 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="utils" uri="http://arczynskiadam.pl/jsp/tlds/utils" %>
 <%@ taglib prefix="navigation" uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
+<%@ taglib prefix="fragment" tagdir="/WEB-INF/tags/_fragments" %>
 
 <spring:theme code="theme.name" var="themeName"/>
 <c:set var="isBlueTheme" value="${themeName eq 'blue'}" />
@@ -20,9 +21,7 @@
 		
 <header class="top">
 	<div class="topbar">
-		<div class="dateholder">		
-			<utils:date separator="/" />
-		</div>
+		<fragment:auth />
 	</div>
 	<div class="menu">
 		<nav class="buttonsBar">

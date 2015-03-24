@@ -1,1 +1,1 @@
-<jsp:forward page="/notesmanager/show"></jsp:forward>
+<jsp:forward page="/login"></jsp:forward>
