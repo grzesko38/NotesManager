@@ -1,7 +1,6 @@
 <%@ tag description="Notes Page template" body-content="scriptless" pageEncoding="UTF-8"%>
 <%@ attribute name="additionalCSS" fragment="true" %>
 <%@ attribute name="additionalJS" fragment="true" %>
-<%@ attribute name="topBarContent" fragment="true" %>
 <%@ attribute name="banner" fragment="true" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
