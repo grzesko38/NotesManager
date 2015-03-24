@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.arczynskiadam.web.controller.constants.GlobalControllerConstants;
@@ -34,6 +33,7 @@ public class LoginController extends AbstractController {
 	public String logout(RedirectAttributes attrs) {
 
 		GlobalMessages.addInfoFlashMessage("global.logout.success", attrs);
+		GlobalMessages.addInfoFlashMessage("global.contunueAsAnonymous", attrs);
 		
 		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
 	}
