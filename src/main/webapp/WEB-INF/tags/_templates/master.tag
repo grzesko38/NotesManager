@@ -1,12 +1,14 @@
 <%@ tag description="Master Page template" body-content="scriptless" pageEncoding="UTF-8"%>
 <%@ attribute name="additionalCSS" fragment="true" %>
 <%@ attribute name="additionalJS" fragment="true" %>
+<%@ attribute name="topBarContent" fragment="true" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%@ taglib prefix="fragment" tagdir="/WEB-INF/tags/_fragments" %>
 <%@ taglib prefix="notes" tagdir="/WEB-INF/tags/notes" %>
+<%@ taglib prefix="utils" uri="http://arczynskiadam.pl/jsp/tlds/utils" %>
 
 <!DOCTYPE html>
 <html>
@@ -36,9 +38,16 @@
 </head>
 <body>
 	<div id="placeholder"></div>
-	<fragment:header />
-		<div class="master">
-			<div class="page">
+	<fragment:header>
+		<jsp:attribute name="topBarContent">
+			<jsp:invoke fragment="topBarContent" />
+			<div class="dateHolder">
+				<utils:date separator="/" />
+			</div>
+		</jsp:attribute>
+	</fragment:header>
+	<div class="master">
+		<div class="page">
 			<jsp:doBody />
 		</div>
 		<div class="bottom"></div>

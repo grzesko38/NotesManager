@@ -1,4 +1,6 @@
-<%@ tag body-content="empty" pageEncoding="UTF-8"%>
+<%@ tag body-content="scriptless" pageEncoding="UTF-8"%>
+
+<%@ attribute name="topBarContent" fragment="true" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -21,7 +23,7 @@
 		
 <header class="top">
 	<div class="topbar">
-		<fragment:auth />
+		<jsp:invoke fragment="topBarContent"/>
 	</div>
 	<div class="menu">
 		<nav class="buttonsBar">
