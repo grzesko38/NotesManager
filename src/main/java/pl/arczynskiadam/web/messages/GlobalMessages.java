@@ -11,6 +11,8 @@ import java.util.List;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.common.collect.Lists;
+
 public class GlobalMessages {
 	public static void addInfoMessage(String code, Model model) {
 		addMsg(INFO_MSG, code, null, model);
@@ -58,11 +60,11 @@ public class GlobalMessages {
 	
 	private static void addFlashMsg(String type, String code, Collection<String> params, RedirectAttributes attrs) {
 		GlobalMessage msg = new GlobalMessage(code, params);
-		if (attrs.containsAttribute(type)) {
+		if (attrs.getFlashAttributes().containsKey(type)) {
 			List<GlobalMessage> mesages = (List<GlobalMessage>) attrs.getFlashAttributes().get(type);
 			mesages.add(msg);
 		} else {
-			attrs.addFlashAttribute(type, Collections.singletonList(msg));
+			attrs.addFlashAttribute(type, Lists.newArrayList(msg));
 		}
 	}
 	
@@ -72,7 +74,7 @@ public class GlobalMessages {
 			List<GlobalMessage> mesages = (List<GlobalMessage>) model.asMap().get(type);
 			mesages.add(msg);
 		} else {
-			model.addAttribute(type, Collections.singletonList(msg));
+			model.addAttribute(type, Lists.newArrayList(msg));
 		}
 	}
 }
