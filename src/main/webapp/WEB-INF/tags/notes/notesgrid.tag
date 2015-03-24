@@ -20,8 +20,7 @@
 <c:set var="sortCol" value="${notesPaginationData.sortCol}"/>
 <c:set var="isSortAsc" value="${notesPaginationData.sortAscending}"/>
 
-<c:if test="${(notesPaginationData.page.size gt 10 and fn:length(notesPaginationData.page.content) gt 10)
-			or (notesPaginationData.page.size gt 10 and notesPaginationData.page.lastPage)}">
+<c:if test="${fn:length(notesPaginationData.page.content) gt 10}">
 	<utils:pagination paginationData="${notesPaginationData}" linkCore="${linkCore}" />
 </c:if>
 <form:form id="notesGridForm" method="post" action="${pageContext.request.contextPath}/notesmanager/show" modelAttribute="selectedCheckboxesForm">
