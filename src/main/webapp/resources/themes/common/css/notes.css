@@ -92,7 +92,7 @@ div.menu
 {
 	color: #0DBA1B;
 }
-.notes table.data span:hover
+.notes table.data td span:hover
 {
 	color: #E80000;
 }
