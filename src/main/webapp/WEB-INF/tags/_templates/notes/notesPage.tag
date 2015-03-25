@@ -18,6 +18,7 @@
 	</jsp:attribute>
 
 	<jsp:attribute name="additionalJS">
+		<script src="${pageContext.request.contextPath}/js/login.js"></script>
 		<jsp:invoke fragment="additionalJS" />
 	</jsp:attribute>
 	

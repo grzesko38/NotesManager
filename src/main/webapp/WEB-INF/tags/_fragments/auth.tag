@@ -6,30 +6,35 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<div id="welcome">
-	<security:authorize ifNotGranted="ROLE_ANONYMOUS">
+
+<security:authorize ifNotGranted="ROLE_ANONYMOUS">
+	<div id="welcome">
 		<c:url value="/j_spring_security_logout" var="logoutUrl" />
-		<form action="${logoutUrl}" method="post" id="logoutForm">
+		<form id="topBarLogoutForm" action="${logoutUrl}" method="post">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form>
-	 
-		<script>
-			function formSubmit() {
-				document.getElementById("logoutForm").submit();
-			}
-		</script>
 		<spring:message code="global.welcome"/>&#44;&nbsp;${userName}&nbsp;
 		&#40;
-		<a href="javascript:formSubmit()"><spring:message code="global.logout"/></a>
+		<span id="logoutAction"><spring:message code="global.logout"/></span>
 		&#41;	
-	</security:authorize>
-	<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
-		<c:url value="/j_spring_security_check" var="loginUrl"/>
-		<form action="${loginUrl}" method="POST">
-			<input type="text" name="nick"/>
-			<input type="password" name="password"/>
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			<button>ok</button>
-		</form>
-	</security:authorize>
-</div>
+	</div>
+</security:authorize>
+	
+<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
+	<c:url value="/j_spring_security_check" var="loginUrl"/>
+	<div id="topBarLogin">
+		<div class="fieldsRow">
+			<form id="topBarLoginForm" action="${loginUrl}" method="POST">
+				<input type="text" name="nick"/>
+				<input type="password" name="password"/>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			</form>
+		</div>
+		<div id="loginAction">
+			<div>
+				<spring:message code="global.login" />
+			</div>
+			<img src="<c:url value="/themes/common/images/icons/arrow-right.png" />" height="26" width="26"/>
+		</div>
+	</div>
+</security:authorize>

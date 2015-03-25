@@ -162,11 +162,70 @@ div.menu
 	font-size: 18px;
 	font-weight: bold;
 	text-align: right;
+	float: right;
 }
-													/* date holder */
+													/* auth bar */
+#topBarLogin
+{
+	margin-left: 15px;
+	height: 100%;
+	display: inline-block
+}
+#topBarLogin .fieldsRow, #topBarLogin #loginAction
+{
+	display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+#topBarLogin .fieldsRow
+{
+	padding-top: 3px;
+}
+#topBarLogin #loginAction
+{
+	padding-top: 4px;
+	cursor: pointer;
+}
+#welcome #logoutAction
+{
+	cursor: pointer;
+}
+#loginAction > div
+{
+	background: none repeat scroll 0 0 #e1e1e1;
+    border-radius: 10px 0 0 10px;
+    display: inline-block;
+    margin-top: 1px;
+    padding: 0 10px;
+    font-family: arial;
+}
+#loginAction > img
+{
+	margin-left: -10px;
+    margin-top: -3px;
+    vertical-align: middle;
+}
+#topBarLogin input
+{
+	background-color: #e1e1e1;
+    border-radius: 7px;
+    padding: 0px 10px;
+    width: 125px;
+}
 #welcome
 {
-	float: left;
+	height: 100%;
+	display: inline-block;
+	margin-left: 15px;
+    vertical-align: middle;
+    color: #ffffff;
+    font-family: calibri;
+    font-size: 16px;
+    padding-top: 4px;
+}
+#welcome #logoutAction:HOVER, #loginAction > div:HOVER
+{
+	text-decoration: underline;
 }
 													/* Active elements */
 header.top div.menu nav .buttonBorder.blue.active
