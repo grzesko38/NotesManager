@@ -92,10 +92,6 @@
 	<c:if test="${not empty breadcrumbs}">
 		<div class="breadcrumbs">
 			<navigation:breadcrumbs items="${breadcrumbs}" />
-			<div class="breadcrumbs_corner">
-				<img src="${pageContext.request.contextPath}/themes/<spring:theme code="img.header.breadcrumbs.corner"/>"
-				width="33" height="37"/>
-			</div>
 		</div>
 	</c:if>	
 </header>
