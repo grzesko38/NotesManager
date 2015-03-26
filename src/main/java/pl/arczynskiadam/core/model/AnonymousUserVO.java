@@ -31,7 +31,7 @@ public class AnonymousUserVO implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "author")
 	protected Set<NoteVO> notes = new HashSet<>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	private Set<UserRoleVO> userRoles = new HashSet<UserRoleVO>(0);
 		
 	public Integer getId() {

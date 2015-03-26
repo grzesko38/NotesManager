@@ -10,7 +10,7 @@ import pl.arczynskiadam.core.model.AnonymousUserVO;
 import pl.arczynskiadam.core.model.UserVO;
 import pl.arczynskiadam.core.service.UserService;
 
-@Service
+@Service("userService")
 public class DefaultUserService implements UserService {
 
 	@Resource
@@ -27,6 +27,11 @@ public class DefaultUserService implements UserService {
 	@Override
 	public UserVO findUserById(int id) {
 		return userDao.findOne(id);
+	}
+	
+	@Override
+	public UserVO findUserByNick(String nick) {
+		return userDao.findUserByNick(nick);
 	}
 	
 	@Override
