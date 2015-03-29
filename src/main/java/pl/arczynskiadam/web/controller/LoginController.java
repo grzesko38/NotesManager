@@ -29,7 +29,7 @@ public class LoginController extends AbstractController {
 		return LoginControllerConstants.Pages.LOGIN;
 	}
 	
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@RequestMapping(value = LoginControllerConstants.URLs.LOGOUT, method = RequestMethod.GET)
 	public String logout(RedirectAttributes attrs) {
 
 		GlobalMessages.addInfoFlashMessage("global.logout.success", attrs);

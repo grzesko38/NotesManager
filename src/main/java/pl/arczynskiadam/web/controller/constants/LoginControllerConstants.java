@@ -13,6 +13,7 @@ public interface LoginControllerConstants {
 	}
 	
 	interface URLs {		
-		public static final String LOGIN = "login";
+		public static final String LOGIN  = "/login";
+		public static final String LOGOUT = "/logout";
 	}
 }
