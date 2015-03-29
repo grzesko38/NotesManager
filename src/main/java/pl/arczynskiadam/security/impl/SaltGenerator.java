@@ -5,7 +5,6 @@ import org.springframework.security.crypto.keygen.BytesKeyGenerator;
 import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.stereotype.Component;
 
-@Component(value = "saltGenerator")
 public class SaltGenerator {
 	public String generateRandomSalt(int bytes) {
 		BytesKeyGenerator generator = KeyGenerators.secureRandom(bytes);

@@ -21,10 +21,8 @@ import pl.arczynskiadam.web.SecurityConstants;
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
 
-@Service(value = "userDetailsService")
 public class DefaultUserDetailsService implements UserDetailsService {
 
-	@Autowired(required = true)
 	UserService userService;
 	
 	@Override
@@ -61,12 +59,12 @@ public class DefaultUserDetailsService implements UserDetailsService {
 		};
 	}
 
-//	public UserService getUserService() {
-//		return userService;
-//	}
-//
-//	@Required
-//	public void setUserService(UserService userService) {
-//		this.userService = userService;
-//	}
+	public UserService getUserService() {
+		return userService;
+	}
+
+	@Required
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 }

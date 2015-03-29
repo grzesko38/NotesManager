@@ -40,6 +40,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
+			/WEB-INF/spring/webapp.xml
 			/WEB-INF/spring/spring-persistence.xml
 	    	/WEB-INF/spring/spring-security.xml
 			/WEB-INF/spring/beans.xml

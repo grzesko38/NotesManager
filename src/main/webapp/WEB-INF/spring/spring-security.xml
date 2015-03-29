@@ -7,10 +7,7 @@
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
- 
-	<context:component-scan base-package="pl.arczynskiadam.core, pl.arczynskiadam.security" />
-	<tx:annotation-driven />
-	
+ 	
 	<http auto-config="true">
 		<intercept-url pattern="/notesmanager/my-account**" access="ROLE_USER" />
 <!-- 		<access-denied-handler error-page="/403" /> -->
@@ -27,19 +24,19 @@
 
  	<authentication-manager>
 		 <authentication-provider user-service-ref="userDetailsService">
-			<password-encoder ref="SHA256SaltedPasswordEncoder"/>
+			<password-encoder ref="passwordEncoder"/>
 		</authentication-provider>
 	</authentication-manager>
 	
-<!-- 	<beans:alias name="SHA256SaltedPasswordEncoder" alias="passwordEncoder"/> -->
-<!-- 	<beans:bean id="SHA256SaltedPasswordEncoder" -->
-<!-- 		  class="pl.arczynskiadam.security.impl.SHA256SaltedPasswordEncoder"> -->
-<!-- 	</beans:bean> -->
+	<beans:alias name="SHA256SaltedPasswordEncoder" alias="passwordEncoder"/>
+	<beans:bean id="SHA256SaltedPasswordEncoder"
+		  class="pl.arczynskiadam.security.impl.SHA256SaltedPasswordEncoder">
+	</beans:bean>
 	
-<!-- 	<beans:alias name="defaultUserDetailsService" alias="userDetailsService"/> -->
-<!-- 	<beans:bean id="defaultUserDetailsService" -->
-<!-- 		  class="pl.arczynskiadam.security.impl.DefaultUserDetailsService"> -->
-<!-- 		<beans:property name="userService" ref="userService" /> -->
-<!-- 	</beans:bean> -->
+	<beans:alias name="defaultUserDetailsService" alias="userDetailsService"/>
+	<beans:bean id="defaultUserDetailsService"
+		  class="pl.arczynskiadam.security.impl.DefaultUserDetailsService">
+		<beans:property name="userService" ref="userService" />
+	</beans:bean>
 	
 </beans:beans>

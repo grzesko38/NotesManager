@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import pl.arczynskiadam.web.SecurityConstants;
 
-@Component(value = "SHA256SaltedPasswordEncoder")
 public class SHA256SaltedPasswordEncoder implements PasswordEncoder {
 	
 	@Override
