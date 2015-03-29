@@ -22,7 +22,14 @@
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		<button>ok</button>
 	</formUtil:form>
-	<a href="<c:url value="/notesmanager/show" />">
-		<spring:message code="login.contunueAsAnonymous" />
-	</a>
+	<span>
+		<a href="<c:url value="/notesmanager/show" />">
+			<spring:message code="login.contunueAsAnonymous" />
+		</a>
+		<spring:message code="misc.or" />
+		<a href="<c:url value="/register" />">
+			<spring:message code="global.register" />
+		</a>
+	</span>
+	
 </template:master>
