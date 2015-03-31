@@ -19,7 +19,7 @@
 			password-parameter="password" />
 		<logout logout-url="/j_spring_security_logout" logout-success-url="/logout" />
 		<!-- enable csrf protection -->
-		<csrf/>
+<!-- 		<csrf/> -->
 	</http>
 
  	<authentication-manager>
