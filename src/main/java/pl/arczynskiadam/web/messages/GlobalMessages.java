@@ -42,6 +42,10 @@ public class GlobalMessages {
 		addFlashMsg(WARN_MSG, code, null, attrs);
 	}
 	
+	public static void addWarningFlashMessage(String code, Collection<String> params, RedirectAttributes attrs) {
+		addFlashMsg(WARN_MSG, code, params, attrs);
+	}
+	
 	public static void addErrorMessage(String code, Model model) {
 		addMsg(ERR_MSG, code, null, model);
 	}
@@ -54,8 +58,8 @@ public class GlobalMessages {
 		addFlashMsg(ERR_MSG, code, null, attrs);
 	}
 	
-	public static void addWarningFlashMessage(String code, Collection<String> params, RedirectAttributes attrs) {
-		addFlashMsg(WARN_MSG, code, params, attrs);
+	public static void addErrorFlashMessage(String code, Collection<String> params, RedirectAttributes attrs) {
+		addFlashMsg(ERR_MSG, code, params, attrs);
 	}
 	
 	private static void addFlashMsg(String type, String code, Collection<String> params, RedirectAttributes attrs) {
