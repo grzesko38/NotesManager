@@ -31,7 +31,7 @@
 
 	<jsp:invoke fragment="additionalCSS" />
 	
-	<script src="${pageContext.request.contextPath}/js/jquery-2.1.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery/jquery-2.1.1.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/clock.js"></script>
 	
 	<jsp:invoke fragment="additionalJS" />

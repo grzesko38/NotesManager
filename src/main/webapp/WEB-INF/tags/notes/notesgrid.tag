@@ -5,8 +5,6 @@
 <%@ taglib prefix="navigation"	uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
 <%@ taglib prefix="utils" 		tagdir="/WEB-INF/tags/utils" %>
 
-<script src="${pageContext.request.contextPath}/js/notes/notesgrid.js"></script>
-
 <c:set var="asc"><spring:theme code="img.sort.asc"/></c:set>
 <c:set var="desc"><spring:theme code="img.sort.desc"/></c:set>
 <c:url var="ascImgUrl" value="/themes/${asc}"/>

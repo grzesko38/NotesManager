@@ -35,6 +35,7 @@ NotesGridScripts = {
 			    dataType: 'json',
 		};
 		$.ajax(params);
+		$("#dialog-deleteSelected > span").html(NotesGridScripts.selectedCheckboxesToArray().length);
 	},
 	selectedCheckboxesToArray: function() {
 		var inputs = $("input[id^='selections']:checked");
@@ -59,11 +60,48 @@ NotesGridScripts = {
 	
 	// === delete buttons ===
 	bindDeleteNotes: function() {
-		$("#deleteSelectedNotes").click(function() {
-			var input = $("<input>").attr("type", "hidden").attr("name", "delete").val("selected");
-			$('#notesGridForm').append($(input));
-			$("#notesGridForm").submit();
+		$("#deleteAllNotes").easyconfirm({locale: {
+			title: 'Are you sure?',
+			text: 'You are going to delete all (xxx) notes',
+			button: ['No','Yes'],
+			closeText: ''
+		}});
+		
+		
+		$('#dialog-deleteSelected').dialog({
+            autoResize: true,
+//            show: "puff",
+//            hide: "puff",
+            height: 'auto',
+            width: 'auto',
+            autoOpen: false,
+            modal: true,
+            position: { my: "center", at: "center", of: window },
+            draggable: true,
+            closeText: 'Close',
+            buttons: {
+            	"Cancel": function() {
+            		$(this).dialog("close");
+            	},
+            	"OK": function() {
+            		NotesGridScripts.submitDeleteAllNotes();
+            	},
+            } 
+        });
+		
+		$("#deleteSelectedNotes").click(function(event) {
+			if (NotesGridScripts.selectedCheckboxesToArray().length === 0) {
+				NotesGridScripts.submitDeleteAllNotes();
+			} else {
+				$( "#dialog-deleteSelected" ).dialog( "open" );
+			}
 		});
+	},
+	
+	submitDeleteAllNotes: function() {
+		var input = $("<input>").attr("type", "hidden").attr("name", "delete").val("selected");
+		$('#notesGridForm').append($(input));
+		$("#notesGridForm").submit();
 	},
 	
 	// === all ===
@@ -76,5 +114,6 @@ NotesGridScripts = {
 }
 
 $(document).ready(function() {
+	NotesGridScripts.updateSelectAllCheckbox();
 	NotesGridScripts.bindAll();
 });

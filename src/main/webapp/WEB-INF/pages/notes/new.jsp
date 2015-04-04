@@ -12,9 +12,9 @@
 	<jsp:attribute name="additionalCSS">
 
 	</jsp:attribute>
-	
+
 	<jsp:attribute name="additionalJS">
-		
+	
 	</jsp:attribute>
 	
 	<jsp:attribute name="banner">

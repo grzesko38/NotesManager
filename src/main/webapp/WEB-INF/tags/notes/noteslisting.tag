@@ -34,4 +34,5 @@
 			</span>
 		</c:if>
 	</security:authorize>
+	<div id="dialog-deleteSelected" title="Are you sure?">Delete <span>${fn:length(notesPaginationData.selectedNotesIds)}</span> note(s)?</div>
 </div>
