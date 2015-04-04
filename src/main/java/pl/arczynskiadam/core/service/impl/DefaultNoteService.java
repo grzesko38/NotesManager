@@ -11,14 +11,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import pl.arczynskiadam.core.dao.NotePredicates;
 import pl.arczynskiadam.core.dao.NoteRepository;
+import pl.arczynskiadam.core.dao.NoteSpecs;
 import pl.arczynskiadam.core.model.NoteVO;
+import pl.arczynskiadam.core.model.UserVO;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
+import pl.arczynskiadam.core.service.UserService;
 import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
 import pl.arczynskiadam.web.data.NotesPagesData;
 
@@ -33,6 +36,9 @@ public class DefaultNoteService implements NoteService {
 	@Autowired(required = true)
 	private SessionService sessionService;
 	
+	@Autowired(required = true)
+	private UserService userService;
+	
 	@Override
 	@Transactional
 	public void saveNewNote(NoteVO note) {
@@ -45,13 +51,27 @@ public class DefaultNoteService implements NoteService {
 	@Override
 	@Transactional
 	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
-		return noteDAO.findAll(constructPageSpecification(pageId, pageSize, sortCol, asc));
+		UserVO currentUser = userService.getCurrentUser();
+		if (currentUser == null) {
+			return noteDAO.findAll(NoteSpecs.anonymous(),
+					constructPageSpecification(pageId, pageSize, sortCol, asc));
+		}
+		return noteDAO.findAll(NoteSpecs.forNick(currentUser.getNick()),
+				constructPageSpecification(pageId, pageSize, sortCol, asc));
 	}
 	
 	@Override
 	@Transactional
 	public Page<NoteVO> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date) {
-		return noteDAO.findAll(NotePredicates.from(date), constructPageSpecification(pageId, pageSize, sortCol, asc));
+		UserVO currentUser = userService.getCurrentUser();
+		if (currentUser == null) {
+			return noteDAO.findAll(Specifications.where(NoteSpecs.from(date))
+					.and(NoteSpecs.anonymous()),
+					constructPageSpecification(pageId, pageSize, sortCol, asc));
+		}
+		return noteDAO.findAll(Specifications.where(NoteSpecs.from(date))
+				.and(NoteSpecs.forNick(currentUser.getNick())),
+				constructPageSpecification(pageId, pageSize, sortCol, asc));
 	}
 
 	@Override

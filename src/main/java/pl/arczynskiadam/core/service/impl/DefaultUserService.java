@@ -2,6 +2,10 @@ package pl.arczynskiadam.core.service.impl;
 
 import javax.annotation.Resource;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import pl.arczynskiadam.core.dao.AnonymousUserRepository;
@@ -37,5 +41,16 @@ public class DefaultUserService implements UserService {
 	@Override
 	public AnonymousUserVO findAnonymousUserByNick(String nick) {
 		return anonymousDao.findAnonymousUserByNick(nick);
+	}
+	
+	@Override
+	public UserVO getCurrentUser() {
+	    SecurityContext securityContext = SecurityContextHolder.getContext();
+	    Authentication authentication = securityContext.getAuthentication();
+	    if (authentication != null) {
+	        Object principal = authentication.getPrincipal();
+	        return principal instanceof UserDetails ? findUserByNick(((UserDetails)principal).getUsername()) : null;
+	    }
+	    return null;
 	}
 }

@@ -16,6 +16,9 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
+<!-- 					<compilerArguments> -->
+<!-- 			            <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor> -->
+<!-- 			        </compilerArguments> -->
 				</configuration>
 			</plugin>
 			<plugin>
@@ -23,7 +26,6 @@
 				<version>2.4</version>
 			</plugin>
 			
-			<!-- Data JPS querydsl-->
 			<plugin>
 			    <groupId>com.mysema.maven</groupId>
 			    <artifactId>maven-apt-plugin</artifactId>
@@ -35,14 +37,38 @@
 			                <goal>process</goal>
 			            </goals>
 			            <configuration>
-			                <!-- Specifies the directory in which the query types are generated -->
 			                <outputDirectory>target/generated-sources</outputDirectory>
-			                <!-- States that the APT code generator should look for JPA annotations -->
 			                <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
 			            </configuration>
 			        </execution>
 			    </executions>
 			</plugin>
+			
+			<plugin>
+                <groupId>org.bsc.maven</groupId>
+                <artifactId>maven-processor-plugin</artifactId>
+                <version>2.0.6</version>
+                <executions>
+                    <execution>
+                        <id>process</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                        	<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+                            <outputDirectory>target/generated-sources</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+		        <dependency>
+		            <groupId>org.hibernate</groupId>
+		            <artifactId>hibernate-jpamodelgen</artifactId>
+		            <version>4.3.7.FINAL</version>
+		        </dependency>
+		    </dependencies>
+            </plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -73,6 +99,19 @@
 										<ignore></ignore>
 									</action>
 								</pluginExecution>
+								<pluginExecution>
+				                    <pluginExecutionFilter>
+				                      <groupId>org.bsc.maven</groupId>
+				                      <artifactId>maven-processor-plugin</artifactId>
+				                      <versionRange>[2.0.6,)</versionRange>
+				                      <goals>
+				                        <goal>process</goal>
+				                      </goals>
+				                    </pluginExecutionFilter>
+				                    <action>
+				                      <ignore />
+				                    </action>
+				                  </pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
@@ -268,6 +307,5 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.6.1</version>
 		</dependency>
-	
 	</dependencies>
 </project>

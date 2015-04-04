@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pl.arczynskiadam.core.model.AnonymousUserVO;
 import pl.arczynskiadam.core.model.NoteVO;
+import pl.arczynskiadam.core.model.UserVO;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.core.service.UserService;
@@ -38,18 +39,35 @@ public class DefaultNoteFacade implements NoteFacade {
 	
 	@Override
 	@Transactional
-	public void addNewNoteForAnonymousUer(String noteContent, String userNick) {
-		AnonymousUserVO anonymous = userService.findAnonymousUserByNick(userNick);
-		if (anonymous == null) {
-			anonymous = new AnonymousUserVO();
-			anonymous.setNick(userNick);
+	public void addNewNote(String noteContent, String userNick) {
+		if (userNick == null)
+		{
+			addNewNote(noteContent);
 		}
-		
+		else
+		{
+			AnonymousUserVO anonymous = userService.findAnonymousUserByNick(userNick);
+			if (anonymous == null) {
+				anonymous = new AnonymousUserVO();
+				anonymous.setNick(userNick);
+			}
+			
+			NoteVO note = new NoteVO();
+			note.setContent(noteContent);
+			note.setDateCreated(new Date());
+			anonymous.addNote(note);
+			
+			noteService.saveNewNote(note);
+		}
+	}
+	
+	@Override
+	public void addNewNote(String noteContent) {
+		UserVO user = userService.getCurrentUser();
 		NoteVO note = new NoteVO();
 		note.setContent(noteContent);
 		note.setDateCreated(new Date());
-		anonymous.addNote(note);
-		
+		user.addNote(note);
 		noteService.saveNewNote(note);
 	}
 

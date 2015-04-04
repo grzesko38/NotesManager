@@ -10,4 +10,5 @@ public interface UserService {
 	public UserVO findUserById(int id);
 	public UserVO findUserByNick(String nick);
 	public AnonymousUserVO findAnonymousUserByNick(String nick);
+	public UserVO getCurrentUser();
 }

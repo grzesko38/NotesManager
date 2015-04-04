@@ -154,7 +154,7 @@ public class NoteController extends AbstractController {
 			
 			return NoteControllerConstants.Pages.ADD;
 		} else {		
-			noteFacade.addNewNoteForAnonymousUer(noteForm.getContent(), noteForm.getAuthor());
+			noteFacade.addNewNote(noteForm.getContent(), noteForm.getAuthor());
 			noteService.removePaginationDataFromSession();
 			
 			GlobalMessages.addInfoFlashMessage("notes.addNew.msg.confirmation", attrs);
