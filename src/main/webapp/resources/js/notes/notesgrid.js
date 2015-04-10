@@ -61,15 +61,20 @@ NotesGridScripts = {
 	// === delete buttons ===
 	bindDeleteNotes: function() {
 		$("#deleteAllNotes").easyconfirm({locale: {
-			title: 'Are you sure?',
-			text: 'You are going to delete all (xxx) notes',
-			button: ['No','Yes'],
-			closeText: ''
+			title: $("#popupI18NData").data("askheader"),
+			text: $("#popupI18NData").data("askdeleteall"),
+			button: [
+			         $("#popupI18NData").data("no"),
+			         $("#popupI18NData").data("yes")
+			         ],
+			closeText: $("#popupI18NData").data("close")
 		}});
-		
-		
+		$("#deleteAllNotes").click(function() {
+			NotesGridScripts.submitDeleteAllNotes();
+		});
+				
 		$('#dialog-deleteSelected').dialog({
-            autoResize: true,
+            autoResize: false,
 //            show: "puff",
 //            hide: "puff",
             height: 'auto',
@@ -78,20 +83,26 @@ NotesGridScripts = {
             modal: true,
             position: { my: "center", at: "center", of: window },
             draggable: true,
-            closeText: 'Close',
-            buttons: {
-            	"Cancel": function() {
-            		$(this).dialog("close");
-            	},
-            	"OK": function() {
-            		NotesGridScripts.submitDeleteAllNotes();
-            	},
-            } 
+            closeText: $("#popupI18NData").data("close"),
+            buttons: [
+                      {
+                    	  text: $("#popupI18NData").data("yes"),
+                    	  click : function() {
+                    		  NotesGridScripts.submitDeleteSelectedNotes();
+                    	  }
+                      },
+                      {
+	                      text: $("#popupI18NData").data("no"),
+	                	  click: function() {
+	                		  $(this).dialog("close");
+	                	  }
+                      }
+                     ]
         });
 		
 		$("#deleteSelectedNotes").click(function(event) {
 			if (NotesGridScripts.selectedCheckboxesToArray().length === 0) {
-				NotesGridScripts.submitDeleteAllNotes();
+				NotesGridScripts.submitDeleteSelectedNotes();
 			} else {
 				$( "#dialog-deleteSelected" ).dialog( "open" );
 			}
@@ -99,6 +110,12 @@ NotesGridScripts = {
 	},
 	
 	submitDeleteAllNotes: function() {
+		var input = $("<input>").attr("type", "hidden").attr("name", "delete").val("all");
+		$('#notesGridForm').append($(input));
+		$("#notesGridForm").submit();
+	},
+	
+	submitDeleteSelectedNotes: function() {
 		var input = $("<input>").attr("type", "hidden").attr("name", "delete").val("selected");
 		$('#notesGridForm').append($(input));
 		$("#notesGridForm").submit();

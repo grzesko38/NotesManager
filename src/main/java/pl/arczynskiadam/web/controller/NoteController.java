@@ -35,6 +35,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.arczynskiadam.core.model.NoteVO;
 import pl.arczynskiadam.core.service.NoteService;
+import pl.arczynskiadam.core.service.UserService;
 import pl.arczynskiadam.web.controller.constants.GlobalControllerConstants;
 import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
 import pl.arczynskiadam.web.data.NotesPagesData;
@@ -183,7 +184,8 @@ public class NoteController extends AbstractController {
 		String count = null;
 		
 		if ("all".equals(delete)) {
-			//TODO implement when login system is ready
+			noteService.deleteNotes(userFacade.getCurrentUser().getNick());
+			count = Integer.toString(noteFacade.getCurrentUserNotesCount()); 
 		} else if ("selected".equals(delete)) {
 			if (result.hasErrors()) {
 				NotesPagesData pagination = prepareNotesPage(null, null, null, null, dateForm.getDate(), model);

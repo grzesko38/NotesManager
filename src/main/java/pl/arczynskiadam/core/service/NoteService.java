@@ -15,6 +15,7 @@ public interface NoteService {
 	public Page<NoteVO> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date);
 	public void deleteNote(int id);
 	public void deleteNotes(Set<Integer> ids);
+	public void deleteNotes(String nick);
 	public NoteVO findNoteById(int id);
 	public NotesPagesData retrievePagesDataFromSession();
 	public void savePagesDataToSession(NotesPagesData pagesData);

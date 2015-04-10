@@ -32,7 +32,7 @@ public class DefaultNoteFacade implements NoteFacade {
 	private SessionService sessionService;
 
 	@Override
-	public int fetchCurrentUserNotesCount() {
+	public int getCurrentUserNotesCount() {
 		//TODO implement when login system is ready
 		return 0;
 	}
@@ -111,6 +111,11 @@ public class DefaultNoteFacade implements NoteFacade {
 	@Override
 	public void deleteNotes(Set<Integer> ids) {
 		noteService.deleteNotes(ids);
+	}
+	
+	@Override
+	public void deleteNotes(String nick) {
+		noteService.deleteNotes(nick);
 	}
 	
 	@Override

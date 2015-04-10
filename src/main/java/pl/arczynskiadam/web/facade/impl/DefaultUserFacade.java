@@ -26,6 +26,11 @@ public class DefaultUserFacade implements UserFacade {
 	}
 	
 	@Override
+	public UserVO getCurrentUser() {
+		return userService.getCurrentUser();
+	}
+	
+	@Override
 	public AnonymousUserVO findAnonymousUserByNick(String nick) {
 		return userService.findAnonymousUserByNick(nick);
 	}

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import pl.arczynskiadam.core.model.NoteVO;
 
 public interface NoteFacade {
-	public int fetchCurrentUserNotesCount();
+	public int getCurrentUserNotesCount();
 	public void addNewNote(String noteContent, String userNick);
 	public void addNewNote(String noteContent);
 	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc);
@@ -16,6 +16,7 @@ public interface NoteFacade {
 	public void deleteNote(int id);
 	public void deleteNotes(int[] ids);
 	public void deleteNotes(Set<Integer> ids);
+	public void deleteNotes(String nick);
 	public NoteVO findNoteById(int id);
 	public Set<Integer> convertSelectionsToNotesIds(Set<String> selections);
 	public Set<String> convertNotesIdsToSelections(Set<Integer> ids);

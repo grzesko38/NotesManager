@@ -21,17 +21,15 @@ public interface NoteRepository extends JpaRepository<NoteVO, Integer>, QueryDsl
 	@Query("FROM NoteVO n WHERE n.author = :author")
     public Page<NoteVO> findAllForUser(@Param("author") AnonymousUserVO author, Pageable pageable);
 	
-//	@Query("FROM NoteVO n WHERE n.author = :author")
-//    public Page<NoteVO> findAllForUser(@Param("author") AnonymousUserVO author, Predicate predicate, Pageable pageable);
-	
 //	@Query("FROM NoteVO n WHERE TYPE(n.author) = AnonymousUserVO")
 	@Query("FROM NoteVO n WHERE n.author.email IS NULL")
     public Page<NoteVO> findAllForAnonymous(Pageable pageable);
 	
-//	@Query("FROM NoteVO n WHERE n.author.email IS NULL")
-//    public Page<NoteVO> findAllForAnonymous(Predicate predicate, Pageable pageable);
-	
 	@Modifying
 	@Query("DELETE NoteVO n WHERE n.id IN (:ids)")
     public void deleteByIds(@Param("ids") Set<Integer> ids);
+	
+	@Modifying
+	@Query("DELETE NoteVO n WHERE n.author.nick = :nick")
+    public void deleteByUserName(@Param("nick") String nick);
 }
