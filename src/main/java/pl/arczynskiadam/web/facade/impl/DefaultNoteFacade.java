@@ -36,9 +36,8 @@ public class DefaultNoteFacade implements NoteFacade {
 	private SessionService sessionService;
 
 	@Override
-	public int getCurrentUserNotesCount() {
-		//TODO implement when login system is ready
-		return 0;
+	public int getNotesCountForUser(String userNick) {
+		return noteService.getNotesCountForUser(userNick);
 	}
 	
 	@Override

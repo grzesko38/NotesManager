@@ -17,6 +17,7 @@ public interface NoteService {
 	public void deleteNotes(Collection<Integer> ids);
 	public void deleteUserNotes(int userId);
 	public NoteVO findNoteById(int id);
+	public int getNotesCountForUser(String userNick);
 	public NotesPagesData retrievePagesDataFromSession();
 	public void savePagesDataToSession(NotesPagesData pagesData);
 	public void removePaginationDataFromSession();

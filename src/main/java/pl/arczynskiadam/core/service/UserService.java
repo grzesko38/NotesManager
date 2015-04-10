@@ -11,5 +11,4 @@ public interface UserService {
 	public UserVO findUserByNick(String nick);
 	public AnonymousUserVO findAnonymousUserByNick(String nick);
 	public UserVO getCurrentUser();
-	public int getNotesCountForUser(String userNick);
 }

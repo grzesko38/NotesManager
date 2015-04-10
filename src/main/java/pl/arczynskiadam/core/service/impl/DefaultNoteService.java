@@ -76,6 +76,12 @@ public class DefaultNoteService implements NoteService {
 
 	@Override
 	@Transactional
+	public int getNotesCountForUser(String userNick) {
+		return (int) noteDAO.count(NoteSpecs.forNick(userNick));
+	}
+	
+	@Override
+	@Transactional
 	public void deleteNote(int id) {
 		noteDAO.delete(id);
 	}
@@ -115,23 +121,6 @@ public class DefaultNoteService implements NoteService {
 	@Override
 	@Transactional
 	public void deleteUserNotes(int userId) {
-//		noteDAO.deleteByUserName(nick);
-		
-//		Set<Integer> ids = FluentIterable.from( noteDAO.findAll(Specifications.where(NoteSpecs.forNick(nick))) )
-//		.filter(new Predicate<NoteVO>() {
-//			@Override
-//			public boolean apply(NoteVO arg0) {
-//				return arg0.getAuthor().getNick().equals(nick);
-//			}
-//		})
-//		.transform(new Function<NoteVO, Integer>() {
-//			@Override
-//			public Integer apply(NoteVO arg0) {
-//				return arg0.getId();
-//			}
-//		})
-//		.toSet();
-		
 		noteDAO.deleteByUserId(userId);
 	}
 	

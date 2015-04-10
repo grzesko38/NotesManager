@@ -10,11 +10,11 @@ import pl.arczynskiadam.core.model.NoteVO;
 import pl.arczynskiadam.core.model.UserVO;
 
 public interface NoteFacade {
-	public int getCurrentUserNotesCount();
 	public void addNewNote(String noteContent, String userNick);
 	public void addNewNote(String noteContent);
 	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc);
 	public Page<NoteVO> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date);
+	public int getNotesCountForUser(String userNick);
 	public void deleteNote(int id);
 	public void deleteNotes(int[] ids);
 	public void deleteNotes(Collection<Integer> ids);

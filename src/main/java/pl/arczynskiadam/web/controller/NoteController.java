@@ -184,8 +184,8 @@ public class NoteController extends AbstractController {
 		String count = null;
 		
 		if ("all".equals(delete)) {
-			noteService.deleteUserNotes(userFacade.getCurrentUser().getId());
-			count = Integer.toString(noteFacade.getCurrentUserNotesCount()); 
+			count = Integer.toString(noteFacade.getNotesCountForUser(userFacade.getCurrentUser().getNick())); 
+			noteFacade.deleteNotes(userFacade.getCurrentUser());
 		} else if ("selected".equals(delete)) {
 			if (result.hasErrors()) {
 				NotesPagesData pagination = prepareNotesPage(null, null, null, null, dateForm.getDate(), model);

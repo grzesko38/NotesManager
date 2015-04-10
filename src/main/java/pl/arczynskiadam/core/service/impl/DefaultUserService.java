@@ -49,11 +49,6 @@ public class DefaultUserService implements UserService {
 	}
 	
 	@Override
-	public int getNotesCountForUser(String userNick) {
-		return (int) notesDao.count(NoteSpecs.forNick(userNick));
-	}
-	
-	@Override
 	public UserVO getCurrentUser() {
 	    SecurityContext securityContext = SecurityContextHolder.getContext();
 	    Authentication authentication = securityContext.getAuthentication();
