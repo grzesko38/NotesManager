@@ -1,7 +1,7 @@
 package pl.arczynskiadam.core.service;
 
+import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 import org.springframework.data.domain.Page;
 
@@ -14,8 +14,8 @@ public interface NoteService {
 	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc);
 	public Page<NoteVO> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date);
 	public void deleteNote(int id);
-	public void deleteNotes(Set<Integer> ids);
-	public void deleteNotes(String nick);
+	public void deleteNotes(Collection<Integer> ids);
+	public void deleteUserNotes(int userId);
 	public NoteVO findNoteById(int id);
 	public NotesPagesData retrievePagesDataFromSession();
 	public void savePagesDataToSession(NotesPagesData pagesData);

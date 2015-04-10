@@ -1,6 +1,7 @@
 package pl.arczynskiadam.web.facade.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -109,17 +110,17 @@ public class DefaultNoteFacade implements NoteFacade {
 	}
 	
 	@Override
-	public void deleteNotes(Set<Integer> ids) {
+	public void deleteNotes(Collection<Integer> ids) {
 		noteService.deleteNotes(ids);
 	}
 	
 	@Override
-	public void deleteNotes(String nick) {
-		noteService.deleteNotes(nick);
+	public void deleteNotes(UserVO user) {
+		noteService.deleteUserNotes(user.getId());
 	}
 	
 	@Override
-	public Set<Integer> convertSelectionsToNotesIds(Set<String> selections) {
+	public Set<Integer> convertSelectionsToNotesIds(Collection<String> selections) {
 		Set<Integer> ids = new HashSet<Integer>();
 		
 		for (String selection : selections) {
@@ -130,7 +131,7 @@ public class DefaultNoteFacade implements NoteFacade {
 	}
 	
 	@Override
-	public Set<String> convertNotesIdsToSelections(Set<Integer> ids) {
+	public Set<String> convertNotesIdsToSelections(Collection<Integer> ids) {
 		Set<String> selections = new HashSet<String>();
 		
 		for (Integer id : ids) {

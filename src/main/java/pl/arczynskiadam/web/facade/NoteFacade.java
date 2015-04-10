@@ -1,11 +1,13 @@
 package pl.arczynskiadam.web.facade;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
 import org.springframework.data.domain.Page;
 
 import pl.arczynskiadam.core.model.NoteVO;
+import pl.arczynskiadam.core.model.UserVO;
 
 public interface NoteFacade {
 	public int getCurrentUserNotesCount();
@@ -15,9 +17,9 @@ public interface NoteFacade {
 	public Page<NoteVO> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date);
 	public void deleteNote(int id);
 	public void deleteNotes(int[] ids);
-	public void deleteNotes(Set<Integer> ids);
-	public void deleteNotes(String nick);
+	public void deleteNotes(Collection<Integer> ids);
+	public void deleteNotes(UserVO user);
 	public NoteVO findNoteById(int id);
-	public Set<Integer> convertSelectionsToNotesIds(Set<String> selections);
-	public Set<String> convertNotesIdsToSelections(Set<Integer> ids);
+	public Set<Integer> convertSelectionsToNotesIds(Collection<String> selections);
+	public Set<String> convertNotesIdsToSelections(Collection<Integer> ids);
 }

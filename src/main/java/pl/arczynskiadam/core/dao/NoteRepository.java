@@ -1,6 +1,6 @@
 package pl.arczynskiadam.core.dao;
 
-import java.util.Set;
+import java.util.Collection;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,8 +10,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
-
-import com.mysema.query.types.Predicate;
 
 import pl.arczynskiadam.core.model.AnonymousUserVO;
 import pl.arczynskiadam.core.model.NoteVO;
@@ -27,9 +25,9 @@ public interface NoteRepository extends JpaRepository<NoteVO, Integer>, QueryDsl
 	
 	@Modifying
 	@Query("DELETE NoteVO n WHERE n.id IN (:ids)")
-    public void deleteByIds(@Param("ids") Set<Integer> ids);
+    public void deleteByIds(@Param("ids") Collection<Integer> ids);
 	
 	@Modifying
-	@Query("DELETE NoteVO n WHERE n.author.nick = :nick")
-    public void deleteByUserName(@Param("nick") String nick);
+	@Query("DELETE NoteVO AS n WHERE n.author.id = :id")
+    public void deleteByUserId(@Param("id") Integer id);
 }

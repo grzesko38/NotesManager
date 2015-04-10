@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import pl.arczynskiadam.core.dao.AnonymousUserRepository;
+import pl.arczynskiadam.core.dao.NoteRepository;
+import pl.arczynskiadam.core.dao.NoteSpecs;
 import pl.arczynskiadam.core.dao.UserRepository;
 import pl.arczynskiadam.core.model.AnonymousUserVO;
 import pl.arczynskiadam.core.model.UserVO;
@@ -22,6 +24,9 @@ public class DefaultUserService implements UserService {
 	
 	@Resource
 	private AnonymousUserRepository anonymousDao;
+	
+	@Resource
+	private NoteRepository notesDao;
 	
 	@Override
 	public void saveNewUser(UserVO user) {
@@ -41,6 +46,11 @@ public class DefaultUserService implements UserService {
 	@Override
 	public AnonymousUserVO findAnonymousUserByNick(String nick) {
 		return anonymousDao.findAnonymousUserByNick(nick);
+	}
+	
+	@Override
+	public int getNotesCountForUser(String userNick) {
+		return (int) notesDao.count(NoteSpecs.forNick(userNick));
 	}
 	
 	@Override

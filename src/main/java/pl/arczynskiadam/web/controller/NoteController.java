@@ -184,7 +184,7 @@ public class NoteController extends AbstractController {
 		String count = null;
 		
 		if ("all".equals(delete)) {
-			noteService.deleteNotes(userFacade.getCurrentUser().getNick());
+			noteService.deleteUserNotes(userFacade.getCurrentUser().getId());
 			count = Integer.toString(noteFacade.getCurrentUserNotesCount()); 
 		} else if ("selected".equals(delete)) {
 			if (result.hasErrors()) {

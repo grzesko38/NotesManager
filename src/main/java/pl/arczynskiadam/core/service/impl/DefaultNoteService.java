@@ -1,7 +1,7 @@
 package pl.arczynskiadam.core.service.impl;
 
+import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -14,10 +14,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.FluentIterable;
 
 import pl.arczynskiadam.core.dao.NoteRepository;
 import pl.arczynskiadam.core.dao.NoteSpecs;
@@ -86,7 +82,7 @@ public class DefaultNoteService implements NoteService {
 	
 	@Override
 	@Transactional
-	public void deleteNotes(Set<Integer> ids) {
+	public void deleteNotes(Collection<Integer> ids) {
 		noteDAO.deleteByIds(ids);
 		
 		NotesPagesData sessionPagination = retrievePagesDataFromSession();
@@ -118,25 +114,25 @@ public class DefaultNoteService implements NoteService {
 	
 	@Override
 	@Transactional
-	public void deleteNotes(final String nick) {
+	public void deleteUserNotes(int userId) {
 //		noteDAO.deleteByUserName(nick);
 		
-		Set<Integer> ids = FluentIterable.from( noteDAO.findAll(Specifications.where(NoteSpecs.forNick(nick))) )
-		.filter(new Predicate<NoteVO>() {
-			@Override
-			public boolean apply(NoteVO arg0) {
-				return arg0.getAuthor().getNick().equals(nick);
-			}
-		})
-		.transform(new Function<NoteVO, Integer>() {
-			@Override
-			public Integer apply(NoteVO arg0) {
-				return arg0.getId();
-			}
-		})
-		.toSet();
+//		Set<Integer> ids = FluentIterable.from( noteDAO.findAll(Specifications.where(NoteSpecs.forNick(nick))) )
+//		.filter(new Predicate<NoteVO>() {
+//			@Override
+//			public boolean apply(NoteVO arg0) {
+//				return arg0.getAuthor().getNick().equals(nick);
+//			}
+//		})
+//		.transform(new Function<NoteVO, Integer>() {
+//			@Override
+//			public Integer apply(NoteVO arg0) {
+//				return arg0.getId();
+//			}
+//		})
+//		.toSet();
 		
-		noteDAO.deleteByIds(ids);
+		noteDAO.deleteByUserId(userId);
 	}
 	
 	@Override
