@@ -12,6 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.base.Function;
+import com.google.common.collect.FluentIterable;
+
 import pl.arczynskiadam.core.model.AnonymousUserVO;
 import pl.arczynskiadam.core.model.NoteVO;
 import pl.arczynskiadam.core.model.UserVO;
@@ -121,24 +124,22 @@ public class DefaultNoteFacade implements NoteFacade {
 	
 	@Override
 	public Set<Integer> convertSelectionsToNotesIds(Collection<String> selections) {
-		Set<Integer> ids = new HashSet<Integer>();
-		
-		for (String selection : selections) {
-			ids.add(Integer.parseInt(selection));
-		}
-		
-		return ids;
+		 return FluentIterable.from(selections).transform(new Function<String, Integer>() {
+			@Override
+			public Integer apply(String arg0) {
+				return Integer.parseInt(arg0);
+			}
+		}).toSet();
 	}
 	
 	@Override
 	public Set<String> convertNotesIdsToSelections(Collection<Integer> ids) {
-		Set<String> selections = new HashSet<String>();
-		
-		for (Integer id : ids) {
-			selections.add(Integer.toString(id));
-		}
-		
-		return selections;
+		return FluentIterable.from(ids).transform(new Function<Integer, String>() {
+			@Override
+			public String apply(Integer arg0) {
+				return Integer.toString(arg0);
+			}
+		}).toSet();
 	}
 
 	private void fillFormattedDates(List<NoteVO> notes) {
