@@ -8,12 +8,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import pl.arczynskiadam.core.dao.AnonymousUserRepository;
 import pl.arczynskiadam.core.dao.NoteRepository;
-import pl.arczynskiadam.core.dao.NoteSpecs;
+import pl.arczynskiadam.core.dao.RegisteredUserRepository;
 import pl.arczynskiadam.core.dao.UserRepository;
 import pl.arczynskiadam.core.model.AnonymousUserVO;
-import pl.arczynskiadam.core.model.UserVO;
+import pl.arczynskiadam.core.model.RegisteredUserVO;
 import pl.arczynskiadam.core.service.UserService;
 
 @Service("userService")
@@ -23,38 +22,25 @@ public class DefaultUserService implements UserService {
 	private UserRepository userDao;
 	
 	@Resource
-	private AnonymousUserRepository anonymousDao;
-	
-	@Resource
 	private NoteRepository notesDao;
 	
 	@Override
-	public void saveNewUser(UserVO user) {
-		userDao.save(user);
-	}
-	
-	@Override
-	public UserVO findUserById(int id) {
-		return userDao.findOne(id);
-	}
-	
-	@Override
-	public UserVO findUserByNick(String nick) {
-		return userDao.findUserByNick(nick);
+	public RegisteredUserVO findRegisteredUserByNick(String nick) {
+		return userDao.findRegisteredUserByNick(nick);
 	}
 	
 	@Override
 	public AnonymousUserVO findAnonymousUserByNick(String nick) {
-		return anonymousDao.findAnonymousUserByNick(nick);
+		return userDao.findAnonymousdUserByNick(nick);
 	}
 	
 	@Override
-	public UserVO getCurrentUser() {
+	public RegisteredUserVO getCurrentUser() {
 	    SecurityContext securityContext = SecurityContextHolder.getContext();
 	    Authentication authentication = securityContext.getAuthentication();
 	    if (authentication != null) {
 	        Object principal = authentication.getPrincipal();
-	        return principal instanceof UserDetails ? findUserByNick(((UserDetails)principal).getUsername()) : null;
+	        return principal instanceof UserDetails ? findRegisteredUserByNick(((UserDetails)principal).getUsername()) : null;
 	    }
 	    return null;
 	}

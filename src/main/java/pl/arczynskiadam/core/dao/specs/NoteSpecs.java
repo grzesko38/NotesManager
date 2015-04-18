@@ -1,4 +1,4 @@
-package pl.arczynskiadam.core.dao;
+package pl.arczynskiadam.core.dao.specs;
 
 import java.util.Date;
 
@@ -14,7 +14,7 @@ import org.springframework.data.jpa.domain.Specifications;
 
 import pl.arczynskiadam.core.model.NoteVO;
 import pl.arczynskiadam.core.model.NoteVO_;
-import pl.arczynskiadam.core.model.UserVO;
+import pl.arczynskiadam.core.model.RegisteredUserVO;
 import pl.arczynskiadam.core.model.UserVO_;
 
 public class NoteSpecs {
@@ -34,11 +34,10 @@ public class NoteSpecs {
 		return new Specification<NoteVO>() {
             @Override
             public Predicate toPredicate(Root<NoteVO> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-            	
-            	final Subquery<UserVO> personQuery = query.subquery(UserVO.class);
-				final Root<UserVO> person = personQuery.from(UserVO.class);
-				final Join<UserVO, NoteVO> notes = person.join(UserVO_.notes);
-				personQuery.select(notes.<UserVO> get("author"));
+            	final Subquery<RegisteredUserVO> personQuery = query.subquery(RegisteredUserVO.class);
+				final Root<RegisteredUserVO> person = personQuery.from(RegisteredUserVO.class);
+				final Join<RegisteredUserVO, NoteVO> notes = person.join(UserVO_.notes);
+				personQuery.select(notes.<RegisteredUserVO> get("author"));
 				return cb.in(noteRoot.get(NoteVO_.author)).value(personQuery);
             }
 		};
@@ -54,10 +53,9 @@ public class NoteSpecs {
 		return new Specification<NoteVO>() {
             @Override
             public Predicate toPredicate(Root<NoteVO> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-            	
             	final Subquery<Integer> personQuery = query.subquery(Integer.class);
-				final Root<UserVO> person = personQuery.from(UserVO.class);
-				final Join<UserVO, NoteVO> notes = person.join(UserVO_.notes);
+				final Root<RegisteredUserVO> person = personQuery.from(RegisteredUserVO.class);
+				final Join<RegisteredUserVO, NoteVO> notes = person.join(UserVO_.notes);
 				personQuery.select(notes.<Integer> get(NoteVO_.id));
 				personQuery.where(cb.equal(person.<String> get(UserVO_.nick), userNick));
 				return cb.in(noteRoot.get(NoteVO_.id)).value(personQuery);

@@ -35,7 +35,7 @@ public class NoteVO implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	@JoinColumn(name = "USER_FK")
-	private AnonymousUserVO author;
+	private UserVO author;
 	
 	@Transient
 	private String formattedDateCreated;
@@ -73,11 +73,11 @@ public class NoteVO implements Serializable {
 	}
 
 
-	public AnonymousUserVO getAuthor() {
+	public UserVO getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(AnonymousUserVO author) {
+	public void setAuthor(UserVO author) {
 		this.author = author;
 		author.addNote(this);
 	}

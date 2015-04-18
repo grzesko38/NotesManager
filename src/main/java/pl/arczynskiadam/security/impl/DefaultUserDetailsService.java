@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import pl.arczynskiadam.core.model.UserRoleVO;
-import pl.arczynskiadam.core.model.UserVO;
+import pl.arczynskiadam.core.model.RegisteredUserVO;
 import pl.arczynskiadam.core.service.UserService;
 import pl.arczynskiadam.web.SecurityConstants;
 
@@ -25,7 +25,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		UserVO user = userService.findUserByNick(userName);
+		RegisteredUserVO user = userService.findRegisteredUserByNick(userName);
 		
 		if(user == null) {
 	        throw new UsernameNotFoundException("User for username " + userName + "was not found.");

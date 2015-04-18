@@ -16,9 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.arczynskiadam.core.dao.NoteRepository;
-import pl.arczynskiadam.core.dao.NoteSpecs;
+import pl.arczynskiadam.core.dao.specs.NoteSpecs;
 import pl.arczynskiadam.core.model.NoteVO;
-import pl.arczynskiadam.core.model.UserVO;
+import pl.arczynskiadam.core.model.RegisteredUserVO;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.core.service.UserService;
@@ -51,7 +51,7 @@ public class DefaultNoteService implements NoteService {
 	@Override
 	@Transactional
 	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
-		UserVO currentUser = userService.getCurrentUser();
+		RegisteredUserVO currentUser = userService.getCurrentUser();
 		if (currentUser == null) {
 			return noteDAO.findAll(NoteSpecs.anonymous(),
 					constructPageSpecification(pageId, pageSize, sortCol, asc));
@@ -63,7 +63,7 @@ public class DefaultNoteService implements NoteService {
 	@Override
 	@Transactional
 	public Page<NoteVO> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date) {
-		UserVO currentUser = userService.getCurrentUser();
+		RegisteredUserVO currentUser = userService.getCurrentUser();
 		if (currentUser == null) {
 			return noteDAO.findAll(Specifications.where(NoteSpecs.from(date))
 					.and(NoteSpecs.anonymous()),

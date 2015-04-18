@@ -19,13 +19,13 @@ CREATE TABLE USERS
 	password_encoding	VARCHAR(16),
 	password_salt		VARCHAR(32),
 	enabled				TINYINT(1),
-	dtype				VARCHAR(32)
+	user_type			VARCHAR(32)
 );
 
 CREATE TABLE USER_ROLES
 (
     id				INT PRIMARY KEY AUTO_INCREMENT,
-    user_nick		VARCHAR(32) NOT NULL,
+    user_fk			INT,
     role			VARCHAR(32) NOT NULL
 );
 
