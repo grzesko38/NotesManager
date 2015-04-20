@@ -219,8 +219,8 @@ public class NoteController extends AbstractController {
 		return NoteControllerConstants.Pages.DETAILS;
 	}
 	
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@RequestMapping(value = "/updateSelections.ajax", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	@RequestMapping(value = "/updateSelections.json", method = RequestMethod.POST, consumes = "application/json")
 	public void noteSelected(@RequestBody SelectedCheckboxesForm selectedCheckboxesForm) {
 		log.debug("checboxes vals to update from ajax: " + selectedCheckboxesForm.toString());
 		

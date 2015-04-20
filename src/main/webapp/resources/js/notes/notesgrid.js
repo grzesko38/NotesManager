@@ -30,7 +30,7 @@ NotesGridScripts = {
 			        'Content-Type': 'application/json' 
 			    },
 			    type: 'POST',
-			    url: '/NotesManager/notesmanager/updateSelections.ajax',
+			    url: '/NotesManager/notesmanager/updateSelections.json',
 			    data: JSON.stringify({"selections": NotesGridScripts.selectedCheckboxesToArray()}),
 			    dataType: 'json',
 		};
@@ -60,19 +60,33 @@ NotesGridScripts = {
 	
 	// === delete buttons ===
 	bindDeleteNotes: function() {
-		$("#deleteAllNotes").easyconfirm({locale: {
-			title: $("#popupI18NData").data("askheader"),
-			text: $("#popupI18NData").data("askdeleteall"),
-			button: [
-			         $("#popupI18NData").data("no"),
-			         $("#popupI18NData").data("yes")
-			         ],
-			closeText: $("#popupI18NData").data("close")
-		}});
-		$("#deleteAllNotes").click(function() {
-			NotesGridScripts.submitDeleteAllNotes();
-		});
-				
+		$('#dialog-deleteAll').dialog({
+            autoResize: false,
+//            show: "puff",
+//            hide: "puff",
+            height: 'auto',
+            width: 'auto',
+            autoOpen: false,
+            modal: true,
+            position: { my: "center", at: "center", of: window },
+            draggable: true,
+            closeText: $("#popupI18NData").data("close"),
+            buttons: [
+                      {
+                    	  text: $("#popupI18NData").data("yes"),
+                    	  click : function() {
+                    		  NotesGridScripts.submitDeleteAllNotes();
+                    	  }
+                      },
+                      {
+	                      text: $("#popupI18NData").data("no"),
+	                	  click: function() {
+	                		  $(this).dialog("close");
+	                	  }
+                      }
+                     ]
+        });
+		
 		$('#dialog-deleteSelected').dialog({
             autoResize: false,
 //            show: "puff",
@@ -106,6 +120,10 @@ NotesGridScripts = {
 			} else {
 				$( "#dialog-deleteSelected" ).dialog( "open" );
 			}
+		});
+		
+		$("#deleteAllNotes").click(function(event) {
+			$( "#dialog-deleteAll" ).dialog( "open" );
 		});
 	},
 	
