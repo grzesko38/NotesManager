@@ -44,9 +44,12 @@
 		 data-close='<spring:message code="misc.close" />' >
 	</div>
 		 
-	<div id="dialog-deleteSelected" title='<spring:message code="global.areYouSure" />'>
+	<div id="dialog-deleteSelected" title="<spring:message code="global.areYouSure" />" >
 		<spring:message code="global.delete.popup.begin" />
 		<span>${fn:length(notesPaginationData.selectedNotesIds)}</span>
 		<spring:message code="global.delete.popup.end" />
+	</div>
+	<div id="dialog-deleteAll" title="<spring:message code="global.areYouSure" />">
+		<spring:message code="global.delete.all.popup" arguments="${notesPaginationData.page.totalElements}"/>
 	</div>
 </div>
