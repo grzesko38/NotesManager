@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 import pl.arczynskiadam.core.model.UserRoleVO;
 import pl.arczynskiadam.core.model.RegisteredUserVO;
@@ -24,6 +25,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 	UserService userService;
 	
 	@Override
+	@Transactional
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		RegisteredUserVO user = userService.findRegisteredUserByNick(userName);
 		

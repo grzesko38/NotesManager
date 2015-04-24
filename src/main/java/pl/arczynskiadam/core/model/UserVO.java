@@ -16,6 +16,9 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="USER_TYPE")
@@ -30,10 +33,11 @@ public abstract class UserVO implements Serializable {
 	@Column(name="NICK", unique=true)
 	protected String nick;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "author")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
 	protected Set<NoteVO> notes = new HashSet<>();
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@Fetch(FetchMode.SELECT)
 	private Set<UserRoleVO> userRoles = new HashSet<UserRoleVO>(0);
 	
 	public Integer getId() {

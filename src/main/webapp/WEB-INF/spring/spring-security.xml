@@ -29,14 +29,12 @@
 	</authentication-manager>
 	
 	<beans:alias name="SHA256SaltedPasswordEncoder" alias="passwordEncoder"/>
-	<beans:bean id="SHA256SaltedPasswordEncoder"
-		  class="pl.arczynskiadam.security.impl.SHA256SaltedPasswordEncoder">
+	<beans:bean id="SHA256SaltedPasswordEncoder" class="pl.arczynskiadam.security.impl.SHA256SaltedPasswordEncoder">
 	</beans:bean>
 	
 	<beans:alias name="defaultUserDetailsService" alias="userDetailsService"/>
-	<beans:bean id="defaultUserDetailsService"
-		  class="pl.arczynskiadam.security.impl.DefaultUserDetailsService">
+	<beans:bean id="defaultUserDetailsService" class="pl.arczynskiadam.security.impl.DefaultUserDetailsService">
 		<beans:property name="userService" ref="userService" />
 	</beans:bean>
-	
+		
 </beans:beans>
