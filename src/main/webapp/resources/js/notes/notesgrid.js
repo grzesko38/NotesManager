@@ -11,7 +11,7 @@ NotesGridScripts = {
 	bindNoteCheckbox: function() {
 		$("input[id^='selections']").click(function() {
 			NotesGridScripts.updateSelectAllCheckbox();
-			NotesGridScripts.postAjaxSelectedIds();
+			NotesGridScripts.postAjaxSelectedIds($(this).closest('form').data('checkboxajaxaction'));
 		});
 	},
 	updateSelectAllCheckbox: function() {
@@ -23,16 +23,12 @@ NotesGridScripts = {
 		});
 		$("#selectAll").prop('checked', allChecked);
 	},
-	postAjaxSelectedIds: function() {
+	postAjaxSelectedIds: function(action) {
 		var params = {
-				headers: { 
-			        'Accept': 'application/json',
-			        'Content-Type': 'application/json' 
-			    },
 			    type: 'POST',
-			    url: '/NotesManager/notesmanager/updateSelections.json',
+			    url: action,
 			    data: JSON.stringify({"selections": NotesGridScripts.selectedCheckboxesToArray()}),
-			    dataType: 'json',
+			    contentType:'application/json'
 		};
 		$.ajax(params);
 		$("#dialog-deleteSelected > span").html(NotesGridScripts.selectedCheckboxesToArray().length);

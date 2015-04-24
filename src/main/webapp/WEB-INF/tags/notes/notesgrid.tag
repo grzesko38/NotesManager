@@ -21,7 +21,9 @@
 <c:if test="${fn:length(notesPaginationData.page.content) gt 10}">
 	<utils:pagination paginationData="${notesPaginationData}" linkCore="${linkCore}" />
 </c:if>
-<form:form id="notesGridForm" method="post" action="${pageContext.request.contextPath}/notesmanager/show" modelAttribute="selectedCheckboxesForm">
+<c:url value="/notesmanager/updateSelections.json" var="checkboxAjaxUrl" />
+<form:form id="notesGridForm" method="post" action="${pageContext.request.contextPath}/notesmanager/show"
+		   modelAttribute="selectedCheckboxesForm" data-checkboxajaxaction="${checkboxAjaxUrl}">
 	<table class="data">
 		<colgroup>
 			<col class="narrowCheckbox" span="1"/>
