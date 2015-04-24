@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pl.arczynskiadam.core.model.NoteVO;
+import pl.arczynskiadam.core.model.NoteModel;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.UserService;
 import pl.arczynskiadam.web.controller.constants.GlobalControllerConstants;
@@ -206,7 +206,7 @@ public class NoteController extends AbstractController {
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.DETAILS, method = RequestMethod.GET)
-	public String noteDetails(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.Note) NoteVO note,
+	public String noteDetails(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.Note) NoteModel note,
 			@PathVariable("noteId") Integer noteId,
 			final Model model) {
 		
@@ -258,7 +258,7 @@ public class NoteController extends AbstractController {
 			sortCol = NoteControllerConstants.Defaults.Pagination.DEFAULT_SORT_COLUMN;
 		}
 		
-		Page<NoteVO> page = buildPageSpec(pageId, pageSize, sortCol, true, from);
+		Page<NoteModel> page = buildPageSpec(pageId, pageSize, sortCol, true, from);
 		
 		NotesPagesData pagination = new NotesPagesData(NoteControllerConstants.Defaults.Pagination.MAX_LINKED_PAGES);
 		pagination.setPage(page);
@@ -297,14 +297,14 @@ public class NoteController extends AbstractController {
 			pageId = GlobalControllerConstants.Defaults.Pagination.FIRST_PAGE;
 		}
 		
-		Page<NoteVO> page = buildPageSpec(pageId, pageSize, sortCol, asc, from);
+		Page<NoteModel> page = buildPageSpec(pageId, pageSize, sortCol, asc, from);
 		sessionPagesData.setPage(page);
 		noteService.savePagesDataToSession(sessionPagesData);
 		return sessionPagesData;
 	}
 	
-	private Page<NoteVO> buildPageSpec(Integer pageId, Integer pageSize, String sortCol, boolean asc, Date from) {
-		Page<NoteVO> page = null;
+	private Page<NoteModel> buildPageSpec(Integer pageId, Integer pageSize, String sortCol, boolean asc, Date from) {
+		Page<NoteModel> page = null;
 		if (from == null) {
 			page = noteFacade.listNotes(pageId, pageSize, sortCol, asc);
 		} else {

@@ -8,32 +8,32 @@ import javax.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 
-import pl.arczynskiadam.core.model.RegisteredUserVO;
-import pl.arczynskiadam.core.model.RegisteredUserVO_;
-import pl.arczynskiadam.core.model.UserVO;
+import pl.arczynskiadam.core.model.RegisteredUserModel;
+import pl.arczynskiadam.core.model.RegisteredUserModel_;
+import pl.arczynskiadam.core.model.UserModel;
 
 public class UserSpecs {
 	
-	public static Specification<RegisteredUserVO> byNick(final String userNick) {
-		return new Specification<RegisteredUserVO>() {
+	public static Specification<RegisteredUserModel> byNick(final String userNick) {
+		return new Specification<RegisteredUserModel>() {
             @Override
-            public Predicate toPredicate(Root<RegisteredUserVO> userRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {             
-                return cb.equal(userRoot.<String>get(RegisteredUserVO_.nick), userNick);
+            public Predicate toPredicate(Root<RegisteredUserModel> userRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {             
+                return cb.equal(userRoot.<String>get(RegisteredUserModel_.nick), userNick);
             }
 		};
 	}
 	
-	public static Specification<UserVO> registered() {
-		return new Specification<UserVO>() {
+	public static Specification<UserModel> registered() {
+		return new Specification<UserModel>() {
             @Override
-            public Predicate toPredicate(Root<UserVO> userRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-            	final Root<UserVO> person = query.from(UserVO.class);
-                return cb.equal(person.type(), cb.literal(RegisteredUserVO.class));
+            public Predicate toPredicate(Root<UserModel> userRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            	final Root<UserModel> person = query.from(UserModel.class);
+                return cb.equal(person.type(), cb.literal(RegisteredUserModel.class));
             }
 		};
 	}
 	
-	public static Specification<UserVO> anonymous() {
+	public static Specification<UserModel> anonymous() {
 		return Specifications.not(registered());
 	}
 }

@@ -4,8 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
-import pl.arczynskiadam.core.model.AnonymousUserVO;
-import pl.arczynskiadam.core.model.RegisteredUserVO;
+import pl.arczynskiadam.core.model.AnonymousUserModel;
+import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.service.UserService;
 import pl.arczynskiadam.web.facade.UserFacade;
 
@@ -16,12 +16,12 @@ public class DefaultUserFacade implements UserFacade {
 	UserService userService;
 	
 	@Override
-	public RegisteredUserVO getCurrentUser() {
+	public RegisteredUserModel getCurrentUser() {
 		return userService.getCurrentUser();
 	}
 	
 	@Override
-	public AnonymousUserVO findAnonymousUserByNick(String nick) {
+	public AnonymousUserModel findAnonymousUserByNick(String nick) {
 		return userService.findAnonymousUserByNick(nick);
 	}
 }

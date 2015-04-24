@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.springframework.data.domain.Page;
 
-import pl.arczynskiadam.core.model.NoteVO;
+import pl.arczynskiadam.core.model.NoteModel;
 
 public class NotesPagesData {
 	{
@@ -14,7 +14,7 @@ public class NotesPagesData {
 		maxLinkedPages = 10;
 	}
 	
-	private Page<NoteVO> page;
+	private Page<NoteModel> page;
 	private Set<Integer> selectedNotesIds;
 	private Date fromDate;
 	private int maxLinkedPages;
@@ -58,10 +58,10 @@ public class NotesPagesData {
 		return Math.min(page.getNumber() + (maxLinkedPages / 2), page.getTotalPages()- 1);
 	}
 	
-	public Page<NoteVO> getPage() {
+	public Page<NoteModel> getPage() {
 		return page;
 	}
-	public void setPage(Page<NoteVO> page) {
+	public void setPage(Page<NoteModel> page) {
 		this.page = page;
 	}
 	public Set<Integer> getSelectedNotesIds() {

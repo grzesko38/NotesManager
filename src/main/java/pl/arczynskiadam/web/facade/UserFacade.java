@@ -1,9 +1,9 @@
 package pl.arczynskiadam.web.facade;
 
-import pl.arczynskiadam.core.model.AnonymousUserVO;
-import pl.arczynskiadam.core.model.RegisteredUserVO;
+import pl.arczynskiadam.core.model.AnonymousUserModel;
+import pl.arczynskiadam.core.model.RegisteredUserModel;
 
 public interface UserFacade {
-	public RegisteredUserVO getCurrentUser();
-	public AnonymousUserVO findAnonymousUserByNick(String nick);
+	public RegisteredUserModel getCurrentUser();
+	public AnonymousUserModel findAnonymousUserByNick(String nick);
 }

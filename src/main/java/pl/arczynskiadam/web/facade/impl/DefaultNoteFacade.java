@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
 
-import pl.arczynskiadam.core.model.AnonymousUserVO;
-import pl.arczynskiadam.core.model.NoteVO;
-import pl.arczynskiadam.core.model.RegisteredUserVO;
+import pl.arczynskiadam.core.model.AnonymousUserModel;
+import pl.arczynskiadam.core.model.NoteModel;
+import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.core.service.UserService;
@@ -43,7 +43,7 @@ public class DefaultNoteFacade implements NoteFacade {
 	@Override
 	@Transactional
 	public void addNewNote(String noteContent, String userNick) {
-		RegisteredUserVO currentUser = userService.getCurrentUser();
+		RegisteredUserModel currentUser = userService.getCurrentUser();
 		
 		if (currentUser != null)
 		{
@@ -51,13 +51,13 @@ public class DefaultNoteFacade implements NoteFacade {
 		}
 		else
 		{
-			AnonymousUserVO anonymous = userService.findAnonymousUserByNick(userNick);
+			AnonymousUserModel anonymous = userService.findAnonymousUserByNick(userNick);
 			if (anonymous == null) {
-				anonymous = new AnonymousUserVO();
+				anonymous = new AnonymousUserModel();
 				anonymous.setNick(userNick);
 			}
 			
-			NoteVO note = new NoteVO();
+			NoteModel note = new NoteModel();
 			note.setContent(noteContent);
 			note.setDateCreated(new Date());
 			anonymous.addNote(note);
@@ -68,8 +68,8 @@ public class DefaultNoteFacade implements NoteFacade {
 	
 	@Override
 	public void addNewNote(String noteContent) {
-		RegisteredUserVO user = userService.getCurrentUser();
-		NoteVO note = new NoteVO();
+		RegisteredUserModel user = userService.getCurrentUser();
+		NoteModel note = new NoteModel();
 		note.setContent(noteContent);
 		note.setDateCreated(new Date());
 		user.addNote(note);
@@ -77,25 +77,25 @@ public class DefaultNoteFacade implements NoteFacade {
 	}
 
 	@Override
-	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
-		Page<NoteVO> result = noteService.listNotes(pageId, pageSize, sortCol, asc);
+	public Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
+		Page<NoteModel> result = noteService.listNotes(pageId, pageSize, sortCol, asc);
 		fillFormattedDates(result.getContent());
 		return result;
 	}
 	
 	@Override
-	public Page<NoteVO> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date) {
+	public Page<NoteModel> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date) {
 		if (date == null) {
 			throw new IllegalArgumentException("date cannot be null.");
 		}
 		
-		Page<NoteVO> result = noteService.listNotesFromDate(pageId, pageSize, sortCol, asc, date);
+		Page<NoteModel> result = noteService.listNotesFromDate(pageId, pageSize, sortCol, asc, date);
 		fillFormattedDates(result.getContent());
 		return result;
 	}
 	
 	@Override
-	public NoteVO findNoteById(int id) {
+	public NoteModel findNoteById(int id) {
 		return noteService.findNoteById(id);
 	}
 
@@ -119,7 +119,7 @@ public class DefaultNoteFacade implements NoteFacade {
 	}
 	
 	@Override
-	public void deleteNotes(RegisteredUserVO user) {
+	public void deleteNotes(RegisteredUserModel user) {
 		noteService.deleteUserNotes(user.getId());
 	}
 	
@@ -143,8 +143,8 @@ public class DefaultNoteFacade implements NoteFacade {
 		}).toSet();
 	}
 
-	private void fillFormattedDates(List<NoteVO> notes) {
-		for (NoteVO note : notes) {		
+	private void fillFormattedDates(List<NoteModel> notes) {
+		for (NoteModel note : notes) {		
 			String formattedDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(note.getDateCreated());	
 			note.setFormattedDateCreated(formattedDate);
 		}

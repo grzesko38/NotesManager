@@ -12,53 +12,53 @@ import javax.persistence.criteria.Subquery;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 
-import pl.arczynskiadam.core.model.NoteVO;
-import pl.arczynskiadam.core.model.NoteVO_;
-import pl.arczynskiadam.core.model.RegisteredUserVO;
-import pl.arczynskiadam.core.model.UserVO_;
+import pl.arczynskiadam.core.model.NoteModel;
+import pl.arczynskiadam.core.model.NoteModel_;
+import pl.arczynskiadam.core.model.RegisteredUserModel;
+import pl.arczynskiadam.core.model.UserModel_;
 
 public class NoteSpecs {
 
-	public static Specification<NoteVO> from(final Date from)
+	public static Specification<NoteModel> from(final Date from)
 	{
-		return new Specification<NoteVO>() {
+		return new Specification<NoteModel>() {
             @Override
-            public Predicate toPredicate(Root<NoteVO> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {             
+            public Predicate toPredicate(Root<NoteModel> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {             
                 return cb.greaterThanOrEqualTo(noteRoot.<Date>get("dateCreated"), from);
             }
 		};
 	}
 	
-	public static Specification<NoteVO> registered()
+	public static Specification<NoteModel> registered()
 	{
-		return new Specification<NoteVO>() {
+		return new Specification<NoteModel>() {
             @Override
-            public Predicate toPredicate(Root<NoteVO> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-            	final Subquery<RegisteredUserVO> personQuery = query.subquery(RegisteredUserVO.class);
-				final Root<RegisteredUserVO> person = personQuery.from(RegisteredUserVO.class);
-				final Join<RegisteredUserVO, NoteVO> notes = person.join(UserVO_.notes);
-				personQuery.select(notes.<RegisteredUserVO> get("author"));
-				return cb.in(noteRoot.get(NoteVO_.author)).value(personQuery);
+            public Predicate toPredicate(Root<NoteModel> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            	final Subquery<RegisteredUserModel> personQuery = query.subquery(RegisteredUserModel.class);
+				final Root<RegisteredUserModel> person = personQuery.from(RegisteredUserModel.class);
+				final Join<RegisteredUserModel, NoteModel> notes = person.join(UserModel_.notes);
+				personQuery.select(notes.<RegisteredUserModel> get("author"));
+				return cb.in(noteRoot.get(NoteModel_.author)).value(personQuery);
             }
 		};
 	}
 	
-	public static Specification<NoteVO> anonymous()
+	public static Specification<NoteModel> anonymous()
 	{
 		return Specifications.not(registered());
 	}
 	
-	public static Specification<NoteVO> forNick(final String userNick)
+	public static Specification<NoteModel> forNick(final String userNick)
 	{
-		return new Specification<NoteVO>() {
+		return new Specification<NoteModel>() {
             @Override
-            public Predicate toPredicate(Root<NoteVO> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            public Predicate toPredicate(Root<NoteModel> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
             	final Subquery<Integer> personQuery = query.subquery(Integer.class);
-				final Root<RegisteredUserVO> person = personQuery.from(RegisteredUserVO.class);
-				final Join<RegisteredUserVO, NoteVO> notes = person.join(UserVO_.notes);
-				personQuery.select(notes.<Integer> get(NoteVO_.id));
-				personQuery.where(cb.equal(person.<String> get(UserVO_.nick), userNick));
-				return cb.in(noteRoot.get(NoteVO_.id)).value(personQuery);
+				final Root<RegisteredUserModel> person = personQuery.from(RegisteredUserModel.class);
+				final Join<RegisteredUserModel, NoteModel> notes = person.join(UserModel_.notes);
+				personQuery.select(notes.<Integer> get(NoteModel_.id));
+				personQuery.where(cb.equal(person.<String> get(UserModel_.nick), userNick));
+				return cb.in(noteRoot.get(NoteModel_.id)).value(personQuery);
             }
 		};
 	}

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import pl.arczynskiadam.core.dao.NoteRepository;
 import pl.arczynskiadam.core.dao.RegisteredUserRepository;
 import pl.arczynskiadam.core.dao.UserRepository;
-import pl.arczynskiadam.core.model.AnonymousUserVO;
-import pl.arczynskiadam.core.model.RegisteredUserVO;
+import pl.arczynskiadam.core.model.AnonymousUserModel;
+import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.service.UserService;
 
 @Service("userService")
@@ -25,17 +25,17 @@ public class DefaultUserService implements UserService {
 	private NoteRepository notesDao;
 	
 	@Override
-	public RegisteredUserVO findRegisteredUserByNick(String nick) {
+	public RegisteredUserModel findRegisteredUserByNick(String nick) {
 		return userDao.findRegisteredUserByNick(nick);
 	}
 	
 	@Override
-	public AnonymousUserVO findAnonymousUserByNick(String nick) {
+	public AnonymousUserModel findAnonymousUserByNick(String nick) {
 		return userDao.findAnonymousdUserByNick(nick);
 	}
 	
 	@Override
-	public RegisteredUserVO getCurrentUser() {
+	public RegisteredUserModel getCurrentUser() {
 	    SecurityContext securityContext = SecurityContextHolder.getContext();
 	    Authentication authentication = securityContext.getAuthentication();
 	    if (authentication != null) {

@@ -1,10 +1,10 @@
 package pl.arczynskiadam.core.service;
 
-import pl.arczynskiadam.core.model.AnonymousUserVO;
-import pl.arczynskiadam.core.model.RegisteredUserVO;
+import pl.arczynskiadam.core.model.AnonymousUserModel;
+import pl.arczynskiadam.core.model.RegisteredUserModel;
 
 public interface UserService {
-	public RegisteredUserVO findRegisteredUserByNick(String nick);
-	public AnonymousUserVO findAnonymousUserByNick(String nick);
-	public RegisteredUserVO getCurrentUser();
+	public RegisteredUserModel findRegisteredUserByNick(String nick);
+	public AnonymousUserModel findAnonymousUserByNick(String nick);
+	public RegisteredUserModel getCurrentUser();
 }

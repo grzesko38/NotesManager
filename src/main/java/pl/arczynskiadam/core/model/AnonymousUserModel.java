@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="USER_TYPE")
 @DiscriminatorValue("AnonymousUserVO")
-public class AnonymousUserVO extends UserVO implements Serializable {
+public class AnonymousUserModel extends UserModel implements Serializable {
 	
 	@Override
 	public String toString() {

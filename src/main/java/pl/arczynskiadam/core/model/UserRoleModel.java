@@ -16,15 +16,15 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "USER_ROLES", uniqueConstraints = @UniqueConstraint(columnNames = { "ROLE", "USER_FK" }))
-public class UserRoleVO implements Serializable {
+public class UserRoleModel implements Serializable {
 	private Integer id;
-	private UserVO user;
+	private UserModel user;
 	private String role;
  
-	public UserRoleVO() {
+	public UserRoleModel() {
 	}
  
-	public UserRoleVO(RegisteredUserVO user, String role) {
+	public UserRoleModel(RegisteredUserModel user, String role) {
 		this.user = user;
 		this.role = role;
 	}
@@ -44,11 +44,11 @@ public class UserRoleVO implements Serializable {
 	@JoinColumns({    
 		@JoinColumn(name = "USER_FK"/*, referencedColumnName = "ID"*/, nullable = false),
 	})
-	public UserVO getUser() {
+	public UserModel getUser() {
 		return this.user;
 	}
  
-	public void setUser(AnonymousUserVO user) {
+	public void setUser(AnonymousUserModel user) {
 		this.user = user;
 	}
  

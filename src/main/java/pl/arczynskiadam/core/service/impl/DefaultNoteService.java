@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pl.arczynskiadam.core.dao.NoteRepository;
 import pl.arczynskiadam.core.dao.specs.NoteSpecs;
-import pl.arczynskiadam.core.model.NoteVO;
-import pl.arczynskiadam.core.model.RegisteredUserVO;
+import pl.arczynskiadam.core.model.NoteModel;
+import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.core.service.UserService;
@@ -41,7 +41,7 @@ public class DefaultNoteService implements NoteService {
 	
 	@Override
 	@Transactional
-	public void saveNewNote(NoteVO note) {
+	public void saveNewNote(NoteModel note) {
 		if (note.getDateCreated() == null) {
 			note.setDateCreated(new Date());
 		}
@@ -50,8 +50,8 @@ public class DefaultNoteService implements NoteService {
 
 	@Override
 	@Transactional
-	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
-		RegisteredUserVO currentUser = userService.getCurrentUser();
+	public Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
+		RegisteredUserModel currentUser = userService.getCurrentUser();
 		if (currentUser == null) {
 			return noteDAO.findAll(NoteSpecs.anonymous(),
 					constructPageSpecification(pageId, pageSize, sortCol, asc));
@@ -62,8 +62,8 @@ public class DefaultNoteService implements NoteService {
 	
 	@Override
 	@Transactional
-	public Page<NoteVO> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date) {
-		RegisteredUserVO currentUser = userService.getCurrentUser();
+	public Page<NoteModel> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date) {
+		RegisteredUserModel currentUser = userService.getCurrentUser();
 		if (currentUser == null) {
 			return noteDAO.findAll(Specifications.where(NoteSpecs.from(date))
 					.and(NoteSpecs.anonymous()),
@@ -92,13 +92,13 @@ public class DefaultNoteService implements NoteService {
 		noteDAO.deleteByIds(ids);
 		
 		NotesPagesData sessionPagination = retrievePagesDataFromSession();
-		Page<NoteVO> sessionPage = sessionPagination.getPage();
+		Page<NoteModel> sessionPage = sessionPagination.getPage();
 		boolean deletedAllResultsFromLastPage = sessionPage.isLastPage() && ids.size() == sessionPage.getNumberOfElements();
 		
 		log.debug("page number = " + sessionPage.getNumber() + " / " + sessionPage.getTotalPages());
 		
 		if (deletedAllResultsFromLastPage) {
-			Page<NoteVO> page = null;
+			Page<NoteModel> page = null;
 			int pageIndexOffset = sessionPage.isFirstPage() ? 0 : 1;
 			
 			if (sessionPagination.getFromDate() == null) {
@@ -126,7 +126,7 @@ public class DefaultNoteService implements NoteService {
 	
 	@Override
 	@Transactional
-	public NoteVO findNoteById(int id) {
+	public NoteModel findNoteById(int id) {
 		return noteDAO.findOne(id);
 	}
 	

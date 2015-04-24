@@ -23,7 +23,7 @@ import org.hibernate.annotations.FetchMode;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="USER_TYPE")
 @Table(name="USERS")
-public abstract class UserVO implements Serializable {
+public abstract class UserModel implements Serializable {
 
 	@Id
 	@Column(name="ID")
@@ -34,11 +34,11 @@ public abstract class UserVO implements Serializable {
 	protected String nick;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
-	protected Set<NoteVO> notes = new HashSet<>();
+	protected Set<NoteModel> notes = new HashSet<>();
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	@Fetch(FetchMode.SELECT)
-	private Set<UserRoleVO> userRoles = new HashSet<UserRoleVO>(0);
+	private Set<UserRoleModel> userRoles = new HashSet<UserRoleModel>(0);
 	
 	public Integer getId() {
 		return id;
@@ -56,11 +56,11 @@ public abstract class UserVO implements Serializable {
 		this.nick = nick;
 	}
 
-	public Set<NoteVO> getNotes() {
+	public Set<NoteModel> getNotes() {
 		return notes;
 	}
 	
-	public void addNote(NoteVO note) {
+	public void addNote(NoteModel note) {
 		if (notes.contains(note)) {
 			return;
 		}
@@ -68,11 +68,11 @@ public abstract class UserVO implements Serializable {
 		note.setAuthor(this);
 	}
 	
-	public Set<UserRoleVO> getUserRoles() {
+	public Set<UserRoleModel> getUserRoles() {
 		return userRoles;
 	}
 
-	public void setUserRoles(Set<UserRoleVO> userRoles) {
+	public void setUserRoles(Set<UserRoleModel> userRoles) {
 		this.userRoles = userRoles;
 	}
 }

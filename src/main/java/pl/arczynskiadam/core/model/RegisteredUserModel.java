@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="USERS")
 @DiscriminatorValue("RegisteredUserVO")
-public class RegisteredUserVO extends AnonymousUserVO implements Serializable {
+public class RegisteredUserModel extends AnonymousUserModel implements Serializable {
 	
 	@Column(name="EMAIL")
 	private String email;

@@ -17,7 +17,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name="NOTES")
-public class NoteVO implements Serializable {
+public class NoteModel implements Serializable {
 	
 	@Id
 	@Column(name="ID")
@@ -35,7 +35,7 @@ public class NoteVO implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	@JoinColumn(name = "USER_FK")
-	private UserVO author;
+	private UserModel author;
 	
 	@Transient
 	private String formattedDateCreated;
@@ -73,11 +73,11 @@ public class NoteVO implements Serializable {
 	}
 
 
-	public UserVO getAuthor() {
+	public UserModel getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(UserVO author) {
+	public void setAuthor(UserModel author) {
 		this.author = author;
 		author.addNote(this);
 	}

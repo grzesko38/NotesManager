@@ -5,18 +5,18 @@ import java.util.Date;
 
 import org.springframework.data.domain.Page;
 
-import pl.arczynskiadam.core.model.NoteVO;
+import pl.arczynskiadam.core.model.NoteModel;
 import pl.arczynskiadam.web.data.NotesPagesData;
 
 public interface NoteService {
 	
-	public void saveNewNote(NoteVO note);
-	public Page<NoteVO> listNotes(int pageId, int pageSize, String sortCol, boolean asc);
-	public Page<NoteVO> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date);
+	public void saveNewNote(NoteModel note);
+	public Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc);
+	public Page<NoteModel> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date);
 	public void deleteNote(int id);
 	public void deleteNotes(Collection<Integer> ids);
 	public void deleteUserNotes(int userId);
-	public NoteVO findNoteById(int id);
+	public NoteModel findNoteById(int id);
 	public int getNotesCountForUser(String userNick);
 	public NotesPagesData retrievePagesDataFromSession();
 	public void savePagesDataToSession(NotesPagesData pagesData);

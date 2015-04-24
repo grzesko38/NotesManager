@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
-import pl.arczynskiadam.core.model.UserRoleVO;
-import pl.arczynskiadam.core.model.RegisteredUserVO;
+import pl.arczynskiadam.core.model.UserRoleModel;
+import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.service.UserService;
 import pl.arczynskiadam.web.SecurityConstants;
 
@@ -27,7 +27,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		RegisteredUserVO user = userService.findRegisteredUserByNick(userName);
+		RegisteredUserModel user = userService.findRegisteredUserByNick(userName);
 		
 		if(user == null) {
 	        throw new UsernameNotFoundException("User for username " + userName + "was not found.");
@@ -49,11 +49,11 @@ public class DefaultUserDetailsService implements UserDetailsService {
 	    return new User(user.getNick(), plain, true, true, true, true, authorities);
 	}
 	
-	private Function<UserRoleVO, String> toPermission() {
-		return new Function<UserRoleVO, String>() {
+	private Function<UserRoleModel, String> toPermission() {
+		return new Function<UserRoleModel, String>() {
 			
 			@Override
-			public String apply(UserRoleVO arg0) {
+			public String apply(UserRoleModel arg0) {
 				return arg0.getRole();
 			}
 		};
