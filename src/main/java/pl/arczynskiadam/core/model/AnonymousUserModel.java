@@ -19,8 +19,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="USERS")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="USER_TYPE")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name="USER_TYPE")
 @DiscriminatorValue("AnonymousUserVO")
 public class AnonymousUserModel extends UserModel implements Serializable {
 	
