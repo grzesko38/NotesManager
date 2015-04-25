@@ -36,5 +36,5 @@
 	<beans:bean id="defaultUserDetailsService" class="pl.arczynskiadam.security.impl.DefaultUserDetailsService">
 		<beans:property name="userService" ref="userService" />
 	</beans:bean>
-		
+	
 </beans:beans>

@@ -20,7 +20,9 @@
 		<formUtil:input labelKey="login.nick" path="nick" mandatory="true"/>
 		<formUtil:input labelKey="login.password" path="password" mandatory="true" password="true"/>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-		<button>ok</button>
+		<div class="buttonHolder">
+			<input type="submit" class="buttonPositive" value="<spring:message code="login.login"/>" />
+		</div>
 	</formUtil:form>
 	<span>
 		<a href="<c:url value="/notesmanager/show" />">

@@ -1,8 +1,8 @@
 jdbc.driverClassName=com.mysql.jdbc.Driver
-jdbc.dialect=org.hibernate.dialect.MySQLDialect
 jdbc.databaseurl=jdbc:mysql://127.0.0.1:3306/notesmanager
 jdbc.username=notes_admin
 jdbc.password=password
-hibernate.hbm2ddl.auto=none
+hibernate.hbm2ddl.auto=update
 hibernate.show_sql=true
+hibernate.format_sql=true
 hibernate.dialect=org.hibernate.dialect.MySQLDialect

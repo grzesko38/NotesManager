@@ -21,8 +21,9 @@
 		<formUtil:input password="true" labelKey="register.password" path="password" mandatory="true"/>
 		<formUtil:input password="true" labelKey="register.password.confirm" path="passwordConfirm" mandatory="true"/>
 		<formUtil:input labelKey="register.email" path="email" mandatory="true"/>
+		<formUtil:input labelKey="register.email.confirm" path="emailConfirm" mandatory="true"/>
 		<div class="buttonHolder">
-			<input type="submit" class="buttonPositive" value="<spring:message code="notes.addNew.button.save"/>" />
+			<input type="submit" class="buttonPositive" value="<spring:message code="register.register"/>" />
 		</div>
 	</formUtil:form>
 	

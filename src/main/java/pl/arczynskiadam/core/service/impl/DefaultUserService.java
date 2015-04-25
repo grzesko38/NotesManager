@@ -9,8 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import pl.arczynskiadam.core.dao.NoteRepository;
-import pl.arczynskiadam.core.dao.RegisteredUserRepository;
 import pl.arczynskiadam.core.dao.UserRepository;
+import pl.arczynskiadam.core.exception.EmailUnavailableException;
+import pl.arczynskiadam.core.exception.NickUnavailableException;
 import pl.arczynskiadam.core.model.AnonymousUserModel;
 import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.service.UserService;
@@ -43,5 +44,21 @@ public class DefaultUserService implements UserService {
 	        return principal instanceof UserDetails ? findRegisteredUserByNick(((UserDetails)principal).getUsername()) : null;
 	    }
 	    return null;
+	}
+	
+	@Override
+	public void registerUser(RegisteredUserModel user) {
+		
+		if (userDao.findRegisteredUserByNick(user.getNick()) != null)
+		{
+			throw new NickUnavailableException();
+		}
+		
+		if (userDao.findRegisteredUserByEmail(user.getEmail()) != null)
+		{
+			throw new EmailUnavailableException();
+		}
+		
+		userDao.save(user);
 	}
 }

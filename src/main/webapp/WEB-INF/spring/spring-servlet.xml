@@ -34,7 +34,7 @@
 		<property name="basenames">
 			<list>
 				<value>WEB-INF/classes/messages/messages</value>
-				<value>WEB-INF/classes/messages/jsr303errors</value>
+				<value>WEB-INF/classes/messages/error_messages</value>
 			</list>
 		</property>
 		<property name="defaultEncoding" value="UTF-8" />
@@ -43,7 +43,7 @@
 	<bean name="errMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"> 
 		<property name="basenames">
 			<list>
-				<value>classpath:messages/jsr303errors</value>
+				<value>classpath:messages/error_messages</value>
 			</list>
 		</property>
 		<property name="useCodeAsDefaultMessage" value="true" />

@@ -25,4 +25,12 @@ public @interface FieldMatch
     
     String fieldSource();
     String fieldConfirm();
+    
+    @Target({TYPE, ANNOTATION_TYPE})
+    @Retention(RUNTIME)
+    @Documented
+    @interface List
+    {
+        FieldMatch[] value();
+    }
 }

@@ -7,7 +7,10 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import pl.arczynskiadam.web.form.validation.FieldMatch;
 
-@FieldMatch(fieldSource = "password", fieldConfirm= "passwordConfirm", message = "{validation.password.confirm}")
+@FieldMatch.List({
+	@FieldMatch(fieldSource = "password", fieldConfirm= "passwordConfirm", message = "{validation.password.confirm}"),
+	@FieldMatch(fieldSource = "email", fieldConfirm= "emailConfirm", message = "{validation.email.confirm}")
+})
 public class RegisterForm {
 	
 	@NotBlank(message = "{validation.common.required}")
@@ -19,12 +22,14 @@ public class RegisterForm {
 	private String password;
 	
 	@NotBlank(message = "{validation.common.required}")
-	@Size(min = 8, max = 32, message = "{validation.common.length.minmax}")
 	private String passwordConfirm;
 	
 	@NotBlank(message = "{validation.common.required}")
 	@Pattern(regexp = "^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\\.[a-zA-Z]{2,4}$", message = "{validation.email.incorrect}")
 	private String email;
+	
+	@NotBlank(message = "{validation.common.required}")
+	private String emailConfirm;
 
 	public String getNick() {
 		return nick;
@@ -56,5 +61,13 @@ public class RegisterForm {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getEmailConfirm() {
+		return emailConfirm;
+	}
+
+	public void setEmailConfirm(String emailConfirm) {
+		this.emailConfirm = emailConfirm;
 	}
 }

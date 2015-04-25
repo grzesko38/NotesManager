@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="USERS")
-@DiscriminatorValue("RegisteredUserVO")
+@DiscriminatorValue("RegisteredUser")
 public class RegisteredUserModel extends AnonymousUserModel implements Serializable {
 	
 	@Column(name="EMAIL")
@@ -86,7 +86,7 @@ public class RegisteredUserModel extends AnonymousUserModel implements Serializa
 
 	@Override
 	public String toString() {
-		return "UserVO [email=" + email + ", dateRegistered=" + dateRegistered
+		return "RegisteredUserModel [email=" + email + ", dateRegistered=" + dateRegistered
 				+ ", passwordHash=" + passwordHash + ", passwordEncoding="
 				+ passwordEncoding + ", passwordSalt=" + passwordSalt + ", id="
 				+ id + ", nick=" + nick + "]";

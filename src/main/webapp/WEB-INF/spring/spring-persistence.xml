@@ -29,14 +29,16 @@
 		<property name="persistenceUnitName" value="hibernatePersistenceUnit" />
 		<property name="packagesToScan" value="pl.arczynskiadam.core.model" />
 	    <property name="jpaVendorAdapter">
-	        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+	        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" >
+<!-- 	        	<property name="generateDdl" value="false" /> -->
+	        </bean>
 	    </property>
 	    <property name="jpaProperties">
 	        <props>
 	            <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-	            <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 	            <prop key="hibernate.dialect">${hibernate.dialect}</prop>
-	            <prop key="hibernate.format_sql">true</prop>
+	            <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+	            <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
 	        </props>
         </property>
 	</bean>

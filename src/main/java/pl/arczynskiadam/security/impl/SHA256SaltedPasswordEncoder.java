@@ -33,7 +33,8 @@ public class SHA256SaltedPasswordEncoder implements PasswordEncoder {
 		if (saltAndHash.length != 2) {
 			return false;
 		}
-		String plain = saltAndHash[0].toLowerCase().concat(SecurityConstants.DELIMITER).concat(paramCharSequence.toString());
+		String plain = EncodingHelper.buildPlainText(paramCharSequence.toString(), saltAndHash[0]);
+
 		return this.encode(plain).equals(saltAndHash[1]);
 	}
 }

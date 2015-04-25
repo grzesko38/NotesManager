@@ -4,7 +4,7 @@ INSERT INTO USERS
 )
 VALUES
 (
-	1, 'Adam', 'adam.arczynski@gmail.com', '1990-01-01 00:00:00', '6a8e7f5f2b4ebf1a219d551e46e1338cf149ef175d48de64e33322b5704963b4', 'sha-256', '25ffed', 1, 'RegisteredUserVO'
+	1, 'Adam', 'adam.arczynski@gmail.com', '1990-01-01 00:00:00', '6a8e7f5f2b4ebf1a219d551e46e1338cf149ef175d48de64e33322b5704963b4', 'sha-256', '25ffed', 1, 'RegisteredUser'
 );
 
 INSERT INTO USER_ROLES

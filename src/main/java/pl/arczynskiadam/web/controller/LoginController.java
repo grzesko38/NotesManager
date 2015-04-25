@@ -33,7 +33,7 @@ public class LoginController extends AbstractController {
 	public String logout(RedirectAttributes attrs) {
 
 		GlobalMessages.addInfoFlashMessage("global.logout.success", attrs);
-		GlobalMessages.addInfoFlashMessage("global.contunueAsAnonymous", attrs);
+		GlobalMessages.addInfoFlashMessage("global.continueAsAnonymous", attrs);
 		
 		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
 	}

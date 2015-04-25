@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -16,9 +17,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="USER_TYPE")
@@ -30,15 +28,14 @@ public abstract class UserModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
 	
-	@Column(name="NICK", unique=true)
+	@Column(name="NICK")
 	protected String nick;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
 	protected Set<NoteModel> notes = new HashSet<>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-	@Fetch(FetchMode.SELECT)
-	private Set<UserRoleModel> userRoles = new HashSet<UserRoleModel>(0);
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = {CascadeType.ALL})
+	private Set<UserRoleModel> userRoles = new HashSet<>();
 	
 	public Integer getId() {
 		return id;
@@ -68,11 +65,15 @@ public abstract class UserModel implements Serializable {
 		note.setAuthor(this);
 	}
 	
+	public void addUserRole(UserRoleModel role) {
+		if (userRoles.contains(role)) {
+			return;
+		}
+		userRoles.add(role);
+		role.setUser(this);
+	}
+	
 	public Set<UserRoleModel> getUserRoles() {
 		return userRoles;
-	}
-
-	public void setUserRoles(Set<UserRoleModel> userRoles) {
-		this.userRoles = userRoles;
 	}
 }

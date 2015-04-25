@@ -24,4 +24,6 @@ public interface UserRepository extends JpaRepository<UserModel, Integer>, Query
 	@Query("FROM UserModel u where TYPE(u) = RegisteredUserModel AND u.nick = :nick")
     public RegisteredUserModel findRegisteredUserByNick(@Param("nick") String userNick);
 	
+	@Query("FROM UserModel u where TYPE(u) = RegisteredUserModel AND u.email = :email")
+    public RegisteredUserModel findRegisteredUserByEmail(@Param("email") String email);
 }
