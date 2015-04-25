@@ -33,7 +33,7 @@ public class NoteModel implements Serializable {
 	@Column(name="LAST_MODIFIED")
 	private Date lastModified;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
 	@JoinColumn(name = "USER_FK")
 	private UserModel author;
 	

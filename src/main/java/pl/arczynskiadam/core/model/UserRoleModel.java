@@ -24,7 +24,7 @@ public class UserRoleModel implements Serializable {
 	@Column(name = "ID")	
 	private Integer id;
 	
-	@ManyToOne(fetch = FetchType.EAGER/*, cascade = {CascadeType.ALL}*/)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_FK")
 	private UserModel user;
 	

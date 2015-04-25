@@ -53,8 +53,12 @@ public class DefaultNoteService implements NoteService {
 	public Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
 		RegisteredUserModel currentUser = userService.getCurrentUser();
 		if (currentUser == null) {
-			return noteDAO.findAll(NoteSpecs.anonymous(),
+			Page<NoteModel> notes = noteDAO.findAll(NoteSpecs.anonymous(),
 					constructPageSpecification(pageId, pageSize, sortCol, asc));
+			for (NoteModel note : notes.getContent()) {
+				note.getAuthor().getNick();
+			}
+			return notes;
 		}
 		return noteDAO.findAll(NoteSpecs.forNick(currentUser.getNick()),
 				constructPageSpecification(pageId, pageSize, sortCol, asc));
