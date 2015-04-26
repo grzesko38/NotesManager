@@ -3,10 +3,14 @@
 {
 	background: url(../../red/images/header/bar_top.png);
 }
-													/* Main Layout */
+													/* Navigation */
 header, .breadcrumbs
 {
 	border-bottom: 1px solid #880808;
+}
+.breadcrumbs:AFTER
+{
+	background: url("../../red/images/header/bar_corner.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 													/* drop down menu */
 .mainmenu

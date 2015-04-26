@@ -1,4 +1,4 @@
-													/* top Bar */
+													/* Navigation */
 .topbar
 {
 	background: url(../../yellow/images/header/bar_top.png);
@@ -7,6 +7,10 @@
 header, .breadcrumbs
 {
 	border-bottom: 1px solid #BB953C;
+}
+.breadcrumbs:AFTER
+{
+	background: url("../../yellow/images/header/bar_corner.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 													/* drop down menu */
 .mainmenu

@@ -1,7 +1,11 @@
 													/* Master Layout */
+body
+{
+	background-image: url("../../red/images/background/footer.png");
+}
 .master
 {
-	background-image: url("/NotesManager/themes/red/images/background/main.png");
+	background-image: url("../../red/images/background/main.png");
 }
 .master .page
 {

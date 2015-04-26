@@ -1,4 +1,9 @@
-													/* Navigation */
+													/* misc */
+div#placeholder
+{
+	height: 95px;
+}
+													/* Top Header */
 .topbar
 {
 	height: 30px;
@@ -17,12 +22,7 @@ header nav a
 	display: inline-block;
 }
 
-													/* misc */
-div#placeholder
-{
-	height: 95px;
-}
-													/* Top Header */
+													/* Navigation */
 nav.buttonsBar
 {
 	display: inline-block;
@@ -51,7 +51,6 @@ div.menu
 	text-decoration: underline;
 }
 .breadcrumbs:AFTER {
-    background: url("/NotesManager/themes/blue/images/header/bar_corner.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
     content: "";
     height: 100%;
     left: 100%;
