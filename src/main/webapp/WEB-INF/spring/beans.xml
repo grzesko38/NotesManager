@@ -19,4 +19,16 @@
 	    <value>50</value>
 	    <value>100</value>
 	</util:list>
+	
+	<util:list id="themes" value-type="java.lang.String">
+		<value>blue</value>
+	    <value>yellow</value>
+	    <value>green</value>
+	    <value>red</value>
+	</util:list>
+	
+	<util:list id="locales" value-type="java.lang.String">
+		<value>en_EN</value>
+	    <value>pl_PL</value>
+	</util:list>
 </beans>

@@ -8,18 +8,11 @@
 <%@ taglib prefix="navigation" uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
 <%@ taglib prefix="fragment" tagdir="/WEB-INF/tags/_fragments" %>
 
-<spring:theme code="theme.name" var="themeName"/>
-<c:set var="isBlueTheme" value="${themeName eq 'blue'}" />
-<c:set var="isRedTheme" value="${themeName eq 'red'}" />
-<c:set var="isGreenTheme" value="${themeName eq 'green'}" />	
-<c:set var="isYellowTheme" value="${themeName eq 'yellow'}" />
+<spring:theme code="theme.name" var="currentTheme"/>
 
 <!-- workaround for Eclipse validation bug -->
-<c:set var="locale" value="${pageContext.response.locale}"/>
+<c:set var="currentLocale" value="${pageContext.response.locale}"/>
 <!--end of workarround -->
-
-<c:set var="isUKLocale" value="${locale eq 'en_EN'}" />
-<c:set var="isPLLocale" value="${locale eq 'pl_PL'}" />
 		
 <header class="top">
 	<div class="topbar">
@@ -27,62 +20,29 @@
 	</div>
 	<div class="menu">
 		<nav class="buttonsBar">
-			<c:url value="" var="themeUrl">
-				<c:param name="theme" value="blue"/>
-			</c:url>
-			<a href="${themeUrl}">
-				<span class="blue buttonBorder${isBlueTheme?" active":""}">
-					<span class="blue themeholder${isBlueTheme?" active":""}"></span>
-				</span>
-			</a>
-			
-			<c:url value="" var="themeUrl">
-				<c:param name="theme" value="yellow"/>
-			</c:url>
-			<a href="${themeUrl}">
-				<span class="yellow buttonBorder${isYellowTheme?" active":""}">
-					<span class="yellow themeholder${isYellowTheme?" active":""}"></span>
-				</span>
-			</a>
-			
-			<c:url value="" var="themeUrl">
-				<c:param name="theme" value="green"/>
-			</c:url>
-			<a href="${themeUrl}">
-				<span class="green buttonBorder${isGreenTheme?" active":""}">
-					<span class="green themeholder${isGreenTheme?" active":""}"></span>
-				</span>
-			</a>
-			
-			<c:url value="" var="themeUrl">
-				<c:param name="theme" value="red"/>
-			</c:url>
-			<a href="${themeUrl}">
-				<span class="red buttonBorder${isRedTheme?" active":""}">
-					<span class="red themeholder${isRedTheme?" active":""}"></span>
-				</span>
-			</a>
+			<c:forEach items="${themes}" var="theme">
+				<c:url value="" var="themeUrl">
+					<c:param name="theme" value="${theme}"/>
+				</c:url>
+				<a href="${themeUrl}">
+					<span class="${theme} buttonBorder${theme eq currentTheme?" active":""}">
+						<span class="${theme} themeholder${theme eq currentTheme?" active":""}"></span>
+					</span>
+				</a>
+			</c:forEach>
 		</nav>
 		<nav class="buttonsBar">
-			<c:url value="" var="langUrl">
-				<c:param name="lang" value="en_EN"/>
-			</c:url>
-			<a href="${langUrl}">
-				<span class="uk buttonBorder${isUKLocale?" active":""}">
-					<span class="uk flagholder dark"></span>
-					<span class="uk flagholder${isUKLocale?" active":""}"></span>
-				</span>
-			</a>
-			
-			<c:url value="" var="langUrl">
-				<c:param name="lang" value="pl_PL"/>
-			</c:url>
-			<a href="${langUrl}">
-				<span class="pl buttonBorder${isPLLocale?" active":""}">
-					<span class="pl flagholder dark"></span>
-					<span class="pl flagholder${isPLLocale?" active":""}"></span>
-				</span>
-			</a>
+			<c:forEach items="${locales}" var="locale">
+				<c:url value="" var="langUrl">
+					<c:param name="lang" value="${locale}"/>
+				</c:url>
+				<a href="${langUrl}">
+					<span class="${locale} buttonBorder${locale eq currentLocale?" active":""}">
+						<span class="${locale} flagholder dark"></span>
+						<span class="${locale} flagholder${locale eq currentLocale?" active":""}"></span>
+					</span>
+				</a>
+			</c:forEach>
 		</nav>
 
 	</div>

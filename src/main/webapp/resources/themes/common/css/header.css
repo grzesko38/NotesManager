@@ -74,15 +74,15 @@ div.menu
 	cursor: pointer;
 	box-shadow: 0 0 6px -2px rgba(0, 0, 0, .8) inset;
 }
-.flagholder.uk
+.flagholder.en_EN
 {
 	background: url(../../common/images/flags/uk.gif);
 }
-.flagholder.pl
+.flagholder.pl_PL
 {
 	background: url(../../common/images/flags/pl.gif);
 }
-.flagholder.uk, .flagholder.pl
+.flagholder.en_EN, .flagholder.pl_PL
 {
 	background-size: 100%;
     background-repeat: no-repeat;
@@ -90,22 +90,22 @@ div.menu
     opacity: 0;
     transition: all 0.4s ease-in-out;
 }
-.flagholder.uk.dark
+.flagholder.en_EN.dark
 {
 	background: url(../../common/images/flags/uk_dark.gif);
 }
-.flagholder.pl.dark
+.flagholder.pl_PL.dark
 {
 	background: url(../../common/images/flags/pl_dark.gif);
 }
-.flagholder.uk.dark, .flagholder.pl.dark
+.flagholder.en_EN.dark, .flagholder.pl_PL.dark
 {
 	background-size: 100%;
     background-repeat: no-repeat;
     position: absolute;
     opacity: 1;
 }
-.flagholder.uk:HOVER, .flagholder.pl:HOVER
+.flagholder.en_EN:HOVER, .flagholder.pl_PL:HOVER
 {
 	opacity: 1;
 }
@@ -247,13 +247,13 @@ header.top div.menu nav .buttonBorder.red.active
 {
 	background: linear-gradient(to bottom, #FA7373 33%, #BA2B2B 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
-header.top div.menu nav .buttonBorder.pl.active
+header.top div.menu nav .buttonBorder.pl_PL.active
 {
 	background: linear-gradient(to bottom, #FFFFFF 33%, #F9F9F9 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
 	background-image: url(../../common/images/flags/pl.gif);
 	background-size: 100%;
 }
-header.top div.menu nav .buttonBorder.uk.active
+header.top div.menu nav .buttonBorder.en_EN.active
 {
 	background: linear-gradient(to bottom, #FFFFFF 33%, #F9F9F9 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
 	background-image: url(../../common/images/flags/uk.gif);

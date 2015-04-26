@@ -2,7 +2,9 @@ package pl.arczynskiadam.web.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,12 @@ public abstract class AbstractController {
 	@Autowired
     private ServletContext ctx;
 	
+	@Resource(name = "themes")
+	List<String> themes;
+	
+	@Resource(name = "locales")
+	List<String> locales;
+	
 	protected void createBreadcrumpAndSaveToModel(Model model, BreadcrumbsItem... items) {
 		ArrayList<BreadcrumbsItem> navItems = new ArrayList<BreadcrumbsItem>();
 		
@@ -29,7 +37,17 @@ public abstract class AbstractController {
 	}
 	
 	@ModelAttribute(value = "userName")
-	public String addUserName(Principal principal) {
+	public String getUserName(Principal principal) {
 		return principal != null ? principal.getName() : "anonymous";
+	}
+	
+	@ModelAttribute(value = "themes")
+	public List<String> getThemes() {
+		return themes;
+	}
+	
+	@ModelAttribute(value = "locales")
+	public List<String> getLocales() {
+		return locales;
 	}
 }
