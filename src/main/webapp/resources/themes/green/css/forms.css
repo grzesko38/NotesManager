@@ -13,7 +13,7 @@
 .formWrapper .formRow.error input, .formWrapper .formRow.error textarea
 {
 	background-color: #FFEEEE;
-	border: 2px inset #FFEEEE;
+	border: 1px inset #FFEEEE;
 }
 .jsr303error
 {
