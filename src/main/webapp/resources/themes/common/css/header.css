@@ -167,6 +167,35 @@ div.menu
 	text-align: right;
 	float: right;
 }
+													/* drop down menu */
+.mainmenu
+{
+	float: right;
+	margin-right: 120px;
+	background: linear-gradient(to bottom, #ededed 0%, #ffffff 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border-radius: 0 0 5px 5px;
+}
+.mainmenu:HOVER
+{
+	cursor: pointer;
+}
+.mainmenu span
+{
+	display: block;
+	padding-right: 10px;
+}
+.mainmenu span:BEFORE
+{
+	content: "";
+	width: 25px;
+	height: 25px;
+	background: url("../../common/images/icons/arrow-down.png") no-repeat;
+	background-size: 70%;
+	background-position: center;
+	display: inline-block;
+	vertical-align: middle;
+	margin: 3px;
+}
 													/* auth bar */
 #topBarLogin
 {

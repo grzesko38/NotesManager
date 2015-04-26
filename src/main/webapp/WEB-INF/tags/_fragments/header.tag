@@ -44,6 +44,11 @@
 				</a>
 			</c:forEach>
 		</nav>
+		<nav class="mainmenu">
+			<span>
+				<spring:message code="global.menu" />
+			</span>	
+		</nav>
 	</div>
 	<div class="clockHolder">
 		<canvas class="clockBar" id="clock" width="75" height="75"></canvas>

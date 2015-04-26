@@ -8,3 +8,10 @@ header, .breadcrumbs
 {
 	border-bottom: 1px solid #BB953C;
 }
+													/* drop down menu */
+.mainmenu
+{
+	border-bottom: 1px solid #BB953C;
+	border-left: 1px solid #BB953C;
+	border-right: 1px solid #BB953C;
+}
