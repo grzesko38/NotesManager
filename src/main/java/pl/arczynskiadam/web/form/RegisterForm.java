@@ -5,7 +5,9 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import pl.arczynskiadam.web.form.validation.EmailAvailable;
 import pl.arczynskiadam.web.form.validation.FieldMatch;
+import pl.arczynskiadam.web.form.validation.NickAvailable;
 
 @FieldMatch.List({
 	@FieldMatch(fieldSource = "password", fieldConfirm= "passwordConfirm", message = "{validation.password.confirm}"),
@@ -15,6 +17,7 @@ public class RegisterForm {
 	
 	@NotBlank(message = "{validation.common.required}")
 	@Size(min = 3, max = 32, message = "{validation.common.length.minmax}")
+	@NickAvailable(message = "{register.error.nick.unavailable}")
 	private String nick;
 	
 	@NotBlank(message = "{validation.common.required}")
@@ -26,6 +29,7 @@ public class RegisterForm {
 	
 	@NotBlank(message = "{validation.common.required}")
 	@Pattern(regexp = "^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\\.[a-zA-Z]{2,4}$", message = "{validation.email.incorrect}")
+	@EmailAvailable(message = "{register.error.email.unavailable}")
 	private String email;
 	
 	@NotBlank(message = "{validation.common.required}")

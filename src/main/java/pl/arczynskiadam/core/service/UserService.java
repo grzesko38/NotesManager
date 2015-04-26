@@ -8,4 +8,6 @@ public interface UserService {
 	public AnonymousUserModel findAnonymousUserByNick(String nick);
 	public RegisteredUserModel getCurrentUser();
 	public void registerUser(RegisteredUserModel user);
+	public boolean isNickAvailable(String nick);
+	public boolean isEmailAvailable(String email);
 }

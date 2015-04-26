@@ -49,17 +49,9 @@ public class RegisterController extends AbstractController {
 			return RegisterControllerConstants.Pages.REGISTER;
 		}
 		
-		try {
-			userFacade.registerUser(form.getNick(), form.getEmail(), form.getPassword());
-			GlobalMessages.addInfoFlashMessage("global.register.success", attrs);
-			return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
-		} catch (EmailUnavailableException ex) {
-			GlobalMessages.addErrorMessage("register.error.email.unavailable", model);
-			return RegisterControllerConstants.Pages.REGISTER;
-		} catch (NickUnavailableException ex) {
-			GlobalMessages.addErrorMessage("register.error.nick.unavailable", model);
-			return RegisterControllerConstants.Pages.REGISTER;
-		}
+		userFacade.registerUser(form.getNick(), form.getEmail(), form.getPassword());
+		GlobalMessages.addInfoFlashMessage("global.register.success", attrs);
+		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
 	}
 	
 	private void addDefaultBreadcrumbsToModel(Model model) {

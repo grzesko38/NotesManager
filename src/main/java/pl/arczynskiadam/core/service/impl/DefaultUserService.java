@@ -48,17 +48,16 @@ public class DefaultUserService implements UserService {
 	
 	@Override
 	public void registerUser(RegisteredUserModel user) {
-		
-		if (userDao.findRegisteredUserByNick(user.getNick()) != null)
-		{
-			throw new NickUnavailableException();
-		}
-		
-		if (userDao.findRegisteredUserByEmail(user.getEmail()) != null)
-		{
-			throw new EmailUnavailableException();
-		}
-		
 		userDao.save(user);
+	}
+	
+	@Override
+	public boolean isEmailAvailable(String email) {
+		return userDao.findRegisteredUserByEmail(email) == null;
+	}
+	
+	@Override
+	public boolean isNickAvailable(String nick) {
+		return userDao.findRegisteredUserByNick(nick) == null;
 	}
 }
