@@ -46,6 +46,7 @@ public class RegisterController extends AbstractController {
 		
 		if (result.hasErrors()) {
 			addDefaultBreadcrumbsToModel(model);
+			GlobalMessages.addErrorMessage("global.error.correctAll", model);
 			return RegisterControllerConstants.Pages.REGISTER;
 		}
 		

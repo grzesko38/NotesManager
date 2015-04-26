@@ -151,7 +151,7 @@ public class NoteController extends AbstractController {
 					new BreadcrumbsItem("Home", NoteControllerConstants.URLs.SHOW_FULL),
 					new BreadcrumbsItem("Add note", GlobalControllerConstants.Misc.HASH));
 			
-			GlobalMessages.addErrorMessage("notes.addNew.msg.error", model);
+			GlobalMessages.addErrorMessage("global.error.correctAll", model);
 			
 			return NoteControllerConstants.Pages.ADD;
 		} else {		
