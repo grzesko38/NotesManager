@@ -129,14 +129,18 @@ div.menu
 }
 .notes table.dateFilter span#inputspan #cancelDateFilter
 {
+	background: url("../../common/images/icons/cancel.png");
+	background-size: 100% auto;
 	position: absolute;
 	left: 85%;
 	top: 32%;
-	cursor: pointer;
+	height: 16px;
+	width: 16px;
+	display: block;
 }
 .notes table.dateFilter span#inputspan #cancelDateFilter:HOVER
 {
-	
+	cursor: pointer;
 }
 .notes table.dateFilter input#date
 {

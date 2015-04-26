@@ -22,7 +22,7 @@
 					<span id="inputspan">
 						<form:input path="date" title="${dateFormatTooltip}" placeholder="${dateFormatTooltip}" />
 						<c:if test="${not empty notesPaginationData.fromDate}">
-							<img id="cancelDateFilter" src="<c:url value="/themes/common/images/cancel.png" />" width="16px" height="16px" />
+							<em id="cancelDateFilter" />
 						</c:if>
 					</span>
 				</div>

@@ -44,7 +44,6 @@
 				</a>
 			</c:forEach>
 		</nav>
-
 	</div>
 	<div class="clockHolder">
 		<canvas class="clockBar" id="clock" width="75" height="75"></canvas>
