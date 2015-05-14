@@ -11,6 +11,7 @@ import com.google.common.collect.Sets;
 import pl.arczynskiadam.core.model.AnonymousUserModel;
 import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.model.UserRoleModel;
+import pl.arczynskiadam.core.service.UserPreferencesService;
 import pl.arczynskiadam.core.service.UserService;
 import pl.arczynskiadam.security.impl.EncodingHelper;
 import pl.arczynskiadam.security.impl.SHA256SaltedPasswordEncoder;
@@ -23,6 +24,9 @@ public class DefaultUserFacade implements UserFacade {
 
 	@Resource(name = "userService")
 	UserService userService;
+	
+	@Resource(name = "userPreferencesService")
+	UserPreferencesService userPreferencesService;
 	
 	@Resource(name = "passwordEncoder")
 	SHA256SaltedPasswordEncoder sha256Encoder;
@@ -52,6 +56,8 @@ public class DefaultUserFacade implements UserFacade {
 		UserRoleModel role = new UserRoleModel();
 		role.setRole("ROLE_USER");
 		newUser.addUserRole(role);
+		
+		newUser.setUserPreferences(userPreferencesService.buildDefaultUserPreferences());
 		
 		userService.registerUser(newUser);
 	}

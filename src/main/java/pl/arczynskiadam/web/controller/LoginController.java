@@ -1,5 +1,7 @@
 package pl.arczynskiadam.web.controller;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import pl.arczynskiadam.core.service.UserService;
 import pl.arczynskiadam.web.controller.constants.GlobalControllerConstants;
 import pl.arczynskiadam.web.controller.constants.LoginControllerConstants;
 import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
@@ -16,6 +19,9 @@ import pl.arczynskiadam.web.messages.GlobalMessages;
 
 @Controller
 public class LoginController extends AbstractController {
+	
+	@Resource(name = "userService")
+	UserService userService;
 	
 	@RequestMapping(value = LoginControllerConstants.URLs.LOGIN, method = RequestMethod.GET)
 	public String login(@RequestParam(value = "error", required = false) String error,

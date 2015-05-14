@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -36,6 +37,9 @@ public abstract class UserModel implements Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = {CascadeType.ALL})
 	private Set<UserRoleModel> userRoles = new HashSet<>();
+	
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "theme", cascade = {CascadeType.ALL})
+	private UserPreferencesModel userPreferences;
 	
 	public Integer getId() {
 		return id;
@@ -75,5 +79,17 @@ public abstract class UserModel implements Serializable {
 	
 	public Set<UserRoleModel> getUserRoles() {
 		return userRoles;
+	}
+
+	public UserPreferencesModel getUserPreferences() {
+		return userPreferences;
+	}
+
+	public void setUserPreferences(UserPreferencesModel userPreferences) {
+		if (this.userPreferences.equals(userPreferences)) {
+			return;
+		}
+		this.userPreferences = userPreferences;
+		userPreferences.setUser(this);
 	}
 }
