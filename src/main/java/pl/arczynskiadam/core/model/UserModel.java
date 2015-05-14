@@ -38,7 +38,7 @@ public abstract class UserModel implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = {CascadeType.ALL})
 	private Set<UserRoleModel> userRoles = new HashSet<>();
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "theme", cascade = {CascadeType.ALL})
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = {CascadeType.ALL})
 	private UserPreferencesModel userPreferences;
 	
 	public Integer getId() {
@@ -86,7 +86,7 @@ public abstract class UserModel implements Serializable {
 	}
 
 	public void setUserPreferences(UserPreferencesModel userPreferences) {
-		if (this.userPreferences.equals(userPreferences)) {
+		if (userPreferences.equals(this.userPreferences)) {
 			return;
 		}
 		this.userPreferences = userPreferences;

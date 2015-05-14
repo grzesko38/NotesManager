@@ -19,6 +19,15 @@ VALUES
 	2, 1, 'ROLE_ADMIN'
 );
 
+INSERT INTO USER_PREFERENCES
+(
+	id, user_fk, theme, locale
+)
+VALUES
+(
+	1, 1, 'blue', 'en_EN'
+);
+
 INSERT INTO NOTES
 (
 	user_fk, date_created, content

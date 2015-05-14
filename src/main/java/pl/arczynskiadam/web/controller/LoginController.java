@@ -20,9 +20,6 @@ import pl.arczynskiadam.web.messages.GlobalMessages;
 @Controller
 public class LoginController extends AbstractController {
 	
-	@Resource(name = "userService")
-	UserService userService;
-	
 	@RequestMapping(value = LoginControllerConstants.URLs.LOGIN, method = RequestMethod.GET)
 	public String login(@RequestParam(value = "error", required = false) String error,
 			@ModelAttribute(LoginControllerConstants.ModelAttrKeys.Form.Login) LoginForm loginForm,
