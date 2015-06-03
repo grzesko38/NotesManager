@@ -10,14 +10,11 @@
  	
  	<http pattern="/resources/**" security="none"/>
 	
-	<http disable-url-rewriting="true" pattern="/*">
+	<http disable-url-rewriting="true" pattern="/**">
 
 		<session-management session-fixation-protection="migrateSession"/>
 		
-		<intercept-url pattern="/j_spring_security_check" requires-channel="https"/>
-		<intercept-url pattern="/j_spring_security_logout" requires-channel="https"/>
-		<intercept-url pattern="/login" requires-channel="https"/>
-		<intercept-url pattern="/register" requires-channel="https"/>
+		<intercept-url pattern="/*" requires-channel="https"/>
 		
 		<form-login 
 		    login-page="/login" 
@@ -27,22 +24,6 @@
 			password-parameter="password" />
 		<logout logout-url="/j_spring_security_logout" logout-success-url="/logout" />
 <!-- 		<csrf/> -->
-	</http>
-
-	<http disable-url-rewriting="true" pattern="/**">
-		
-<!-- 		<anonymous username="anonymous" granted-authority="ROLE_ANONYMOUS"/> -->
-		<session-management session-fixation-protection="migrateSession"/>
-		
-		<intercept-url pattern="/notesmanager/**" requires-channel="any"/>
-		
-		<form-login 
-		    login-page="/login" 
-		    default-target-url="/notesmanager/show" 
-			authentication-failure-url="/login?error" 
-			username-parameter="nick"
-			password-parameter="password" />
-		<logout logout-url="/j_spring_security_logout" logout-success-url="/logout" />
 	</http>
 
  	<authentication-manager>
