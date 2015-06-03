@@ -1,6 +1,10 @@
-<%@ taglib prefix="c" 		uri="http://java.sun.com/jsp/jstl/core"  %>
-<%@ taglib prefix="form"   	uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ tag body-content="empty" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" 		 uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="form"   	 uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring"	 uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="formUtil" tagdir="/WEB-INF/tags/form" %>
+
 <%@ attribute name="paginationData" required="true" type="pl.arczynskiadam.web.data.NotesPagesData" %>
 <%@ attribute name="linkCore" required="true" type="java.lang.String" %>
 
@@ -67,8 +71,7 @@
 		<span>
 			<spring:message code="notes.listing.label.pageSize"/>:
 		</span>
-		<form:form id="" class="entriesPerPageForm" commandName="entriesPerPageForm" method="GET">
-			<form:select class="entriesPerPage" path="size" items="${entriesPerPageForm.pageSizes}" itemLabel="name" itemValue="value" multiple="false"/>
-		</form:form>
+		<c:url value="/notesmanager/show" var="action" />
+		<formUtil:pageSize selectedSize="${paginationData.page.size}" sizes="${notesPageSizes}" cssClass="notesPageSize" action="${action}"/>
 	</div>
 </div>

@@ -43,12 +43,12 @@ NotesGridScripts = {
 	    return arr;
 	},
 	
-	// === entries per page form ===
+	// === entries per page ===
 	bindEntriesPerPage: function() {
-		$(".entriesPerPage").each(
+		$(".notesPageSize").each(
 			function() {
 				$(this).change(function() {
-					$(this).parents('form:first').submit();
+					window.location.href = $(this).data('action') + '?size=' + $(this).val();
 				})
 			}
 		);

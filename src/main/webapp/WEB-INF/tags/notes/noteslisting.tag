@@ -1,3 +1,5 @@
+<%@ tag body-content="empty" pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="spring" 	 uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c"      	 uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" 	  	 uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -12,9 +14,7 @@
 		<notes:notesgrid />
 	</c:when>
 	<c:otherwise>
-		<c:if test="${not empty notesPaginationData.fromDate}">
-			<notes:datefilter />
-		</c:if>
+		
 	</c:otherwise>
 </c:choose>
 
@@ -34,22 +34,22 @@
 			</span>
 		</c:if>
 	</security:authorize>
-	
-	<spring:message code="global.delete.all.popup" arguments="${notesPaginationData.page.totalElements}" var="askDeleteAll" />
+</div>
+
+<spring:message code="global.delete.all.popup" arguments="${notesPaginationData.page.totalElements}" var="askDeleteAll" />
 	<div id="popupI18NData"
 		 data-askdeleteall="${askDeleteAll}"
 		 data-askheader='<spring:message code="global.areYouSure" />'
 		 data-yes='<spring:message code="misc.yes" />'
 		 data-no='<spring:message code="misc.no" />'
 		 data-close='<spring:message code="misc.close" />' >
-	</div>
-		 
-	<div id="dialog-deleteSelected" title="<spring:message code="global.areYouSure" />" >
-		<spring:message code="global.delete.popup.begin" />
-		<span>${fn:length(notesPaginationData.selectedNotesIds)}</span>
-		<spring:message code="global.delete.popup.end" />
-	</div>
-	<div id="dialog-deleteAll" title="<spring:message code="global.areYouSure" />">
-		<spring:message code="global.delete.all.popup" arguments="${notesPaginationData.page.totalElements}"/>
-	</div>
+</div>
+	 
+<div id="dialog-deleteSelected" title="<spring:message code="global.areYouSure" />" >
+	<spring:message code="global.delete.popup.begin" />
+	<span>${fn:length(notesPaginationData.selectedNotesIds)}</span>
+	<spring:message code="global.delete.popup.end" />
+</div>
+<div id="dialog-deleteAll" title="<spring:message code="global.areYouSure" />">
+	<spring:message code="global.delete.all.popup" arguments="${notesPaginationData.page.totalElements}"/>
 </div>

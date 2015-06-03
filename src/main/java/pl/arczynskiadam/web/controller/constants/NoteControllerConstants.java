@@ -18,6 +18,7 @@ public interface NoteControllerConstants {
 
 		interface View {			
 			public static final String Pagination = "notesPaginationData";
+			public static final String PageSizes  = "notesPageSizes";
 			public static final String Note 	  = "note";
 		}
 	}
