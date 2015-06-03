@@ -2,7 +2,6 @@ package pl.arczynskiadam.web.controller;
 
 import java.util.Collections;
 import java.util.Date;
-import java.util.Formatter;
 import java.util.List;
 import java.util.Set;
 
@@ -15,9 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.codec.Hex;
-import org.springframework.security.crypto.keygen.BytesKeyGenerator;
-import org.springframework.security.crypto.keygen.KeyGenerators;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,7 +32,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.arczynskiadam.core.model.NoteModel;
 import pl.arczynskiadam.core.service.NoteService;
-import pl.arczynskiadam.core.service.UserService;
 import pl.arczynskiadam.web.controller.constants.GlobalControllerConstants;
 import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
 import pl.arczynskiadam.web.data.NotesPagesData;
@@ -220,7 +216,7 @@ public class NoteController extends AbstractController {
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = "/updateSelections.json", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/updateSelections.json", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void noteSelected(@RequestBody SelectedCheckboxesForm selectedCheckboxesForm) {
 		log.debug("checboxes vals to update from ajax: " + selectedCheckboxesForm.toString());
 		

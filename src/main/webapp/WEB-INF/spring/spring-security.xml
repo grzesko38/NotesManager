@@ -23,7 +23,7 @@
 			username-parameter="nick"
 			password-parameter="password" />
 		<logout logout-url="/j_spring_security_logout" logout-success-url="/logout" />
-<!-- 		<csrf/> -->
+		<csrf/>
 	</http>
 
  	<authentication-manager>
