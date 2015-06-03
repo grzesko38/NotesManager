@@ -71,7 +71,7 @@ NotesGridScripts = {
                       {
                     	  text: $("#popupI18NData").data("yes"),
                     	  click : function() {
-                    		  NotesGridScripts.submitDeleteAllNotes();
+                    		  $('#deleteAllNotes').unbind('click').click();
                     	  }
                       },
                       {
@@ -98,7 +98,7 @@ NotesGridScripts = {
                       {
                     	  text: $("#popupI18NData").data("yes"),
                     	  click : function() {
-                    		  NotesGridScripts.submitDeleteSelectedNotes();
+                    		  $('#deleteSelectedNotes').unbind('click').click();
                     	  }
                       },
                       {
@@ -111,28 +111,16 @@ NotesGridScripts = {
         });
 		
 		$("#deleteSelectedNotes").click(function(event) {
-			if (NotesGridScripts.selectedCheckboxesToArray().length === 0) {
-				NotesGridScripts.submitDeleteSelectedNotes();
-			} else {
+			if (NotesGridScripts.selectedCheckboxesToArray().length > 0) {
+				event.preventDefault();
 				$( "#dialog-deleteSelected" ).dialog( "open" );
 			}
 		});
 		
 		$("#deleteAllNotes").click(function(event) {
+			event.preventDefault();
 			$( "#dialog-deleteAll" ).dialog( "open" );
 		});
-	},
-	
-	submitDeleteAllNotes: function() {
-		var input = $("<input>").attr("type", "hidden").attr("name", "delete").val("all");
-		$('#notesGridForm').append($(input));
-		$("#notesGridForm").submit();
-	},
-	
-	submitDeleteSelectedNotes: function() {
-		var input = $("<input>").attr("type", "hidden").attr("name", "delete").val("selected");
-		$('#notesGridForm').append($(input));
-		$("#notesGridForm").submit();
 	},
 	
 	// === all ===

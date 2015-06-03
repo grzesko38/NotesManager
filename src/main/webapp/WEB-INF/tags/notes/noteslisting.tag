@@ -14,37 +14,22 @@
 		<notes:notesgrid />
 	</c:when>
 	<c:otherwise>
-		
+		<a href="<c:url value="/notesmanager/add" />">
+			<span class="buttonPositive">
+				<spring:message code="notes.listing.addNew" />	
+			</span>
+		</a>
 	</c:otherwise>
 </c:choose>
 
-<div class="buttonsRow">
-	<a href="<c:url value="/notesmanager/add" />">
-		<span class="buttonPositive">
-			<spring:message code="notes.listing.addNew" />	
-		</span>
-	</a>
-	<security:authorize ifNotGranted="ROLE_ANONYMOUS">
-		<c:if test="${fn:length(notesPaginationData.page.content) gt 0}">
-			<span id="deleteSelectedNotes" class="buttonPositive">
-				<spring:message code="notes.listing.delete.selected" />
-			</span>
-			<span id="deleteAllNotes" class="buttonPositive">
-				<spring:message code="notes.listing.delete.all" />
-			</span>
-		</c:if>
-	</security:authorize>
-</div>
-
 <spring:message code="global.delete.all.popup" arguments="${notesPaginationData.page.totalElements}" var="askDeleteAll" />
-	<div id="popupI18NData"
-		 data-askdeleteall="${askDeleteAll}"
-		 data-askheader='<spring:message code="global.areYouSure" />'
-		 data-yes='<spring:message code="misc.yes" />'
-		 data-no='<spring:message code="misc.no" />'
-		 data-close='<spring:message code="misc.close" />' >
+<div id="popupI18NData"
+	 data-askdeleteall="${askDeleteAll}"
+	 data-askheader='<spring:message code="global.areYouSure" />'
+	 data-yes='<spring:message code="misc.yes" />'
+	 data-no='<spring:message code="misc.no" />'
+	 data-close='<spring:message code="misc.close" />' >
 </div>
-	 
 <div id="dialog-deleteSelected" title="<spring:message code="global.areYouSure" />" >
 	<spring:message code="global.delete.popup.begin" />
 	<span>${fn:length(notesPaginationData.selectedNotesIds)}</span>
