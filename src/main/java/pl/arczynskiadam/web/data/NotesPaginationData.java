@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 
 import pl.arczynskiadam.core.model.NoteModel;
 
-public class NotesPagesData {
+public class NotesPaginationData {
 	{
 		selectedNotesIds = new HashSet<Integer>();
 		maxLinkedPages = 10;
@@ -19,8 +19,8 @@ public class NotesPagesData {
 	private Date fromDate;
 	private int maxLinkedPages;
 	
-	public NotesPagesData() { }
-	public NotesPagesData(int maxLinkedPages) {
+	public NotesPaginationData() { }
+	public NotesPaginationData(int maxLinkedPages) {
 		this.maxLinkedPages = maxLinkedPages;
 	}
 	

@@ -6,7 +6,7 @@ import java.util.Date;
 import org.springframework.data.domain.Page;
 
 import pl.arczynskiadam.core.model.NoteModel;
-import pl.arczynskiadam.web.data.NotesPagesData;
+import pl.arczynskiadam.web.data.NotesPaginationData;
 
 public interface NoteService {
 	
@@ -18,8 +18,8 @@ public interface NoteService {
 	public void deleteUserNotes(int userId);
 	public NoteModel findNoteById(int id);
 	public int getNotesCountForUser(String userNick);
-	public NotesPagesData retrievePagesDataFromSession();
-	public void savePagesDataToSession(NotesPagesData pagesData);
+	public NotesPaginationData retrievePagesDataFromSession();
+	public void savePagesDataToSession(NotesPaginationData pagesData);
 	public void removePaginationDataFromSession();
 	public void clearFromDateFilter();
 }

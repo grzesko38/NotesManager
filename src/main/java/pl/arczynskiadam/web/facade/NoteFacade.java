@@ -8,12 +8,16 @@ import org.springframework.data.domain.Page;
 
 import pl.arczynskiadam.core.model.NoteModel;
 import pl.arczynskiadam.core.model.RegisteredUserModel;
+import pl.arczynskiadam.web.data.NotesPaginationData;
 
 public interface NoteFacade {
+	public NotesPaginationData prepareNotesPaginationData();
+	public NotesPaginationData updatePageNumber(int pageNumber);
+	public NotesPaginationData updatePageSize(int pageSize);
+	public NotesPaginationData updateSort(String sortColumn, boolean ascending);
+	public NotesPaginationData updateDateFilter(Date from);
 	public void addNewNote(String noteContent, String userNick);
 	public void addNewNote(String noteContent);
-	public Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc);
-	public Page<NoteModel> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date);
 	public int getNotesCountForUser(String userNick);
 	public void deleteNote(int id);
 	public void deleteNotes(int[] ids);
@@ -22,4 +26,5 @@ public interface NoteFacade {
 	public NoteModel findNoteById(int id);
 	public Set<Integer> convertSelectionsToNotesIds(Collection<String> selections);
 	public Set<String> convertNotesIdsToSelections(Collection<Integer> ids);
+	public void clearDateFilter();
 }

@@ -52,7 +52,7 @@ public class RegisterController extends AbstractController {
 		
 		userFacade.registerUser(form.getNick(), form.getEmail(), form.getPassword());
 		GlobalMessages.addInfoFlashMessage("global.register.success", attrs);
-		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
+		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 	}
 	
 	private void addDefaultBreadcrumbsToModel(Model model) {

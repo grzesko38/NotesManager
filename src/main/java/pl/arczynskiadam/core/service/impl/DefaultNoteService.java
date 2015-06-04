@@ -23,7 +23,7 @@ import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.core.service.UserService;
 import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
-import pl.arczynskiadam.web.data.NotesPagesData;
+import pl.arczynskiadam.web.data.NotesPaginationData;
 
 @Service
 public class DefaultNoteService implements NoteService {
@@ -99,7 +99,7 @@ public class DefaultNoteService implements NoteService {
 	public void deleteNotes(Collection<Integer> ids) {
 		noteDAO.deleteByIds(ids);
 		
-		NotesPagesData sessionPagination = retrievePagesDataFromSession();
+		NotesPaginationData sessionPagination = retrievePagesDataFromSession();
 		Page<NoteModel> sessionPage = sessionPagination.getPage();
 		boolean deletedAllResultsFromLastPage = sessionPage.isLastPage() && ids.size() == sessionPage.getNumberOfElements();
 		
@@ -144,26 +144,25 @@ public class DefaultNoteService implements NoteService {
 	
 	@Override
 	public void clearFromDateFilter() {
-		retrievePagesDataFromSession().setFromDate(null);
+		NotesPaginationData sessionPaginationData = retrievePagesDataFromSession();
+		if (sessionPaginationData != null) {
+			retrievePagesDataFromSession().setFromDate(null);
+		}
 	}
 	
 	@Override
 	public void removePaginationDataFromSession() {
-		sessionService.getCurrentSession().removeAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination);
+		sessionService.getCurrentSession().removeAttribute(NoteControllerConstants.ModelAttrKeys.View.PAGINATION);
 	}
 	
 	@Override
-	public NotesPagesData retrievePagesDataFromSession() {
-		NotesPagesData sessionsPagesData = (NotesPagesData) sessionService.getCurrentSession().getAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination);
-		if (sessionsPagesData == null) {
-			return null;
-		}
-		return sessionsPagesData;
+	public NotesPaginationData retrievePagesDataFromSession() {
+		return (NotesPaginationData) sessionService.getCurrentSession().getAttribute(NoteControllerConstants.ModelAttrKeys.View.PAGINATION);
 	}
 	
 	@Override
-	public void savePagesDataToSession(NotesPagesData pagesData) {
-		sessionService.getCurrentSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.Pagination, pagesData);
+	public void savePagesDataToSession(NotesPaginationData pagesData) {
+		sessionService.getCurrentSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.PAGINATION, pagesData);
 	}
 	
 	private Pageable constructPageSpecification(int pageIndex, int pageSize, String sortCol, boolean asc) {

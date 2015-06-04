@@ -38,6 +38,6 @@ public class LoginController extends AbstractController {
 		GlobalMessages.addInfoFlashMessage("global.logout.success", attrs);
 		GlobalMessages.addInfoFlashMessage("global.continueAsAnonymous", attrs);
 		
-		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_FULL;
+		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 	}
 }

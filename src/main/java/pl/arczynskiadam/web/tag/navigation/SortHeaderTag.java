@@ -25,11 +25,11 @@ public class SortHeaderTag extends SimpleTagSupport {
 		String divOpen = String.format("<div class=\"%s\">", divClass);
 		String divClose = "</div>"; 
 		
-		String sortAsc = String.format("<a href=\"?col=%s&sort=asc\">"
+		String sortAsc = String.format("<a href=\"?col=%s&asc=true\">"
 				+ "<img src=\"%s\" width=\"%d\" height=\"%d\"/>"
 				+ "</a>", sortColumn, ascImgUrl, imgSize, imgSize);
 		
-		String sortDesc = String.format("<a href=\"?col=%s&sort=desc\">"
+		String sortDesc = String.format("<a href=\"?col=%s&asc=false\">"
 				+ "<img src=\"%s\" width=\"%d\" height=\"%d\"/>"
 				+ "</a>", sortColumn, descImgUrl, imgSize, imgSize);
 		

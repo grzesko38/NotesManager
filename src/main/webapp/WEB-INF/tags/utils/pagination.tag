@@ -5,7 +5,7 @@
 <%@ taglib prefix="spring"	 uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="formUtil" tagdir="/WEB-INF/tags/form" %>
 
-<%@ attribute name="paginationData" required="true" type="pl.arczynskiadam.web.data.NotesPagesData" %>
+<%@ attribute name="paginationData" required="true" type="pl.arczynskiadam.web.data.NotesPaginationData" %>
 <%@ attribute name="linkCore" required="true" type="java.lang.String" %>
 
 <div class="paginationRow">
