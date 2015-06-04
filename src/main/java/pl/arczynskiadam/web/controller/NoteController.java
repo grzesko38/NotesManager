@@ -158,7 +158,7 @@ public class NoteController extends AbstractController {
 			selectedCheckboxesForm.setSelections(noteFacade.convertNotesIdsToSelections(paginationData.getSelectedNotesIds()));
 		} else {
 			if (date == null) {
-				noteService.clearFromDateFilter();
+				noteFacade.clearDateFilter();
 				noteFacade.updatePageNumber(DEFAULT_FIRST_PAGE);
 			}
 			noteFacade.updateDateFilter(dateForm.getDate());
@@ -195,14 +195,14 @@ public class NoteController extends AbstractController {
 			GlobalMessages.addErrorMessage("global.error.correctAll", model);
 			
 			return NoteControllerConstants.Pages.ADD;
-		} else {		
-			noteFacade.addNewNote(noteForm.getContent(), noteForm.getAuthor());
-			noteService.removePaginationDataFromSession();
-			
-			GlobalMessages.addInfoFlashMessage("notes.addNew.msg.confirmation", attrs);
-			
-			return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 		}
+		
+		noteFacade.addNewNote(noteForm.getContent(), noteForm.getAuthor());
+		noteService.removePaginationDataFromSession();
+		
+		GlobalMessages.addInfoFlashMessage("notes.addNew.msg.confirmation", attrs);
+		
+		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 	}
 
 	@RequestMapping(value = NoteControllerConstants.URLs.DELETE, method = RequestMethod.POST)

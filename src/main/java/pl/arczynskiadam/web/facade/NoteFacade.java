@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
-import org.springframework.data.domain.Page;
-
 import pl.arczynskiadam.core.model.NoteModel;
 import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.web.data.NotesPaginationData;
@@ -17,7 +15,6 @@ public interface NoteFacade {
 	public NotesPaginationData updateSort(String sortColumn, boolean ascending);
 	public NotesPaginationData updateDateFilter(Date from);
 	public void addNewNote(String noteContent, String userNick);
-	public void addNewNote(String noteContent);
 	public int getNotesCountForUser(String userNick);
 	public void deleteNote(int id);
 	public void deleteNotes(int[] ids);

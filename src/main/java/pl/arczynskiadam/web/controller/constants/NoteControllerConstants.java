@@ -29,7 +29,7 @@ public interface NoteControllerConstants {
 		public static final String SHOW_NOTES_FULL	= MANAGER + SHOW_NOTES;
 		public static final String ADD				= "/add";
 		public static final String ADD_FULL			= MANAGER + ADD;
-		public static final String ADD_POST 		= "/add.do";
+		public static final String ADD_POST 		= "/add";
 		public static final String ADD_POST_FULL	= MANAGER + ADD_POST;
 		public static final String DELETE			= "/delete/{noteId}";
 		public static final String DELETE_FULL		= MANAGER + DELETE;

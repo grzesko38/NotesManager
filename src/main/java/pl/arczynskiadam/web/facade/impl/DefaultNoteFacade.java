@@ -54,33 +54,39 @@ public class DefaultNoteFacade implements NoteFacade {
 		
 		if (currentUser != null)
 		{
-			addNewNote(noteContent);
+			addNoteForRegisteredUser(noteContent);
 		}
 		else
 		{
-			AnonymousUserModel anonymous = userService.findAnonymousUserByNick(userNick);
-			if (anonymous == null) {
-				anonymous = new AnonymousUserModel();
-				anonymous.setNick(userNick);
-			}
-			
-			NoteModel note = new NoteModel();
-			note.setContent(noteContent);
-			note.setDateCreated(new Date());
-			anonymous.addNote(note);
-			
-			noteService.saveNewNote(note);
+			addNoteForAnonymous(noteContent, userNick);
 		}
 	}
-	
-	@Override
-	public void addNewNote(String noteContent) {
+
+	private void addNoteForRegisteredUser(String noteContent) {
 		RegisteredUserModel user = userService.getCurrentUser();
+		NoteModel note = createNewNote(noteContent);
+		user.addNote(note);
+		noteService.saveNewNote(note);
+	}
+
+	private void addNoteForAnonymous(String noteContent, String userNick) {
+		AnonymousUserModel anonymous = userService.findAnonymousUserByNick(userNick);
+		if (anonymous == null) {
+			anonymous = new AnonymousUserModel();
+			anonymous.setNick(userNick);
+		}
+		
+		NoteModel note = createNewNote(noteContent);
+		anonymous.addNote(note);
+		
+		noteService.saveNewNote(note);
+	}
+
+	private NoteModel createNewNote(String noteContent) {
 		NoteModel note = new NoteModel();
 		note.setContent(noteContent);
 		note.setDateCreated(new Date());
-		user.addNote(note);
-		noteService.saveNewNote(note);
+		return note;
 	}
 	
 	@Override

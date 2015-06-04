@@ -25,7 +25,7 @@
         
     <jsp:body>
     	<utils:globalMessages />
-		<formUtil:form method="post" action="${pageContext.request.contextPath}/notesmanager/add.do" modelAttribute="noteForm">
+		<formUtil:form method="post" action="${pageContext.request.contextPath}/notesmanager/add" modelAttribute="noteForm">
 			<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
 				<formUtil:input path="author" mandatory="true" labelKey="notes.addNew.label.nick" />
 			</security:authorize>
