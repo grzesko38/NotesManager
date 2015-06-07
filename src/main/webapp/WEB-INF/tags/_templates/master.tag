@@ -6,6 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ taglib prefix="fragment" tagdir="/WEB-INF/tags/_fragments" %>
 <%@ taglib prefix="notes" tagdir="/WEB-INF/tags/notes" %>
@@ -46,7 +47,7 @@
 		<jsp:attribute name="topBarContent">
 			<jsp:invoke fragment="topBarContent" />
 			<div class="dateHolder">
-				<utils:date separator="/" />
+				<fmt:formatDate value="${utils:date()}" pattern="dd/mm/yyyy"/> 
 			</div>
 		</jsp:attribute>
 	</fragment:header>

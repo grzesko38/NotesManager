@@ -9,13 +9,9 @@
 	<tlib-version>2.1</tlib-version>
 	<short-name>current-date</short-name>
 	<uri>http://arczynskiadam.pl/jsp/tlds/utils</uri>
-	<tag>
-	    <name>date</name>
-	    <tag-class>pl.arczynskiadam.web.tag.DateTag</tag-class>
-	    <body-content>empty</body-content>
-	    <attribute>
-		    <name>separator</name>
-		    <required>false</required>
-	    </attribute>
-	</tag>
+	<function>
+        <name>date</name>
+        <function-class>pl.arczynskiadam.web.function.UtilFunctions</function-class>
+        <function-signature>java.util.Date date()</function-signature>
+    </function>
 </taglib>

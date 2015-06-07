@@ -4,7 +4,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="utils" uri="http://arczynskiadam.pl/jsp/tlds/utils" %>
 <%@ taglib prefix="navigation" uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
 <%@ taglib prefix="fragment" tagdir="/WEB-INF/tags/_fragments" %>
 
