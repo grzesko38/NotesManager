@@ -54,7 +54,6 @@
 		<div class="page">
 			<jsp:doBody />
 		</div>
-		<div class="bottom"></div>
 	</div>
 	<fragment:footer />
 </body>

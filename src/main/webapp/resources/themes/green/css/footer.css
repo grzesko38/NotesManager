@@ -1,4 +1,8 @@
 													/* Footer */
+footer
+{
+	border-top-color: #1C8C00;
+}
 footer .content, footer .connector
 {
 	background-color: #AEF29D;
