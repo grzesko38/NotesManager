@@ -151,11 +151,6 @@ public class DefaultNoteService implements NoteService {
 	}
 	
 	@Override
-	public void removePaginationDataFromSession() {
-		sessionService.getCurrentSession().removeAttribute(NoteControllerConstants.ModelAttrKeys.View.PAGINATION);
-	}
-	
-	@Override
 	public NotesPaginationData retrievePagesDataFromSession() {
 		return (NotesPaginationData) sessionService.getCurrentSession().getAttribute(NoteControllerConstants.ModelAttrKeys.View.PAGINATION);
 	}

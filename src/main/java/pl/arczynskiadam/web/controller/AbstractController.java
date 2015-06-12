@@ -1,5 +1,8 @@
 package pl.arczynskiadam.web.controller;
 
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.ModelAttrKeys.Navigation.BREADCRUMBS;
+import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.View.PAGINATION;
+
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import pl.arczynskiadam.web.controller.constants.GlobalControllerConstants;
 import pl.arczynskiadam.web.tag.navigation.BreadcrumbsItem;
 
 public abstract class AbstractController {
@@ -33,7 +35,7 @@ public abstract class AbstractController {
 			navItems.add(item);
 		}
 		
-		model.addAttribute(GlobalControllerConstants.ModelAttrKeys.Navigation.Breadcrumbs, navItems);
+		model.addAttribute(BREADCRUMBS, navItems);
 	}
 	
 	@ModelAttribute(value = "userName")

@@ -20,6 +20,5 @@ public interface NoteService {
 	public int getNotesCountForUser(String userNick);
 	public NotesPaginationData retrievePagesDataFromSession();
 	public void savePagesDataToSession(NotesPaginationData pagesData);
-	public void removePaginationDataFromSession();
 	public void clearFromDateFilter();
 }

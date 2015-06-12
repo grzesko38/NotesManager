@@ -198,7 +198,7 @@ public class NoteController extends AbstractController {
 		}
 		
 		noteFacade.addNewNote(noteForm.getContent(), noteForm.getAuthor());
-		noteService.removePaginationDataFromSession();
+		noteFacade.removePaginationDataFromSession();
 		
 		GlobalMessages.addInfoFlashMessage("notes.addNew.msg.confirmation", attrs);
 		

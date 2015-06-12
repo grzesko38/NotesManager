@@ -21,6 +21,7 @@ public interface NoteFacade {
 	public void deleteNotes(Collection<Integer> ids);
 	public void deleteNotes(RegisteredUserModel user);
 	public NoteModel findNoteById(int id);
+	public void removePaginationDataFromSession();
 	public Set<Integer> convertSelectionsToNotesIds(Collection<String> selections);
 	public Set<String> convertNotesIdsToSelections(Collection<Integer> ids);
 	public void clearDateFilter();

@@ -24,6 +24,7 @@ import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.core.service.UserService;
+import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
 import pl.arczynskiadam.web.data.NotesPaginationData;
 import pl.arczynskiadam.web.facade.NoteFacade;
 
@@ -229,6 +230,11 @@ public class DefaultNoteFacade implements NoteFacade {
 	@Override
 	public void deleteNotes(RegisteredUserModel user) {
 		noteService.deleteUserNotes(user.getId());
+	}
+	
+	@Override
+	public void removePaginationDataFromSession() {
+		sessionService.getCurrentSession().removeAttribute(NoteControllerConstants.ModelAttrKeys.View.PAGINATION);
 	}
 	
 	@Override
