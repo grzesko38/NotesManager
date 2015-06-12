@@ -70,7 +70,7 @@ public class RegisterController extends AbstractController {
 		
 		autoLogin(form, model, attrs);
 		
-		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_NOTES_FULL;
+		return GlobalControllerConstants.Prefixes.REDIRECT_PREFIX + NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 	}
 
 	private void autoLogin(RegisterForm form, Model model, RedirectAttributes attrs) {

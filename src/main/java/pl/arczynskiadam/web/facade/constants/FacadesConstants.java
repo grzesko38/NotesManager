@@ -1,6 +1,6 @@
 package pl.arczynskiadam.web.facade.constants;
 
-public interface NotesListingPageConstants {
+public interface FacadesConstants {
 	interface Defaults {
 		interface Pagination {
 			public static final int DEFAULT_FIRST_PAGE				= 0;

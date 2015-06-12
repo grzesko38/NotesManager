@@ -1,19 +1,19 @@
 package pl.arczynskiadam.web.controller;
 
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.ModelAttrKeys.Form.SELECTED_CHECKBOXES_FORM;
-import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Prefixes.REDIRECT;
-import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.ASCENDING;
-import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.DELETE;
-import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.PAGE_NUMBER;
-import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.PAGE_SIZE;
-import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.SORT_COLUMN;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Prefixes.REDIRECT_PREFIX;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.ASCENDING_PARAM;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.DELETE_PARAM;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.PAGE_NUMBER_PARAM;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.PAGE_SIZE_PARAM;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.SORT_COLUMN_PARAM;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.Form.DATE_FILTER_FORM;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.View.PAGINATION;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.DETAILS;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.LISTING;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES_FULL;
-import static pl.arczynskiadam.web.facade.constants.NotesListingPageConstants.Defaults.Pagination.DEFAULT_FIRST_PAGE;
+import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_FIRST_PAGE;
 
 import java.util.Collections;
 import java.util.Date;
@@ -84,9 +84,9 @@ public class NoteController extends AbstractController {
 		binder.addValidators(selectedCheckboxesValidator);
 	}
 	
-	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {SORT_COLUMN, ASCENDING})
-	public String updateSortColumn(@RequestParam(value = SORT_COLUMN, required = true) String sortColumn,
-			@RequestParam(value = ASCENDING, required = true) boolean ascending,
+	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {SORT_COLUMN_PARAM, ASCENDING_PARAM})
+	public String updateSortColumn(@RequestParam(value = SORT_COLUMN_PARAM, required = true) String sortColumn,
+			@RequestParam(value = ASCENDING_PARAM, required = true) boolean ascending,
 			HttpServletRequest request,	final Model model) {
 		
 		NotesPaginationData paginationData = noteFacade.updateSort(sortColumn, ascending);
@@ -94,8 +94,8 @@ public class NoteController extends AbstractController {
 		return listNotes(request, model);
 	}
 	
-	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {PAGE_NUMBER})
-	public String updatePageNumber(@RequestParam(value = PAGE_NUMBER, required = true) int pageNumber,
+	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {PAGE_NUMBER_PARAM})
+	public String updatePageNumber(@RequestParam(value = PAGE_NUMBER_PARAM, required = true) int pageNumber,
 			HttpServletRequest request,	final Model model) {
 		
 		NotesPaginationData paginationData = noteFacade.updatePageNumber(pageNumber);
@@ -103,8 +103,8 @@ public class NoteController extends AbstractController {
 		return listNotes(request, model);
 	}
 	
-	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {PAGE_SIZE})
-	public String updatePageSize(@RequestParam(value = PAGE_SIZE, required = true) int pageSize,
+	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {PAGE_SIZE_PARAM})
+	public String updatePageSize(@RequestParam(value = PAGE_SIZE_PARAM, required = true) int pageSize,
 			HttpServletRequest request,	final Model model) {
 		
 		NotesPaginationData paginationData = noteFacade.updatePageSize(pageSize);
@@ -112,7 +112,7 @@ public class NoteController extends AbstractController {
 		return listNotes(request, model);
 	}
 	
-	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {"!date", "!"+PAGE_NUMBER, "!"+PAGE_SIZE, "!"+SORT_COLUMN, "!"+ASCENDING})
+	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {"!date", "!"+PAGE_NUMBER_PARAM, "!"+PAGE_SIZE_PARAM, "!"+SORT_COLUMN_PARAM, "!"+ASCENDING_PARAM})
 	public String listNotes(HttpServletRequest request,	final Model model) {
 		
 		NotesPaginationData pagination = noteFacade.prepareNotesPaginationData();
@@ -202,7 +202,7 @@ public class NoteController extends AbstractController {
 		
 		GlobalMessages.addInfoFlashMessage("notes.addNew.msg.confirmation", attrs);
 		
-		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_NOTES_FULL;
+		return GlobalControllerConstants.Prefixes.REDIRECT_PREFIX + NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 	}
 
 	@RequestMapping(value = NoteControllerConstants.URLs.DELETE, method = RequestMethod.POST)
@@ -210,11 +210,11 @@ public class NoteController extends AbstractController {
 	
 		noteFacade.deleteNote(noteId);
 
-		return GlobalControllerConstants.Prefixes.REDIRECT + NoteControllerConstants.URLs.SHOW_NOTES_FULL;
+		return GlobalControllerConstants.Prefixes.REDIRECT_PREFIX + NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 	}
 	
-	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.POST, params = {DELETE})
-	public String deleteNotes(@RequestParam(value = GlobalControllerConstants.RequestParams.DELETE) String delete,
+	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.POST, params = {DELETE_PARAM})
+	public String deleteNotes(@RequestParam(value = GlobalControllerConstants.RequestParams.DELETE_PARAM) String delete,
 			@ModelAttribute(DATE_FILTER_FORM) DateForm dateForm,
 			@Valid @ModelAttribute(SELECTED_CHECKBOXES_FORM) SelectedCheckboxesForm selectedCheckboxesForm,	
 			BindingResult result,
@@ -224,7 +224,7 @@ public class NoteController extends AbstractController {
 		String count = null;
 		
 		if ("all".equals(delete)) {
-			count = Integer.toString(noteFacade.getNotesCountForUser(userFacade.getCurrentUser().getNick())); 
+			count = Integer.toString(noteFacade.getNotesCountForRegisteredUser(userFacade.getCurrentUser().getNick())); 
 			noteFacade.deleteNotes(userFacade.getCurrentUser());
 		} else if ("selected".equals(delete)) {
 			if (result.hasErrors()) {
@@ -242,7 +242,7 @@ public class NoteController extends AbstractController {
 		
 		GlobalMessages.addInfoFlashMessage("notes.delete.msg.confirmation", Collections.singletonList(count), attrs);
 		
-		return REDIRECT + SHOW_NOTES_FULL + "?" + PAGE_NUMBER + "=" + DEFAULT_FIRST_PAGE;
+		return REDIRECT_PREFIX + SHOW_NOTES_FULL + "?" + PAGE_NUMBER_PARAM + "=" + DEFAULT_FIRST_PAGE;
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.DETAILS, method = RequestMethod.GET)

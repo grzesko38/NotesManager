@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import pl.arczynskiadam.core.dao.NoteRepository;
 import pl.arczynskiadam.core.dao.UserRepository;
-import pl.arczynskiadam.core.exception.EmailUnavailableException;
-import pl.arczynskiadam.core.exception.NickUnavailableException;
 import pl.arczynskiadam.core.model.AnonymousUserModel;
 import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.service.UserService;

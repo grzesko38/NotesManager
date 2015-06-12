@@ -7,21 +7,21 @@ public interface GlobalControllerConstants {
 	}
 	
 	interface Prefixes {
-		public static final String REDIRECT = "redirect:";
+		public static final String REDIRECT_PREFIX = "redirect:";
 	}
 	
 	interface RequestParams {
-		public static final String PAGE_NUMBER	= "p";
-		public static final String PAGE_SIZE	= "size";
-		public static final String SORT_COLUMN 	= "col";
-		public static final String ASCENDING 	= "asc";
-		public static final String ENTRIES 		= "entries";
-		public static final String DELETE 		= "delete";
+		public static final String PAGE_NUMBER_PARAM		= "p";
+		public static final String PAGE_SIZE_PARAM			= "size";
+		public static final String SORT_COLUMN_PARAM 		= "col";
+		public static final String ASCENDING_PARAM 			= "asc";
+		public static final String ENTRIES_PER_PAGE_PARAM 	= "entries";
+		public static final String DELETE_PARAM 			= "delete";
 	}
 	
 	interface ModelAttrKeys {
 		interface Navigation {
-			public static final String BREADCRUMBS = "breadcrumbs";
+			public static final String BREADCRUMBS_MODEL_ATTR = "breadcrumbs";
 			
 		}
 		interface Form {

@@ -1,6 +1,6 @@
 package pl.arczynskiadam.web.controller;
 
-import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.ModelAttrKeys.Navigation.BREADCRUMBS;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.ModelAttrKeys.Navigation.BREADCRUMBS_MODEL_ATTR;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.View.PAGINATION;
 
 import java.security.Principal;
@@ -35,7 +35,7 @@ public abstract class AbstractController {
 			navItems.add(item);
 		}
 		
-		model.addAttribute(BREADCRUMBS, navItems);
+		model.addAttribute(BREADCRUMBS_MODEL_ATTR, navItems);
 	}
 	
 	@ModelAttribute(value = "userName")

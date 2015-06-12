@@ -1,9 +1,9 @@
 package pl.arczynskiadam.web.facade.impl;
 
-import static pl.arczynskiadam.web.facade.constants.NotesListingPageConstants.Defaults.Pagination.DEFAULT_ENTRIES_PER_PAGE;
-import static pl.arczynskiadam.web.facade.constants.NotesListingPageConstants.Defaults.Pagination.DEFAULT_FIRST_PAGE;
-import static pl.arczynskiadam.web.facade.constants.NotesListingPageConstants.Defaults.Pagination.DEFAULT_MAX_LINKED_PAGES;
-import static pl.arczynskiadam.web.facade.constants.NotesListingPageConstants.Defaults.Pagination.DEFAULT_SORT_COLUMN;
+import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_ENTRIES_PER_PAGE;
+import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_FIRST_PAGE;
+import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_MAX_LINKED_PAGES;
+import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_SORT_COLUMN;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -44,8 +44,8 @@ public class DefaultNoteFacade implements NoteFacade {
 	private SessionService sessionService;
 
 	@Override
-	public int getNotesCountForUser(String userNick) {
-		return noteService.getNotesCountForUser(userNick);
+	public int getNotesCountForRegisteredUser(String userNick) {
+		return noteService.getNotesCountForRegisteredUser(userNick);
 	}
 	
 	@Override

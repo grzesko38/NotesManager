@@ -1,5 +1,7 @@
 package pl.arczynskiadam.core.service.impl;
 
+import static pl.arczynskiadam.core.service.constants.ServiceConstants.Session.Attributes.NOTES_PAGINATION;
+
 import java.util.Collection;
 import java.util.Date;
 
@@ -22,7 +24,6 @@ import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.core.service.UserService;
-import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
 import pl.arczynskiadam.web.data.NotesPaginationData;
 
 @Service
@@ -84,7 +85,7 @@ public class DefaultNoteService implements NoteService {
 
 	@Override
 	@Transactional
-	public int getNotesCountForUser(String userNick) {
+	public int getNotesCountForRegisteredUser(String userNick) {
 		return (int) noteDAO.count(NoteSpecs.forNick(userNick));
 	}
 	
@@ -152,12 +153,12 @@ public class DefaultNoteService implements NoteService {
 	
 	@Override
 	public NotesPaginationData retrievePagesDataFromSession() {
-		return (NotesPaginationData) sessionService.getCurrentSession().getAttribute(NoteControllerConstants.ModelAttrKeys.View.PAGINATION);
+		return (NotesPaginationData) sessionService.getCurrentSession().getAttribute(NOTES_PAGINATION);
 	}
 	
 	@Override
 	public void savePagesDataToSession(NotesPaginationData pagesData) {
-		sessionService.getCurrentSession().setAttribute(NoteControllerConstants.ModelAttrKeys.View.PAGINATION, pagesData);
+		sessionService.getCurrentSession().setAttribute(NOTES_PAGINATION, pagesData);
 	}
 	
 	private Pageable constructPageSpecification(int pageIndex, int pageSize, String sortCol, boolean asc) {
