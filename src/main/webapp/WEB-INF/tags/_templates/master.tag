@@ -47,7 +47,7 @@
 		<jsp:attribute name="topBarContent">
 			<jsp:invoke fragment="topBarContent" />
 			<div class="dateHolder">
-				<fmt:formatDate value="${utils:date()}" pattern="dd/mm/yyyy"/> 
+				<fmt:formatDate value="${utils:date()}" pattern="dd/MM/yyyy"/> 
 			</div>
 		</jsp:attribute>
 	</fragment:header>
