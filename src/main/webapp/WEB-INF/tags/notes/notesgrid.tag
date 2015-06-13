@@ -45,7 +45,7 @@
 					</th>
 				</security:authorize>
 				<th class="corner"/>
-				<security:authorize ifNotGranted="ROLE_ANONYMOUS">
+				<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
 					<th>
 						<navigation:sortHeader divClass="sort" sortColumn="author.nick" imgSize="16"
 								ascImgUrl="${sortCol eq 'author.nick' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
@@ -76,7 +76,7 @@
 						</td>
 					</security:authorize>
 					<td class="left"><spring:message text="${notesPaginationData.page.number * notesPaginationData.page.size + loopStatus.index + 1}."/></td>
-					<security:authorize ifNotGranted="ROLE_ANONYMOUS">
+					<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
 						<td>${note.author.nick}</td>
 					</security:authorize>
 					<td>${note.formattedDateCreated}</td>
