@@ -18,7 +18,7 @@ public interface NoteControllerConstants {
 
 		interface View {			
 			public static final String PAGINATION = "notesPaginationData";
-			public static final String PAGE_SIZES  = "notesPageSizes";
+			public static final String PAGE_SIZES = "notesPageSizes";
 			public static final String NOTE 	  = "note";
 		}
 	}

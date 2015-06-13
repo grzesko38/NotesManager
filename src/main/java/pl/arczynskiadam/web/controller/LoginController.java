@@ -1,6 +1,8 @@
 package pl.arczynskiadam.web.controller;
 
-import javax.annotation.Resource;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Prefixes.FORWARD_PREFIX;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Prefixes.REDIRECT_PREFIX;
+import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import pl.arczynskiadam.core.service.UserService;
-import pl.arczynskiadam.web.controller.constants.GlobalControllerConstants;
 import pl.arczynskiadam.web.controller.constants.LoginControllerConstants;
-import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
 import pl.arczynskiadam.web.form.LoginForm;
 import pl.arczynskiadam.web.messages.GlobalMessages;
 
@@ -25,6 +24,10 @@ public class LoginController extends AbstractController {
 			@ModelAttribute(LoginControllerConstants.ModelAttrKeys.Form.Login) LoginForm loginForm,
 			Model model) {
 
+		if (isUserLoggedIn()) {
+			return FORWARD_PREFIX + SHOW_NOTES_FULL;
+		}
+		
 		if (error != null) {
 			GlobalMessages.addErrorMessage("login.failed", model);
 		}
@@ -38,6 +41,6 @@ public class LoginController extends AbstractController {
 		GlobalMessages.addInfoFlashMessage("global.logout.success", attrs);
 		GlobalMessages.addInfoFlashMessage("global.continueAsAnonymous", attrs);
 		
-		return GlobalControllerConstants.Prefixes.REDIRECT_PREFIX + NoteControllerConstants.URLs.SHOW_NOTES_FULL;
+		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 	}
 }

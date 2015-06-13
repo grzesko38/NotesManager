@@ -8,6 +8,7 @@ public interface GlobalControllerConstants {
 	
 	interface Prefixes {
 		public static final String REDIRECT_PREFIX = "redirect:";
+		public static final String FORWARD_PREFIX = "redirect:";
 	}
 	
 	interface RequestParams {

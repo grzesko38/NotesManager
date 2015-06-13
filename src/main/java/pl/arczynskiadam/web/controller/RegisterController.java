@@ -1,5 +1,8 @@
 package pl.arczynskiadam.web.controller;
 
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Prefixes.FORWARD_PREFIX;
+import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES_FULL;
+
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
@@ -46,8 +49,11 @@ public class RegisterController extends AbstractController {
 	
 	@RequestMapping(value = RegisterControllerConstants.URLs.REGISTER, method = RequestMethod.GET)
 	public String register(Model model) {
-		model.addAttribute(RegisterControllerConstants.ModelAttrKeys.Form.Register, new RegisterForm());
+		if (isUserLoggedIn()) {
+			return FORWARD_PREFIX + SHOW_NOTES_FULL;
+		}
 		
+		model.addAttribute(RegisterControllerConstants.ModelAttrKeys.Form.Register, new RegisterForm());
 		addDefaultBreadcrumbsToModel(model);
 		
 		return RegisterControllerConstants.Pages.REGISTER;

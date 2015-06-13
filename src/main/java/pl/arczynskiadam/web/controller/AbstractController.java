@@ -1,7 +1,6 @@
 package pl.arczynskiadam.web.controller;
 
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.ModelAttrKeys.Navigation.BREADCRUMBS_MODEL_ATTR;
-import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.View.PAGINATION;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -11,6 +10,9 @@ import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -36,6 +38,15 @@ public abstract class AbstractController {
 		}
 		
 		model.addAttribute(BREADCRUMBS_MODEL_ATTR, navItems);
+	}
+	
+	protected boolean isUserLoggedIn() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth == null) {
+			return false;
+		}
+		
+		return !(auth instanceof AnonymousAuthenticationToken);
 	}
 	
 	@ModelAttribute(value = "userName")
