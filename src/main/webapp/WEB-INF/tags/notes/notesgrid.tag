@@ -45,13 +45,15 @@
 					</th>
 				</security:authorize>
 				<th class="corner"/>
-				<th>
-					<navigation:sortHeader divClass="sort" sortColumn="author.nick" imgSize="16"
-							ascImgUrl="${sortCol eq 'author.nick' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
-							descImgUrl="${sortCol eq 'author.nick' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
-						<span><spring:message code="notes.listing.label.author"/></span>
-					</navigation:sortHeader>
-				</th>
+				<security:authorize ifNotGranted="ROLE_ANONYMOUS">
+					<th>
+						<navigation:sortHeader divClass="sort" sortColumn="author.nick" imgSize="16"
+								ascImgUrl="${sortCol eq 'author.nick' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
+								descImgUrl="${sortCol eq 'author.nick' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
+							<span><spring:message code="notes.listing.label.author"/></span>
+						</navigation:sortHeader>
+					</th>
+				</security:authorize>
 				<th>
 					<navigation:sortHeader divClass="sort" sortColumn="dateCreated" imgSize="16"
 							ascImgUrl="${sortCol eq 'dateCreated' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
@@ -74,7 +76,9 @@
 						</td>
 					</security:authorize>
 					<td class="left"><spring:message text="${notesPaginationData.page.number * notesPaginationData.page.size + loopStatus.index + 1}."/></td>
-					<td>${note.author.nick}</td>
+					<security:authorize ifNotGranted="ROLE_ANONYMOUS">
+						<td>${note.author.nick}</td>
+					</security:authorize>
 					<td>${note.formattedDateCreated}</td>
 					<td>
 						<a href="${pageContext.request.contextPath}/notesmanager/details/${note.id}">[details]</a>
