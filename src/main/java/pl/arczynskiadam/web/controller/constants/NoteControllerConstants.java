@@ -5,9 +5,9 @@ public interface NoteControllerConstants {
 	interface Pages {
 		final String _notes = "notes";
 		
-		public static final String ADD 		= _notes + "/new";
-		public static final String DETAILS 	= _notes + "/details";
-		public static final String LISTING 	= _notes + "/listing";
+		public static final String NEW_NOTE_PAGE		= _notes + "/new";
+		public static final String NOTE_DETAILS_PAGE 	= _notes + "/details";
+		public static final String NOTES_LISTING_PAGE 	= _notes + "/listing";
 	}
 	
 	interface ModelAttrKeys {
@@ -24,16 +24,14 @@ public interface NoteControllerConstants {
 	}
 	
 	interface URLs {		
-		public static final String MANAGER			= "/notesmanager";
-		public static final String SHOW_NOTES		= "/show";
-		public static final String SHOW_NOTES_FULL	= MANAGER + SHOW_NOTES;
-		public static final String ADD				= "/add";
-		public static final String ADD_FULL			= MANAGER + ADD;
-		public static final String ADD_POST 		= "/add";
-		public static final String ADD_POST_FULL	= MANAGER + ADD_POST;
-		public static final String DELETE			= "/delete/{noteId}";
-		public static final String DELETE_FULL		= MANAGER + DELETE;
-		public static final String DETAILS 			= "/details/{noteId}";
-		public static final String DETAILS_FULL		= MANAGER + DETAILS;
+		public static final String MANAGER			 = "/notesmanager";
+		public static final String SHOW_NOTES		 = "/show";
+		public static final String SHOW_NOTES_FULL	 = MANAGER + SHOW_NOTES;
+		public static final String ADD_NOTE			 = "/add";
+		public static final String ADD_NOTE_FULL	 = MANAGER + ADD_NOTE;
+		public static final String DELETE_NOTE		 = "/delete/{noteId}";
+		public static final String DELETE_NOTE_FULL	 = MANAGER + DELETE_NOTE;
+		public static final String NOTE_DETAILS 	 = "/details/{noteId}";
+		public static final String NOTE_DETAILS_FULL = MANAGER + NOTE_DETAILS;
 	}
 }

@@ -1,7 +1,8 @@
 package pl.arczynskiadam.web.controller;
 
-import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Prefixes.FORWARD_PREFIX;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Prefixes.REDIRECT_PREFIX;
+import static pl.arczynskiadam.web.controller.constants.LoginControllerConstants.ModelAttrKeys.Form.LOGIN_FORM;
+import static pl.arczynskiadam.web.controller.constants.LoginControllerConstants.Pages.LOGIN_PAGE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 
 import org.springframework.stereotype.Controller;
@@ -21,18 +22,18 @@ public class LoginController extends AbstractController {
 	
 	@RequestMapping(value = LoginControllerConstants.URLs.LOGIN, method = RequestMethod.GET)
 	public String login(@RequestParam(value = "error", required = false) String error,
-			@ModelAttribute(LoginControllerConstants.ModelAttrKeys.Form.Login) LoginForm loginForm,
+			@ModelAttribute(LOGIN_FORM) LoginForm loginForm,
 			Model model) {
 
 		if (isUserLoggedIn()) {
-			return FORWARD_PREFIX + SHOW_NOTES_FULL;
+			return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 		}
 		
 		if (error != null) {
 			GlobalMessages.addErrorMessage("login.failed", model);
 		}
 
-		return LoginControllerConstants.Pages.LOGIN;
+		return LOGIN_PAGE;
 	}
 	
 	@RequestMapping(value = LoginControllerConstants.URLs.LOGOUT, method = RequestMethod.GET)

@@ -1,5 +1,6 @@
 package pl.arczynskiadam.web.controller;
 
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Misc.HASH;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.ModelAttrKeys.Form.SELECTED_CHECKBOXES_FORM;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Prefixes.REDIRECT_PREFIX;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.ASCENDING_PARAM;
@@ -8,9 +9,11 @@ import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstant
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.PAGE_SIZE_PARAM;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.SORT_COLUMN_PARAM;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.Form.DATE_FILTER_FORM;
+import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.Form.NEW_NOTE_FORM;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.View.PAGINATION;
-import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.DETAILS;
-import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.LISTING;
+import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.NOTE_DETAILS_PAGE;
+import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.NOTES_LISTING_PAGE;
+import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.ADD_NOTE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_FIRST_PAGE;
@@ -125,7 +128,7 @@ public class NoteController extends AbstractController {
 			GlobalMessages.addWarningMessage("notes.listing.msg.noResults", model);
 		}
 
-		return NoteControllerConstants.Pages.LISTING;
+		return NoteControllerConstants.Pages.NOTES_LISTING_PAGE;
 	}
 	
 	private void preparePage(NotesPaginationData pagination, Model model)
@@ -166,35 +169,35 @@ public class NoteController extends AbstractController {
 				
 		populateEntriesPerPage(model);
 		
-		return NoteControllerConstants.Pages.LISTING;
+		return NoteControllerConstants.Pages.NOTES_LISTING_PAGE;
 	}
 	
-	@RequestMapping(value = NoteControllerConstants.URLs.ADD, method = RequestMethod.GET)
-	public String addNote(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.NEW_NOTE_FORM) NewNoteForm note,
+	@RequestMapping(value = ADD_NOTE, method = RequestMethod.GET)
+	public String addNote(@ModelAttribute(NEW_NOTE_FORM) NewNoteForm note,
 			final Model model,
 			HttpServletRequest request) {
 		
 		createBreadcrumpAndSaveToModel(model,
-				new BreadcrumbsItem("Home", NoteControllerConstants.URLs.SHOW_NOTES_FULL),
-				new BreadcrumbsItem("Add note", GlobalControllerConstants.Misc.HASH));
+				new BreadcrumbsItem("Home", SHOW_NOTES_FULL),
+				new BreadcrumbsItem("Add note", HASH));
 		
-		return NoteControllerConstants.Pages.ADD;
+		return NoteControllerConstants.Pages.NEW_NOTE_PAGE;
 	}
 	
-	@RequestMapping(value = NoteControllerConstants.URLs.ADD_POST, method = RequestMethod.POST)
-	public String saveNote(@Validated(All.class) @ModelAttribute(NoteControllerConstants.ModelAttrKeys.Form.NEW_NOTE_FORM) NewNoteForm noteForm,
+	@RequestMapping(value = ADD_NOTE, method = RequestMethod.POST)
+	public String saveNote(@Validated(All.class) @ModelAttribute(NEW_NOTE_FORM) NewNoteForm noteForm,
 			BindingResult result,
 			Model model,
 			RedirectAttributes attrs) {
 		
 		if (result.hasErrors()) {
 			createBreadcrumpAndSaveToModel(model,
-					new BreadcrumbsItem("Home", NoteControllerConstants.URLs.SHOW_NOTES_FULL),
-					new BreadcrumbsItem("Add note", GlobalControllerConstants.Misc.HASH));
+					new BreadcrumbsItem("Home", SHOW_NOTES_FULL),
+					new BreadcrumbsItem("Add note", HASH));
 			
 			GlobalMessages.addErrorMessage("global.error.correctAll", model);
 			
-			return NoteControllerConstants.Pages.ADD;
+			return NoteControllerConstants.Pages.NEW_NOTE_PAGE;
 		}
 		
 		noteFacade.addNewNote(noteForm.getContent(), noteForm.getAuthor());
@@ -202,15 +205,15 @@ public class NoteController extends AbstractController {
 		
 		GlobalMessages.addInfoFlashMessage("notes.addNew.msg.confirmation", attrs);
 		
-		return GlobalControllerConstants.Prefixes.REDIRECT_PREFIX + NoteControllerConstants.URLs.SHOW_NOTES_FULL;
+		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 	}
 
-	@RequestMapping(value = NoteControllerConstants.URLs.DELETE, method = RequestMethod.POST)
+	@RequestMapping(value = NoteControllerConstants.URLs.DELETE_NOTE, method = RequestMethod.POST)
 	public String deleteNote(@PathVariable("noteId") Integer noteId) {
 	
 		noteFacade.deleteNote(noteId);
 
-		return GlobalControllerConstants.Prefixes.REDIRECT_PREFIX + NoteControllerConstants.URLs.SHOW_NOTES_FULL;
+		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 	}
 	
 	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.POST, params = {DELETE_PARAM})
@@ -233,7 +236,7 @@ public class NoteController extends AbstractController {
 				dateForm.setDate(pagination.getFromDate());
 				GlobalMessages.addErrorMessage("notes.delete.msg.nothingSelected", model);
 				populateEntriesPerPage(model);
-				return LISTING;
+				return NOTES_LISTING_PAGE;
 			}
 			count = Integer.toString(selectedCheckboxesForm.getSelections().size());
 			Set<Integer> ids = noteFacade.convertSelectionsToNotesIds(selectedCheckboxesForm.getSelections());
@@ -245,7 +248,7 @@ public class NoteController extends AbstractController {
 		return REDIRECT_PREFIX + SHOW_NOTES_FULL + "?" + PAGE_NUMBER_PARAM + "=" + DEFAULT_FIRST_PAGE;
 	}
 	
-	@RequestMapping(value = NoteControllerConstants.URLs.DETAILS, method = RequestMethod.GET)
+	@RequestMapping(value = NoteControllerConstants.URLs.NOTE_DETAILS, method = RequestMethod.GET)
 	public String noteDetails(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.NOTE) NoteModel note,
 			@PathVariable("noteId") Integer noteId,
 			final Model model) {
@@ -256,7 +259,7 @@ public class NoteController extends AbstractController {
 		
 		note.setContent(noteFacade.findNoteById(noteId).getContent());
 
-		return DETAILS;
+		return NOTE_DETAILS_PAGE;
 	}
 	
 	@ResponseStatus(HttpStatus.OK)

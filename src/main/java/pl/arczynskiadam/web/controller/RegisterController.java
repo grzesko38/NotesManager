@@ -1,7 +1,10 @@
 package pl.arczynskiadam.web.controller;
 
-import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Prefixes.FORWARD_PREFIX;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Prefixes.REDIRECT_PREFIX;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES_FULL;
+import static pl.arczynskiadam.web.controller.constants.RegisterControllerConstants.ModelAttrKeys.Form.REGISTER_FORM;
+import static pl.arczynskiadam.web.controller.constants.RegisterControllerConstants.Pages.REGISTER_PAGE;
+import static pl.arczynskiadam.web.controller.constants.RegisterControllerConstants.URLs.REGISTER;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -22,7 +25,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.arczynskiadam.web.controller.constants.GlobalControllerConstants;
 import pl.arczynskiadam.web.controller.constants.LoginControllerConstants;
-import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
 import pl.arczynskiadam.web.controller.constants.RegisterControllerConstants;
 import pl.arczynskiadam.web.facade.NoteFacade;
 import pl.arczynskiadam.web.facade.UserFacade;
@@ -50,17 +52,17 @@ public class RegisterController extends AbstractController {
 	@RequestMapping(value = RegisterControllerConstants.URLs.REGISTER, method = RequestMethod.GET)
 	public String register(Model model) {
 		if (isUserLoggedIn()) {
-			return FORWARD_PREFIX + SHOW_NOTES_FULL;
+			return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 		}
 		
-		model.addAttribute(RegisterControllerConstants.ModelAttrKeys.Form.Register, new RegisterForm());
+		model.addAttribute(RegisterControllerConstants.ModelAttrKeys.Form.REGISTER_FORM, new RegisterForm());
 		addDefaultBreadcrumbsToModel(model);
 		
-		return RegisterControllerConstants.Pages.REGISTER;
+		return REGISTER_PAGE;
 	}
 	
-	@RequestMapping(value = RegisterControllerConstants.URLs.REGISTER, method = RequestMethod.POST)
-	public String performRegister(@Valid @ModelAttribute(RegisterControllerConstants.ModelAttrKeys.Form.Register) RegisterForm form,
+	@RequestMapping(value = REGISTER, method = RequestMethod.POST)
+	public String performRegister(@Valid @ModelAttribute(REGISTER_FORM) RegisterForm form,
 			BindingResult result,
 			Model model,
 			RedirectAttributes attrs) {
@@ -68,7 +70,7 @@ public class RegisterController extends AbstractController {
 		if (result.hasErrors()) {
 			addDefaultBreadcrumbsToModel(model);
 			GlobalMessages.addErrorMessage("global.error.correctAll", model);
-			return RegisterControllerConstants.Pages.REGISTER;
+			return RegisterControllerConstants.Pages.REGISTER_PAGE;
 		}
 		
 		userFacade.registerUser(form.getNick(), form.getEmail(), form.getPassword());
@@ -76,7 +78,7 @@ public class RegisterController extends AbstractController {
 		
 		autoLogin(form, model, attrs);
 		
-		return GlobalControllerConstants.Prefixes.REDIRECT_PREFIX + NoteControllerConstants.URLs.SHOW_NOTES_FULL;
+		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 	}
 
 	private void autoLogin(RegisterForm form, Model model, RedirectAttributes attrs) {
