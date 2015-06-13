@@ -81,13 +81,17 @@
 					</security:authorize>
 					<td>${note.formattedDateCreated}</td>
 					<td>
-						<a href="${pageContext.request.contextPath}/notesmanager/details/${note.id}">[details]</a>
+						<a href="${pageContext.request.contextPath}/notesmanager/details/${note.id}">
+							[<spring:message code="global.details"/>]
+						</a>
 						<security:authorize ifNotGranted="ROLE_ANONYMOUS">
 							|
-							<a href="${pageContext.request.contextPath}/notesmanager/edit/${note.id}">[edit]</a>
+							<a href="${pageContext.request.contextPath}/notesmanager/edit/${note.id}">
+								[<spring:message code="global.edit"/>]
+							</a>
 							|
 							<a href="${pageContext.request.contextPath}/notesmanager/delete/${note.id}">
-								<span>[delete]</span>
+								<span>[<spring:message code="global.delete"/>]</span>
 							</a>
 						</security:authorize>
 					</td>
