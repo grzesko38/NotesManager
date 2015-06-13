@@ -5,13 +5,13 @@ NotesGridScripts = {
 			$("input[id^='selections']").each(function() {
 				this.checked = $("#selectAll").is(':checked');
 			});
-			NotesGridScripts.postAjaxSelectedIds();
+			NotesGridScripts.postAjaxSelectedIds($('#notesGridForm').data('checkboxajaxaction'));
 		});
 	},
-	bindNoteCheckbox: function() {
+	bindNoteCheckboxes: function() {
 		$("input[id^='selections']").click(function() {
 			NotesGridScripts.updateSelectAllCheckbox();
-			NotesGridScripts.postAjaxSelectedIds($(this).closest('form').data('checkboxajaxaction'));
+			NotesGridScripts.postAjaxSelectedIds($('#notesGridForm').data('checkboxajaxaction'));
 		});
 	},
 	updateSelectAllCheckbox: function() {
@@ -125,14 +125,18 @@ NotesGridScripts = {
 	
 	// === all ===
 	bindAll: function() {
-		NotesGridScripts.bindSelectAll();
-		NotesGridScripts.bindNoteCheckbox();
-		NotesGridScripts.bindEntriesPerPage();
-		NotesGridScripts.bindDeleteNotes();
+		with (NotesGridScripts) {
+			bindSelectAll();
+			bindNoteCheckboxes();
+			bindEntriesPerPage();
+			bindDeleteNotes();
+		}
 	}
 }
 
 $(document).ready(function() {
-	NotesGridScripts.updateSelectAllCheckbox();
-	NotesGridScripts.bindAll();
+	with (NotesGridScripts) {
+		updateSelectAllCheckbox();
+		bindAll();
+	}
 });
