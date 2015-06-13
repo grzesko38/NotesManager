@@ -31,9 +31,16 @@
 			</form>
 		</div>
 		<div id="loginAction">
-			<div>
-				<spring:message code="global.login" />
-			</div>
+			<ul class="noDecoration">
+				<li>
+					<spring:message code="global.login" />
+				</li>
+				<li>
+					<a href="<c:url value='/register'/>">
+						<spring:message code="global.register" />
+					</a>
+				</li>
+			</ul>
 			<img src="<c:url value="/themes/common/images/icons/arrow-right.png" />" height="26" width="26"/>
 		</div>
 	</div>

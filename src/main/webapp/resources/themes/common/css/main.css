@@ -42,3 +42,10 @@ input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10+ */
     color:    #AFAFAF;
     opacity:  1;
 }
+													/* Generic */
+ul.noDecoration
+{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}

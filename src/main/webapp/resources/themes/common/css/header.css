@@ -214,27 +214,36 @@ div.menu
 }
 #topBarLogin #loginAction
 {
-	padding-top: 4px;
+	padding-top: 2px;
 	cursor: pointer;
 }
 #welcome #logoutAction
 {
 	cursor: pointer;
 }
-#loginAction > div
+#loginAction > ul
 {
+	font-family: arial;
+	text-decoration: none;
 	background: none repeat scroll 0 0 #e1e1e1;
     border-radius: 10px 0 0 10px;
-    display: inline-block;
-    margin-top: 1px;
-    padding: 0 10px;
-    font-family: arial;
+	display: inline-block;
+    padding: 2px 0;
+}
+#loginAction > ul > li
+{
+    float: left;
+    padding: 0 12px;
+}
+#loginAction > ul > li:FIRST-CHILD
+{
+    border-right: 1px solid black;
 }
 #loginAction > img
 {
 	margin-left: -10px;
-    margin-top: -3px;
-    vertical-align: middle;
+    vertical-align: top;
+    margin-top: -1px;
 }
 #topBarLogin input
 {
@@ -254,7 +263,7 @@ div.menu
     font-size: 16px;
     padding-top: 4px;
 }
-#welcome #logoutAction:HOVER, #loginAction > div:HOVER
+#welcome #logoutAction:HOVER, #loginAction > ul > li:HOVER
 {
 	text-decoration: underline;
 }
