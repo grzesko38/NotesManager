@@ -18,6 +18,7 @@ public interface GlobalControllerConstants {
 		public static final String ASCENDING_PARAM 			= "asc";
 		public static final String ENTRIES_PER_PAGE_PARAM 	= "entries";
 		public static final String DELETE_PARAM 			= "delete";
+		public static final String CLEAR_DATE_FILTER_PARAM 	= "clrDateFilter";
 	}
 	
 	interface ModelAttrKeys {

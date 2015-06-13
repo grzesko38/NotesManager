@@ -4,6 +4,7 @@ import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstant
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.ModelAttrKeys.Form.SELECTED_CHECKBOXES_FORM;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Prefixes.REDIRECT_PREFIX;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.ASCENDING_PARAM;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.CLEAR_DATE_FILTER_PARAM;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.DELETE_PARAM;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.PAGE_NUMBER_PARAM;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.PAGE_SIZE_PARAM;
@@ -11,21 +12,21 @@ import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstant
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.Form.DATE_FILTER_FORM;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.Form.NEW_NOTE_FORM;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.View.PAGINATION;
-import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.NOTE_DETAILS_PAGE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.NOTES_LISTING_PAGE;
+import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.NOTE_DETAILS_PAGE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.ADD_NOTE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_FIRST_PAGE;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.groups.Default;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,6 @@ import pl.arczynskiadam.web.facade.NoteFacade;
 import pl.arczynskiadam.web.facade.UserFacade;
 import pl.arczynskiadam.web.form.DateForm;
 import pl.arczynskiadam.web.form.NewNoteForm;
-import pl.arczynskiadam.web.form.NewNoteForm.All;
 import pl.arczynskiadam.web.form.SelectedCheckboxesForm;
 import pl.arczynskiadam.web.form.validation.SelectedCheckboxesValidator;
 import pl.arczynskiadam.web.messages.GlobalMessages;
@@ -115,7 +115,8 @@ public class NoteController extends AbstractController {
 		return listNotes(request, model);
 	}
 	
-	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {"!date", "!"+PAGE_NUMBER_PARAM, "!"+PAGE_SIZE_PARAM, "!"+SORT_COLUMN_PARAM, "!"+ASCENDING_PARAM})
+	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET,
+			params = {"!date", "!"+PAGE_NUMBER_PARAM, "!"+PAGE_SIZE_PARAM, "!"+SORT_COLUMN_PARAM, "!"+ASCENDING_PARAM, "!"+CLEAR_DATE_FILTER_PARAM})
 	public String listNotes(HttpServletRequest request,	final Model model) {
 		
 		NotesPaginationData pagination = noteFacade.prepareNotesPaginationData();
@@ -151,7 +152,6 @@ public class NoteController extends AbstractController {
 			HttpServletRequest request,
 			final Model model) {
 		
-		Date date = dateForm.getDate();	
 		NotesPaginationData paginationData = null;
 		model.addAttribute(PAGINATION, paginationData);	
 		
@@ -160,16 +160,21 @@ public class NoteController extends AbstractController {
 			model.addAttribute(PAGINATION, paginationData);
 			selectedCheckboxesForm.setSelections(noteFacade.convertNotesIdsToSelections(paginationData.getSelectedNotesIds()));
 		} else {
-			if (date == null) {
-				noteFacade.clearDateFilter();
-				noteFacade.updatePageNumber(DEFAULT_FIRST_PAGE);
-			}
 			noteFacade.updateDateFilter(dateForm.getDate());
 		}
 				
 		populateEntriesPerPage(model);
 		
-		return NoteControllerConstants.Pages.NOTES_LISTING_PAGE;
+		return NOTES_LISTING_PAGE;
+	}
+	
+	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {CLEAR_DATE_FILTER_PARAM})
+	public String clearDateFilter() {
+		
+		noteFacade.clearDateFilter();
+		noteFacade.updatePageNumber(DEFAULT_FIRST_PAGE);
+		
+		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 	}
 	
 	@RequestMapping(value = ADD_NOTE, method = RequestMethod.GET)
@@ -185,7 +190,7 @@ public class NoteController extends AbstractController {
 	}
 	
 	@RequestMapping(value = ADD_NOTE, method = RequestMethod.POST)
-	public String saveNote(@Validated(All.class) @ModelAttribute(NEW_NOTE_FORM) NewNoteForm noteForm,
+	public String saveNote(@Validated(Default.class) @ModelAttribute(NEW_NOTE_FORM) NewNoteForm noteForm,
 			BindingResult result,
 			Model model,
 			RedirectAttributes attrs) {

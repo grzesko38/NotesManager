@@ -10,26 +10,26 @@ import pl.arczynskiadam.web.form.validation.FieldMatch;
 import pl.arczynskiadam.web.form.validation.NickAvailable;
 
 @FieldMatch.List({
-	@FieldMatch(fieldSource = "password", fieldConfirm= "passwordConfirm", message = "{validation.password.confirm}"),
-	@FieldMatch(fieldSource = "email", fieldConfirm= "emailConfirm", message = "{validation.email.confirm}")
+	@FieldMatch(fieldSource = "password", fieldConfirm= "passwordConfirm", message = "{register.password.confirm.mismatch}"),
+	@FieldMatch(fieldSource = "email", fieldConfirm= "emailConfirm", message = "{register.email.confirm.mismatch}")
 })
 public class RegisterForm {
 	
-	@NotBlank(message = "{validation.common.required}")
-	@Size(min = 3, max = 32, message = "{validation.common.length.minmax}")
-	@NickAvailable(message = "{register.error.nick.unavailable}")
+	@NotBlank(message = "{register.nick.length.incorrect}")
+	@Size(min = 3, max = 20, message = "{register.nick.length.incorrect}")
+	@NickAvailable(message = "{register.nick.unavailable}")
 	private String nick;
 	
-	@NotBlank(message = "{validation.common.required}")
-	@Size(min = 8, max = 32, message = "{validation.common.length.minmax}")
+	@NotBlank(message = "{register.password.length.incorrect}")
+	@Size(min = 8, message = "{register.password.length.incorrect}")
 	private String password;
 	
 	@NotBlank(message = "{validation.common.required}")
 	private String passwordConfirm;
 	
-	@NotBlank(message = "{validation.common.required}")
-	@Pattern(regexp = "^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\\.[a-zA-Z]{2,4}$", message = "{validation.email.incorrect}")
-	@EmailAvailable(message = "{register.error.email.unavailable}")
+	@NotBlank(message = "{validation.common.email.incorrect}")
+	@Pattern(regexp = "^[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\\.[a-zA-Z]{2,4}$", message = "{validation.common.email.incorrect}")
+	@EmailAvailable(message = "{register.email.unavailable}")
 	private String email;
 	
 	@NotBlank(message = "{validation.common.required}")

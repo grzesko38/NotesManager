@@ -9,11 +9,11 @@ import pl.arczynskiadam.web.form.validation.FirstCharsUpperCase;
 
 public class NewNoteForm {
 
-	@NotEmpty(groups = {Default.class}, message = "{note.required}")
+	@NotEmpty(groups = {Default.class}, message = "{validation.common.required}")
 	@FirstCharsUpperCase(count = 1, groups = {Extended.class}, message = "{note.uppercase}")
 	private String author;
 	
-	@NotEmpty(groups = {Default.class}, message = "{note.required}")
+	@NotEmpty(groups = {Default.class}, message = "{validation.common.required}")
 	private String content;
 	
 	public String getAuthor() {

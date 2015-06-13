@@ -1,16 +1,13 @@
 NotesDateFilterScripts = {
 	bindClearDateFilter: function() {
 		$("#cancelDateFilter").click(function() {
-			$("#dateForm").find("input[name='date']" ).val("");
-			$("#dateForm").submit();
+			window.location.href = $(this).data('clraction');
 		});
 	},
 	
 	bindApplyDateFilter: function() {
 		$("#dateFilterFormSubmitButton").click(function() {
-			if ($("#dateForm").find( "input[name='date']" ).val().trim()) {
-				$("#dateForm").submit();
-			}
+			$("#dateForm").submit();
 		});
 	},
 	bindAll: function() {

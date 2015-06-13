@@ -22,13 +22,15 @@
 					<span id="inputspan">
 						<form:input path="date" title="${dateFormatTooltip}" placeholder="${dateFormatTooltip}" />
 						<c:if test="${not empty notesPaginationData.fromDate}">
-							<em id="cancelDateFilter" />
+							<c:url value="/notesmanager/show" var="clrAction">
+								<c:param name="clrDateFilter"/>
+							</c:url>
+							<em id="cancelDateFilter" data-clraction="${clrAction}"/>
 						</c:if>
 					</span>
 				</div>
 			</td>
 			<td>
-<%-- 						<input type="submit" value="<spring:message code="button.ok"/>" /> --%>
 				<div id="dateFilterFormSubmitButton" class="submitBbutton">
 		        	<span><spring:message code="notes.listing.dateFilter.button.go"/></span>
 		            <img id="goimg" src="${pageContext.request.contextPath}/themes/<spring:theme code="img.nav.arrow.right"/>"

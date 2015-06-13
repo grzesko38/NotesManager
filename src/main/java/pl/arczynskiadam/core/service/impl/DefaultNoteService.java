@@ -147,7 +147,7 @@ public class DefaultNoteService implements NoteService {
 	public void clearFromDateFilter() {
 		NotesPaginationData sessionPaginationData = retrievePagesDataFromSession();
 		if (sessionPaginationData != null) {
-			retrievePagesDataFromSession().setFromDate(null);
+			sessionPaginationData.setFromDate(null);
 		}
 	}
 	

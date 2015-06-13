@@ -7,10 +7,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class LoginForm {
 
 	@NotEmpty
-	@Size(min = 6, max = 20, message= "{login.nick.length.incorrect}")
+	@Size(min = 3, max = 20, message= "{login.nick.length.incorrect}")
 	private String nick;
 	
-	@Size(min = 8, message= "{login.nick.length.incorrect}")
+	@Size(min = 8, message= "{login.password.length.incorrect}")
 	private String password;
 	
 	public String getNick() {
