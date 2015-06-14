@@ -91,12 +91,6 @@ public class DefaultNoteFacade implements NoteFacade {
 	}
 	
 	@Override
-	public NotesPaginationData prepareNotesPaginationData() {
-		NotesPaginationData sessionPaginationData = noteService.retrievePagesDataFromSession();
-		return sessionPaginationData != null ? sessionPaginationData : buildDefaultPageData();
-	}
-	
-	@Override
 	public NotesPaginationData updateSort(String sortColumn, boolean ascending) {
 		return updatePage(null, null, sortColumn, ascending, null);
 	}
@@ -148,15 +142,32 @@ public class DefaultNoteFacade implements NoteFacade {
 		}
 		
 		Page<NoteModel> page = buildPage(pageNumber, pageSize, sortCol, asc, from);
-		NotesPaginationData newPaginationData = buildPaginationDatafromPage(page);
-		newPaginationData.setFromDate(from);
+		NotesPaginationData newPaginationData = buildPaginationDataFromPageAndDate(page, from);
 		
 		return newPaginationData;
 	}
 	
+	@Override
+	public NotesPaginationData prepareNotesPaginationData() {
+		NotesPaginationData sessionPaginationData = noteService.retrievePagesDataFromSession();
+		return sessionPaginationData != null ? updatePaginationData(sessionPaginationData) : buildDefaultPageData();
+	}
+	
+	private NotesPaginationData updatePaginationData(NotesPaginationData sourcePaginationData) {
+		Page<NoteModel> sourcePage = sourcePaginationData.getPage();
+		Page<NoteModel> updatedPage = buildPage(sourcePage.getNumber(),
+				sourcePage.getSize(),
+				sourcePaginationData.getSortCol(),
+				sourcePaginationData.isSortAscending(),
+				sourcePaginationData.getFromDate());
+		
+		NotesPaginationData updatedPaginationData = buildPaginationDataFromPageAndDate(updatedPage, sourcePaginationData.getFromDate());
+		return updatedPaginationData;
+	}
+	
 	private NotesPaginationData buildDefaultPageData() {
 		Page<NoteModel> page = buildPage(DEFAULT_FIRST_PAGE, DEFAULT_ENTRIES_PER_PAGE, DEFAULT_SORT_COLUMN, true, null);
-		return buildPaginationDatafromPage(page);
+		return buildPaginationDataFromPage(page);
 	}
 	
 	private Page<NoteModel> buildPage(Integer pageId, Integer pageSize, String sortCol, boolean asc, Date from) {
@@ -169,12 +180,21 @@ public class DefaultNoteFacade implements NoteFacade {
 		return page;
 	}
 	
-	private NotesPaginationData buildPaginationDatafromPage(Page<NoteModel> page) {
+	private NotesPaginationData buildPaginationDataFromPage(Page<NoteModel> page) {
 		NotesPaginationData paginationData = new NotesPaginationData(DEFAULT_MAX_LINKED_PAGES);
 		paginationData.setPage(page);
 		noteService.savePagesDataToSession(paginationData);
 		return paginationData;
 	}
+	
+	private NotesPaginationData buildPaginationDataFromPageAndDate(Page<NoteModel> page, Date from) {
+		NotesPaginationData paginationData = new NotesPaginationData(DEFAULT_MAX_LINKED_PAGES);
+		paginationData.setPage(page);
+		paginationData.setFromDate(from);
+		noteService.savePagesDataToSession(paginationData);
+		return paginationData;
+	}
+	
 	
 	private Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
 		Page<NoteModel> result = noteService.listNotes(pageId, pageSize, sortCol, asc);
