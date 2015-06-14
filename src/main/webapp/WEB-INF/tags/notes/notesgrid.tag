@@ -77,7 +77,7 @@
 					</security:authorize>
 					<td class="left"><spring:message text="${notesPaginationData.page.number * notesPaginationData.page.size + loopStatus.index + 1}."/></td>
 					<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
-						<td>${note.author.nick}</td>
+						<td><c:out value="${note.author.nick}" /></td>
 					</security:authorize>
 					<td>${note.formattedDateCreated}</td>
 					<td>
