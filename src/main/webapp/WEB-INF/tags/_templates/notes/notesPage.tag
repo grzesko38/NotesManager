@@ -1,4 +1,5 @@
 <%@ tag description="Notes Page template" body-content="scriptless" pageEncoding="UTF-8"%>
+
 <%@ attribute name="additionalCSS" fragment="true" %>
 <%@ attribute name="additionalJS" fragment="true" %>
 <%@ attribute name="banner" fragment="true" %>
@@ -23,7 +24,7 @@
 	</jsp:attribute>
 	
 	<jsp:attribute name="topBarContent">
-		<fragment:auth />
+		<fragment:auth showRegisterLink="true" />
 	</jsp:attribute>
 	
 	<jsp:body>

@@ -1,5 +1,7 @@
 <%@ tag body-content="empty" pageEncoding="UTF-8"%>
 
+<%@ attribute name="showRegisterLink" required="true" type="java.lang.Boolean" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="navigation" uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
@@ -35,11 +37,13 @@
 				<li>
 					<spring:message code="global.login" />
 				</li>
-				<li>
-					<a href="<c:url value='/register'/>">
-						<spring:message code="global.register" />
-					</a>
-				</li>
+				<c:if test="${showRegisterLink}">
+					<li>
+						<a href="<c:url value='/register'/>">
+							<spring:message code="global.register" />
+						</a>
+					</li>
+				</c:if>
 			</ul>
 			<img src="<c:url value="/themes/common/images/icons/arrow-right.png" />" height="26" width="26"/>
 		</div>
