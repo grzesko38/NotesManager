@@ -1,7 +1,7 @@
 jdbc.driverClassName=com.mysql.jdbc.Driver
 jdbc.databaseurl=jdbc:mysql://127.0.0.1:3306/notesmanager
-jdbc.username=notes_admin
-jdbc.password=password
+jdbc.username=notesadmin
+jdbc.password=P@ssw0rd!
 hibernate.hbm2ddl.auto=update
 hibernate.show_sql=true
 hibernate.format_sql=true

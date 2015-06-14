@@ -2,8 +2,8 @@ DROP DATABASE IF EXISTS notesmanager;
 CREATE DATABASE notesmanager;
 USE notesmanager;
 
-CREATE USER 'notes_admin'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON `notesmanager`.* TO 'notes_admin'@'localhost'WITH GRANT OPTION;
+CREATE USER 'notesadmin'@'localhost' IDENTIFIED BY 'P@ssw0rd!';
+GRANT ALL PRIVILEGES ON `notesmanager`.* TO 'notesadmin'@'localhost'WITH GRANT OPTION;
 
 DROP TABLE IF EXISTS NOTES;
 DROP TABLE IF EXISTS USER_ROLES;
