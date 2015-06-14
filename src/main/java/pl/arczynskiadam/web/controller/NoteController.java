@@ -48,7 +48,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pl.arczynskiadam.core.model.NoteModel;
-import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.web.controller.constants.GlobalControllerConstants;
 import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
 import pl.arczynskiadam.web.data.NotesPaginationData;
@@ -66,9 +65,6 @@ import pl.arczynskiadam.web.tag.navigation.BreadcrumbsItem;
 public class NoteController extends AbstractController {
 	
 	private static final Logger log = Logger.getLogger(NoteController.class);
-	
-	@Autowired
-	private NoteService noteService;
 	
 	@Autowired
 	private NoteFacade noteFacade;
@@ -92,8 +88,7 @@ public class NoteController extends AbstractController {
 			@RequestParam(value = ASCENDING_PARAM, required = true) boolean ascending,
 			HttpServletRequest request,	final Model model) {
 		
-		NotesPaginationData paginationData = noteFacade.updateSort(sortColumn, ascending);
-		preparePage(paginationData, model);
+		noteFacade.updateSort(sortColumn, ascending);
 		return listNotes(request, model);
 	}
 	
@@ -101,8 +96,7 @@ public class NoteController extends AbstractController {
 	public String updatePageNumber(@RequestParam(value = PAGE_NUMBER_PARAM, required = true) int pageNumber,
 			HttpServletRequest request,	final Model model) {
 		
-		NotesPaginationData paginationData = noteFacade.updatePageNumber(pageNumber);
-		preparePage(paginationData, model);
+		noteFacade.updatePageNumber(pageNumber);
 		return listNotes(request, model);
 	}
 	
@@ -110,8 +104,7 @@ public class NoteController extends AbstractController {
 	public String updatePageSize(@RequestParam(value = PAGE_SIZE_PARAM, required = true) int pageSize,
 			HttpServletRequest request,	final Model model) {
 		
-		NotesPaginationData paginationData = noteFacade.updatePageSize(pageSize);
-		preparePage(paginationData, model);
+		noteFacade.updatePageSize(pageSize);
 		return listNotes(request, model);
 	}
 	
@@ -272,10 +265,9 @@ public class NoteController extends AbstractController {
 	public void noteSelected(@RequestBody SelectedCheckboxesForm selectedCheckboxesForm) {
 		log.debug("checboxes vals to update from ajax: " + selectedCheckboxesForm.toString());
 		
-		NotesPaginationData sessionPagesData = noteService.retrievePagesDataFromSession();
+		NotesPaginationData sessionPagesData = noteFacade.prepareNotesPaginationData();
 		Set<Integer> ids = noteFacade.convertSelectionsToNotesIds(selectedCheckboxesForm.getSelections());
 		sessionPagesData.setSelectedNotesIds(ids);
-		noteService.savePagesDataToSession(sessionPagesData);
 	}
 	
 	private void populateEntriesPerPage(Model model) {
