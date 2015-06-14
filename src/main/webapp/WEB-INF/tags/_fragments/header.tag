@@ -44,7 +44,7 @@
 			</c:forEach>
 		</nav>
 		<nav class="mainmenu">
-			<span>
+			<span class="notimplemented">
 				<spring:message code="global.menu" />
 			</span>	
 		</nav>

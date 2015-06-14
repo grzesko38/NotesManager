@@ -86,11 +86,11 @@
 						</a>
 						<security:authorize ifNotGranted="ROLE_ANONYMOUS">
 							|
-							<a href="${pageContext.request.contextPath}/notesmanager/edit/${note.id}">
+							<a class="notimplemented" href="${pageContext.request.contextPath}/notesmanager/edit/${note.id}">
 								[<spring:message code="global.edit"/>]
 							</a>
 							|
-							<a href="${pageContext.request.contextPath}/notesmanager/delete/${note.id}">
+							<a class="notimplemented" href="${pageContext.request.contextPath}/notesmanager/delete/${note.id}">
 								<span>[<spring:message code="global.delete"/>]</span>
 							</a>
 						</security:authorize>
