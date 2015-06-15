@@ -235,7 +235,7 @@ div.menu
     float: left;
     padding: 0 12px;
 }
-#loginAction > ul > li:NTH-CHILD(2)
+#loginAction > ul > li:NOT(LAST-CHILD)
 {
     border-left: 1px solid black;
 }
