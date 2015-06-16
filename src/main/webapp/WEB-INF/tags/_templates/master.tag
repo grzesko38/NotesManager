@@ -16,6 +16,7 @@
 <html>
 <head>
 	<title>Notes Manager</title>
+	<meta charset="UTF-8"> 
 	
 	<security:csrfMetaTags />
 	

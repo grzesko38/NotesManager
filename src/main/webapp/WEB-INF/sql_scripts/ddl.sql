@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS notesmanager;
-CREATE DATABASE notesmanager;
+CREATE DATABASE notesmanager DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 USE notesmanager;
 
 CREATE USER 'notesadmin'@'localhost' IDENTIFIED BY 'P@ssw0rd!';
