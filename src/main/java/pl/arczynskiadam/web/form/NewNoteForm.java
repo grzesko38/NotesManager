@@ -1,6 +1,7 @@
 package pl.arczynskiadam.web.form;
 
 import javax.validation.GroupSequence;
+import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -9,11 +10,11 @@ import pl.arczynskiadam.web.form.validation.FirstCharsUpperCase;
 
 public class NewNoteForm {
 
-	@NotEmpty(groups = {Default.class}, message = "{validation.common.required}")
-	@FirstCharsUpperCase(count = 1, groups = {Extended.class}, message = "{note.uppercase}")
+	@Size(min = 3, max = 20, message = "{note.add.nick.length.incorrect}")
+	@FirstCharsUpperCase(count = 1, groups = {Extended.class}, message = "{note.add.uppercase}")
 	private String author;
 	
-	@NotEmpty(groups = {Default.class}, message = "{validation.common.required}")
+	@Size(min = 1, max = 4000, message = "{note.add.content.length.incorrect}")
 	private String content;
 	
 	public String getAuthor() {
