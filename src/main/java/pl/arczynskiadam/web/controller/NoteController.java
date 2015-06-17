@@ -112,19 +112,16 @@ public class NoteController extends AbstractController {
 			params = {"!date", "!"+PAGE_NUMBER_PARAM, "!"+PAGE_SIZE_PARAM, "!"+SORT_COLUMN_PARAM, "!"+ASCENDING_PARAM, "!"+CLEAR_DATE_FILTER_PARAM})
 	public String listNotes(HttpServletRequest request,	final Model model) {
 		
-		NotesPaginationData pagination = noteFacade.prepareNotesPaginationData();
-		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.PAGINATION, pagination);
+		NotesPaginationData paginationData = noteFacade.prepareNotesPaginationData();
+		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.PAGINATION, paginationData);
 		
-		preparePage(pagination, model);
+		preparePage(paginationData, model);
 		populateEntriesPerPage(model);
-		
-		if(pagination.getPage().getNumberOfElements() == 0) {
-			GlobalMessages.addWarningMessage("notes.listing.msg.noResults", model);
-		}
+		displayInfoIfNoNotes(model, paginationData);
 
 		return NoteControllerConstants.Pages.NOTES_LISTING_PAGE;
 	}
-	
+
 	private void preparePage(NotesPaginationData pagination, Model model)
 	{
 		SelectedCheckboxesForm selectedCheckboxesForm = new SelectedCheckboxesForm();
@@ -146,19 +143,26 @@ public class NoteController extends AbstractController {
 			final Model model) {
 		
 		NotesPaginationData paginationData = null;
-		model.addAttribute(PAGINATION, paginationData);	
-		
+			
 		if (result.hasErrors()) {
 			paginationData = noteFacade.prepareNotesPaginationData();
 			model.addAttribute(PAGINATION, paginationData);
 			selectedCheckboxesForm.setSelections(noteFacade.convertNotesIdsToSelections(paginationData.getSelectedNotesIds()));
 		} else {
-			noteFacade.updateDateFilter(dateForm.getDate());
+			paginationData = noteFacade.updateDateFilter(dateForm.getDate());
 		}
 				
+		model.addAttribute(PAGINATION, paginationData);
 		populateEntriesPerPage(model);
+		displayInfoIfNoNotes(model, paginationData);
 		
 		return NOTES_LISTING_PAGE;
+	}
+	
+	private void displayInfoIfNoNotes(final Model model, NotesPaginationData pagination) {
+		if(pagination.getPage().getNumberOfElements() == 0) {
+			GlobalMessages.addWarningMessage("notes.listing.msg.noResults", model);
+		}
 	}
 	
 	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {CLEAR_DATE_FILTER_PARAM})
