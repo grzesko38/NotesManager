@@ -43,6 +43,26 @@ input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10+ */
     opacity:  1;
 }
 													/* Generic */
+.centerText
+{
+	text-align: center;
+}
+.width20
+{
+	width: 20px;
+}
+.width40
+{
+	width: 40px;
+}
+.width300
+{
+	width: 300px;
+}
+.width400
+{
+	width: 400px;
+}
 ul.noDecoration
 {
 	list-style: none;

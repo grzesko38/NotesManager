@@ -44,5 +44,6 @@ CREATE TABLE NOTES
     user_fk			INT,
     date_created    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     last_modified   TIMESTAMP,
+    title			VARCHAR(128),
     content			VARCHAR(4096)
 );

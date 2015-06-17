@@ -50,41 +50,42 @@ public class DefaultNoteFacade implements NoteFacade {
 	
 	@Override
 	@Transactional
-	public void addNewNote(String noteContent, String userNick) {
+	public void addNewNote(String noteTitle, String noteContent, String userNick) {
 		RegisteredUserModel currentUser = userService.getCurrentUser();
 		
 		if (currentUser != null)
 		{
-			addNoteForRegisteredUser(noteContent);
+			addNoteForRegisteredUser(noteTitle, noteContent);
 		}
 		else
 		{
-			addNoteForAnonymous(noteContent, userNick);
+			addNoteForAnonymous(noteTitle, noteContent, userNick);
 		}
 	}
 
-	private void addNoteForRegisteredUser(String noteContent) {
+	private void addNoteForRegisteredUser(String noteTitle, String noteContent) {
 		RegisteredUserModel user = userService.getCurrentUser();
-		NoteModel note = createNewNote(noteContent);
+		NoteModel note = createNewNote(noteTitle, noteContent);
 		user.addNote(note);
 		noteService.saveNewNote(note);
 	}
 
-	private void addNoteForAnonymous(String noteContent, String userNick) {
+	private void addNoteForAnonymous(String noteTitle, String noteContent, String userNick) {
 		AnonymousUserModel anonymous = userService.findAnonymousUserByNick(userNick);
 		if (anonymous == null) {
 			anonymous = new AnonymousUserModel();
 			anonymous.setNick(userNick);
 		}
 		
-		NoteModel note = createNewNote(noteContent);
+		NoteModel note = createNewNote(noteTitle, noteContent);
 		anonymous.addNote(note);
 		
 		noteService.saveNewNote(note);
 	}
 
-	private NoteModel createNewNote(String noteContent) {
+	private NoteModel createNewNote(String noteTitle, String noteContent) {
 		NoteModel note = new NoteModel();
+		note.setTitle(noteTitle);
 		note.setContent(noteContent);
 		note.setDateCreated(new Date());
 		return note;

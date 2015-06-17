@@ -14,6 +14,9 @@ public class NewNoteForm {
 	@FirstCharsUpperCase(count = 1, groups = {Extended.class}, message = "{note.add.uppercase}")
 	private String author;
 	
+	@Size(max = 50, message = "{note.add.title.length.incorrect}")
+	private String title;
+	
 	@NotEmpty(groups = {Default.class}, message = "{validation.common.required}")
 	@Size(max = 4000, message = "{note.add.content.length.incorrect}")
 	private String content;
@@ -31,6 +34,14 @@ public class NewNoteForm {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	
 	public interface Extended {}
 	

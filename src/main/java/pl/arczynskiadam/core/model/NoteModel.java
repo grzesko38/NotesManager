@@ -24,6 +24,9 @@ public class NoteModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(name="TITLE")
+	private String title;
+	
 	@Column(name="CONTENT")
 	private String content;
 	
@@ -46,6 +49,14 @@ public class NoteModel implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getContent() {

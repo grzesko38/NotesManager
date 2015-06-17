@@ -30,9 +30,13 @@
 	<table class="data">
 		<colgroup>
 			<security:authorize ifNotGranted="ROLE_ANONYMOUS">
-				<col class="narrowCheckbox" span="1"/>
+				<col class="width20" span="1"/>
 			</security:authorize>
-			<col class="narrow" span="1"/>
+			<col class="width40" span="1"/>
+			<security:authorize ifNotGranted="ROLE_ANONYMOUS">
+				<col class="width400" span="1"/>
+			</security:authorize>
+			<col class="width300" span="1"/>
 		</colgroup>
 		<thead>
 			<tr>
@@ -54,6 +58,13 @@
 						</navigation:sortHeader>
 					</th>
 				</security:authorize>
+				<th>
+					<navigation:sortHeader divClass="sort" sortColumn="title" imgSize="16"
+							ascImgUrl="${sortCol eq 'title' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
+							descImgUrl="${sortCol eq 'title' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
+						<span><spring:message code="notes.listing.label.title"/></span>
+					</navigation:sortHeader>
+				</th>
 				<th>
 					<navigation:sortHeader divClass="sort" sortColumn="dateCreated" imgSize="16"
 							ascImgUrl="${sortCol eq 'dateCreated' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
@@ -79,6 +90,7 @@
 					<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
 						<td><c:out value="${note.author.nick}" /></td>
 					</security:authorize>
+					<td>${note.title}</td>
 					<td>${note.formattedDateCreated}</td>
 					<td>
 						<a href="${pageContext.request.contextPath}/notesmanager/details/${note.id}">

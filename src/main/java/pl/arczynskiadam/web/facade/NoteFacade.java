@@ -14,7 +14,7 @@ public interface NoteFacade {
 	public NotesPaginationData updatePageSize(int pageSize);
 	public NotesPaginationData updateSort(String sortColumn, boolean ascending);
 	public NotesPaginationData updateDateFilter(Date from);
-	public void addNewNote(String noteContent, String userNick);
+	public void addNewNote(String noteTitleString, String noteContent, String userNick);
 	public int getNotesCountForRegisteredUser(String userNick);
 	public void deleteNote(int id);
 	public void deleteNotes(int[] ids);
