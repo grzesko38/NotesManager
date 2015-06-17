@@ -14,6 +14,7 @@ public class NewNoteForm {
 	@FirstCharsUpperCase(count = 1, groups = {Extended.class}, message = "{note.add.uppercase}")
 	private String author;
 	
+	@NotEmpty(groups = {Default.class}, message = "{validation.common.required}")
 	@Size(max = 50, message = "{note.add.title.length.incorrect}")
 	private String title;
 	

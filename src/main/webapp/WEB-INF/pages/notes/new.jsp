@@ -32,7 +32,7 @@
  			<security:authorize ifNotGranted="ROLE_ANONYMOUS">
 				<form:hidden path="author" value="${userName}" />
 			</security:authorize>
-			<formUtil:input path="title" mandatory="false" labelKey="notes.addNew.label.title" />
+			<formUtil:input path="title" mandatory="true" labelKey="notes.addNew.label.title" />
 			<formUtil:textArea path="content" mandatory="true" labelKey="notes.addNew.label.content" maxChars="4000" />
 			<div class="buttonHolder">
 				<input type="submit" class="buttonPositive" value="<spring:message code="notes.addNew.button.save"/>" />
