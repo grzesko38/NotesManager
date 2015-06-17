@@ -37,6 +37,13 @@
 	resize: none;
 	height: 100px;
 }
+.formWrapper .charCounter
+{
+	padding-left: 0 !important;
+	padding-right: 10px;
+	float: right;
+	font-size: 14px;
+}
 													/* Errors */
 .formWrapper .formRow > div
 {
