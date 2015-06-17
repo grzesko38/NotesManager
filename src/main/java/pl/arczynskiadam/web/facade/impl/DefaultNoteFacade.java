@@ -53,12 +53,10 @@ public class DefaultNoteFacade implements NoteFacade {
 	public void addNewNote(String noteTitle, String noteContent, String userNick) {
 		RegisteredUserModel currentUser = userService.getCurrentUser();
 		
-		if (currentUser != null)
-		{
+		if (currentUser != null) {
 			addNoteForRegisteredUser(noteTitle, noteContent);
 		}
-		else
-		{
+		else {
 			addNoteForAnonymous(noteTitle, noteContent, userNick);
 		}
 	}
@@ -79,7 +77,6 @@ public class DefaultNoteFacade implements NoteFacade {
 		
 		NoteModel note = createNewNote(noteTitle, noteContent);
 		anonymous.addNote(note);
-		
 		noteService.saveNewNote(note);
 	}
 
