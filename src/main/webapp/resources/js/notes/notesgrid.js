@@ -1,13 +1,14 @@
 NotesGridScripts = {
 	// === checkboxes === 
-	bindSelectAll: function() {
-		$("#selectAll").click(function() {
-			$("input[id^='selections']").each(function() {
-				this.checked = $("#selectAll").is(':checked');
+		bindSelectAll: function() {
+			$("#selectAll").click(function() {
+				var updateCheckbox = function() {
+					this.checked = $("#selectAll").is(':checked');
+				};
+				$("input[id^='selections']").each(updateCheckbox);
+				NotesGridScripts.postAjaxSelectedIds($('#notesGridForm').data('checkboxajaxaction'));
 			});
-			NotesGridScripts.postAjaxSelectedIds($('#notesGridForm').data('checkboxajaxaction'));
-		});
-	},
+		},
 	bindNoteCheckboxes: function() {
 		$("input[id^='selections']").click(function() {
 			NotesGridScripts.updateSelectAllCheckbox();
@@ -16,11 +17,12 @@ NotesGridScripts = {
 	},
 	updateSelectAllCheckbox: function() {
 		var allChecked  = true;
-		$("input[name='selections']").each(function() {
-			if( !this.checked ) {
+		var checkSelection = function() {
+			if(!this.checked) {
 				allChecked = false;
 			}
-		});
+		}
+		$("input[name='selections']").each(checkSelection);
 		$("#selectAll").prop('checked', allChecked);
 	},
 	postAjaxSelectedIds: function(action) {
