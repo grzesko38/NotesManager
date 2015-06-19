@@ -12,7 +12,7 @@
 	<notes:datefilter />
 	<notes:notesgrid />
 </c:if>
-<c:if test="${not empty notesPaginationData.fromDate}">
+<c:if test="${empty notesPaginationData.page.content}">
 	<notes:datefilter />
 	<a href="<c:url value="/notesmanager/add" />">
 		<span class="buttonPositive">
