@@ -47,6 +47,10 @@ input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10+ */
 {
 	text-align: center;
 }
+.centered
+{
+	margin: 0 auto;
+}
 .width20
 {
 	width: 20px;
