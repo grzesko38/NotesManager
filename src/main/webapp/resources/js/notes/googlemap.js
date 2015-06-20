@@ -66,22 +66,6 @@ GoogleMap = {
 		$("#map-li").click(function() {
 			google.maps.event.trigger(map, "resize");
 		});
-		
-//		 $('#tabs').tabs();
-//	     $('#tabs').bind('tabsshow', function(event, ui) {
-//	    	 alert(ui);
-//	        if (ui.panel.id == 'map_tab' && !map)
-//	        {
-//	            map = initializeMap();
-//	            google.maps.event.trigger(map, 'resize');
-//	        }
-//	     });
-		
-//		google.maps.event.addListener(map, "rightclick", function(event) {
-//			var lat = event.latLng.lat();
-//			var lng = event.latLng.lng();
-//			alert("Lat=" + lat + "; Lng=" + lng);
-//		});
 	},
 	
 	createMap: function() {
