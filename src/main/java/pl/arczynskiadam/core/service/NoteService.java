@@ -10,7 +10,8 @@ import pl.arczynskiadam.web.data.NotesPaginationData;
 
 public interface NoteService {
 	
-	public void saveNewNote(NoteModel note);
+	public void addNoteForRegisteredUser(NoteModel note, String userNick);
+	public void addNoteForAnonymousUser(NoteModel note, String userNick);
 	public Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc);
 	public Page<NoteModel> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date);
 	public void deleteNote(int id);

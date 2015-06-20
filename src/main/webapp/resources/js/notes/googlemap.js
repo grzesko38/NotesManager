@@ -47,13 +47,16 @@ GoogleMap = {
 
 				infowindow.setContent('<div><strong>' + place.name	+ '</strong><br>' + address);
 				infowindow.open(map, marker);
+				
+				$('input#longitude').val(place.geometry.location.lng());
+				$('input#latitude').val(place.geometry.location.lat());
 			}
 		);
-		google.maps.event.addListener(map, "rightclick", function(event) {
-			var lat = event.latLng.lat();
-			var lng = event.latLng.lng();
+//		google.maps.event.addListener(map, "rightclick", function(event) {
+//			var lat = event.latLng.lat();
+//			var lng = event.latLng.lng();
 //			alert("Lat=" + lat + "; Lng=" + lng);
-		});
+//		});
 	},
 	
 	createMap: function() {

@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pl.arczynskiadam.core.dao.NoteRepository;
 import pl.arczynskiadam.core.dao.specs.NoteSpecs;
+import pl.arczynskiadam.core.model.AnonymousUserModel;
 import pl.arczynskiadam.core.model.NoteModel;
 import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.service.NoteService;
@@ -42,7 +43,26 @@ public class DefaultNoteService implements NoteService {
 	
 	@Override
 	@Transactional
-	public void saveNewNote(NoteModel note) {
+	public void addNoteForRegisteredUser(NoteModel note, String userNick) {
+		RegisteredUserModel user = userService.findRegisteredUserByNick(userNick);
+		user.addNote(note);
+		saveNewNote(note);
+	}
+
+	@Override
+	@Transactional
+	public void addNoteForAnonymousUser(NoteModel note, String userNick) {
+		AnonymousUserModel anonymous = userService.findAnonymousUserByNick(userNick);
+		if (anonymous == null) {
+			anonymous = new AnonymousUserModel();
+			anonymous.setNick(userNick);
+		}
+		
+		anonymous.addNote(note);
+		saveNewNote(note);
+	}
+	
+	private void saveNewNote(NoteModel note) {
 		if (note.getDateCreated() == null) {
 			note.setDateCreated(new Date());
 		}

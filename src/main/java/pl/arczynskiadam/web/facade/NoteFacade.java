@@ -7,6 +7,7 @@ import java.util.Set;
 import pl.arczynskiadam.core.model.NoteModel;
 import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.web.data.NotesPaginationData;
+import pl.arczynskiadam.web.form.NewNoteForm;
 
 public interface NoteFacade {
 	public NotesPaginationData prepareNotesPaginationData();
@@ -14,7 +15,7 @@ public interface NoteFacade {
 	public NotesPaginationData updatePageSize(int pageSize);
 	public NotesPaginationData updateSort(String sortColumn, boolean ascending);
 	public NotesPaginationData updateDateFilter(Date from);
-	public void addNewNote(String noteTitleString, String noteContent, String userNick);
+	public void addNewNote(NewNoteForm noteData);
 	public int getNotesCountForRegisteredUser(String userNick);
 	public void deleteNote(int id);
 	public void deleteNotes(int[] ids);

@@ -22,6 +22,9 @@ public class NewNoteForm {
 	@Size(max = 4000, message = "{note.add.content.length.incorrect}")
 	private String content;
 	
+	private Float longitude = null;
+	private Float latitude = null;
+	
 	public String getAuthor() {
 		return author;
 	}
@@ -42,8 +45,22 @@ public class NewNoteForm {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 	
+	public Float getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(Float longitude) {
+		this.longitude = longitude;
+	}
+	
+	public Float getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(Float latitude) {
+		this.latitude = latitude;
+	}
+
+
 	public interface Extended {}
 	
 	@GroupSequence({Default.class, Extended.class})

@@ -36,6 +36,8 @@
 			</security:authorize>
 			<formUtil:input path="title" mandatory="true" labelKey="notes.addNew.label.title" />
 			<formUtil:textArea path="content" mandatory="true" labelKey="notes.addNew.label.content" maxChars="4000" />
+			<form:hidden path="longitude"/>
+			<form:hidden path="latitude"/>
 			<div class="buttonHolder">
 				<input type="submit" class="buttonPositive" value="<spring:message code="notes.addNew.button.save"/>" />
 			</div>

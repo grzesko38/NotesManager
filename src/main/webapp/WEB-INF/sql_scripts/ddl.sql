@@ -45,5 +45,7 @@ CREATE TABLE NOTES
     date_created    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     last_modified   TIMESTAMP,
     title			VARCHAR(128),
-    content			VARCHAR(4096)
+    content			VARCHAR(4096),
+    longitude		FLOAT,
+    latitude		FLOAT
 );

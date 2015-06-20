@@ -18,7 +18,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import pl.arczynskiadam.core.model.AnonymousUserModel;
 import pl.arczynskiadam.core.model.NoteModel;
 import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.service.NoteService;
@@ -27,6 +26,7 @@ import pl.arczynskiadam.core.service.UserService;
 import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
 import pl.arczynskiadam.web.data.NotesPaginationData;
 import pl.arczynskiadam.web.facade.NoteFacade;
+import pl.arczynskiadam.web.form.NewNoteForm;
 
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
@@ -50,40 +50,24 @@ public class DefaultNoteFacade implements NoteFacade {
 	
 	@Override
 	@Transactional
-	public void addNewNote(String noteTitle, String noteContent, String userNick) {
-		RegisteredUserModel currentUser = userService.getCurrentUser();
+	public void addNewNote(NewNoteForm noteData) {
+		boolean isAuthorRegstered = !userService.isNickAvailable(noteData.getAuthor());
+		NoteModel newNote = createNewNote(noteData);
 		
-		if (currentUser != null) {
-			addNoteForRegisteredUser(noteTitle, noteContent);
+		if (isAuthorRegstered) {
+			noteService.addNoteForRegisteredUser(newNote, noteData.getAuthor());
 		}
 		else {
-			addNoteForAnonymous(noteTitle, noteContent, userNick);
+			noteService.addNoteForAnonymousUser(newNote, noteData.getAuthor());
 		}
 	}
 
-	private void addNoteForRegisteredUser(String noteTitle, String noteContent) {
-		RegisteredUserModel user = userService.getCurrentUser();
-		NoteModel note = createNewNote(noteTitle, noteContent);
-		user.addNote(note);
-		noteService.saveNewNote(note);
-	}
-
-	private void addNoteForAnonymous(String noteTitle, String noteContent, String userNick) {
-		AnonymousUserModel anonymous = userService.findAnonymousUserByNick(userNick);
-		if (anonymous == null) {
-			anonymous = new AnonymousUserModel();
-			anonymous.setNick(userNick);
-		}
-		
-		NoteModel note = createNewNote(noteTitle, noteContent);
-		anonymous.addNote(note);
-		noteService.saveNewNote(note);
-	}
-
-	private NoteModel createNewNote(String noteTitle, String noteContent) {
+	private NoteModel createNewNote(NewNoteForm noteData) {
 		NoteModel note = new NoteModel();
-		note.setTitle(noteTitle);
-		note.setContent(noteContent);
+		note.setTitle(noteData.getTitle());
+		note.setContent(noteData.getContent());
+		note.setLongutude(noteData.getLongitude());
+		note.setLatitude(noteData.getLatitude());
 		note.setDateCreated(new Date());
 		return note;
 	}

@@ -15,6 +15,7 @@ import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.NOTES_LISTING_PAGE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.NOTE_DETAILS_PAGE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.ADD_NOTE;
+import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.DELETE_NOTE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_FIRST_PAGE;
@@ -202,7 +203,7 @@ public class NoteController extends AbstractController {
 			return NoteControllerConstants.Pages.NEW_NOTE_PAGE;
 		}
 		
-		noteFacade.addNewNote(noteForm.getTitle(), noteForm.getContent(), noteForm.getAuthor());
+		noteFacade.addNewNote(noteForm);
 		noteFacade.removePaginationDataFromSession();
 		
 		GlobalMessages.addInfoFlashMessage("notes.addNew.msg.confirmation", attrs);
@@ -210,7 +211,7 @@ public class NoteController extends AbstractController {
 		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 	}
 
-	@RequestMapping(value = NoteControllerConstants.URLs.DELETE_NOTE, method = RequestMethod.POST)
+	@RequestMapping(value = DELETE_NOTE, method = RequestMethod.POST)
 	public String deleteNote(@PathVariable("noteId") Integer noteId) {
 	
 		noteFacade.deleteNote(noteId);

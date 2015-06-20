@@ -30,6 +30,12 @@ public class NoteModel implements Serializable {
 	@Column(name="CONTENT")
 	private String content;
 	
+	@Column(name="LONGITUDE")
+	private Float longutude;
+	
+	@Column(name="LATITUDE")
+	private Float latitude;
+	
 	@Column(name="DATE_CREATED")
 	private Date dateCreated;
 
@@ -65,6 +71,22 @@ public class NoteModel implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	public Float getLongutude() {
+		return longutude;
+	}
+
+	public void setLongutude(Float langutude) {
+		this.longutude = langutude;
+	}
+
+	public Float getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Float latitude) {
+		this.latitude = latitude;
 	}
 
 	public Date getDateCreated() {
