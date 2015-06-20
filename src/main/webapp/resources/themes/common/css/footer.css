@@ -1,6 +1,7 @@
 													/* Footer */
 footer
 {
+	flex: 1 1 auto;
 	border-top: 3px solid;
 	padding-bottom: 30px;
 	width: 100%;

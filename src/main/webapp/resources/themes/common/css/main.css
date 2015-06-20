@@ -1,12 +1,20 @@
 													/* Body */
+html, body
+{
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
 body
 {
-	margin: 0px;
+	display: flex;
+	flex-flow: column nowrap;
 	overflow-y: scroll;
 }
 													/* Master Layout */
 .master
 {
+	flex: 0 1 auto;
 	padding-top: 15px;
 }
 .master .page

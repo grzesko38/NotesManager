@@ -1,8 +1,4 @@
 													/* Master Layout */
-body
-{
-	background-image: url("../../green/images/background/footer.jpg");
-}
 .master
 {
 	background-image: url("../../green/images/background/main.jpg");
@@ -10,4 +6,4 @@ body
 .master .page
 {
 	background-color: #AEF29D;
-}}
+}
