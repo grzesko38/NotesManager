@@ -14,7 +14,7 @@
 	</jsp:attribute>
 
 	<jsp:attribute name="additionalJS">
-		<script src="${pageContext.request.contextPath}/js/notes/addnote.js"></script>
+
 	</jsp:attribute>
 	
 	<jsp:attribute name="banner">

@@ -23,3 +23,7 @@
 		</c:otherwise>
 	</c:choose>
 </template:formInput>
+<script src="${pageContext.request.contextPath}/js/form/inputScripts.js"></script>
+<script>
+	new InputScripts.CharCounter($('textArea#content')).init();
+</script>
