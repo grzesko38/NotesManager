@@ -6,4 +6,9 @@
 .master .page
 {
 	background-color: #FFF3C4;
-}}
+}
+													/* Generic */
+.frame
+{
+	border: 1px solid #BB953C;
+}
