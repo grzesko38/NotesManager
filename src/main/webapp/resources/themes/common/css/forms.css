@@ -26,11 +26,11 @@
 	border-radius: 10px;
     box-shadow: 0 0 10px -5px #A2A2A2 inset;
     padding: 10px;
-    transition: all 0.4s ease-in-out;
+    transition: border 0.4s ease-in-out;
 }
 .formWrapper .formRow input:FOCUS, .formWrapper .formRow textarea:FOCUS
 {
-	transition: all 0.4s ease-in-out;
+	transition: border 0.4s ease-in-out;
 }
 .formWrapper .formRow textarea
 {
