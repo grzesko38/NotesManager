@@ -44,6 +44,7 @@
 		</formUtil:form>
 		
 		<fragment:googlemap />
+
 		
     </jsp:body>
 </template:notesPage>
