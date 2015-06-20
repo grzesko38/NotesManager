@@ -1,7 +1,7 @@
 													/* Footer */
 footer
 {
-	background-image: url("../../red/images/background/footer.jpg")
+	background-image: url("../../red/images/background/footer.jpg");
 	border-top-color: #9F1212;
 }
 footer .content, footer .connector
