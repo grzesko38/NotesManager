@@ -21,7 +21,7 @@
 	</a>
 </c:if>
 
-<spring:message code="global.delete.all.popup" arguments="${notesPaginationData.page.totalElements}" var="askDeleteAll" />
+<spring:message code="global.delete.all.popup.info" arguments="${notesPaginationData.page.totalElements}" var="askDeleteAll" />
 <div id="popupI18NData"
 	 data-askdeleteall="${askDeleteAll}"
 	 data-askheader='<spring:message code="global.areYouSure" />'
@@ -30,10 +30,8 @@
 	 data-close='<spring:message code="misc.close" />' >
 </div>
 <div id="dialog-deleteSelected" title="<spring:message code="global.areYouSure" />" >
-	<spring:message code="global.delete.popup.begin" />
-	<span>${fn:length(notesPaginationData.selectedNotesIds)}</span>
-	<spring:message code="global.delete.popup.end" />
+	<spring:message code="global.delete.selected.popup.info" arguments="${fn:length(notesPaginationData.selectedNotesIds)}" />
 </div>
 <div id="dialog-deleteAll" title="<spring:message code="global.areYouSure" />">
-	<spring:message code="global.delete.all.popup" arguments="${notesPaginationData.page.totalElements}"/>
+	<spring:message code="global.delete.all.popup.info" arguments="${notesPaginationData.page.totalElements}"/>
 </div>
