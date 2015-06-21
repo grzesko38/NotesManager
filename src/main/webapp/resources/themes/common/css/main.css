@@ -71,13 +71,29 @@ input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10+ */
 {
 	width: 40px;
 }
-.width300
+.width150
 {
-	width: 300px;
+	width: 150px;
+}
+.width200
+{
+	width: 200px;
+}
+.width250
+{
+	width:250px;
 }
 .width400
 {
 	width: 400px;
+}
+.width500
+{
+	width: 500px;
+}
+.width600
+{
+	width: 600px;
 }
 ul.noDecoration
 {

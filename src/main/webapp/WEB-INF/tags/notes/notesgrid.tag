@@ -3,7 +3,7 @@
 <%@ taglib prefix="spring" 		uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="security" 	uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form"   		uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" 		uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c"      		uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" 	   		uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="navigation"	uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
@@ -30,14 +30,18 @@
 		   modelAttribute="selectedCheckboxesForm" data-checkboxajaxaction="${checkboxAjaxUrl}">
 	<table class="data">
 		<colgroup>
+			<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
+				<col class="width20" span="1"/>
+				<col class="width250" span="1"/>
+				<col class="width500" span="1"/>
+				<col class="width150" span="2"/>
+			</security:authorize>
 			<security:authorize ifNotGranted="ROLE_ANONYMOUS">
 				<col class="width20" span="1"/>
+				<col class="width40" span="1"/>
+				<col class="width600" span="1"/>
+				<col class="width200" span="2"/>
 			</security:authorize>
-			<col class="width40" span="1"/>
-			<security:authorize ifNotGranted="ROLE_ANONYMOUS">
-				<col class="width400" span="1"/>
-			</security:authorize>
-			<col class="width300" span="1"/>
 		</colgroup>
 		<thead>
 			<tr>
@@ -67,6 +71,13 @@
 					</navigation:sortHeader>
 				</th>
 				<th>
+					<navigation:sortHeader divClass="sort" sortColumn="deadline" imgSize="16"
+							ascImgUrl="${sortCol eq 'deadline' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
+							descImgUrl="${sortCol eq 'deadline' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
+						<span><spring:message code="notes.listing.label.deadline"/></span>
+					</navigation:sortHeader>
+				</th>
+				<th>
 					<navigation:sortHeader divClass="sort" sortColumn="dateCreated" imgSize="16"
 							ascImgUrl="${sortCol eq 'dateCreated' && isSortAsc ? ascActiveImgUrl : ascImgUrl}"
 							descImgUrl="${sortCol eq 'dateCreated' && !isSortAsc ? descActiveImgUrl : descImgUrl}" >
@@ -91,7 +102,8 @@
 					<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
 						<td><c:out value="${note.author.nick}" /></td>
 					</security:authorize>
-					<td>${note.title}</td>
+					<td><c:out value="${note.title}" /></td>
+					<td><fmt:formatDate value="${note.deadline}" pattern="dd/MM/yyyy"/></td>
 					<td><fmt:formatDate value="${note.dateCreated}" pattern="dd/MM/yyyy"/></td>
 					<td>
 						<a href="${pageContext.request.contextPath}/notesmanager/details/${note.id}">

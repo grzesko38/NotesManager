@@ -17,7 +17,7 @@
 
     <jsp:attribute name="banner">
 		<template:banner bannerClass="listing">
-			<spring:message code="notes.listing.label.title" />
+			<spring:message code="notes.listing.label.header" />
 		</template:banner>
     </jsp:attribute>
     
