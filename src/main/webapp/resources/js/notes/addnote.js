@@ -100,30 +100,8 @@ GoogleMapScripts = {
 	}
 }
 
-DatePickerScripts = {
-	bindDatePicker: function() {
-		$('input.date + .formInputIcon').click(function() {
-			$('#deadline').datepicker({
-		        changeMonth: true,
-		        changeYear: true,
-		        dateFormat: 'dd/mm/yy'
-			});
-			$('#deadline').datepicker('show');
-		});
-	},
-	
-	bindAll: function() {
-		with(DatePickerScripts) {
-			bindDatePicker();
-		}
-	}
-}
-
 $(document).ready(function() {
 	with (GoogleMapScripts) {
 		init();
-	}
-	with (DatePickerScripts) {
-		bindAll();
 	}
 });

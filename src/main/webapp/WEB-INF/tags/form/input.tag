@@ -6,6 +6,7 @@
 <%@ attribute name="cssClass" required="false" type="java.lang.String" %>
 <%@ attribute name="iconUrl" required="false" type="java.lang.String" %>
 <%@ attribute name="password" required="false" type="java.lang.Boolean" %>
+<%@ attribute name="showCalendar" required="false" type="java.lang.Boolean"%>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/_templates/form" %>
@@ -22,5 +23,20 @@
 	</c:choose>
 	<c:if test="${not empty iconUrl}">
 		<em class="formInputIcon" style="background: url(${iconUrl}) no-repeat scroll right center"></em>
+	</c:if>
+	<c:if test="${showCalendar}">
+		<em class="formInputIcon"></em>
+		<script>
+		(function() {
+			$("input#${path} + .formInputIcon").click(function() {
+				$("#${path}").datepicker({
+			        changeMonth: true,
+			        changeYear: true,
+			        dateFormat: 'dd/mm/yy'
+				});
+				$("#${path}").datepicker('show');
+			});
+		})();	
+		</script>
 	</c:if>
 </template:formInput>
