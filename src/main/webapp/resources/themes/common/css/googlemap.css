@@ -1,9 +1,9 @@
-#map-canvas {
+#map-canvas
+{
 	height: 500px;
-	width: 1300px;
 }
-
-#pac-input {
+#pac-input
+{
 	background-color: #fff;
 	font-family: Roboto;
 	font-size: 15px;
@@ -14,23 +14,27 @@
 	text-overflow: ellipsis;
 	width: 400px;
 }
-
-#pac-input:focus {
+#pac-input:focus
+{
 	border-color: #4d90fe;
 }
-
-.pac-container {
+.pac-container
+{
 	font-family: Roboto;
 }
-
-#type-selector {
+#type-selector
+{
 	color: #fff;
 	background-color: #4d90fe;
 	padding: 5px 11px 0px 11px;
 }
-
-#type-selector label {
+#type-selector label
+{
 	font-family: Roboto;
 	font-size: 13px;
 	font-weight: 300;
+}
+.googleMapTab
+{
+	margin: 0 -10px;
 }

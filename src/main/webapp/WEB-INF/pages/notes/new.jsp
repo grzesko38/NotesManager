@@ -55,7 +55,7 @@
 					</div>
 				</formUtil:form>
 			</div>
-			<div id="tabs-2">
+			<div id="tabs-2" class="googleMapTab">
 				<fragment:googlemap />
 			</div>
 		</div>
