@@ -45,9 +45,6 @@ public class NoteModel implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
 	@JoinColumn(name = "USER_FK")
 	private UserModel author;
-	
-	@Transient
-	private String formattedDateCreated;
 
 	public Integer getId() {
 		return id;
@@ -113,14 +110,6 @@ public class NoteModel implements Serializable {
 	public void setAuthor(UserModel author) {
 		this.author = author;
 		author.addNote(this);
-	}
-
-	public String getFormattedDateCreated() {
-		return formattedDateCreated;
-	}
-
-	public void setFormattedDateCreated(String formattedDateCreated) {
-		this.formattedDateCreated = formattedDateCreated;
 	}
 
 	@Override

@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" 		uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="security" 	uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form"   		uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c"      		uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" 	   		uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="navigation"	uri="http://arczynskiadam.pl/jsp/tlds/navigation" %>
@@ -91,7 +92,7 @@
 						<td><c:out value="${note.author.nick}" /></td>
 					</security:authorize>
 					<td>${note.title}</td>
-					<td>${note.formattedDateCreated}</td>
+					<td><fmt:formatDate value="${note.dateCreated}" pattern="dd/MM/yyyy"/></td>
 					<td>
 						<a href="${pageContext.request.contextPath}/notesmanager/details/${note.id}">
 							[<spring:message code="global.details"/>]

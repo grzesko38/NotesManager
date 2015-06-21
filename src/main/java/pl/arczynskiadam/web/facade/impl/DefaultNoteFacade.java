@@ -180,7 +180,6 @@ public class DefaultNoteFacade implements NoteFacade {
 	
 	private Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
 		Page<NoteModel> result = noteService.listNotes(pageId, pageSize, sortCol, asc);
-		fillFormattedDates(result.getContent());
 		return result;
 	}
 	
@@ -190,15 +189,7 @@ public class DefaultNoteFacade implements NoteFacade {
 		}
 		
 		Page<NoteModel> result = noteService.listNotesFromDate(pageId, pageSize, sortCol, asc, date);
-		fillFormattedDates(result.getContent());
 		return result;
-	}
-	
-	private void fillFormattedDates(List<NoteModel> notes) {
-		for (NoteModel note : notes) {		
-			String formattedDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(note.getDateCreated());	
-			note.setFormattedDateCreated(formattedDate);
-		}
 	}
 	
 	private void clearSelectedNotesIds(NotesPaginationData pagesData) {
