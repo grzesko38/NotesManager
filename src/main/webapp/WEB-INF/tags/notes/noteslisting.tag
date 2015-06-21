@@ -13,7 +13,9 @@
 	<notes:notesgrid />
 </c:if>
 <c:if test="${empty notesPaginationData.page.content}">
-	<notes:datefilter />
+	<c:if test="${notesPaginationData.deadlineFilter.active}">
+		<notes:datefilter />	
+	</c:if>
 	<a href="<c:url value="/notesmanager/add" />">
 		<span class="buttonPositive">
 			<spring:message code="notes.listing.addNew" />	
