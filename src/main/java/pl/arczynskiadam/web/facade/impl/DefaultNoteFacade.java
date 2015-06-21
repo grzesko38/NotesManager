@@ -145,6 +145,7 @@ public class DefaultNoteFacade implements NoteFacade {
 				sourcePaginationData.getFromDate());
 		
 		NotesPaginationData updatedPaginationData = buildPaginationDataFromPageAndDate(updatedPage, sourcePaginationData.getFromDate());
+		updatedPaginationData.setSelectedNotesIds(sourcePaginationData.getSelectedNotesIds());
 		return updatedPaginationData;
 	}
 	
