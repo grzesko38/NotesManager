@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name="NOTES")
@@ -29,6 +28,9 @@ public class NoteModel implements Serializable {
 	
 	@Column(name="CONTENT")
 	private String content;
+	
+	@Column(name="DEADLINE")
+	private Date deadline;
 	
 	@Column(name="LONGITUDE")
 	private Float longutude;
@@ -70,6 +72,14 @@ public class NoteModel implements Serializable {
 		this.content = content;
 	}
 	
+	public Date getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(Date deadline) {
+		this.deadline = deadline;
+	}
+
 	public Float getLongutude() {
 		return longutude;
 	}

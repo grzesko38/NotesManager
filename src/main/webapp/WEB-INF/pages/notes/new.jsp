@@ -19,8 +19,7 @@
 
 	<jsp:attribute name="additionalJS">
 		<script	src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&v=3"></script>
-		<script src="${pageContext.request.contextPath}/js/notes/googlemap.js"></script>
-		<script src="${pageContext.request.contextPath}/js/notes/newnote.js"></script>
+		<script src="${pageContext.request.contextPath}/js/notes/addnote.js"></script>
 	</jsp:attribute>
 
 	<jsp:attribute name="banner">
@@ -30,7 +29,6 @@
     </jsp:attribute>
 
 	<jsp:body>
-    	<utils:globalMessages />
 		<div class="frame">
 			<div id="tabs">
 				<ul>
@@ -38,6 +36,7 @@
 			    	<li id="map-li"><a href="#tabs-2"><spring:message code="notes.tab.label.map"/></a></li>
 				</ul>
 			<div id="tabs-1">
+				<utils:globalMessages />
 				<formUtil:form method="post" action="${pageContext.request.contextPath}/notesmanager/add" modelAttribute="noteForm">
 				<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
 					<formUtil:input path="author" mandatory="true" labelKey="notes.addNew.label.nick" />
@@ -46,6 +45,7 @@
 							<form:hidden path="author" value="${userName}" />
 						</security:authorize>
 						<formUtil:input path="title" mandatory="true" labelKey="notes.addNew.label.title" />
+						<formUtil:input path="deadline" mandatory="true" labelKey="notes.addNew.label.deadline" />
 						<formUtil:textArea path="content" mandatory="true" labelKey="notes.addNew.label.content" maxChars="4000" />
 						<form:hidden path="longitude" />
 						<form:hidden path="latitude" />
