@@ -12,6 +12,10 @@
 		<fragment:auth showRegisterLink="false" />
 	</jsp:attribute>
 	
+	<jsp:attribute name="additionalJS">
+		<script src="${pageContext.request.contextPath}/js/login.js"></script>
+	</jsp:attribute>
+	
 	<jsp:body>
 		<c:if test="${not empty error}">
 			<div class="error">${error}</div>
