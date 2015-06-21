@@ -12,9 +12,9 @@
 <security:authorize ifNotGranted="ROLE_ANONYMOUS">
 	<div id="welcome">
 		<c:url value="/j_spring_security_logout" var="logoutUrl" />
-		<form id="topBarLogoutForm" action="${logoutUrl}" method="post">
+		<form:form id="topBarLogoutForm" action="${logoutUrl}" method="post">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-		</form>
+		</form:form>
 		<spring:message code="global.welcome"/>&#44;&nbsp;${userName}&nbsp;
 		&#40;
 		<span id="logoutAction"><spring:message code="global.logout"/></span>
@@ -26,11 +26,10 @@
 	<c:url value="/j_spring_security_check" var="loginUrl"/>
 	<div id="topBarLogin">
 		<div class="fieldsRow">
-			<form id="topBarLoginForm" action="${loginUrl}" method="POST">
+			<form:form id="topBarLoginForm" action="${loginUrl}" method="POST">
 				<input type="text" name="nick"/>
 				<input type="password" name="password"/>
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-			</form>
+			</form:form>
 		</div>
 		<div id="loginAction">
 			<ul class="noDecoration">
