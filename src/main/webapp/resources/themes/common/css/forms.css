@@ -8,6 +8,17 @@
 .formWrapper .formRow
 {
 	margin: 5px 0px;
+	position: relative;
+}
+.formWrapper .formRow input + em.formInputIcon
+{
+	width: 32px;
+	height: 32px;
+	display: block;
+	position: absolute;
+	top: 5px;
+	right: 15px;
+	cursor: pointer;
 }
 .formWrapper .formRow label
 {

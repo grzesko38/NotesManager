@@ -1,4 +1,4 @@
-GoogleMap = {
+GoogleMapScripts = {
 	init: function() {
 		var map = this.createMap();
 		var input = this.createPacInput();
@@ -100,8 +100,29 @@ GoogleMap = {
 	}
 }
 
+DatePickerScripts = {
+	bindDatePicker: function() {
+		$('.formInputIcon').click(function() {
+			$('#deadline').datepicker({
+		        changeMonth: true,
+		        changeYear: true
+			});
+			$('#deadline').datepicker('show');
+		});
+	},
+	
+	bindAll: function() {
+		with(DatePickerScripts) {
+			bindDatePicker();
+		}
+	}
+}
+
 $(document).ready(function() {
-	with (GoogleMap) {
+	with (GoogleMapScripts) {
 		init();
+	}
+	with (DatePickerScripts) {
+		bindAll();
 	}
 });

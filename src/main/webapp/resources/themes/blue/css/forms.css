@@ -3,6 +3,7 @@
 {
 	background-color: #EDF4FF;
 	border: 1px inset #EDF4FF;
+	position: relative;
 }
 .formWrapper .formRow input:FOCUS, .formWrapper .formRow textarea:FOCUS,
 .formWrapper .formRow.error input:FOCUS, .formWrapper .formRow.error textarea:FOCUS
