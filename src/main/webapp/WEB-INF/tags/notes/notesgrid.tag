@@ -34,7 +34,7 @@
 				<col class="width20" span="1"/>
 				<col class="width250" span="1"/>
 				<col class="width500" span="1"/>
-				<col class="width150" span="2"/>
+				<col class="width200" span="2"/>
 			</security:authorize>
 			<security:authorize ifNotGranted="ROLE_ANONYMOUS">
 				<col class="width20" span="1"/>
