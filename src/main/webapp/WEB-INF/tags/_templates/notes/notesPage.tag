@@ -31,8 +31,8 @@
 	
 	<jsp:body>
 		<div class="notes">
+			<jsp:invoke fragment="banner" />
 			<div class="content">
-				<jsp:invoke fragment="banner" />
 				<jsp:doBody/>
 			</div>
 		</div>
