@@ -26,7 +26,7 @@
 	<utils:pagination paginationData="${notesPaginationData}" linkCore="${linkCore}" />
 </c:if>
 <c:url value="/notesmanager/updateSelections.json" var="checkboxAjaxUrl" />
-<form:form id="notesGridForm" method="post" action="${pageContext.request.contextPath}/notesmanager/show"
+<form:form id="notesGridForm" method="post" cssClass="clearfix" action="${pageContext.request.contextPath}/notesmanager/show"
 		   modelAttribute="selectedCheckboxesForm" data-checkboxajaxaction="${checkboxAjaxUrl}">
 	<table class="data">
 		<colgroup>

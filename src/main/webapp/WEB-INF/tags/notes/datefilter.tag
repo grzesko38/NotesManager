@@ -19,8 +19,8 @@
 		<formUtil:dateFilterInput path="to" clearMode="to" labelKey="notes.listing.dateFilter.label.to"
 								  showCalendarIcon="true" dateFormatTooltip="${dateFormatTooltip}"/>
 	</div>
-	<div id="submitDateFilterButton">
+	<button id="submitDateFilterButton">
        	<span><spring:message code="notes.listing.dateFilter.button.go"/></span>
         <img id="goimg" src="${pageContext.request.contextPath}/themes/<spring:theme code="img.nav.arrow.right"/>" width="25" height="25"/>
-    </div>
+    </button>
 </form:form>

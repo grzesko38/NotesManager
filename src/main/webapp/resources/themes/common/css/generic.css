@@ -1,7 +1,7 @@
 													/* Generic */
-.frame
+.clearfix
 {
-	border-radius: 5px;
+	clear: both;
 }
 .centerText
 {
