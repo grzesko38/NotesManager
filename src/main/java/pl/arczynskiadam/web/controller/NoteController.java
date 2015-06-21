@@ -5,6 +5,8 @@ import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstant
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Prefixes.REDIRECT_PREFIX;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.ASCENDING_PARAM;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.CLEAR_DATE_FILTER_PARAM;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.DATE_FILTER_FROM;
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.DATE_FILTER_TO;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.DELETE_PARAM;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.PAGE_NUMBER_PARAM;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.PAGE_SIZE_PARAM;
@@ -29,13 +31,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.groups.Default;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -51,12 +56,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.arczynskiadam.core.model.NoteModel;
 import pl.arczynskiadam.web.controller.constants.GlobalControllerConstants;
 import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
+import pl.arczynskiadam.web.data.DateFilterData;
 import pl.arczynskiadam.web.data.NotesPaginationData;
 import pl.arczynskiadam.web.facade.NoteFacade;
 import pl.arczynskiadam.web.facade.UserFacade;
-import pl.arczynskiadam.web.form.DateForm;
+import pl.arczynskiadam.web.form.DateFilterForm;
 import pl.arczynskiadam.web.form.NewNoteForm;
 import pl.arczynskiadam.web.form.SelectedCheckboxesForm;
+import pl.arczynskiadam.web.form.validation.DateFilterValidator;
 import pl.arczynskiadam.web.form.validation.SelectedCheckboxesValidator;
 import pl.arczynskiadam.web.messages.GlobalMessages;
 import pl.arczynskiadam.web.tag.navigation.BreadcrumbsItem;
@@ -67,21 +74,29 @@ public class NoteController extends AbstractController {
 	
 	private static final Logger log = Logger.getLogger(NoteController.class);
 	
-	@Autowired
+	@Autowired(required = true)
 	private NoteFacade noteFacade;
 	
-	@Autowired
+	@Autowired(required = true)
 	private UserFacade userFacade;
 	
 	@Resource(name="selectedNotesValidator")
     private SelectedCheckboxesValidator selectedCheckboxesValidator;
 	
+	@Autowired(required=true)
+	DateFilterValidator dateFilterValidator;
+	
 	@Resource(name="notesPageSizes")
 	List<Integer> notesPageSizes;
 	
 	@InitBinder(SELECTED_CHECKBOXES_FORM) //argument = command/modelattr name
-		public void initBinder(WebDataBinder binder) {
+		public void initSelectedCheckboxesValidator(WebDataBinder binder) {
 		binder.addValidators(selectedCheckboxesValidator);
+	}
+	
+	@InitBinder(DATE_FILTER_FORM) //argument = command/modelattr name
+	public void initDateFilterValidator(WebDataBinder binder) {
+		binder.addValidators(dateFilterValidator);
 	}
 	
 	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {SORT_COLUMN_PARAM, ASCENDING_PARAM})
@@ -109,8 +124,9 @@ public class NoteController extends AbstractController {
 		return listNotes(request, model);
 	}
 	
-	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET,
-			params = {"!date", "!"+PAGE_NUMBER_PARAM, "!"+PAGE_SIZE_PARAM, "!"+SORT_COLUMN_PARAM, "!"+ASCENDING_PARAM, "!"+CLEAR_DATE_FILTER_PARAM})
+	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {
+			"!"+CLEAR_DATE_FILTER_PARAM, "!"+DATE_FILTER_FROM, "!"+DATE_FILTER_TO,
+			"!"+PAGE_NUMBER_PARAM, "!"+PAGE_SIZE_PARAM, "!"+SORT_COLUMN_PARAM, "!"+ASCENDING_PARAM,})
 	public String listNotes(HttpServletRequest request,	final Model model) {
 		
 		NotesPaginationData paginationData = noteFacade.prepareNotesPaginationData();
@@ -129,16 +145,17 @@ public class NoteController extends AbstractController {
 		selectedCheckboxesForm.setSelections(noteFacade.convertNotesIdsToSelections(pagination.getSelectedNotesIds()));
 		model.addAttribute(SELECTED_CHECKBOXES_FORM, selectedCheckboxesForm);
 		
-		DateForm dateForm = new DateForm();
-		dateForm.setDate(pagination.getFromDate());
-		model.addAttribute(DATE_FILTER_FORM, dateForm);
+		DateFilterForm dateFilterForm = new DateFilterForm();
+		dateFilterForm.setFrom(pagination.getDeadlineFilter().getFrom());
+		dateFilterForm.setTo(pagination.getDeadlineFilter().getTo());
+		model.addAttribute(DATE_FILTER_FORM, dateFilterForm);
 		
 		populateEntriesPerPage(model);
 	}
 	
-	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {"date"})
-	public String listNotesFromDate(@ModelAttribute(SELECTED_CHECKBOXES_FORM) SelectedCheckboxesForm selectedCheckboxesForm,
-			@Valid @ModelAttribute(DATE_FILTER_FORM) DateForm dateForm,
+	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {DATE_FILTER_FROM, DATE_FILTER_TO})
+	public String listNotesByDate(@ModelAttribute(SELECTED_CHECKBOXES_FORM) SelectedCheckboxesForm selectedCheckboxesForm,
+			@Valid @ModelAttribute(DATE_FILTER_FORM) DateFilterForm dateFilterForm,
 			BindingResult result,
 			HttpServletRequest request,
 			final Model model) {
@@ -149,8 +166,17 @@ public class NoteController extends AbstractController {
 			paginationData = noteFacade.prepareNotesPaginationData();
 			model.addAttribute(PAGINATION, paginationData);
 			selectedCheckboxesForm.setSelections(noteFacade.convertNotesIdsToSelections(paginationData.getSelectedNotesIds()));
+			for (ObjectError e : result.getAllErrors()) {
+				if (ArrayUtils.contains(e.getCodes(), "DateFilter.dates.switched")) {
+					GlobalMessages.addErrorMessage("DateFilter.dates.switched", model);
+				}
+				if (ArrayUtils.contains(e.getCodes(), "DateFilter.dates.empty")) {
+					GlobalMessages.addErrorMessage("DateFilter.dates.empty", model);
+				}
+			}
 		} else {
-			paginationData = noteFacade.updateDateFilter(dateForm.getDate());
+			DateFilterData dateFilter= new DateFilterData(dateFilterForm.getFrom(), dateFilterForm.getTo());
+			paginationData = noteFacade.updateDateFilter(dateFilter);
 		}
 				
 		model.addAttribute(PAGINATION, paginationData);
@@ -167,9 +193,9 @@ public class NoteController extends AbstractController {
 	}
 	
 	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.GET, params = {CLEAR_DATE_FILTER_PARAM})
-	public String clearDateFilter() {
+	public String clearDateFilter(@RequestParam(CLEAR_DATE_FILTER_PARAM) String mode) {
 		
-		noteFacade.clearDateFilter();
+		noteFacade.clearDateFilter(mode);
 		noteFacade.updatePageNumber(DEFAULT_FIRST_PAGE);
 		
 		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
@@ -221,7 +247,7 @@ public class NoteController extends AbstractController {
 	
 	@RequestMapping(value = SHOW_NOTES, method = RequestMethod.POST, params = {DELETE_PARAM})
 	public String deleteNotes(@RequestParam(value = GlobalControllerConstants.RequestParams.DELETE_PARAM) String delete,
-			@ModelAttribute(DATE_FILTER_FORM) DateForm dateForm,
+			@ModelAttribute(DATE_FILTER_FORM) DateFilterForm dateFilterForm,
 			@Valid @ModelAttribute(SELECTED_CHECKBOXES_FORM) SelectedCheckboxesForm selectedCheckboxesForm,	
 			BindingResult result,
 			Model model,
@@ -236,7 +262,8 @@ public class NoteController extends AbstractController {
 			if (result.hasErrors()) {
 				NotesPaginationData pagination = noteFacade.prepareNotesPaginationData();
 				model.addAttribute(PAGINATION, pagination);
-				dateForm.setDate(pagination.getFromDate());
+				dateFilterForm.setFrom(pagination.getDeadlineFilter().getFrom());
+				dateFilterForm.setTo(pagination.getDeadlineFilter().getTo());
 				GlobalMessages.addErrorMessage("notes.delete.msg.nothingSelected", model);
 				populateEntriesPerPage(model);
 				return NOTES_LISTING_PAGE;

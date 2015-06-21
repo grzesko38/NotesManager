@@ -24,6 +24,7 @@ import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.core.service.UserService;
 import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
+import pl.arczynskiadam.web.data.DateFilterData;
 import pl.arczynskiadam.web.data.NotesPaginationData;
 import pl.arczynskiadam.web.facade.NoteFacade;
 import pl.arczynskiadam.web.form.NewNoteForm;
@@ -89,11 +90,11 @@ public class DefaultNoteFacade implements NoteFacade {
 	}
 	
 	@Override
-	public NotesPaginationData updateDateFilter(Date from) {
-		return updatePage(null, null, null, null, from);	
+	public NotesPaginationData updateDateFilter(DateFilterData dateFilter) {
+		return updatePage(null, null, null, null, dateFilter);	
 	}
 	
-	private NotesPaginationData updatePage(Integer pageNumber, Integer pageSize, String sortCol, Boolean ascending, Date from) {
+	private NotesPaginationData updatePage(Integer pageNumber, Integer pageSize, String sortCol, Boolean ascending, DateFilterData dateFilter) {
 		NotesPaginationData paginationData = prepareNotesPaginationData();
 		
 		if (pageNumber == null) {
@@ -118,14 +119,14 @@ public class DefaultNoteFacade implements NoteFacade {
 			asc = ascending;
 		}
 		
-		if (from == null) {
-			from = paginationData.getFromDate();
-		} else {
+		if (dateFilter != null && dateFilter.isActive()) {
 			pageNumber = DEFAULT_FIRST_PAGE;
+		} else {
+			dateFilter = paginationData.getDeadlineFilter();
 		}
 		
-		Page<NoteModel> page = buildPage(pageNumber, pageSize, sortCol, asc, from);
-		NotesPaginationData newPaginationData = buildPaginationDataFromPageAndDate(page, from);
+		Page<NoteModel> page = buildPage(pageNumber, pageSize, sortCol, asc, dateFilter);
+		NotesPaginationData newPaginationData = buildPaginationDataFromPageAndDate(page, dateFilter);
 		
 		return newPaginationData;
 	}
@@ -142,24 +143,24 @@ public class DefaultNoteFacade implements NoteFacade {
 				sourcePage.getSize(),
 				sourcePaginationData.getSortCol(),
 				sourcePaginationData.isSortAscending(),
-				sourcePaginationData.getFromDate());
+				sourcePaginationData.getDeadlineFilter());
 		
-		NotesPaginationData updatedPaginationData = buildPaginationDataFromPageAndDate(updatedPage, sourcePaginationData.getFromDate());
+		NotesPaginationData updatedPaginationData = buildPaginationDataFromPageAndDate(updatedPage, sourcePaginationData.getDeadlineFilter());
 		updatedPaginationData.setSelectedNotesIds(sourcePaginationData.getSelectedNotesIds());
 		return updatedPaginationData;
 	}
 	
 	private NotesPaginationData buildDefaultPageData() {
-		Page<NoteModel> page = buildPage(DEFAULT_FIRST_PAGE, DEFAULT_ENTRIES_PER_PAGE, DEFAULT_SORT_COLUMN, true, null);
+		Page<NoteModel> page = buildPage(DEFAULT_FIRST_PAGE, DEFAULT_ENTRIES_PER_PAGE, DEFAULT_SORT_COLUMN, true, new DateFilterData());
 		return buildPaginationDataFromPage(page);
 	}
 	
-	private Page<NoteModel> buildPage(Integer pageId, Integer pageSize, String sortCol, boolean asc, Date from) {
+	private Page<NoteModel> buildPage(Integer pageId, Integer pageSize, String sortCol, boolean asc, DateFilterData dateFilter) {
 		Page<NoteModel> page = null;
-		if (from == null) {
-			page = listNotes(pageId, pageSize, sortCol, asc);
+		if (dateFilter.isActive()) {
+			page = listNotesFromDate(pageId, pageSize, sortCol, asc, dateFilter);
 		} else {
-			page = listNotesFromDate(pageId, pageSize, sortCol, asc, from);
+			page = listNotes(pageId, pageSize, sortCol, asc);
 		}
 		return page;
 	}
@@ -171,10 +172,10 @@ public class DefaultNoteFacade implements NoteFacade {
 		return paginationData;
 	}
 	
-	private NotesPaginationData buildPaginationDataFromPageAndDate(Page<NoteModel> page, Date from) {
+	private NotesPaginationData buildPaginationDataFromPageAndDate(Page<NoteModel> page, DateFilterData dateFilter) {
 		NotesPaginationData paginationData = new NotesPaginationData(DEFAULT_MAX_LINKED_PAGES);
 		paginationData.setPage(page);
-		paginationData.setFromDate(from);
+		paginationData.setDeadlineFilter(dateFilter);
 		noteService.savePagesDataToSession(paginationData);
 		return paginationData;
 	}
@@ -185,12 +186,12 @@ public class DefaultNoteFacade implements NoteFacade {
 		return result;
 	}
 	
-	private Page<NoteModel> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date) {
-		if (date == null) {
-			throw new IllegalArgumentException("date cannot be null.");
+	private Page<NoteModel> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, DateFilterData dateFilter) {
+		if (dateFilter == null) {
+			throw new IllegalArgumentException("datefilter cannot be null.");
 		}
 		
-		Page<NoteModel> result = noteService.listNotesFromDate(pageId, pageSize, sortCol, asc, date);
+		Page<NoteModel> result = noteService.listNotesByDateFilter(pageId, pageSize, sortCol, asc, dateFilter);
 		return result;
 	}
 	
@@ -253,7 +254,7 @@ public class DefaultNoteFacade implements NoteFacade {
 	}
 
 	@Override
-	public void clearDateFilter() {
-		noteService.clearFromDateFilter();
+	public void clearDateFilter(String mode) {
+		noteService.clearFromDateFilter(mode);
 	}
 }

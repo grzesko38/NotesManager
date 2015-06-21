@@ -13,7 +13,7 @@ public interface NoteControllerConstants {
 	interface ModelAttrKeys {
 		interface Form {
 			public static final String NEW_NOTE_FORM	= "noteForm";
-			public static final String DATE_FILTER_FORM = "dateForm";
+			public static final String DATE_FILTER_FORM = "dateFilterForm";
 		}
 
 		interface View {			

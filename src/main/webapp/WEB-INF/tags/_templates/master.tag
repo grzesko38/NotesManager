@@ -20,6 +20,7 @@
 	
 	<security:csrfMetaTags />
 	
+	<link href="<c:url value="/themes/common/css/generic.css"/>" rel="stylesheet" type="text/css"/>
 	<link href="<c:url value="/themes/common/css/main.css"/>" rel="stylesheet" type="text/css"/>
 	<link href="<c:url value="/themes/common/css/header.css"/>" rel="stylesheet" type="text/css"/>
 	<link href="<c:url value="/themes/common/css/footer.css"/>" rel="stylesheet" type="text/css"/>

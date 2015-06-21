@@ -102,10 +102,11 @@ GoogleMapScripts = {
 
 DatePickerScripts = {
 	bindDatePicker: function() {
-		$('.formInputIcon').click(function() {
+		$('input.date + .formInputIcon').click(function() {
 			$('#deadline').datepicker({
 		        changeMonth: true,
-		        changeYear: true
+		        changeYear: true,
+		        dateFormat: 'dd/mm/yy'
 			});
 			$('#deadline').datepicker('show');
 		});

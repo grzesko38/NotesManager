@@ -25,6 +25,7 @@ import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.core.service.UserService;
+import pl.arczynskiadam.web.data.DateFilterData;
 import pl.arczynskiadam.web.data.NotesPaginationData;
 
 @Service
@@ -87,20 +88,30 @@ public class DefaultNoteService implements NoteService {
 	
 	@Override
 	@Transactional
-	public Page<NoteModel> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, Date date) {
+	public Page<NoteModel> listNotesByDateFilter(int pageId, int pageSize, String sortCol, boolean asc, DateFilterData dateFilter) {
 		RegisteredUserModel currentUser = userService.getCurrentUser();
+		
+		Specifications<NoteModel> spec = null;
 		if (currentUser == null) {
-			Page<NoteModel> notes = noteDAO.findAll(Specifications.where(NoteSpecs.from(date))
-					.and(NoteSpecs.anonymous()),
-					constructPageSpecification(pageId, pageSize, sortCol, asc));
+			spec = Specifications.where(NoteSpecs.anonymous());
+		} else {
+			Specifications.where(NoteSpecs.forNick(currentUser.getNick()));
+		}
+		
+		if (dateFilter.getFrom() != null) {
+			spec = spec.and(NoteSpecs.from(dateFilter.getFrom()));
+		}
+		if (dateFilter.getTo() != null) {
+			spec.and(NoteSpecs.to(dateFilter.getTo()));
+		}
+		
+		Page<NoteModel> notes = noteDAO.findAll(spec, constructPageSpecification(pageId, pageSize, sortCol, asc));
+		if (currentUser == null) {
 			for (NoteModel note : notes.getContent()) {
 				note.getAuthor().getNick();
 			}
-			return notes;
 		}
-		return noteDAO.findAll(Specifications.where(NoteSpecs.from(date))
-				.and(NoteSpecs.forNick(currentUser.getNick())),
-				constructPageSpecification(pageId, pageSize, sortCol, asc));
+		return notes;
 	}
 
 	@Override
@@ -130,17 +141,17 @@ public class DefaultNoteService implements NoteService {
 			Page<NoteModel> page = null;
 			int pageIndexOffset = sessionPage.isFirstPage() ? 0 : 1;
 			
-			if (sessionPagination.getFromDate() == null) {
+			if (sessionPagination.getDeadlineFilter() == null) {
 				page = listNotes(sessionPage.getNumber() - pageIndexOffset,
 						sessionPage.getSize(),
 						sessionPagination.getSortCol(),
 						sessionPagination.isSortAscending());
 			} else {
-				page = listNotesFromDate(sessionPage.getNumber() - pageIndexOffset,
+				page = listNotesByDateFilter(sessionPage.getNumber() - pageIndexOffset,
 						sessionPage.getSize(),
 						sessionPagination.getSortCol(),
 						sessionPagination.isSortAscending(),
-						sessionPagination.getFromDate());
+						sessionPagination.getDeadlineFilter());
 			}
 			sessionPagination.setPage(page);
 			savePagesDataToSession(sessionPagination);
@@ -164,10 +175,19 @@ public class DefaultNoteService implements NoteService {
 	}
 	
 	@Override
-	public void clearFromDateFilter() {
+	public void clearFromDateFilter(String mode) {
 		NotesPaginationData sessionPaginationData = retrievePagesDataFromSession();
 		if (sessionPaginationData != null) {
-			sessionPaginationData.setFromDate(null);
+			switch (mode) {
+				case "from":
+					sessionPaginationData.getDeadlineFilter().setFrom(null);
+					break;
+				case "to":
+					sessionPaginationData.getDeadlineFilter().setTo(null);
+					break;
+				case "both":
+					sessionPaginationData.setDeadlineFilter(new DateFilterData());					
+			}
 		}
 	}
 	

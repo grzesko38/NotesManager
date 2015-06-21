@@ -29,6 +29,16 @@ public class NoteSpecs {
 		};
 	}
 	
+	public static Specification<NoteModel> to(final Date to)
+	{
+		return new Specification<NoteModel>() {
+            @Override
+            public Predicate toPredicate(Root<NoteModel> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {             
+                return cb.lessThanOrEqualTo(noteRoot.<Date>get("dateCreated"), to);
+            }
+		};
+	}
+	
 	public static Specification<NoteModel> registered()
 	{
 		return new Specification<NoteModel>() {

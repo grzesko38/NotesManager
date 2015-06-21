@@ -11,7 +11,7 @@ import pl.arczynskiadam.web.form.SelectedCheckboxesForm;
 public class SelectedCheckboxesValidator implements Validator {
 
 	private static final Logger log = Logger.getLogger(SelectedCheckboxesValidator.class);
-	private String errCode = "SelectedCheckboxesForm.selections.lessThenOne";
+	private String errCode = "SelectedCheckboxesValidator.selections.lessThenOne";
 	
 	@Override
 	public boolean supports(Class<?> clazz) {

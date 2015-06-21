@@ -26,7 +26,7 @@ public class NewNoteForm {
 	@Size(max = 4000, message = "{note.add.content.length.incorrect}")
 	private String content;
 	
-	@NotNull(message = "{DateTimeFormat.dateForm.date}")
+	@NotNull(message = "{DateTimeFormat.noteForm.date}")
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date deadline;
 	

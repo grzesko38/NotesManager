@@ -1,6 +1,5 @@
 package pl.arczynskiadam.web.data;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,11 +11,12 @@ public class NotesPaginationData {
 	{
 		selectedNotesIds = new HashSet<Integer>();
 		maxLinkedPages = 10;
+		deadlineFilter = new DateFilterData();
 	}
 	
 	private Page<NoteModel> page;
 	private Set<Integer> selectedNotesIds;
-	private Date fromDate;
+	private DateFilterData deadlineFilter;
 	private int maxLinkedPages;
 	
 	public NotesPaginationData() { }
@@ -70,11 +70,12 @@ public class NotesPaginationData {
 	public void setSelectedNotesIds(Set<Integer> selectedNotesIds) {
 		this.selectedNotesIds = selectedNotesIds;
 	}
-	public Date getFromDate() {
-		return fromDate;
+	
+	public DateFilterData getDeadlineFilter() {
+		return deadlineFilter;
 	}
-	public void setFromDate(Date fromDate) {
-		this.fromDate = fromDate;
+	public void setDeadlineFilter(DateFilterData deadlineFilter) {
+		this.deadlineFilter = deadlineFilter;
 	}
 	public int getMaxLinkedPages() {
 		return maxLinkedPages;

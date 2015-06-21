@@ -16,8 +16,6 @@ LoginScripts = {
 	                this.form.submit();
 	            }
 	        });
-
-	        $(this).find('input[type=submit]').hide();
 	    });
 	},
 	bindAll: function() {

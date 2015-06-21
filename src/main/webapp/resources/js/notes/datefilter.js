@@ -1,21 +1,36 @@
-NotesDateFilterScripts = {
+DateFilterScripts = {
 	bindClearDateFilter: function() {
-		$("#cancelDateFilter").click(function() {
+		var clearFilter = function() {
 			window.location.href = $(this).data('clraction');
-		});
+		}
+		$(".cancelDateFilter").click(clearFilter);
 	},
 	
 	bindApplyDateFilter: function() {
-		$("#dateFilterFormSubmitButton").click(function() {
-			$("#dateForm").submit();
+		$("#submitDateFilterButton").click(function() {
+			$("#dateFilterForm").submit();
 		});
 	},
+	bindSubmitWithEnter: function() {
+		$("#dateFilterForm").each(function() {
+	        $(this).find("input").keypress(function(e) {
+	            if(e.which == 10 || e.which == 13) {
+	                this.form.submit();
+	            }
+	        });
+	    });
+	},
 	bindAll: function() {
-		NotesDateFilterScripts.bindApplyDateFilter();
-		NotesDateFilterScripts.bindClearDateFilter();
+		with(DateFilterScripts) {
+			bindApplyDateFilter();
+			bindClearDateFilter();
+			bindSubmitWithEnter();
+		}
 	}
 }
 
 $(document).ready(function() {
-	NotesDateFilterScripts.bindAll();
+	with(DateFilterScripts) {
+		bindAll();
+	}
 });

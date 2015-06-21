@@ -8,6 +8,12 @@
 {
 	background-color: #9F1212;
 }
+													/* Date Filter */
+.dateFilterWrapper .inputContainer + .formInputIcon
+{
+	background: url("../../red/images/icons/calendar.png");
+	background-size: 100% auto;
+}
 													/* Data Table */
 .notes table.data th
 {
