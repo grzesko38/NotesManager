@@ -71,6 +71,10 @@ input[type="text"]:-ms-input-placeholder { /* Internet Explorer 10+ */
 {
 	width: 40px;
 }
+.width60
+{
+	width: 60px;
+}
 .width150
 {
 	width: 150px;

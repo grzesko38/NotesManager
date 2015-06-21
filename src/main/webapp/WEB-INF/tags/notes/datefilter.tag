@@ -1,7 +1,10 @@
-<%@ taglib prefix="spring"	uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form"	uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c"		uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt"		uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ tag body-content="empty" pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="spring"		uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="security"	uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form"		uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c"			uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt"			uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script src="${pageContext.request.contextPath}/js/notes/datefilter.js"></script>
 
@@ -9,10 +12,14 @@
 <form:form action="${pageContext.request.contextPath}/notesmanager/show" method="get" modelAttribute="dateForm" class="dateForm">
 	<table class="dateFilter">
 		<colgroup>
-			<col class="narrow" span="2"/>
+			<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
+				<col class="width20" span="1"/>
+			</security:authorize>
+			<security:authorize ifNotGranted="ROLE_ANONYMOUS">
+				<col class="width60" span="1"/>
+			</security:authorize>
 		</colgroup>
 		<tr>
-			<td/>
 			<td/>
 			<td>
 				<div id="inputholder">
