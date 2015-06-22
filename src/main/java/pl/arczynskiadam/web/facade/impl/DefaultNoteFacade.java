@@ -75,25 +75,25 @@ public class DefaultNoteFacade implements NoteFacade {
 	
 	@Override
 	public NotesPaginationData updateSort(String sortColumn, boolean ascending) {
-		return updatePage(null, null, sortColumn, ascending, null);
+		return updatePaginationData(null, null, sortColumn, ascending, null);
 	}
 	
 	@Override
 	public NotesPaginationData updatePageNumber(int pageNumber) {
-		return updatePage(pageNumber, null, null, null, null);
+		return updatePaginationData(pageNumber, null, null, null, null);
 	}
 	
 	@Override
 	public NotesPaginationData updatePageSize(int pageSize) {
-		return updatePage(null, pageSize, null, null, null);		
+		return updatePaginationData(null, pageSize, null, null, null);		
 	}
 	
 	@Override
 	public NotesPaginationData updateDateFilter(DateFilterData dateFilter) {
-		return updatePage(null, null, null, null, dateFilter);	
+		return updatePaginationData(null, null, null, null, dateFilter);	
 	}
 	
-	private NotesPaginationData updatePage(Integer pageNumber, Integer pageSize, String sortCol, Boolean ascending, DateFilterData dateFilter) {
+	private NotesPaginationData updatePaginationData(Integer pageNumber, Integer pageSize, String sortCol, Boolean ascending, DateFilterData dateFilter) {
 		NotesPaginationData paginationData = prepareNotesPaginationData();
 		
 		if (pageNumber == null) {
@@ -125,7 +125,7 @@ public class DefaultNoteFacade implements NoteFacade {
 		}
 		
 		Page<NoteModel> page = buildPage(pageNumber, pageSize, sortCol, asc, dateFilter);
-		NotesPaginationData newPaginationData = buildPaginationDataFromPageAndDate(page, dateFilter);
+		NotesPaginationData newPaginationData = buildPaginationDataFromPage(page);
 		
 		return newPaginationData;
 	}
@@ -133,23 +133,22 @@ public class DefaultNoteFacade implements NoteFacade {
 	@Override
 	public NotesPaginationData prepareNotesPaginationData() {
 		NotesPaginationData sessionPaginationData = noteService.retrievePagesDataFromSession();
-		return sessionPaginationData != null ? updatePaginationData(sessionPaginationData) : buildDefaultPageData();
+		return sessionPaginationData != null ? updatePaginationData(sessionPaginationData) : buildDefaultPaginationData();
 	}
 	
-	private NotesPaginationData updatePaginationData(NotesPaginationData sourcePaginationData) {
-		Page<NoteModel> sourcePage = sourcePaginationData.getPage();
+	private NotesPaginationData updatePaginationData(NotesPaginationData paginationData) {
+		Page<NoteModel> sourcePage = paginationData.getPage();
 		Page<NoteModel> updatedPage = buildPage(sourcePage.getNumber(),
 				sourcePage.getSize(),
-				sourcePaginationData.getSortCol(),
-				sourcePaginationData.isSortAscending(),
-				sourcePaginationData.getDeadlineFilter());
+				paginationData.getSortCol(),
+				paginationData.isSortAscending(),
+				paginationData.getDeadlineFilter());
 		
-		NotesPaginationData updatedPaginationData = buildPaginationDataFromPageAndDate(updatedPage, sourcePaginationData.getDeadlineFilter());
-		updatedPaginationData.setSelectedNotesIds(sourcePaginationData.getSelectedNotesIds());
-		return updatedPaginationData;
+		paginationData.setPage(updatedPage);
+		return paginationData;
 	}
 	
-	private NotesPaginationData buildDefaultPageData() {
+	private NotesPaginationData buildDefaultPaginationData() {
 		Page<NoteModel> page = buildPage(DEFAULT_FIRST_PAGE, DEFAULT_ENTRIES_PER_PAGE, DEFAULT_SORT_COLUMN, true, new DateFilterData());
 		return buildPaginationDataFromPage(page);
 	}
@@ -170,15 +169,6 @@ public class DefaultNoteFacade implements NoteFacade {
 		noteService.savePagesDataToSession(paginationData);
 		return paginationData;
 	}
-	
-	private NotesPaginationData buildPaginationDataFromPageAndDate(Page<NoteModel> page, DateFilterData dateFilter) {
-		NotesPaginationData paginationData = new NotesPaginationData(DEFAULT_MAX_LINKED_PAGES);
-		paginationData.setPage(page);
-		paginationData.setDeadlineFilter(dateFilter);
-		noteService.savePagesDataToSession(paginationData);
-		return paginationData;
-	}
-	
 	
 	private Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
 		Page<NoteModel> result = noteService.listNotes(pageId, pageSize, sortCol, asc);

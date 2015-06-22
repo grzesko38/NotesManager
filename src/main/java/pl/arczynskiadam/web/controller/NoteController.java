@@ -230,8 +230,6 @@ public class NoteController extends AbstractController {
 		}
 		
 		noteFacade.addNewNote(noteForm);
-		noteFacade.removePaginationDataFromSession();
-		
 		GlobalMessages.addInfoFlashMessage("notes.addNew.msg.confirmation", attrs);
 		
 		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
@@ -253,10 +251,10 @@ public class NoteController extends AbstractController {
 			Model model,
 			RedirectAttributes attrs) {
 		
-		String count = null;
+		String deletedNotesCount = null;
 		
 		if ("all".equals(delete)) {
-			count = Integer.toString(noteFacade.getNotesCountForRegisteredUser(userFacade.getCurrentUser().getNick())); 
+			deletedNotesCount = Integer.toString(noteFacade.getNotesCountForRegisteredUser(userFacade.getCurrentUser().getNick())); 
 			noteFacade.deleteNotes(userFacade.getCurrentUser());
 		} else if ("selected".equals(delete)) {
 			if (result.hasErrors()) {
@@ -268,12 +266,12 @@ public class NoteController extends AbstractController {
 				populateEntriesPerPage(model);
 				return NOTES_LISTING_PAGE;
 			}
-			count = Integer.toString(selectedCheckboxesForm.getSelections().size());
+			deletedNotesCount = Integer.toString(selectedCheckboxesForm.getSelections().size());
 			Set<Integer> ids = noteFacade.convertSelectionsToNotesIds(selectedCheckboxesForm.getSelections());
 			noteFacade.deleteNotes(ids);
 		}
 		
-		GlobalMessages.addInfoFlashMessage("notes.delete.msg.confirmation", Collections.singletonList(count), attrs);
+		GlobalMessages.addInfoFlashMessage("notes.delete.msg.confirmation", Collections.singletonList(deletedNotesCount), attrs);
 		
 		return REDIRECT_PREFIX + SHOW_NOTES_FULL + "?" + PAGE_NUMBER_PARAM + "=" + DEFAULT_FIRST_PAGE;
 	}
