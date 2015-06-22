@@ -5,12 +5,10 @@ import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pa
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_MAX_LINKED_PAGES;
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_SORT_COLUMN;
 
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -213,11 +211,19 @@ public class DefaultNoteFacade implements NoteFacade {
 	@Override
 	public void deleteNotes(Collection<Integer> ids) {
 		noteService.deleteNotes(ids);
+		
+		Page<NoteModel> sessionPage = noteService.retrievePagesDataFromSession().getPage();
+		if (sessionPage.isLastPage() && !sessionPage.isFirstPage()) {
+			if (sessionPage.getNumberOfElements() == ids.size()) {
+				updatePageNumber(sessionPage.getNumber() - 1);
+			}
+		}
 	}
 	
 	@Override
 	public void deleteNotes(RegisteredUserModel user) {
 		noteService.deleteUserNotes(user.getId());
+		removePaginationDataFromSession();
 	}
 	
 	@Override

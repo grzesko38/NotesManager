@@ -273,7 +273,7 @@ public class NoteController extends AbstractController {
 		
 		GlobalMessages.addInfoFlashMessage("notes.delete.msg.confirmation", Collections.singletonList(deletedNotesCount), attrs);
 		
-		return REDIRECT_PREFIX + SHOW_NOTES_FULL + "?" + PAGE_NUMBER_PARAM + "=" + DEFAULT_FIRST_PAGE;
+		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.NOTE_DETAILS, method = RequestMethod.GET)
