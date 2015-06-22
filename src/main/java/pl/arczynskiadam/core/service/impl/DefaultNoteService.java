@@ -130,32 +130,6 @@ public class DefaultNoteService implements NoteService {
 	@Transactional
 	public void deleteNotes(Collection<Integer> ids) {
 		noteDAO.deleteByIds(ids);
-		
-		NotesPaginationData sessionPagination = retrievePagesDataFromSession();
-		Page<NoteModel> sessionPage = sessionPagination.getPage();
-		boolean deletedAllResultsFromLastPage = sessionPage.isLastPage() && ids.size() == sessionPage.getNumberOfElements();
-		
-		log.debug("page number = " + sessionPage.getNumber() + " / " + sessionPage.getTotalPages());
-		
-		if (deletedAllResultsFromLastPage) {
-			Page<NoteModel> page = null;
-			int pageIndexOffset = sessionPage.isFirstPage() ? 0 : 1;
-			
-			if (sessionPagination.getDeadlineFilter() == null) {
-				page = listNotes(sessionPage.getNumber() - pageIndexOffset,
-						sessionPage.getSize(),
-						sessionPagination.getSortCol(),
-						sessionPagination.isSortAscending());
-			} else {
-				page = listNotesByDateFilter(sessionPage.getNumber() - pageIndexOffset,
-						sessionPage.getSize(),
-						sessionPagination.getSortCol(),
-						sessionPagination.isSortAscending(),
-						sessionPagination.getDeadlineFilter());
-			}
-			sessionPagination.setPage(page);
-			savePagesDataToSession(sessionPagination);
-		}
 	}
 	
 	@Override
