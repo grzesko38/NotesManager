@@ -94,38 +94,41 @@ public class DefaultNoteFacade implements NoteFacade {
 	}
 	
 	private NotesPaginationData updatePaginationData(Integer pageNumber, Integer pageSize, String sortCol, Boolean ascending, DateFilterData dateFilter) {
-		NotesPaginationData paginationData = prepareNotesPaginationData();
+		NotesPaginationData sessionPaginationData = noteService.isSessionPaginationDataAvailable()
+				? noteService.retrievePagesDataFromSession() : new NotesPaginationData(DEFAULT_MAX_LINKED_PAGES);
+		Page<NoteModel> sessionPage = sessionPaginationData.getPage();
 		
 		if (pageNumber == null) {
-			pageNumber = paginationData.getPage().getNumber();
+			pageNumber = sessionPage != null ? sessionPage.getNumber() : DEFAULT_FIRST_PAGE;
 		} else {
-			clearSelectedNotesIds(paginationData);
+			clearSelectedNotesIds(sessionPaginationData);
 		}
 		
 		if (pageSize == null) {
-			pageSize = paginationData.getPage().getSize();
+			pageSize = sessionPage != null ? sessionPage.getSize() : DEFAULT_ENTRIES_PER_PAGE;
 		} else {
 			pageNumber = DEFAULT_FIRST_PAGE;
-			clearSelectedNotesIds(paginationData);
+			clearSelectedNotesIds(sessionPaginationData);
 		}
 		
 		boolean asc;
 		if (sortCol == null) {
-			sortCol = paginationData.getSortCol();
-			asc = paginationData.isSortAscending();
+			sortCol = sessionPage != null ? sessionPaginationData.getSortCol() : DEFAULT_SORT_COLUMN;
+			asc = sessionPage != null ? sessionPaginationData.isSortAscending() : true;
 		} else {
-			clearSelectedNotesIds(paginationData);
+			clearSelectedNotesIds(sessionPaginationData);
 			asc = ascending;
 		}
 		
 		if (dateFilter != null && dateFilter.isActive()) {
 			pageNumber = DEFAULT_FIRST_PAGE;
 		} else {
-			dateFilter = paginationData.getDeadlineFilter();
+			dateFilter = sessionPaginationData.getDeadlineFilter();
 		}
 		
 		Page<NoteModel> page = buildPage(pageNumber, pageSize, sortCol, asc, dateFilter);
 		NotesPaginationData newPaginationData = buildPaginationDataFromPage(page);
+		newPaginationData.setDeadlineFilter(dateFilter);
 		
 		return newPaginationData;
 	}

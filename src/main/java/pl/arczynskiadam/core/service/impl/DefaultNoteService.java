@@ -171,6 +171,11 @@ public class DefaultNoteService implements NoteService {
 	}
 	
 	@Override
+	public boolean isSessionPaginationDataAvailable() {
+		return retrievePagesDataFromSession() != null;
+	}
+	
+	@Override
 	public void savePagesDataToSession(NotesPaginationData pagesData) {
 		sessionService.getCurrentSession().setAttribute(NOTES_PAGINATION, pagesData);
 	}
