@@ -135,7 +135,7 @@ public class NoteController extends AbstractController {
 		preparePage(paginationData, model);
 		populateEntriesPerPage(model);
 		displayInfoIfNoNotes(model, paginationData);
-
+		
 		return NoteControllerConstants.Pages.NOTES_LISTING_PAGE;
 	}
 
