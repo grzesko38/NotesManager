@@ -52,14 +52,13 @@ public class DefaultNoteFacade implements NoteFacade {
 	@Override
 	@Transactional
 	public void addNewNote(NewNoteForm noteData) {
-		boolean isAuthorRegstered = !userService.isNickAvailable(noteData.getAuthor());
+		boolean isCurrentUserAnonymous = userService.getCurrentUser() == null;
 		NoteModel newNote = createNewNote(noteData);
 		
-		if (isAuthorRegstered) {
-			noteService.addNoteForRegisteredUser(newNote, noteData.getAuthor());
-		}
-		else {
+		if (isCurrentUserAnonymous) {
 			noteService.addNoteForAnonymousUser(newNote, noteData.getAuthor());
+		} else {
+			noteService.addNoteForRegisteredUser(newNote, noteData.getAuthor());
 		}
 	}
 
