@@ -69,12 +69,33 @@ GoogleMapScripts = {
 	},
 	
 	createMap: function() {
+		
 		var mapOptions = {
-			center : new google.maps.LatLng(-33.8688, 151.2195),
-			zoom : 13
+			center : new google.maps.LatLng(75, 140),
+			zoom : 2
 		};
 		
 		var map = new google.maps.Map($('#map-canvas')[0], mapOptions);
+		
+		function findUserPosition() {
+		    if (navigator.geolocation) {
+		        navigator.geolocation.getCurrentPosition(success);
+		    } 
+		}
+		
+		function success(position) {
+		    var coords = new google.maps.LatLng(
+		        position.coords.latitude,
+		        position.coords.longitude
+		    );
+		    
+		    map.setCenter(coords);
+		    map.setZoom(15);
+		    
+		    return map;
+		}
+		
+		findUserPosition();
 		return map;
 	},
 	
