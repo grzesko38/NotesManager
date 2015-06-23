@@ -34,28 +34,24 @@ public class NotesPaginationData {
 	
 	public int getFirstLinkedPage()
 	{
-		if (maxLinkedPages > page.getTotalPages())
-		{
+		if (maxLinkedPages > page.getTotalPages()) {
 			return 0;
 		}
-		if (page.getNumber() > page.getTotalPages() - maxLinkedPages)
-		{
-			return Math.min(page.getTotalPages() - maxLinkedPages, page.getNumber() - maxLinkedPages / 2);
-		}
-		return Math.max(0, page.getNumber() - (maxLinkedPages / 2));
+		int begin = page.getNumber() - maxLinkedPages / 2;
+		int offset = Math.max(0, (page.getNumber() + maxLinkedPages / 2) - (page.getTotalPages() - 1));
+		int firstLinkedPage = begin - offset;
+		return Math.max(0, firstLinkedPage);
 	}
 
 	public int getLastLinkedPage()
 	{
-		if (maxLinkedPages > page.getTotalPages())
-		{
+		if (maxLinkedPages > page.getTotalPages()) {
 			return page.getTotalPages() - 1;
 		}
-		if (page.getNumber() < maxLinkedPages - 1)
-		{
-			return Math.max(maxLinkedPages - 1, page.getNumber() + maxLinkedPages / 2);
-		}
-		return Math.min(page.getNumber() + (maxLinkedPages / 2), page.getTotalPages()- 1);
+		int end = page.getNumber() + maxLinkedPages / 2;
+		int offset = Math.max(0, -(page.getNumber() - maxLinkedPages / 2));
+		int lastLinkedPage = end + offset;
+		return Math.min(page.getTotalPages() - 1, lastLinkedPage);
 	}
 	
 	public Page<NoteModel> getPage() {
