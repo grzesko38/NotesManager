@@ -74,16 +74,41 @@ public class DefaultNoteService implements NoteService {
 	@Transactional
 	public Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
 		RegisteredUserModel currentUser = userService.getCurrentUser();
+		Page<NoteModel> notes = null;
 		if (currentUser == null) {
-			Page<NoteModel> notes = noteDAO.findAll(NoteSpecs.anonymous(),
-					constructPageSpecification(pageId, pageSize, sortCol, asc));
-			for (NoteModel note : notes.getContent()) {
-				note.getAuthor().getNick();
-			}
-			return notes;
+			return listNotesForAnonymoususer(pageId, pageSize, sortCol, asc);
 		}
+		return ListNotesForRegisteredUser(pageId, pageSize, sortCol, asc, currentUser);
+	}
+
+	private Page<NoteModel> ListNotesForRegisteredUser(int pageId, int pageSize, String sortCol, boolean asc, RegisteredUserModel currentUser) {
 		return noteDAO.findAll(NoteSpecs.forNick(currentUser.getNick()),
-				constructPageSpecification(pageId, pageSize, sortCol, asc));
+				constructPageSpecification(keepPageNumberInRange(pageId, pageSize, currentUser), pageSize, sortCol, asc));
+	}
+	
+	private Page<NoteModel> listNotesForAnonymoususer(int pageId, int pageSize, String sortCol, boolean asc) {
+		Page<NoteModel> notes = noteDAO.findAll(NoteSpecs.anonymous(),
+				constructPageSpecification(keepPageNumberInRange(pageId, pageSize), pageSize, sortCol, asc));
+		for (NoteModel note : notes.getContent()) {
+			note.getAuthor().getNick();
+		}
+		return notes;
+	}
+
+	private int keepPageNumberInRange(int pageId, int pageSize, RegisteredUserModel currentUser) {
+		int notesCount = (int) noteDAO.count(NoteSpecs.forNick(currentUser.getNick()));
+		if (pageId > notesCount / pageSize) {
+			pageId = notesCount / pageSize;
+		}
+		return pageId;
+	}
+	
+	private int keepPageNumberInRange(int pageId, int pageSize) {
+		int notesCount = (int) noteDAO.count(NoteSpecs.anonymous());
+		if (pageId > notesCount / pageSize) {
+			pageId = notesCount / pageSize;
+		}
+		return pageId;
 	}
 	
 	@Override
