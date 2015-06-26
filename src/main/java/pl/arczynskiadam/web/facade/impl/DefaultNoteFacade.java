@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.Max;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -124,6 +126,7 @@ public class DefaultNoteFacade implements NoteFacade {
 			dateFilter = sessionPaginationData.getDeadlineFilter();
 		}
 		
+		pageNumber = Math.max(0, pageNumber);
 		Page<NoteModel> page = buildPage(pageNumber, pageSize, sortCol, asc, dateFilter);
 		NotesPaginationData newPaginationData = buildPaginationDataFromPage(page);
 		newPaginationData.setDeadlineFilter(dateFilter);
