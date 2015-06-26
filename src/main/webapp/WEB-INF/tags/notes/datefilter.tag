@@ -4,7 +4,7 @@
 <%@ taglib prefix="form"		uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c"			uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt"			uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="formUtil"	tagdir="/WEB-INF/tags/form" %>
+<%@ taglib prefix="formElement"	tagdir="/WEB-INF/tags/formElements" %>
 
 <script src="${pageContext.request.contextPath}/js/notes/datefilter.js"></script>
 
@@ -14,9 +14,9 @@
 	<div class="dateFilterWrapper">
 		<c:set var="themeName"><spring:theme code="theme.name"/></c:set>
 		<c:url var="iconUrl" value="/themes/${themeName}/images/icons/calendar.png"/>
-		<formUtil:dateFilterInput path="from" clearMode="from" labelKey="notes.listing.dateFilter.label.from"
+		<formElement:dateFilterInput path="from" clearMode="from" labelKey="notes.listing.dateFilter.label.from"
 								  showCalendarIcon="true" dateFormatTooltip="${dateFormatTooltip}"/>
-		<formUtil:dateFilterInput path="to" clearMode="to" labelKey="notes.listing.dateFilter.label.to"
+		<formElement:dateFilterInput path="to" clearMode="to" labelKey="notes.listing.dateFilter.label.to"
 								  showCalendarIcon="true" dateFormatTooltip="${dateFormatTooltip}"/>
 	</div>
 	<button id="submitDateFilterButton">

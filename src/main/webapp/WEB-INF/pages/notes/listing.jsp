@@ -5,6 +5,7 @@
 <%@ taglib prefix="notes" tagdir="/WEB-INF/tags/notes" %>
 <%@ taglib prefix="utils" tagdir="/WEB-INF/tags/utils" %>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/_templates/notes" %>
+<%@ taglib prefix="banner" tagdir="/WEB-INF/tags/_templates" %>
 
 <template:notesPage>
 	<jsp:attribute name="additionalCSS">
@@ -16,9 +17,9 @@
 	</jsp:attribute>
 
     <jsp:attribute name="banner">
-		<template:banner bannerClass="listing">
-			<spring:message code="notes.listing.label.header" />
-		</template:banner>
+		<banner:banner bannerClass="listing">
+			<spring:message code="notes.listing.label.banner.title" />
+		</banner:banner>
     </jsp:attribute>
     
     <jsp:body>

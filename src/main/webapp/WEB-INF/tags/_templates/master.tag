@@ -8,7 +8,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@ taglib prefix="fragment" tagdir="/WEB-INF/tags/_fragments" %>
+<%@ taglib prefix="template" tagdir="/WEB-INF/tags/_templates" %>
 <%@ taglib prefix="notes" tagdir="/WEB-INF/tags/notes" %>
 <%@ taglib prefix="utils" uri="http://arczynskiadam.pl/jsp/tlds/utils" %>
 
@@ -46,20 +46,20 @@
 </head>
 <body>
 	<div id="placeholder"></div>
-	<fragment:header>
+	<template:header>
 		<jsp:attribute name="topBarContent">
 			<jsp:invoke fragment="topBarContent" />
 			<div class="dateHolder">
 				<fmt:formatDate value="${utils:date()}" pattern="dd/MM/yyyy"/> 
 			</div>
 		</jsp:attribute>
-	</fragment:header>
+	</template:header>
 	<div class="master">
 		<div class="page">
 			<jsp:doBody />
 		</div>
 	</div>
-	<fragment:footer />
+	<template:footer />
 </body>
 </html>
 

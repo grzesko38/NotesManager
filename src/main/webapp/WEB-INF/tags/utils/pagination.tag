@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" 		 uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="form"   	 uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring"	 uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="formUtil" tagdir="/WEB-INF/tags/form" %>
+<%@ taglib prefix="util" tagdir="/WEB-INF/tags/utils" %>
 
 <%@ attribute name="paginationData" required="true" type="pl.arczynskiadam.web.data.NotesPaginationData" %>
 <%@ attribute name="linkCore" required="true" type="java.lang.String" %>
@@ -72,6 +72,10 @@
 			<spring:message code="notes.listing.label.pageSize"/>:
 		</span>
 		<c:url value="/notesmanager/show" var="action" />
-		<formUtil:pageSize selectedSize="${paginationData.page.size}" sizes="${notesPageSizes}" cssClass="notesPageSize" action="${action}"/>
+		<select class="notesPageSize" data-action="${action}">
+			<c:forEach items="${notesPageSizes}" var="size">
+				<option value="${size}"${size eq paginationData.page.size?'selected="selected"':''}>${size}</option>
+			</c:forEach>
+		</select>
 	</div>
 </div>

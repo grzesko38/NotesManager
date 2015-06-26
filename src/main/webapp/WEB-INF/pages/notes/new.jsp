@@ -2,13 +2,13 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="security"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="formElement" tagdir="/WEB-INF/tags/formElements"%>
+<%@ taglib prefix="forms" tagdir="/WEB-INF/tags/forms"%>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/_templates/notes"%>
-<%@ taglib prefix="fragment" tagdir="/WEB-INF/tags/_fragments"%>
-<%@ taglib prefix="formUtil" tagdir="/WEB-INF/tags/form"%>
+<%@ taglib prefix="banner" tagdir="/WEB-INF/tags/_templates"%>
 <%@ taglib prefix="utils" tagdir="/WEB-INF/tags/utils"%>
 
 <template:notesPage>
@@ -23,9 +23,9 @@
 	</jsp:attribute>
 
 	<jsp:attribute name="banner">
-		<template:banner bannerClass="listing">
+		<banner:banner bannerClass="listing">
 			<spring:message code="notes.addNew.label.title" />
-		</template:banner>
+		</banner:banner>
     </jsp:attribute>
 
 	<jsp:body>
@@ -36,27 +36,10 @@
 			</ul>
 			<div id="tabs-1">
 				<utils:globalMessages />
-				<formUtil:form method="post" action="${pageContext.request.contextPath}/notesmanager/add" modelAttribute="noteForm">
-					<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
-						<formUtil:input path="author" mandatory="true" labelKey="notes.addNew.label.nick" />
-					</security:authorize>
-		 			<security:authorize ifNotGranted="ROLE_ANONYMOUS">
-						<form:hidden path="author" value="${userName}" />
-					</security:authorize>
-					<formUtil:input path="title" mandatory="true" labelKey="notes.addNew.label.title" />
-					<c:set var="themeName"><spring:theme code="theme.name"/></c:set>
-					<c:url var="iconUrl" value="/themes/${themeName}/images/icons/calendar.png"/>
-					<formUtil:input path="deadline" mandatory="true" labelKey="notes.addNew.label.deadline" iconUrl="${iconUrl}" showCalendar="true"/>
-					<formUtil:textArea path="content" mandatory="true" labelKey="notes.addNew.label.content" maxChars="4000" />
-					<form:hidden path="longitude" />
-					<form:hidden path="latitude" />
-					<div class="buttonHolder">
-						<input type="submit" class="buttonPositive"	value="<spring:message code="notes.addNew.button.save"/>" />
-					</div>
-				</formUtil:form>
+				<forms:noteForm />
 			</div>
 			<div id="tabs-2" class="googleMapTab">
-				<fragment:googlemap />
+				<utils:googlemap />
 			</div>
 		</div>
     </jsp:body>

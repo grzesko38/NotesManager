@@ -1,4 +1,4 @@
-<%@ tag body-content="empty" pageEncoding="UTF-8"%>
+<%@ tag body-content="scriptless" pageEncoding="UTF-8"%>
 
 <footer>
 	<div class="content">
