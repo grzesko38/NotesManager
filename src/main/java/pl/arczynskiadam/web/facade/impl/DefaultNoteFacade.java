@@ -11,8 +11,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.validation.constraints.Max;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -20,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pl.arczynskiadam.core.model.NoteModel;
 import pl.arczynskiadam.core.model.RegisteredUserModel;
+import pl.arczynskiadam.core.model.UserModel;
 import pl.arczynskiadam.core.service.NoteService;
 import pl.arczynskiadam.core.service.SessionService;
 import pl.arczynskiadam.core.service.UserService;
@@ -27,7 +26,7 @@ import pl.arczynskiadam.web.controller.constants.NoteControllerConstants;
 import pl.arczynskiadam.web.data.DateFilterData;
 import pl.arczynskiadam.web.data.NotesPaginationData;
 import pl.arczynskiadam.web.facade.NoteFacade;
-import pl.arczynskiadam.web.form.NewNoteForm;
+import pl.arczynskiadam.web.form.NoteForm;
 
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
@@ -50,8 +49,7 @@ public class DefaultNoteFacade implements NoteFacade {
 	}
 	
 	@Override
-	@Transactional
-	public void addNewNote(NewNoteForm noteData) {
+	public void addNewNote(NoteForm noteData) {
 		boolean isCurrentUserAnonymous = userService.getCurrentUser() == null;
 		NoteModel newNote = createNewNote(noteData);
 		
@@ -62,7 +60,7 @@ public class DefaultNoteFacade implements NoteFacade {
 		}
 	}
 
-	private NoteModel createNewNote(NewNoteForm noteData) {
+	private NoteModel createNewNote(NoteForm noteData) {
 		NoteModel note = new NoteModel();
 		note.setTitle(noteData.getTitle());
 		note.setContent(noteData.getContent());
@@ -197,6 +195,41 @@ public class DefaultNoteFacade implements NoteFacade {
 		return noteService.findNoteById(id);
 	}
 
+	@Override
+	public boolean hasCurrentUserRightsToNote(int noteId) {
+		UserModel currentUser = userService.getCurrentUser();
+		if (currentUser == null) {
+			return false;
+		}
+		
+		NoteModel noteToEdit = noteService.findNoteById(noteId);
+		if (noteToEdit == null)	{
+			return false;
+		}
+		
+		if (!noteToEdit.getAuthor().equals(currentUser))
+		{
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public void editNote(NoteForm noteData, int noteId) {
+		NoteModel note = noteService.findNoteById(noteId);
+		if (note == null)
+		{
+			throw new IllegalArgumentException("Note with given id does not exist");
+		}
+		
+		note.setTitle(noteData.getTitle());
+		note.setContent(noteData.getContent());
+		note.setLatitude(noteData.getLatitude());
+		note.setLongutude(noteData.getLongitude());
+		noteService.updateNote(note);
+	}
+	
 	@Override
 	public void deleteNote(int id) {
 		noteService.deleteNote(id);

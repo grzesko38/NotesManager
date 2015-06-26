@@ -47,6 +47,6 @@ CREATE TABLE NOTES
     title			VARCHAR(128),
     content			VARCHAR(4096),
     deadline	    TIMESTAMP NOT NULL,
-    longitude		FLOAT,
-    latitude		FLOAT
+    longitude		DOUBLE,
+    latitude		DOUBLE
 );

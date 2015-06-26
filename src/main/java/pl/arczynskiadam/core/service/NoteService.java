@@ -1,7 +1,6 @@
 package pl.arczynskiadam.core.service;
 
 import java.util.Collection;
-import java.util.Date;
 
 import org.springframework.data.domain.Page;
 
@@ -13,6 +12,7 @@ public interface NoteService {
 	
 	public void addNoteForRegisteredUser(NoteModel note, String userNick);
 	public void addNoteForAnonymousUser(NoteModel note, String userNick);
+	public void updateNote(NoteModel note);
 	public Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc);
 	public Page<NoteModel> listNotesByDateFilter(int pageId, int pageSize, String sortCol, boolean asc, DateFilterData dateFilter);
 	public void deleteNote(int id);

@@ -111,7 +111,7 @@
 						</a>
 						<security:authorize ifNotGranted="ROLE_ANONYMOUS">
 							|
-							<a class="notimplemented" href="${pageContext.request.contextPath}/notesmanager/edit/${note.id}">
+							<a href="${pageContext.request.contextPath}/notesmanager/edit/${note.id}">
 								[<spring:message code="global.edit"/>]
 							</a>
 							|

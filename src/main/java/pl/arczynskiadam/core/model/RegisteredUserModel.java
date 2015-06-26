@@ -91,4 +91,36 @@ public class RegisteredUserModel extends AnonymousUserModel implements Serializa
 				+ passwordEncoding + ", passwordSalt=" + passwordSalt + ", id="
 				+ id + ", nick=" + nick + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((dateRegistered == null) ? 0 : dateRegistered.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RegisteredUserModel other = (RegisteredUserModel) obj;
+		if (dateRegistered == null) {
+			if (other.dateRegistered != null)
+				return false;
+		} else if (!dateRegistered.equals(other.dateRegistered))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		return true;
+	}
 }

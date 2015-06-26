@@ -12,12 +12,14 @@ import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstant
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.PAGE_SIZE_PARAM;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.SORT_COLUMN_PARAM;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.Form.DATE_FILTER_FORM;
-import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.Form.NEW_NOTE_FORM;
+import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.Form.NOTE_FORM;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.View.PAGINATION;
+import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.EDIT_NOTE_PAGE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.NOTES_LISTING_PAGE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.NOTE_DETAILS_PAGE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.ADD_NOTE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.DELETE_NOTE;
+import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.EDIT_NOTE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_FIRST_PAGE;
@@ -34,7 +36,6 @@ import javax.validation.groups.Default;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -61,7 +62,7 @@ import pl.arczynskiadam.web.data.NotesPaginationData;
 import pl.arczynskiadam.web.facade.NoteFacade;
 import pl.arczynskiadam.web.facade.UserFacade;
 import pl.arczynskiadam.web.form.DateFilterForm;
-import pl.arczynskiadam.web.form.NewNoteForm;
+import pl.arczynskiadam.web.form.NoteForm;
 import pl.arczynskiadam.web.form.SelectedCheckboxesForm;
 import pl.arczynskiadam.web.form.validation.DateFilterValidator;
 import pl.arczynskiadam.web.form.validation.SelectedCheckboxesValidator;
@@ -202,7 +203,7 @@ public class NoteController extends AbstractController {
 	}
 	
 	@RequestMapping(value = ADD_NOTE, method = RequestMethod.GET)
-	public String addNote(@ModelAttribute(NEW_NOTE_FORM) NewNoteForm note,
+	public String showNewNotePage(@ModelAttribute(NOTE_FORM) NoteForm note,
 			final Model model,
 			HttpServletRequest request) {
 		
@@ -214,7 +215,7 @@ public class NoteController extends AbstractController {
 	}
 	
 	@RequestMapping(value = ADD_NOTE, method = RequestMethod.POST)
-	public String saveNote(@Validated(Default.class) @ModelAttribute(NEW_NOTE_FORM) NewNoteForm noteForm,
+	public String saveNewNote(@Validated(Default.class) @ModelAttribute(NOTE_FORM) NoteForm noteForm,
 			BindingResult result,
 			Model model,
 			RedirectAttributes attrs) {
@@ -235,6 +236,34 @@ public class NoteController extends AbstractController {
 		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 	}
 
+	@RequestMapping(value = EDIT_NOTE, method = RequestMethod.GET)
+	public String showEditNotePage(@PathVariable("noteId") Integer noteId, @ModelAttribute(NOTE_FORM) NoteForm noteForm,
+			Model model, RedirectAttributes attrs)
+	{
+		if (!noteFacade.hasCurrentUserRightsToNote(noteId)) {
+			GlobalMessages.addErrorFlashMessage("global.edit.note.error" , attrs);
+			return REDIRECT_PREFIX + SHOW_NOTES_FULL;
+		}
+		
+		createBreadcrumpAndSaveToModel(model,
+				new BreadcrumbsItem("Home", SHOW_NOTES_FULL),
+				new BreadcrumbsItem("Edit note", HASH));
+		
+		prpopulateNoteForm(noteId, noteForm);
+		
+		return EDIT_NOTE_PAGE;
+	}
+
+	private void prpopulateNoteForm(Integer noteId, NoteForm noteForm) {
+		NoteModel note = noteFacade.findNoteById(noteId);
+		noteForm.setAuthor(note.getAuthor().getNick());
+		noteForm.setTitle(note.getTitle());
+		noteForm.setContent(note.getContent());
+		noteForm.setDeadline(note.getDeadline());
+		noteForm.setLatitude(note.getLatitude());
+		noteForm.setLongitude(note.getLongutude());
+	}
+	
 	@RequestMapping(value = DELETE_NOTE, method = RequestMethod.POST)
 	public String deleteNote(@PathVariable("noteId") Integer noteId) {
 	

@@ -12,7 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import pl.arczynskiadam.web.form.validation.FirstCharsUpperCase;
 
-public class NewNoteForm {
+public class NoteForm {
 
 	@Size(min = 3, max = 20, message = "{note.add.nick.length.incorrect}")
 	@FirstCharsUpperCase(count = 1, groups = {Extended.class}, message = "{note.add.uppercase}")
@@ -30,8 +30,8 @@ public class NewNoteForm {
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date deadline;
 	
-	private Float longitude = null;
-	private Float latitude = null;
+	private Double longitude = null;
+	private Double latitude = null;
 	
 	public String getAuthor() {
 		return author;
@@ -60,17 +60,17 @@ public class NewNoteForm {
 	public void setDeadline(Date deadline) {
 		this.deadline = deadline;
 	}
-	public Float getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
-	public void setLongitude(Float longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 	
-	public Float getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
-	public void setLatitude(Float latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 

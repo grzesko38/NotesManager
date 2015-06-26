@@ -6,7 +6,9 @@
 <%@ taglib prefix="security" 	uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="formElement"	tagdir="/WEB-INF/tags/formElements" %>
 
-<formElement:form method="post" action="${pageContext.request.contextPath}/notesmanager/add" modelAttribute="noteForm">
+<%@ attribute name="action" required="true" %>
+
+<formElement:form method="post" action="${action}" modelAttribute="noteForm">
 	<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
 		<formElement:input path="author" mandatory="true" labelKey="notes.addNew.label.nick" />
 	</security:authorize>

@@ -2,6 +2,7 @@ package pl.arczynskiadam.core.service.impl;
 
 import static pl.arczynskiadam.core.service.constants.ServiceConstants.Session.Attributes.NOTES_PAGINATION;
 
+import java.awt.geom.IllegalPathStateException;
 import java.util.Collection;
 import java.util.Date;
 
@@ -66,6 +67,15 @@ public class DefaultNoteService implements NoteService {
 	private void saveNewNote(NoteModel note) {
 		if (note.getDateCreated() == null) {
 			note.setDateCreated(new Date());
+		}
+		noteDAO.save(note);
+	}
+	
+	@Override
+	public void updateNote(NoteModel note) {
+		RegisteredUserModel currentUser = userService.getCurrentUser();
+		if (!note.getAuthor().equals(currentUser)) {
+			throw new IllegalPathStateException("global.error.userNotOwnerOfNote");
 		}
 		noteDAO.save(note);
 	}
@@ -166,7 +176,9 @@ public class DefaultNoteService implements NoteService {
 	@Override
 	@Transactional
 	public NoteModel findNoteById(int id) {
-		return noteDAO.findOne(id);
+		NoteModel note = noteDAO.findOne(id);
+		note.getAuthor().getNick();
+		return note;
 	}
 	
 	public void setNoteDAO(NoteRepository noteDAO) {

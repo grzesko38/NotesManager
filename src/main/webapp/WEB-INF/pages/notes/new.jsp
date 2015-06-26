@@ -13,13 +13,13 @@
 
 <template:notesPage>
 	<jsp:attribute name="additionalCSS">
-		<link href="<c:url value="/themes/common/css/googlemap.css"/>"
-			rel="stylesheet" type="text/css" />
+		<link href="<c:url value="/themes/common/css/googlemap.css"/>" rel="stylesheet" type="text/css" />
 	</jsp:attribute>
 
 	<jsp:attribute name="additionalJS">
 		<script	src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&v=3"></script>
-		<script src="${pageContext.request.contextPath}/js/notes/addnote.js"></script>
+		<script src="${pageContext.request.contextPath}/js/googlemaps.js"></script>
+		<script src="${pageContext.request.contextPath}/js/notes/noteTabs.js"></script>
 	</jsp:attribute>
 
 	<jsp:attribute name="banner">
@@ -36,7 +36,8 @@
 			</ul>
 			<div id="tabs-1">
 				<utils:globalMessages />
-				<forms:noteForm />
+				<c:url value="/notesmanager/add" var="action"/>
+				<forms:noteForm action="${action}" />
 			</div>
 			<div id="tabs-2" class="googleMapTab">
 				<utils:googlemap />

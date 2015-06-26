@@ -33,10 +33,10 @@ public class NoteModel implements Serializable {
 	private Date deadline;
 	
 	@Column(name="LONGITUDE")
-	private Float longutude;
+	private Double longutude;
 	
 	@Column(name="LATITUDE")
-	private Float latitude;
+	private Double latitude;
 	
 	@Column(name="DATE_CREATED")
 	private Date dateCreated;
@@ -80,19 +80,19 @@ public class NoteModel implements Serializable {
 		this.deadline = deadline;
 	}
 
-	public Float getLongutude() {
+	public Double getLongutude() {
 		return longutude;
 	}
 
-	public void setLongutude(Float langutude) {
-		this.longutude = langutude;
+	public void setLongutude(Double longutude) {
+		this.longutude = longutude;
 	}
 
-	public Float getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(Float latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 
@@ -111,7 +111,6 @@ public class NoteModel implements Serializable {
 	public void setLastModified(Date lastModified) {
 		this.lastModified = lastModified;
 	}
-
 
 	public UserModel getAuthor() {
 		return author;
