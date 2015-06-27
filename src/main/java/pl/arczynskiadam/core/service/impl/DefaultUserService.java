@@ -45,6 +45,11 @@ public class DefaultUserService implements UserService {
 	}
 	
 	@Override
+	public boolean isCurrentUserAnonymous() {
+		return getCurrentUser() == null;
+	}
+	
+	@Override
 	public void registerUser(RegisteredUserModel user) {
 		userDao.save(user);
 	}

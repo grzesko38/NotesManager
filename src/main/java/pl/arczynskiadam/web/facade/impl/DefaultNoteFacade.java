@@ -1,9 +1,10 @@
 package pl.arczynskiadam.web.facade.impl;
 
+import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.ANONYMOUS_USER_DEFAULT_SORT_COLUMN;
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_ENTRIES_PER_PAGE;
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_FIRST_PAGE;
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_MAX_LINKED_PAGES;
-import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_SORT_COLUMN;
+import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.REGISTERED_USER_DEFAULT_SORT_COLUMN;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -49,10 +50,9 @@ public class DefaultNoteFacade implements NoteFacade {
 	
 	@Override
 	public void addNewNote(NoteForm noteData) {
-		boolean isCurrentUserAnonymous = userService.getCurrentUser() == null;
 		NoteModel newNote = createNewNote(noteData);
 		
-		if (isCurrentUserAnonymous) {
+		if (userService.isCurrentUserAnonymous()) {
 			noteService.addNoteForAnonymousUser(newNote, noteData.getAuthor());
 		} else {
 			noteService.addNoteForRegisteredUser(newNote, noteData.getAuthor());
@@ -110,7 +110,7 @@ public class DefaultNoteFacade implements NoteFacade {
 		
 		boolean asc;
 		if (sortCol == null) {
-			sortCol = sessionPage != null ? sessionPaginationData.getSortCol() : DEFAULT_SORT_COLUMN;
+			sortCol = sessionPage != null ? sessionPaginationData.getSortCol() : resolveDefaultSortColumn();
 			asc = sessionPage != null ? sessionPaginationData.isSortAscending() : true;
 		} else {
 			clearSelectedNotesIds(sessionPaginationData);
@@ -150,7 +150,7 @@ public class DefaultNoteFacade implements NoteFacade {
 	}
 	
 	private NotesPaginationData buildDefaultPaginationData() {
-		Page<NoteModel> page = buildPage(DEFAULT_FIRST_PAGE, DEFAULT_ENTRIES_PER_PAGE, DEFAULT_SORT_COLUMN, true, new DateFilterData());
+		Page<NoteModel> page = buildPage(DEFAULT_FIRST_PAGE, DEFAULT_ENTRIES_PER_PAGE, resolveDefaultSortColumn(), true, new DateFilterData());
 		return buildPaginationDataFromPage(page);
 	}
 	
@@ -183,6 +183,11 @@ public class DefaultNoteFacade implements NoteFacade {
 		
 		Page<NoteModel> result = noteService.listNotesByDateFilter(pageId, pageSize, sortCol, asc, dateFilter);
 		return result;
+	}
+	
+	private String resolveDefaultSortColumn()
+	{
+		return userService.isCurrentUserAnonymous() ? ANONYMOUS_USER_DEFAULT_SORT_COLUMN : REGISTERED_USER_DEFAULT_SORT_COLUMN;
 	}
 	
 	private void clearSelectedNotesIds(NotesPaginationData pagesData) {

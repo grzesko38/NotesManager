@@ -41,7 +41,7 @@
 		<beans:property name="userService" ref="userService" />
 	</beans:bean>
 	
-	<beans:bean id="notesManagerSuccessHandler" class="pl.arczynskiadam.security.impl.NotesManagerSuccessHandler">
+	<beans:bean id="notesManagerSuccessHandler" class="pl.arczynskiadam.security.impl.NotesManagerLoginSuccessHandler">
 		<beans:property name="defaultTargetUrl" value="/notesmanager/show" />
 	</beans:bean>
 	
