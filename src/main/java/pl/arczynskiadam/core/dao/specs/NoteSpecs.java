@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
@@ -23,8 +24,9 @@ public class NoteSpecs {
 	{
 		return new Specification<NoteModel>() {
             @Override
-            public Predicate toPredicate(Root<NoteModel> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {             
-                return cb.greaterThanOrEqualTo(noteRoot.<Date>get("dateCreated"), from);
+            public Predicate toPredicate(Root<NoteModel> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            	Path<Date> dateCreated = noteRoot.<Date> get(NoteModel_.dateCreated);
+                return cb.greaterThanOrEqualTo(dateCreated, from);
             }
 		};
 	}
@@ -33,8 +35,9 @@ public class NoteSpecs {
 	{
 		return new Specification<NoteModel>() {
             @Override
-            public Predicate toPredicate(Root<NoteModel> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {             
-                return cb.lessThanOrEqualTo(noteRoot.<Date>get("dateCreated"), to);
+            public Predicate toPredicate(Root<NoteModel> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
+            	Path<Date> dateCreated = noteRoot.<Date> get(NoteModel_.dateCreated);
+                return cb.lessThanOrEqualTo(dateCreated, to);
             }
 		};
 	}
@@ -44,11 +47,11 @@ public class NoteSpecs {
 		return new Specification<NoteModel>() {
             @Override
             public Predicate toPredicate(Root<NoteModel> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-            	final Subquery<RegisteredUserModel> personQuery = query.subquery(RegisteredUserModel.class);
+            	final Subquery<Integer> personQuery = query.subquery(Integer.class);
 				final Root<RegisteredUserModel> person = personQuery.from(RegisteredUserModel.class);
 				final Join<RegisteredUserModel, NoteModel> notes = person.join(UserModel_.notes);
-				personQuery.select(notes.<RegisteredUserModel> get("author"));
-				return cb.in(noteRoot.get(NoteModel_.author)).value(personQuery);
+				personQuery.select(notes.<Integer> get(NoteModel_.id));
+				return cb.in(noteRoot.get(NoteModel_.id)).value(personQuery);
             }
 		};
 	}
