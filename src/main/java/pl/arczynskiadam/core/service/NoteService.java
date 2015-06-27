@@ -15,7 +15,6 @@ public interface NoteService {
 	public void updateNote(NoteModel note);
 	public Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc);
 	public Page<NoteModel> listNotesByDateFilter(int pageId, int pageSize, String sortCol, boolean asc, DateFilterData dateFilter);
-	public void deleteNote(int id);
 	public void deleteNotes(Collection<Integer> ids);
 	public void deleteUserNotes(int userId);
 	public NoteModel findNoteById(int id);

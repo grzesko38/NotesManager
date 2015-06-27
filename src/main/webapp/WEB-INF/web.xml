@@ -79,7 +79,6 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
 	
 	<!-- TLDs -->
 	<jsp-config>
@@ -93,18 +92,9 @@
     		<taglib-location>/WEB-INF/tld/navigation.tld</taglib-location>
   		</taglib>
   		<jsp-property-group>
-        <url-pattern>*.jsp</url-pattern>
-        <page-encoding>UTF-8</page-encoding>
-    </jsp-property-group>
+	        <url-pattern>*.jsp</url-pattern>
+	        <page-encoding>UTF-8</page-encoding>
+	    </jsp-property-group>
   	</jsp-config>
-  	
-  	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>restricted methods</web-resource-name>
-				<url-pattern>/notesmanager/delete/*</url-pattern>
-			<http-method>GET</http-method>
-		</web-resource-collection>
-		<auth-constraint />
-	</security-constraint>
  
 </web-app>

@@ -31,6 +31,7 @@ import pl.arczynskiadam.web.form.NoteForm;
 
 import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
+import com.google.common.collect.Sets;
 
 @Component
 public class DefaultNoteFacade implements NoteFacade {
@@ -242,7 +243,7 @@ public class DefaultNoteFacade implements NoteFacade {
 	
 	@Override
 	public void deleteNote(int id) {
-		noteService.deleteNote(id);
+		deleteNotes(Sets.newHashSet(id));
 	}
 	
 	@Override

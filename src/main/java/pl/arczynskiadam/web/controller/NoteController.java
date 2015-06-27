@@ -243,7 +243,7 @@ public class NoteController extends AbstractController {
 			Model model, RedirectAttributes attrs)
 	{
 		if (!noteFacade.hasCurrentUserRightsToNote(noteId)) {
-			GlobalMessages.addErrorFlashMessage("global.edit.note.error" , attrs);
+			GlobalMessages.addErrorFlashMessage("global.error.permission" , attrs);
 			return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 		}
 		
@@ -287,11 +287,17 @@ public class NoteController extends AbstractController {
 		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 	}
 
-	@RequestMapping(value = DELETE_NOTE, method = RequestMethod.POST)
-	public String deleteNote(@PathVariable("noteId") Integer noteId) {
+	@RequestMapping(value = DELETE_NOTE, method = RequestMethod.GET)
+	public String deleteNote(@PathVariable("noteId") Integer noteId, RedirectAttributes attrs) {
 	
+		if (!noteFacade.hasCurrentUserRightsToNote(noteId)) {
+			GlobalMessages.addErrorFlashMessage("global.error.permission" , attrs);
+			return REDIRECT_PREFIX + SHOW_NOTES_FULL;
+		}
+		
 		noteFacade.deleteNote(noteId);
-
+		GlobalMessages.addInfoFlashMessage("notes.delete.single.msg.confirmation" , attrs);
+		
 		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 	}
 	

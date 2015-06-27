@@ -18,6 +18,8 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.collect.Sets;
+
 import pl.arczynskiadam.core.dao.NoteRepository;
 import pl.arczynskiadam.core.dao.specs.NoteSpecs;
 import pl.arczynskiadam.core.model.AnonymousUserModel;
@@ -154,12 +156,6 @@ public class DefaultNoteService implements NoteService {
 	@Transactional
 	public int getNotesCountForRegisteredUser(String userNick) {
 		return (int) noteDAO.count(NoteSpecs.forNick(userNick));
-	}
-	
-	@Override
-	@Transactional
-	public void deleteNote(int id) {
-		noteDAO.delete(id);
 	}
 	
 	@Override

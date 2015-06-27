@@ -115,7 +115,7 @@
 								[<spring:message code="global.edit"/>]
 							</a>
 							|
-							<a class="notimplemented" href="${pageContext.request.contextPath}/notesmanager/delete/${note.id}">
+							<a class="deleteNoteLink" href="${pageContext.request.contextPath}/notesmanager/delete/${note.id}">
 								<span>[<spring:message code="global.delete"/>]</span>
 							</a>
 						</security:authorize>
