@@ -9,6 +9,7 @@
 <%@ attribute name="action" required="true" %>
 
 <formElement:form method="post" action="${action}" modelAttribute="noteForm">
+	<form:hidden path="id" />
 	<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
 		<formElement:input path="author" mandatory="true" labelKey="notes.addNew.label.nick" />
 	</security:authorize>

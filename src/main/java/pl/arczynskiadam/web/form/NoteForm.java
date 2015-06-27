@@ -14,6 +14,8 @@ import pl.arczynskiadam.web.form.validation.FirstCharsUpperCase;
 
 public class NoteForm {
 
+	private Integer id;
+	
 	@Size(min = 3, max = 20, message = "{note.add.nick.length.incorrect}")
 	@FirstCharsUpperCase(count = 1, groups = {Extended.class}, message = "{note.add.uppercase}")
 	private String author;
@@ -32,6 +34,13 @@ public class NoteForm {
 	
 	private Double longitude = null;
 	private Double latitude = null;
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	
 	public String getAuthor() {
 		return author;

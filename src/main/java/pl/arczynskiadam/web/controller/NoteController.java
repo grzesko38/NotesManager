@@ -22,6 +22,7 @@ import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.EDIT_NOTE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES_FULL;
+import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.UPDATE_NOTE;
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_FIRST_PAGE;
 
 import java.util.Collections;
@@ -216,11 +217,11 @@ public class NoteController extends AbstractController {
 	
 	@RequestMapping(value = ADD_NOTE, method = RequestMethod.POST)
 	public String saveNewNote(@Validated(Default.class) @ModelAttribute(NOTE_FORM) NoteForm noteForm,
-			BindingResult result,
+			BindingResult bindinfgResult,
 			Model model,
 			RedirectAttributes attrs) {
 		
-		if (result.hasErrors()) {
+		if (bindinfgResult.hasErrors()) {
 			createBreadcrumpAndSaveToModel(model,
 					new BreadcrumbsItem("Home", SHOW_NOTES_FULL),
 					new BreadcrumbsItem("Add note", HASH));
@@ -253,9 +254,10 @@ public class NoteController extends AbstractController {
 		
 		return EDIT_NOTE_PAGE;
 	}
-
+	
 	private void prpopulateNoteForm(Integer noteId, NoteForm noteForm) {
 		NoteModel note = noteFacade.findNoteById(noteId);
+		noteForm.setId(noteId);
 		noteForm.setAuthor(note.getAuthor().getNick());
 		noteForm.setTitle(note.getTitle());
 		noteForm.setContent(note.getContent());
@@ -264,6 +266,26 @@ public class NoteController extends AbstractController {
 		noteForm.setLongitude(note.getLongutude());
 	}
 	
+	@RequestMapping(value = UPDATE_NOTE, method = RequestMethod.POST)
+	public String updateNote(@ModelAttribute(NOTE_FORM) @Valid NoteForm noteForm,
+			Model model, RedirectAttributes attrs, BindingResult bindinfgResult)
+	{
+		if (bindinfgResult.hasErrors()) {
+			createBreadcrumpAndSaveToModel(model,
+					new BreadcrumbsItem("Home", SHOW_NOTES_FULL),
+					new BreadcrumbsItem("Edit note", HASH));
+			
+			GlobalMessages.addErrorMessage("global.error.correctAll", model);
+			
+			return NoteControllerConstants.Pages.NEW_NOTE_PAGE;
+		}
+		
+		noteFacade.editNote(noteForm);
+		GlobalMessages.addInfoFlashMessage("notes.addNew.msg.confirmation", attrs);
+		
+		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
+	}
+
 	@RequestMapping(value = DELETE_NOTE, method = RequestMethod.POST)
 	public String deleteNote(@PathVariable("noteId") Integer noteId) {
 	

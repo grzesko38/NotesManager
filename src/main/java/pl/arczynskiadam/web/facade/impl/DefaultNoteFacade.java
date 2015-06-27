@@ -14,7 +14,6 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import pl.arczynskiadam.core.model.NoteModel;
 import pl.arczynskiadam.core.model.RegisteredUserModel;
@@ -216,8 +215,8 @@ public class DefaultNoteFacade implements NoteFacade {
 	}
 	
 	@Override
-	public void editNote(NoteForm noteData, int noteId) {
-		NoteModel note = noteService.findNoteById(noteId);
+	public void editNote(NoteForm noteData) {
+		NoteModel note = noteService.findNoteById(noteData.getId());
 		if (note == null)
 		{
 			throw new IllegalArgumentException("Note with given id does not exist");
