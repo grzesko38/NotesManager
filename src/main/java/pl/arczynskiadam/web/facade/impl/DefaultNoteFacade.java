@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import pl.arczynskiadam.core.model.AnonymousUserModel;
 import pl.arczynskiadam.core.model.NoteModel;
 import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.model.UserModel;
@@ -64,7 +65,7 @@ public class DefaultNoteFacade implements NoteFacade {
 		note.setTitle(noteData.getTitle());
 		note.setContent(noteData.getContent());
 		note.setDeadline(noteData.getDeadline());
-		note.setLongutude(noteData.getLongitude());
+		note.setLongitude(noteData.getLongitude());
 		note.setLatitude(noteData.getLatitude());
 		note.setDateCreated(new Date());
 		return note;
@@ -220,6 +221,11 @@ public class DefaultNoteFacade implements NoteFacade {
 	}
 	
 	@Override
+	public boolean isNoteCreatedByAnonymousAuthor(int noteId) {
+		return noteService.findNoteById(noteId).getAuthor().isAnonymous();
+	}
+	
+	@Override
 	public void editNote(NoteForm noteData) {
 		NoteModel note = noteService.findNoteById(noteData.getId());
 		if (note == null)
@@ -230,7 +236,7 @@ public class DefaultNoteFacade implements NoteFacade {
 		note.setTitle(noteData.getTitle());
 		note.setContent(noteData.getContent());
 		note.setLatitude(noteData.getLatitude());
-		note.setLongutude(noteData.getLongitude());
+		note.setLongitude(noteData.getLongitude());
 		noteService.updateNote(note);
 	}
 	

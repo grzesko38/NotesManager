@@ -24,6 +24,7 @@ public interface NoteFacade {
 	public void deleteNotes(RegisteredUserModel user);
 	public NoteModel findNoteById(int id);
 	public boolean hasCurrentUserRightsToNote(int noteId);
+	public boolean isNoteCreatedByAnonymousAuthor(int noteId);
 	public void removePaginationDataFromSession();
 	public Set<Integer> convertSelectionsToNotesIds(Collection<String> selections);
 	public Set<String> convertNotesIdsToSelections(Collection<Integer> ids);

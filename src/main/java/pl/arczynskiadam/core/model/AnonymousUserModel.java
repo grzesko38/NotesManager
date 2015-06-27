@@ -15,4 +15,9 @@ public class AnonymousUserModel extends UserModel implements Serializable {
 	public String toString() {
 		return "AnonymousUserModel [id=" + id + ", nick=" + nick + "]";
 	}
+	
+	@Override
+	public boolean isAnonymous() {
+		return true;
+	}
 }

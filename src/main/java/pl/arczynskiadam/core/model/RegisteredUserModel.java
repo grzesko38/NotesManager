@@ -93,6 +93,11 @@ public class RegisteredUserModel extends AnonymousUserModel implements Serializa
 	}
 
 	@Override
+	public boolean isAnonymous() {
+		return false;
+	}
+	
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();

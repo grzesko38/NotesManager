@@ -15,13 +15,13 @@ GoogleMapScripts = {
 	codeLatLng: function(latlng, callback) {
 		var map = this.createMap();
 		var geocoder = new google.maps.Geocoder();
-		var input = this.createPacInput();
-		var autocomplete = this.createAutocomplete(map, input);
 		var infowindow = new google.maps.InfoWindow();
 		var marker = this.createMarker(map);
-		
-		map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-		
+		if (callback) {
+			var input = this.createPacInput();
+			var autocomplete = this.createAutocomplete(map, input);
+			map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+		}
 		geocoder.geocode({
 			'latLng' : latlng
 		}, function(results, status) {
@@ -42,7 +42,9 @@ GoogleMapScripts = {
 			}
 		});
 		
-		this.addAutocompleteListener(map, autocomplete, infowindow, marker, callback);
+		if (callback) {
+			this.addAutocompleteListener(map, autocomplete, infowindow, marker, callback);
+		}
 		return map;
 	},
 	

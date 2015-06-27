@@ -13,6 +13,7 @@ import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstant
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.RequestParams.SORT_COLUMN_PARAM;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.Form.DATE_FILTER_FORM;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.Form.NOTE_FORM;
+import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.View.NOTE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.ModelAttrKeys.View.PAGINATION;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.EDIT_NOTE_PAGE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.Pages.NOTES_LISTING_PAGE;
@@ -263,7 +264,7 @@ public class NoteController extends AbstractController {
 		noteForm.setContent(note.getContent());
 		noteForm.setDeadline(note.getDeadline());
 		noteForm.setLatitude(note.getLatitude());
-		noteForm.setLongitude(note.getLongutude());
+		noteForm.setLongitude(note.getLongitude());
 	}
 	
 	@RequestMapping(value = UPDATE_NOTE, method = RequestMethod.POST)
@@ -328,16 +329,19 @@ public class NoteController extends AbstractController {
 	}
 	
 	@RequestMapping(value = NoteControllerConstants.URLs.NOTE_DETAILS, method = RequestMethod.GET)
-	public String noteDetails(@ModelAttribute(NoteControllerConstants.ModelAttrKeys.View.NOTE) NoteModel note,
-			@PathVariable("noteId") Integer noteId,
-			final Model model) {
+	public String noteDetails(@PathVariable("noteId") Integer noteId, final Model model, RedirectAttributes attrs) {
+		
+		if (userFacade.isCurrentUserAnonymous() && !noteFacade.isNoteCreatedByAnonymousAuthor(noteId)) {
+			GlobalMessages.addErrorFlashMessage("global.edit.note.error" , attrs);
+			return REDIRECT_PREFIX + SHOW_NOTES_FULL;
+		}
 		
 		createBreadcrumpAndSaveToModel(model,
 				new BreadcrumbsItem("Home", NoteControllerConstants.URLs.SHOW_NOTES_FULL),
 				new BreadcrumbsItem("Note details", GlobalControllerConstants.Misc.HASH));
 		
-		note.setContent(noteFacade.findNoteById(noteId).getContent());
-
+		model.addAttribute(NOTE, noteFacade.findNoteById(noteId));
+		
 		return NOTE_DETAILS_PAGE;
 	}
 	

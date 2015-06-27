@@ -301,3 +301,8 @@ div.menu
 {
 	position: fixed !important;
 }
+													/* Note details */
+.infoRow
+{
+	margin: 10px 0;
+}

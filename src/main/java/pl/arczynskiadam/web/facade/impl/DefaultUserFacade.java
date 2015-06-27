@@ -42,6 +42,11 @@ public class DefaultUserFacade implements UserFacade {
 	}
 	
 	@Override
+	public boolean isCurrentUserAnonymous() {
+		return userService.isCurrentUserAnonymous();
+	}
+	
+	@Override
 	public void registerUser(String nick, String email, String plainPassword) {
 		RegisteredUserModel newUser = new RegisteredUserModel();
 		newUser.setNick(nick);

@@ -55,6 +55,14 @@
 {
 	padding-left: 62px; 
 }
+.indent50
+{
+	padding-left: 50px; 
+}
+.weight600
+{
+	font-weight: 600;
+}
 ul.noDecoration
 {
 	list-style: none;

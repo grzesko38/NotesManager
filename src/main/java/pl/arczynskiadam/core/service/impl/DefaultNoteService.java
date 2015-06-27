@@ -77,6 +77,7 @@ public class DefaultNoteService implements NoteService {
 		if (!note.getAuthor().equals(currentUser)) {
 			throw new IllegalPathStateException("global.error.userNotOwnerOfNote");
 		}
+		note.setLastModified(new Date());
 		noteDAO.save(note);
 	}
 
@@ -177,7 +178,9 @@ public class DefaultNoteService implements NoteService {
 	@Transactional
 	public NoteModel findNoteById(int id) {
 		NoteModel note = noteDAO.findOne(id);
-		note.getAuthor().getNick();
+		if (note != null) {
+			note.getAuthor().getNick();
+		}
 		return note;
 	}
 	

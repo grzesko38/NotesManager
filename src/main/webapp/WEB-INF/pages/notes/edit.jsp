@@ -40,7 +40,7 @@
 				<forms:noteForm action="${action}" />
 			</div>
 			<div id="tabs-2" class="googleMapTab">
-				<utils:googlemap />
+				<utils:googlemap showPacInput="true"/>
 			</div>
 		</div>
     </jsp:body>

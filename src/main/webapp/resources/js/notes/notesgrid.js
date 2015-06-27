@@ -1,14 +1,14 @@
 NotesGridScripts = {
 	// === checkboxes === 
-		bindSelectAll: function() {
-			$("#selectAll").click(function() {
-				var updateCheckbox = function() {
-					this.checked = $("#selectAll").is(':checked');
-				};
-				$("input[id^='selections']").each(updateCheckbox);
-				NotesGridScripts.postAjaxSelectedIds($('#notesGridForm').data('checkboxajaxaction'));
-			});
-		},
+	bindSelectAll: function() {
+		$("#selectAll").click(function() {
+			var updateCheckbox = function() {
+				this.checked = $("#selectAll").is(':checked');
+			};
+			$("input[id^='selections']").each(updateCheckbox);
+			NotesGridScripts.postAjaxSelectedIds($('#notesGridForm').data('checkboxajaxaction'));
+		});
+	},
 	bindNoteCheckboxes: function() {
 		$("input[id^='selections']").click(function() {
 			NotesGridScripts.updateSelectAllCheckbox();

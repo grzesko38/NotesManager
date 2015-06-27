@@ -33,7 +33,7 @@ public class NoteModel implements Serializable {
 	private Date deadline;
 	
 	@Column(name="LONGITUDE")
-	private Double longutude;
+	private Double longitude;
 	
 	@Column(name="LATITUDE")
 	private Double latitude;
@@ -80,12 +80,12 @@ public class NoteModel implements Serializable {
 		this.deadline = deadline;
 	}
 
-	public Double getLongutude() {
-		return longutude;
+	public Double getLongitude() {
+		return longitude;
 	}
 
-	public void setLongutude(Double longutude) {
-		this.longutude = longutude;
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
 	}
 
 	public Double getLatitude() {
@@ -119,6 +119,11 @@ public class NoteModel implements Serializable {
 	public void setAuthor(UserModel author) {
 		this.author = author;
 		author.addNote(this);
+	}
+	
+	public boolean isAvailableOnMap()
+	{
+		return latitude != null && longitude != null;
 	}
 
 	@Override

@@ -93,6 +93,8 @@ public abstract class UserModel implements Serializable {
 		userPreferences.setUser(this);
 	}
 
+	public abstract boolean isAnonymous();
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
