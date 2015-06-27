@@ -5,6 +5,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <%@ taglib prefix="formElement" tagdir="/WEB-INF/tags/formElements"%>
 <%@ taglib prefix="forms" tagdir="/WEB-INF/tags/forms"%>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/_templates/notes"%>
@@ -23,7 +24,7 @@
 	</jsp:attribute>
 
 	<jsp:attribute name="banner">
-		<banner:banner bannerClass="listing">
+		<banner:banner bannerClass="new" bannerImgPath="/themes/common/images/banners/quillpen.png">
 			<spring:message code="notes.addNew.label.title" />
 		</banner:banner>
     </jsp:attribute>

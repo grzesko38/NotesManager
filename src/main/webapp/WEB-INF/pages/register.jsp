@@ -1,16 +1,24 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ taglib prefix="template" tagdir="/WEB-INF/tags/_templates" %>
+<%@ taglib prefix="template" tagdir="/WEB-INF/tags/_templates/notes" %>
 <%@ taglib prefix="fragment" tagdir="/WEB-INF/tags/_fragments" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="formElement" tagdir="/WEB-INF/tags/formElements" %>
 <%@ taglib prefix="utils" tagdir="/WEB-INF/tags/utils" %>
 
-<template:master>
+<%@ taglib prefix="banner" tagdir="/WEB-INF/tags/_templates"%>
+
+<template:notesPage>
 	<jsp:attribute name="topBarContent">
 		<fragment:auth showRegisterLink="false" />
 	</jsp:attribute>
+	
+	<jsp:attribute name="banner">
+		<banner:banner bannerClass="details">
+			<spring:message code="global.label.registration" />
+		</banner:banner>
+    </jsp:attribute>
 	
 	<jsp:attribute name="additionalJS">
 		<script src="${pageContext.request.contextPath}/js/login.js"></script>
@@ -38,4 +46,4 @@
 		</formElement:form>
 	</jsp:body>
 	
-</template:master>
+</template:notesPage>

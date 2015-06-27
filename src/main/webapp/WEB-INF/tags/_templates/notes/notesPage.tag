@@ -3,6 +3,7 @@
 <%@ attribute name="additionalCSS" fragment="true" %>
 <%@ attribute name="additionalJS" fragment="true" %>
 <%@ attribute name="banner" fragment="true" %>
+<%@ attribute name="topBarContent" fragment="true" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>

@@ -1,12 +1,16 @@
 <%@ tag description="Banner template" body-content="scriptless" pageEncoding="UTF-8"%>
+
 <%@ attribute name="bannerClass" %>
+<%@ attribute name="bannerImgPath" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <div class="banner ${bannerClass}">
 	<div class="aboveBanner"></div>
-	<img src="<c:url value="/themes/common/images/banners/quillpen.png" />" width="200" height="200" />
+	<c:if test="${not empty bannerImgPath}">
+		<img src="<c:url value="${bannerImgPath}" />" />
+	</c:if>
 	<div class="imgHolder">
 		<c:set var="path">
 			<spring:theme code="img.banner.notes"/>

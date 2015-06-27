@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/_templates/notes" %>
+<%@ taglib prefix="banner" tagdir="/WEB-INF/tags/_templates"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -18,6 +19,12 @@
 		<script src="${pageContext.request.contextPath}/js/googlemaps.js"></script>
 		<script src="${pageContext.request.contextPath}/js/notes/notedetails.js"></script>
 	</jsp:attribute>
+	
+	<jsp:attribute name="banner">
+		<banner:banner bannerClass="details" bannerImgPath="/themes/common/images/banners/oldpaper.png">
+			<spring:message code="notes.addNew.label.title" />
+		</banner:banner>
+    </jsp:attribute>
 	
 	<jsp:body>
 		<security:authorize ifAnyGranted="ROLE_ANONYMOUS">

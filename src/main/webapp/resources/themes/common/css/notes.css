@@ -50,6 +50,18 @@ div.menu
 }
 .notes .banner.listing > img
 {
+	left: 83%;
+    bottom: 10%;
+    position: absolute;
+}
+.notes .banner.details > img
+{
+	left: 88%;
+    bottom: 10%;
+    position: absolute;
+}
+.notes .banner.new > img
+{
     left: 10%;
     bottom: 10%;
     position: absolute;

@@ -1,4 +1,5 @@
 <%@ tag description="Master Page template" body-content="scriptless" pageEncoding="UTF-8"%>
+
 <%@ attribute name="additionalCSS" fragment="true" %>
 <%@ attribute name="additionalJS" fragment="true" %>
 <%@ attribute name="topBarContent" fragment="true" %>

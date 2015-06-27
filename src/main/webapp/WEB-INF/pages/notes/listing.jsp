@@ -17,7 +17,7 @@
 	</jsp:attribute>
 
     <jsp:attribute name="banner">
-		<banner:banner bannerClass="listing">
+		<banner:banner bannerClass="listing" bannerImgPath="/themes/common/images/banners/oldbook.png">
 			<spring:message code="notes.listing.label.banner.title" />
 		</banner:banner>
     </jsp:attribute>
