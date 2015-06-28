@@ -1,6 +1,6 @@
 GoogleMapScripts = {
 	init: function(callback) {
-		var map = this.createMap();
+		var map = this.createMap(true);
 		var input = this.createPacInput();
 		var autocomplete = this.createAutocomplete(map, input);
 		var infowindow = new google.maps.InfoWindow();
@@ -13,7 +13,7 @@ GoogleMapScripts = {
 	},
 	
 	codeLatLng: function(latlng, callback) {
-		var map = this.createMap();
+		var map = this.createMap(false);
 		var geocoder = new google.maps.Geocoder();
 		var infowindow = new google.maps.InfoWindow();
 		var marker = this.createMarker(map);
@@ -48,7 +48,7 @@ GoogleMapScripts = {
 		return map;
 	},
 	
-	createMap: function() {
+	createMap: function(findUserPos) {
 		
 		var mapOptions = {
 			center : new google.maps.LatLng(75, 140),
@@ -57,25 +57,28 @@ GoogleMapScripts = {
 		
 		var map = new google.maps.Map($('#map-canvas')[0], mapOptions);
 		
-		function findUserPosition() {
-		    if (navigator.geolocation) {
-		        navigator.geolocation.getCurrentPosition(success);
-		    } 
+		if(findUserPos) {
+			function findUserPosition() {
+			    if (navigator.geolocation) {
+			        navigator.geolocation.getCurrentPosition(success);
+			    } 
+			}
+			
+			function success(position) {
+			    var coords = new google.maps.LatLng(
+			        position.coords.latitude,
+			        position.coords.longitude
+			    );
+			    
+			    map.setCenter(coords);
+			    map.setZoom(15);
+			    
+			    return map;
+			}
+			
+			findUserPosition();
 		}
 		
-		function success(position) {
-		    var coords = new google.maps.LatLng(
-		        position.coords.latitude,
-		        position.coords.longitude
-		    );
-		    
-		    map.setCenter(coords);
-		    map.setZoom(15);
-		    
-		    return map;
-		}
-		
-		findUserPosition();
 		return map;
 	},
 	
