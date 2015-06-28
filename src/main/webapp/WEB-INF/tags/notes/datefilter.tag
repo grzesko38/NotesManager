@@ -10,7 +10,7 @@
 
 <spring:message code="notes.listing.dateFilter.tooltip.dateFormat" var="dateFormatTooltip"/>
 <form:form id="dateFilterForm" action="${pageContext.request.contextPath}/notesmanager/show" method="get" modelAttribute="dateFilterForm"
-		   class="${userName eq 'anonymous' ? 'indent22' : 'indent62'}">
+		   class="${userName eq 'anonymous' ? 'indent42' : 'indent82'}">
 	<div class="dateFilterWrapper">
 		<c:set var="themeName"><spring:theme code="theme.name"/></c:set>
 		<c:url var="iconUrl" value="/themes/${themeName}/images/icons/calendar.png"/>
