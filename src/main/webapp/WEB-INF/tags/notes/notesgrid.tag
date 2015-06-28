@@ -31,15 +31,17 @@
 	<table class="data">
 		<colgroup>
 			<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
-				<col class="width40" span="1"/>
-				<col class="width250" span="1"/>
-				<col class="width500" span="1"/>
-				<col class="width200" span="2"/>
+				<col style="width: 40px" span="1"/>
+				<col style="width: 220px" span="1"/>
+				<col span="1"/>
+				<col style="width: 200px" span="2"/>
+				<col style="width: 120px" span="1"/>
 			</security:authorize>
 			<security:authorize ifNotGranted="ROLE_ANONYMOUS">
-				<col class="width40" span="2"/>
-				<col class="width600" span="1"/>
-				<col class="width200" span="2"/>
+				<col style="width: 40px" span="2"/>
+				<col span="1"/>
+				<col style="width: 200px" span="2"/>
+				<col style="width: 220px" span="1"/>
 			</security:authorize>
 		</colgroup>
 		<thead>
