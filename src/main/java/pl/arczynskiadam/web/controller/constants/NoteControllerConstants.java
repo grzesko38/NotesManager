@@ -32,7 +32,6 @@ public interface NoteControllerConstants {
 		public static final String ADD_NOTE_FULL	 = MANAGER + ADD_NOTE;
 		public static final String EDIT_NOTE		 = "/edit/{noteId}";
 		public static final String EDIT_NOTE_FULL	 = MANAGER + EDIT_NOTE;
-		public static final String UPDATE_NOTE		 = "/update";
 		public static final String DELETE_NOTE		 = "/delete/{noteId}";
 		public static final String DELETE_NOTE_FULL	 = MANAGER + DELETE_NOTE;
 		public static final String NOTE_DETAILS 	 = "/details/{noteId}";

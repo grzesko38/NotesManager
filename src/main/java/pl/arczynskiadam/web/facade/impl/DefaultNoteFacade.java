@@ -236,6 +236,7 @@ public class DefaultNoteFacade implements NoteFacade {
 		
 		note.setTitle(noteData.getTitle());
 		note.setContent(noteData.getContent());
+		note.setDeadline(noteData.getDeadline());
 		note.setLatitude(noteData.getLatitude());
 		note.setLongitude(noteData.getLongitude());
 		noteService.updateNote(note);

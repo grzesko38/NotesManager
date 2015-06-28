@@ -36,7 +36,7 @@
 			</ul>
 			<div id="tabs-1">
 				<utils:globalMessages />
-				<c:url value="/notesmanager/update" var="action"/>
+				<c:url value="/notesmanager/edit/${noteForm.id}" var="action"/>
 				<forms:noteForm action="${action}" />
 			</div>
 			<div id="tabs-2" class="googleMapTab">

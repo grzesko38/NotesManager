@@ -23,7 +23,6 @@ import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.EDIT_NOTE;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES_FULL;
-import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.UPDATE_NOTE;
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_FIRST_PAGE;
 
 import java.util.Collections;
@@ -38,7 +37,6 @@ import javax.validation.groups.Default;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -261,7 +259,7 @@ public class NoteController extends AbstractController {
 		noteForm.setLongitude(note.getLongitude());
 	}
 	
-	@RequestMapping(value = UPDATE_NOTE, method = RequestMethod.POST)
+	@RequestMapping(value = EDIT_NOTE, method = RequestMethod.POST)
 	public String updateNote(@ModelAttribute(NOTE_FORM) @Valid NoteForm noteForm,
 			BindingResult bindinfgResult, Model model, RedirectAttributes attrs)
 	{
@@ -270,11 +268,11 @@ public class NoteController extends AbstractController {
 			
 			GlobalMessages.addErrorMessage("global.error.correctAll", model);
 			
-			return NoteControllerConstants.Pages.NEW_NOTE_PAGE;
+			return NoteControllerConstants.Pages.EDIT_NOTE_PAGE;
 		}
 		
 		noteFacade.editNote(noteForm);
-		GlobalMessages.addInfoFlashMessage("notes.addNew.msg.confirmation", attrs);
+		GlobalMessages.addInfoFlashMessage("notes.edit.msg.confirmation", attrs);
 		
 		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 	}
