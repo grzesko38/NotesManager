@@ -263,7 +263,7 @@ public class NoteController extends AbstractController {
 	
 	@RequestMapping(value = UPDATE_NOTE, method = RequestMethod.POST)
 	public String updateNote(@ModelAttribute(NOTE_FORM) @Valid NoteForm noteForm,
-			Model model, RedirectAttributes attrs, BindingResult bindinfgResult)
+			BindingResult bindinfgResult, Model model, RedirectAttributes attrs)
 	{
 		if (bindinfgResult.hasErrors()) {
 			createEditNotePageBreadcrumbs(model);
