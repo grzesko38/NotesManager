@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import pl.arczynskiadam.web.form.validation.FirstCharsUpperCase;
@@ -21,15 +21,15 @@ public class NoteForm {
 	@FirstCharsUpperCase(count = 1, groups = {Extended.class}, message = "{note.add.uppercase}")
 	private String author;
 	
-	@NotEmpty(groups = {Default.class}, message = "{validation.common.required}")
+	@NotBlank(groups = {Default.class}, message = "{validation.common.required}")
 	@Size(max = 50, message = "{note.add.title.length.incorrect}")
 	private String title;
 	
-	@NotEmpty(groups = {Default.class}, message = "{validation.common.required}")
+	@NotBlank(groups = {Default.class}, message = "{validation.common.required}")
 	@Size(max = 4000, message = "{note.add.content.length.incorrect}")
 	private String content;
 	
-	@NotNull(message = "{DateTimeFormat.noteForm.date}")
+	@NotNull(message = "{validation.common.required}")
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	@Future(message = "{note.add.deadline.future.incorrect}")
 	private Date deadline;

@@ -2,14 +2,15 @@ package pl.arczynskiadam.web.form;
 
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 public class LoginForm {
 
-	@NotEmpty
+	@NotBlank
 	@Size(min = 3, max = 20, message= "{login.nick.length.incorrect}")
 	private String nick;
 	
+	@NotBlank
 	@Size(min = 8, message= "{login.password.length.incorrect}")
 	private String password;
 	
