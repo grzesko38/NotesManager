@@ -139,7 +139,7 @@ public class DefaultNoteService implements NoteService {
 			spec = spec.and(NoteSpecs.from(dateFilter.getFrom()));
 		}
 		if (dateFilter.getTo() != null) {
-			spec.and(NoteSpecs.to(dateFilter.getTo()));
+			spec = spec.and(NoteSpecs.to(dateFilter.getTo()));
 		}
 		
 		Page<NoteModel> notes = noteDAO.findAll(spec, constructPageSpecification(pageId, pageSize, sortCol, asc));

@@ -25,7 +25,7 @@ public class NoteSpecs {
 		return new Specification<NoteModel>() {
             @Override
             public Predicate toPredicate(Root<NoteModel> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-            	Path<Date> dateCreated = noteRoot.<Date> get(NoteModel_.dateCreated);
+            	Path<Date> dateCreated = noteRoot.<Date> get(NoteModel_.deadline);
                 return cb.greaterThanOrEqualTo(dateCreated, from);
             }
 		};
@@ -36,7 +36,7 @@ public class NoteSpecs {
 		return new Specification<NoteModel>() {
             @Override
             public Predicate toPredicate(Root<NoteModel> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-            	Path<Date> dateCreated = noteRoot.<Date> get(NoteModel_.dateCreated);
+            	Path<Date> dateCreated = noteRoot.<Date> get(NoteModel_.deadline);
                 return cb.lessThanOrEqualTo(dateCreated, to);
             }
 		};
