@@ -30,6 +30,7 @@
 		(function() {
 			$("input#${path} + .formInputIcon").click(function() {
 				$("#${path}").datepicker({
+					minDate: 0,
 			        changeMonth: true,
 			        changeYear: true,
 			        dateFormat: 'dd/mm/yy'

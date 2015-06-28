@@ -1,5 +1,5 @@
 NoteTabsScripts = {
-	bindTabs: function() {	
+	bindTabs: function() {
 		$("#tabs").tabs();
 	},
 	

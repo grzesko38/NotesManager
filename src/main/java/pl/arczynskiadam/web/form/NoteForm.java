@@ -3,6 +3,7 @@ package pl.arczynskiadam.web.form;
 import java.util.Date;
 
 import javax.validation.GroupSequence;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
@@ -30,6 +31,7 @@ public class NoteForm {
 	
 	@NotNull(message = "{DateTimeFormat.noteForm.date}")
 	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@Future(message = "{note.add.deadline.future.incorrect}")
 	private Date deadline;
 	
 	private Double longitude = null;
