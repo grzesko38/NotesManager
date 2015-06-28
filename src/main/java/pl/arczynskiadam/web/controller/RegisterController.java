@@ -1,5 +1,6 @@
 package pl.arczynskiadam.web.controller;
 
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Misc.HASH;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Prefixes.REDIRECT_PREFIX;
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 import static pl.arczynskiadam.web.controller.constants.RegisterControllerConstants.ModelAttrKeys.Form.REGISTER_FORM;
@@ -102,7 +103,7 @@ public class RegisterController extends AbstractController {
 	
 	private void addDefaultBreadcrumbsToModel(Model model) {
 		createBreadcrumpAndSaveToModel(model,
-				new BreadcrumbsItem("Home", LoginControllerConstants.URLs.LOGIN),
-				new BreadcrumbsItem("Register", GlobalControllerConstants.Misc.HASH));
+				new BreadcrumbsItem(getMessage("breadcrumbs.home"), SHOW_NOTES_FULL),
+				new BreadcrumbsItem(getMessage("breadcrumbs.register"), HASH));
 	}
 }

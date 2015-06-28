@@ -1,5 +1,6 @@
 package pl.arczynskiadam.web.controller;
 
+import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Misc.HASH;
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.Prefixes.REDIRECT_PREFIX;
 import static pl.arczynskiadam.web.controller.constants.LoginControllerConstants.ModelAttrKeys.Form.LOGIN_FORM;
 import static pl.arczynskiadam.web.controller.constants.LoginControllerConstants.Pages.LOGIN_PAGE;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.arczynskiadam.web.controller.constants.LoginControllerConstants;
 import pl.arczynskiadam.web.form.LoginForm;
 import pl.arczynskiadam.web.messages.GlobalMessages;
+import pl.arczynskiadam.web.tag.navigation.BreadcrumbsItem;
 
 @Controller
 public class LoginController extends AbstractController {
@@ -33,6 +35,7 @@ public class LoginController extends AbstractController {
 			GlobalMessages.addErrorMessage("login.failed", model);
 		}
 
+		addDefaultBreadcrumbsToModel(model);
 		return LOGIN_PAGE;
 	}
 	
@@ -43,5 +46,11 @@ public class LoginController extends AbstractController {
 		GlobalMessages.addInfoFlashMessage("global.continueAsAnonymous", attrs);
 		
 		return REDIRECT_PREFIX + SHOW_NOTES_FULL;
+	}
+	
+	private void addDefaultBreadcrumbsToModel(Model model) {
+		createBreadcrumpAndSaveToModel(model,
+				new BreadcrumbsItem(getMessage("breadcrumbs.home"), SHOW_NOTES_FULL),
+				new BreadcrumbsItem(getMessage("breadcrumbs.login"), HASH));
 	}
 }

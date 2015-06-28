@@ -38,6 +38,7 @@ import javax.validation.groups.Default;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -209,9 +210,7 @@ public class NoteController extends AbstractController {
 			final Model model,
 			HttpServletRequest request) {
 		
-		createBreadcrumpAndSaveToModel(model,
-				new BreadcrumbsItem("Home", SHOW_NOTES_FULL),
-				new BreadcrumbsItem("Add note", HASH));
+		createAddNotePageBreadcrumbs(model);
 		
 		return NoteControllerConstants.Pages.NEW_NOTE_PAGE;
 	}
@@ -223,9 +222,7 @@ public class NoteController extends AbstractController {
 			RedirectAttributes attrs) {
 		
 		if (bindinfgResult.hasErrors()) {
-			createBreadcrumpAndSaveToModel(model,
-					new BreadcrumbsItem("Home", SHOW_NOTES_FULL),
-					new BreadcrumbsItem("Add note", HASH));
+			createAddNotePageBreadcrumbs(model);
 			
 			GlobalMessages.addErrorMessage("global.error.correctAll", model);
 			
@@ -247,10 +244,7 @@ public class NoteController extends AbstractController {
 			return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 		}
 		
-		createBreadcrumpAndSaveToModel(model,
-				new BreadcrumbsItem("Home", SHOW_NOTES_FULL),
-				new BreadcrumbsItem("Edit note", HASH));
-		
+		createEditNotePageBreadcrumbs(model);
 		prpopulateNoteForm(noteId, noteForm);
 		
 		return EDIT_NOTE_PAGE;
@@ -272,9 +266,7 @@ public class NoteController extends AbstractController {
 			Model model, RedirectAttributes attrs, BindingResult bindinfgResult)
 	{
 		if (bindinfgResult.hasErrors()) {
-			createBreadcrumpAndSaveToModel(model,
-					new BreadcrumbsItem("Home", SHOW_NOTES_FULL),
-					new BreadcrumbsItem("Edit note", HASH));
+			createEditNotePageBreadcrumbs(model);
 			
 			GlobalMessages.addErrorMessage("global.error.correctAll", model);
 			
@@ -342,9 +334,7 @@ public class NoteController extends AbstractController {
 			return REDIRECT_PREFIX + SHOW_NOTES_FULL;
 		}
 		
-		createBreadcrumpAndSaveToModel(model,
-				new BreadcrumbsItem("Home", NoteControllerConstants.URLs.SHOW_NOTES_FULL),
-				new BreadcrumbsItem("Note details", GlobalControllerConstants.Misc.HASH));
+		createViewNotePageBreadcrumbs(model);
 		
 		model.addAttribute(NOTE, noteFacade.findNoteById(noteId));
 		
@@ -364,4 +354,22 @@ public class NoteController extends AbstractController {
 	private void populateEntriesPerPage(Model model) {
 		model.addAttribute(NoteControllerConstants.ModelAttrKeys.View.PAGE_SIZES, notesPageSizes);
 	}
+	
+	private void createAddNotePageBreadcrumbs(Model model) {
+		createBreadcrumpAndSaveToModel(model,
+				new BreadcrumbsItem(getMessage("breadcrumbs.home"), SHOW_NOTES_FULL),
+				new BreadcrumbsItem(getMessage("breadcrumbs.newNote"), HASH));
+	}
+	
+	private void createEditNotePageBreadcrumbs(Model model) {
+		createBreadcrumpAndSaveToModel(model,
+				new BreadcrumbsItem(getMessage("breadcrumbs.home"), SHOW_NOTES_FULL),
+				new BreadcrumbsItem(getMessage("breadcrumbs.edit"), GlobalControllerConstants.Misc.HASH));
+	}
+	
+	private void createViewNotePageBreadcrumbs(Model model) {
+		createBreadcrumpAndSaveToModel(model,
+				new BreadcrumbsItem(getMessage("breadcrumbs.home"), SHOW_NOTES_FULL),
+				new BreadcrumbsItem(getMessage("breadcrumbs.details"), GlobalControllerConstants.Misc.HASH));
+	}	
 }

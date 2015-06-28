@@ -5,7 +5,6 @@ import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstant
 import static pl.arczynskiadam.web.controller.constants.GlobalControllerConstants.ModelAttrKeys.Messages.WARN_MSG;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.ui.Model;
