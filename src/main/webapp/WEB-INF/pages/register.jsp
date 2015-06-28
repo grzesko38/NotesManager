@@ -16,7 +16,7 @@
 	
 	<jsp:attribute name="banner">
 		<banner:banner bannerClass="details">
-			<spring:message code="global.label.registration" />
+			<spring:message code="banner.header.register" />
 		</banner:banner>
     </jsp:attribute>
 	

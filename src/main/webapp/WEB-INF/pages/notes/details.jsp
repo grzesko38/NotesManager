@@ -22,7 +22,7 @@
 	
 	<jsp:attribute name="banner">
 		<banner:banner bannerClass="details" bannerImgPath="/themes/common/images/banners/oldpaper.png">
-			<spring:message code="notes.addNew.label.title" />
+			<spring:message code="banner.header.note.view" />
 		</banner:banner>
     </jsp:attribute>
 	
@@ -33,7 +33,7 @@
 					<spring:message code="notes.details.label.author" />:
 				</span>
 				<div class="indent50">
-					<c:out value="${note.author}" />
+					<c:out value="${note.author.nick}" />
 				</div>
 			</div>
 		</security:authorize>

@@ -364,12 +364,12 @@ public class NoteController extends AbstractController {
 	private void createEditNotePageBreadcrumbs(Model model) {
 		createBreadcrumpAndSaveToModel(model,
 				new BreadcrumbsItem(getMessage("breadcrumbs.home"), SHOW_NOTES_FULL),
-				new BreadcrumbsItem(getMessage("breadcrumbs.edit"), GlobalControllerConstants.Misc.HASH));
+				new BreadcrumbsItem(getMessage("breadcrumbs.editNote"), GlobalControllerConstants.Misc.HASH));
 	}
 	
 	private void createViewNotePageBreadcrumbs(Model model) {
 		createBreadcrumpAndSaveToModel(model,
 				new BreadcrumbsItem(getMessage("breadcrumbs.home"), SHOW_NOTES_FULL),
-				new BreadcrumbsItem(getMessage("breadcrumbs.details"), GlobalControllerConstants.Misc.HASH));
+				new BreadcrumbsItem(getMessage("breadcrumbs.noteDetails"), GlobalControllerConstants.Misc.HASH));
 	}	
 }

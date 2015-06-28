@@ -25,7 +25,7 @@
 
 	<jsp:attribute name="banner">
 		<banner:banner bannerClass="new" bannerImgPath="/themes/common/images/banners/quillpen.png">
-			<spring:message code="notes.addNew.label.title" />
+			<spring:message code="banner.header.note.add" />
 		</banner:banner>
     </jsp:attribute>
 

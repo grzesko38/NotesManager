@@ -20,7 +20,7 @@
 	
 	<jsp:attribute name="banner">
 		<banner:banner bannerClass="details">
-			<spring:message code="global.label.notesManager" />
+			<spring:message code="banner.header.login" />
 		</banner:banner>
     </jsp:attribute>
 	
