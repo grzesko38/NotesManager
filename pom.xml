@@ -5,7 +5,7 @@
 	<groupId>pl.arczynskiadam.notesmanager</groupId>
 	<artifactId>NotesManager</artifactId>
 	<packaging>war</packaging>
-	<version>0.3</version>
+	<version>0.9</version>
 	<description></description>
   
 	<build>
