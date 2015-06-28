@@ -133,7 +133,7 @@ public class DefaultNoteService implements NoteService {
 		if (currentUser == null) {
 			spec = Specifications.where(NoteSpecs.anonymous());
 		} else {
-			Specifications.where(NoteSpecs.forNick(currentUser.getNick()));
+			spec = Specifications.where(NoteSpecs.forNick(currentUser.getNick()));
 		}
 		
 		if (dateFilter.getFrom() != null) {
