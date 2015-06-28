@@ -27,74 +27,82 @@
     </jsp:attribute>
 	
 	<jsp:body>
-		<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
+		<div class="padding100">
+			<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
+				<div class="infoRow">
+					<span class="weight600">
+						<spring:message code="notes.details.label.author" />:
+					</span>
+					<div class="indent50">
+						<c:out value="${note.author.nick}" />
+					</div>
+				</div>
+			</security:authorize>
+		
 			<div class="infoRow">
 				<span class="weight600">
-					<spring:message code="notes.details.label.author" />:
+					<spring:message code="notes.details.label.title" />:
 				</span>
 				<div class="indent50">
-					<c:out value="${note.author.nick}" />
+					<c:out value="${note.title}" />
 				</div>
 			</div>
-		</security:authorize>
-	
-		<div class="infoRow">
-			<span class="weight600">
-				<spring:message code="notes.details.label.title" />:
-			</span>
-			<div class="indent50">
-				<c:out value="${note.title}" />
-			</div>
-		</div>
-		
-		<div class="infoRow">
-			<span class="weight600">
-				<spring:message code="notes.details.label.content" />:
-			</span>
-			<div class="indent50">
-				<c:out value="${note.content}" />
-			</div>
-		</div>
-		
-		<div class="infoRow">
-			<span class="weight600">
-				<spring:message code="notes.details.label.deadline" />:
-			</span>
-			<div class="indent50">
-				<fmt:formatDate value="${note.deadline}" pattern="dd/MM/yyyy"/>
-			</div>
-		</div>
-		
-		<div class="infoRow">
-			<span class="weight600">
-				<spring:message code="notes.details.label.dateCreated" />:
-			</span>
-			<div class="indent50">
-				<fmt:formatDate value="${note.dateCreated}" pattern="dd/MM/yyyy"/>
-			</div>
-		</div>
-		
-		<c:if test="${not empty note.lastModified}">
+			
 			<div class="infoRow">
 				<span class="weight600">
-					<spring:message code="notes.details.label.lastModified" />:
+					<spring:message code="notes.details.label.content" />:
 				</span>
 				<div class="indent50">
-					<fmt:formatDate value="${note.lastModified}" pattern="dd/MM/yyyy"/>
+					<c:out value="${note.content}" />
 				</div>
 			</div>
-		</c:if>
-		
-		<c:if test="${note.availableOnMap}">
+			
+			<div class="infoRow">
+				<span class="weight600">
+					<spring:message code="notes.details.label.deadline" />:
+				</span>
+				<div class="indent50">
+					<fmt:formatDate value="${note.deadline}" pattern="dd/MM/yyyy"/>
+				</div>
+			</div>
+			
+			<div class="infoRow">
+				<span class="weight600">
+					<spring:message code="notes.details.label.dateCreated" />:
+				</span>
+				<div class="indent50">
+					<fmt:formatDate value="${note.dateCreated}" pattern="dd/MM/yyyy"/>
+				</div>
+			</div>
+			
+			<c:if test="${not empty note.lastModified}">
+				<div class="infoRow">
+					<span class="weight600">
+						<spring:message code="notes.details.label.lastModified" />:
+					</span>
+					<div class="indent50">
+						<fmt:formatDate value="${note.lastModified}" pattern="dd/MM/yyyy"/>
+					</div>
+				</div>
+			</c:if>
+			
 			<div class="infoRow">
 				<span class="weight600">
 					<spring:message code="notes.details.label.map" />:
 				</span>
-				<div id="latlng" class="frame" data-lat="${note.latitude}" data-lng="${note.longitude}">
-					<utils:googlemap showPacInput="false"/>
-				</div>
+				<c:choose>
+					<c:when test="${note.availableOnMap}">
+						<div id="latlng" class="frame" data-lat="${note.latitude}" data-lng="${note.longitude}">
+							<utils:googlemap showPacInput="false"/>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="indent50">
+							<spring:message code="notes.details.info.noPlaceSelected" />
+						</div>
+					</c:otherwise>
+				</c:choose>
 			</div>
-		</c:if>
-		
+		</div>
 	</jsp:body>
 </template:notesPage>

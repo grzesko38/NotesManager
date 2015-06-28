@@ -3,10 +3,6 @@ div.menu
 {
 	min-width: 500px;
 }
-.notes a
-{
-	color: #000000;
-}
 .notes .top, .notes table.data th
 {
 	color: #FFFFFF;

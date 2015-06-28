@@ -30,6 +30,10 @@
     </jsp:attribute>
 
 	<jsp:body>
+		<div class="padding-h100 padding-v40">
+			<spring:message code="notes.addNew.instructions"/>.
+		</div>
+		<hr/>
 		<div id="tabs">
 			<ul>
 		    	<li><a href="#tabs-1"><spring:message code="notes.tab.label.details"/></a></li>

@@ -1,4 +1,8 @@
 													/* Generic */
+hr
+{
+	border-bottom: 1px solid white;
+}
 .clearfix
 {
 	clear: both;
@@ -63,9 +67,29 @@
 {
 	font-weight: 600;
 }
+.padding-h100
+{
+	padding-left: 100px;
+	padding-right: 100px;
+}
+.padding-v40
+{
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
 ul.noDecoration
 {
 	list-style: none;
 	padding: 0;
 	margin: 0;
+}
+a.navLink
+{
+	color: #FFFFFF;
+	font-weight: 600;
+	text-decoration: underline;
+}
+a.navLink:HOVER {
+	color: #FFFFFF;
+	text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.95);
 }

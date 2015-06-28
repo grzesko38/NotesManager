@@ -87,7 +87,6 @@ public class DefaultNoteService implements NoteService {
 	@Transactional
 	public Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
 		RegisteredUserModel currentUser = userService.getCurrentUser();
-		Page<NoteModel> notes = null;
 		if (currentUser == null) {
 			return listNotesForAnonymoususer(pageId, pageSize, sortCol, asc);
 		}

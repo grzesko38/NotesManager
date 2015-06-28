@@ -33,7 +33,13 @@
 		</c:if>
 		<utils:globalMessages />
 	
+		<div class="padding-h100 padding-v40">
+			<c:url var="listingUrl" value="/notesmanager/show"/>
+			<c:url var="registerUrl" value="/register"/>
+			<spring:message code="global.introduction" arguments="${listingUrl};${registerUrl}" argumentSeparator=";"/>.
+		</div>
 		<c:url value="j_spring_security_check" var="loginUrl"/>
+		<hr/>
 		<formElement:form action="${loginUrl}" modelAttribute="loginForm" method="POST">
 			<formElement:input labelKey="login.nick" path="nick" mandatory="true"/>
 			<formElement:input labelKey="login.password" path="password" mandatory="true" password="true"/>
@@ -42,14 +48,5 @@
 				<input type="submit" class="buttonPositive" value="<spring:message code="login.login"/>" />
 			</div>
 		</formElement:form>
-		<span>
-			<a href="<c:url value="/notesmanager/show" />">
-				<spring:message code="login.contunueAsAnonymous" />
-			</a>
-			<spring:message code="misc.or" />
-			<a href="<c:url value="/register" />">
-				<spring:message code="global.register" />
-			</a>
-		</span>
 	</jsp:body>
 </template:notesPage>
