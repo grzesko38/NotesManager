@@ -104,8 +104,14 @@
 						<td><c:out value="${note.author.nick}" /></td>
 					</security:authorize>
 					<td><c:out value="${note.title}" /></td>
-					<td><fmt:formatDate value="${note.deadline}" pattern="dd/MM/yyyy"/></td>
-					<td><fmt:formatDate value="${note.dateCreated}" pattern="dd/MM/yyyy"/></td>
+					<td>
+						<fmt:parseDate value="${note.deadline}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+						<fmt:formatDate value="${parsedDate}" type="date" pattern="dd/MM/yyyy" />
+					</td>
+					<td>
+						<fmt:parseDate value="${note.dateCreated}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+						<fmt:formatDate value="${parsedDate}" type="date" pattern="dd/MM/yyyy" />
+					</td>
 					<td>
 						<a href="${pageContext.request.contextPath}/notesmanager/details/${note.id}">
 							[<spring:message code="global.details"/>]

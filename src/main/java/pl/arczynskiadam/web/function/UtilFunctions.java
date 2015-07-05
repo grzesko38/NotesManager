@@ -1,11 +1,9 @@
 package pl.arczynskiadam.web.function;
 
-import java.util.Date;
-
 public class UtilFunctions
 {
-	public static Date date()
+	public static java.time.LocalDateTime now()
     {
-        return new Date();
+        return java.time.LocalDateTime.now();
     }
 }

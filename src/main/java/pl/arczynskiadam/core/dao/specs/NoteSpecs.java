@@ -1,6 +1,6 @@
 package pl.arczynskiadam.core.dao.specs;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -20,24 +20,24 @@ import pl.arczynskiadam.core.model.UserModel_;
 
 public class NoteSpecs {
 
-	public static Specification<NoteModel> from(final Date from)
+	public static Specification<NoteModel> from(final LocalDate from)
 	{
 		return new Specification<NoteModel>() {
             @Override
             public Predicate toPredicate(Root<NoteModel> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-            	Path<Date> dateCreated = noteRoot.<Date> get(NoteModel_.deadline);
-                return cb.greaterThanOrEqualTo(dateCreated, from);
+            	Path<LocalDate> deadline = noteRoot.<LocalDate> get(NoteModel_.deadline);
+                return cb.greaterThanOrEqualTo(deadline, from);
             }
 		};
 	}
 	
-	public static Specification<NoteModel> to(final Date to)
+	public static Specification<NoteModel> to(final LocalDate to)
 	{
 		return new Specification<NoteModel>() {
             @Override
             public Predicate toPredicate(Root<NoteModel> noteRoot, CriteriaQuery<?> query, CriteriaBuilder cb) {
-            	Path<Date> dateCreated = noteRoot.<Date> get(NoteModel_.deadline);
-                return cb.lessThanOrEqualTo(dateCreated, to);
+            	Path<LocalDate> deadline = noteRoot.<LocalDate> get(NoteModel_.deadline);
+                return cb.lessThanOrEqualTo(deadline, to);
             }
 		};
 	}

@@ -1,30 +1,31 @@
 package pl.arczynskiadam.web.form;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 public class DateFilterForm {
 	
-	@DateTimeFormat(pattern="dd/MM/yyyy")
-	private Date from;
+	@DateTimeFormat(iso = ISO.DATE, pattern="dd/MM/yyyy")
+	private LocalDate from;
 	
-	@DateTimeFormat(pattern="dd/MM/yyyy")
-	private Date to;
+	@DateTimeFormat(iso = ISO.DATE, pattern="dd/MM/yyyy")
+	private LocalDate to;
 
-	public Date getFrom() {
+	public LocalDate getFrom() {
 		return from;
 	}
 
-	public void setFrom(Date from) {
+	public void setFrom(LocalDate from) {
 		this.from = from;
 	}
 
-	public Date getTo() {
+	public LocalDate getTo() {
 		return to;
 	}
 
-	public void setTo(Date to) {
+	public void setTo(LocalDate to) {
 		this.to = to;
 	}
 }

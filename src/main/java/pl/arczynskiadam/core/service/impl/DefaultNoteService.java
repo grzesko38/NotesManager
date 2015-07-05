@@ -3,8 +3,8 @@ package pl.arczynskiadam.core.service.impl;
 import static pl.arczynskiadam.core.service.constants.ServiceConstants.Session.Attributes.NOTES_PAGINATION;
 
 import java.awt.geom.IllegalPathStateException;
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.annotation.Resource;
 
@@ -17,8 +17,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.google.common.collect.Sets;
 
 import pl.arczynskiadam.core.dao.NoteRepository;
 import pl.arczynskiadam.core.dao.specs.NoteSpecs;
@@ -33,7 +31,8 @@ import pl.arczynskiadam.web.data.NotesPaginationData;
 
 @Service
 public class DefaultNoteService implements NoteService {
-
+	
+	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(DefaultNoteService.class);
 	
 	@Resource
@@ -68,7 +67,7 @@ public class DefaultNoteService implements NoteService {
 	
 	private void saveNewNote(NoteModel note) {
 		if (note.getDateCreated() == null) {
-			note.setDateCreated(new Date());
+			note.setDateCreated(LocalDateTime.now());
 		}
 		noteDAO.save(note);
 	}
@@ -79,7 +78,7 @@ public class DefaultNoteService implements NoteService {
 		if (!note.getAuthor().equals(currentUser)) {
 			throw new IllegalPathStateException("global.error.userNotOwnerOfNote");
 		}
-		note.setLastModified(new Date());
+		note.setLastModified(LocalDateTime.now());
 		noteDAO.save(note);
 	}
 
@@ -88,7 +87,7 @@ public class DefaultNoteService implements NoteService {
 	public Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
 		RegisteredUserModel currentUser = userService.getCurrentUser();
 		if (currentUser == null) {
-			return listNotesForAnonymoususer(pageId, pageSize, sortCol, asc);
+			return listNotesForAnonymousUser(pageId, pageSize, sortCol, asc);
 		}
 		return ListNotesForRegisteredUser(pageId, pageSize, sortCol, asc, currentUser);
 	}
@@ -98,7 +97,7 @@ public class DefaultNoteService implements NoteService {
 				constructPageSpecification(keepPageNumberInRange(pageId, pageSize, currentUser), pageSize, sortCol, asc));
 	}
 	
-	private Page<NoteModel> listNotesForAnonymoususer(int pageId, int pageSize, String sortCol, boolean asc) {
+	private Page<NoteModel> listNotesForAnonymousUser(int pageId, int pageSize, String sortCol, boolean asc) {
 		Page<NoteModel> notes = noteDAO.findAll(NoteSpecs.anonymous(),
 				constructPageSpecification(keepPageNumberInRange(pageId, pageSize), pageSize, sortCol, asc));
 		for (NoteModel note : notes.getContent()) {

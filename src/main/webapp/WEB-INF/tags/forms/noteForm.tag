@@ -19,7 +19,8 @@
 	<formElement:input path="title" mandatory="true" labelKey="notes.addNew.label.title" />
 	<c:set var="themeName"><spring:theme code="theme.name"/></c:set>
 	<c:url var="iconUrl" value="/themes/${themeName}/images/icons/calendar.png"/>
-	<formElement:input path="deadline" mandatory="true" labelKey="notes.addNew.label.deadline" iconUrl="${iconUrl}" showCalendar="true"/>
+	<formElement:input path="deadline" mandatory="true" labelKey="notes.addNew.label.deadline"
+					   iconUrl="${iconUrl}" showCalendar="true" placeholderKey="notes.addNew.deadline.tooltip.dateFormat"/>
 	<formElement:textArea path="content" mandatory="true" labelKey="notes.addNew.label.content" maxChars="4000" />
 	<form:hidden path="longitude" />
 	<form:hidden path="latitude" />

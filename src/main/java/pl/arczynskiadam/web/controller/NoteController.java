@@ -25,6 +25,7 @@ import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.
 import static pl.arczynskiadam.web.controller.constants.NoteControllerConstants.URLs.SHOW_NOTES_FULL;
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_FIRST_PAGE;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -243,18 +244,18 @@ public class NoteController extends AbstractController {
 		}
 		
 		createEditNotePageBreadcrumbs(model);
-		prpopulateNoteForm(noteId, noteForm);
+		prepopulateNoteForm(noteId, noteForm);
 		
 		return EDIT_NOTE_PAGE;
 	}
 	
-	private void prpopulateNoteForm(Integer noteId, NoteForm noteForm) {
+	private void prepopulateNoteForm(Integer noteId, NoteForm noteForm) {
 		NoteModel note = noteFacade.findNoteById(noteId);
 		noteForm.setId(noteId);
 		noteForm.setAuthor(note.getAuthor().getNick());
 		noteForm.setTitle(note.getTitle());
 		noteForm.setContent(note.getContent());
-		noteForm.setDeadline(note.getDeadline());
+		noteForm.setDeadline(LocalDate.from(note.getDeadline()));
 		noteForm.setLatitude(note.getLatitude());
 		noteForm.setLongitude(note.getLongitude());
 	}

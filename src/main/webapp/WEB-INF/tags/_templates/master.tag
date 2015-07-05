@@ -52,7 +52,8 @@
 		<jsp:attribute name="topBarContent">
 			<jsp:invoke fragment="topBarContent" />
 			<div class="dateHolder">
-				<fmt:formatDate value="${utils:date()}" pattern="dd/MM/yyyy"/> 
+				<fmt:parseDate value="${utils:now()}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+				<fmt:formatDate value="${parsedDate}" type="date" pattern="dd/MM/yyyy" />
 			</div>
 		</jsp:attribute>
 	</template:header>

@@ -62,7 +62,8 @@
 					<spring:message code="notes.details.label.deadline" />:
 				</span>
 				<div class="indent50">
-					<fmt:formatDate value="${note.deadline}" pattern="dd/MM/yyyy"/>
+					<fmt:parseDate value="${note.deadline}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+					<fmt:formatDate value="${parsedDate}" type="date" pattern="dd/MM/yyyy" />
 				</div>
 			</div>
 			
@@ -71,7 +72,8 @@
 					<spring:message code="notes.details.label.dateCreated" />:
 				</span>
 				<div class="indent50">
-					<fmt:formatDate value="${note.dateCreated}" pattern="dd/MM/yyyy"/>
+					<fmt:parseDate value="${note.dateCreated}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+					<fmt:formatDate value="${parsedDate}" type="date" pattern="dd/MM/yyyy" />
 				</div>
 			</div>
 			
@@ -81,7 +83,8 @@
 						<spring:message code="notes.details.label.lastModified" />:
 					</span>
 					<div class="indent50">
-						<fmt:formatDate value="${note.lastModified}" pattern="dd/MM/yyyy"/>
+						<fmt:parseDate value="${note.lastModified}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+						<fmt:formatDate value="${parsedDate}" type="date" pattern="dd/MM/yyyy" />
 					</div>
 				</div>
 			</c:if>

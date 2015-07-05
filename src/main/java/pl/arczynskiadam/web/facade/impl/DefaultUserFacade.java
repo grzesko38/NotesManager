@@ -1,12 +1,10 @@
 package pl.arczynskiadam.web.facade.impl;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
-
-import com.google.common.collect.Sets;
 
 import pl.arczynskiadam.core.model.AnonymousUserModel;
 import pl.arczynskiadam.core.model.RegisteredUserModel;
@@ -51,7 +49,7 @@ public class DefaultUserFacade implements UserFacade {
 		RegisteredUserModel newUser = new RegisteredUserModel();
 		newUser.setNick(nick);
 		newUser.setEmail(email);
-		newUser.setDateRegistered(new Date());
+		newUser.setDateRegistered(LocalDateTime.now());
 		newUser.setEnabled(true);
 		newUser.setPasswordSalt(SaltGenerator.generateRandomSalt(16));
 		newUser.setPasswordEncoding(SecurityConstants.DEFAULT_ENCODING);

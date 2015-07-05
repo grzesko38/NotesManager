@@ -6,9 +6,9 @@ import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pa
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_MAX_LINKED_PAGES;
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.REGISTERED_USER_DEFAULT_SORT_COLUMN;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -66,7 +66,7 @@ public class DefaultNoteFacade implements NoteFacade {
 		note.setDeadline(noteData.getDeadline());
 		note.setLongitude(noteData.getLongitude());
 		note.setLatitude(noteData.getLatitude());
-		note.setDateCreated(new Date());
+		note.setDateCreated(LocalDateTime.now());
 		return note;
 	}
 	
