@@ -11,12 +11,14 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
-import pl.arczynskiadam.core.model.AnonymousUserModel;
+import com.google.common.collect.Sets;
+
 import pl.arczynskiadam.core.model.NoteModel;
 import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.model.UserModel;
@@ -28,10 +30,6 @@ import pl.arczynskiadam.web.data.DateFilterData;
 import pl.arczynskiadam.web.data.NotesPaginationData;
 import pl.arczynskiadam.web.facade.NoteFacade;
 import pl.arczynskiadam.web.form.NoteForm;
-
-import com.google.common.base.Function;
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.Sets;
 
 @Component
 public class DefaultNoteFacade implements NoteFacade {
@@ -281,22 +279,12 @@ public class DefaultNoteFacade implements NoteFacade {
 	
 	@Override
 	public Set<Integer> convertSelectionsToNotesIds(Collection<String> selections) {
-		 return FluentIterable.from(selections).transform(new Function<String, Integer>() {
-			@Override
-			public Integer apply(String arg0) {
-				return Integer.parseInt(arg0);
-			}
-		}).toSet();
+		return selections.stream().map(s -> Integer.parseInt(s)).collect(Collectors.toSet());
 	}
 	
 	@Override
 	public Set<String> convertNotesIdsToSelections(Collection<Integer> ids) {
-		return FluentIterable.from(ids).transform(new Function<Integer, String>() {
-			@Override
-			public String apply(Integer arg0) {
-				return Integer.toString(arg0);
-			}
-		}).toSet();
+		return ids.stream().map(i -> Integer.toString(i)).collect(Collectors.toSet());
 	}
 
 	@Override
