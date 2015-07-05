@@ -133,8 +133,8 @@ public class DefaultNoteFacade implements NoteFacade {
 	
 	@Override
 	public NotesPaginationData prepareNotesPaginationData() {
-		NotesPaginationData sessionPaginationData = noteService.retrievePagesDataFromSession();
-		return sessionPaginationData != null ? updatePaginationData(sessionPaginationData) : buildDefaultPaginationData();
+		return noteService.isSessionPaginationDataAvailable() ?
+				updatePaginationData(noteService.retrievePagesDataFromSession()) : buildDefaultPaginationData();
 	}
 	
 	private NotesPaginationData updatePaginationData(NotesPaginationData paginationData) {
@@ -157,32 +157,18 @@ public class DefaultNoteFacade implements NoteFacade {
 	private Page<NoteModel> buildPage(Integer pageId, Integer pageSize, String sortCol, boolean asc, DateFilterData dateFilter) {
 		Page<NoteModel> page = null;
 		if (dateFilter.isActive()) {
-			page = listNotesFromDate(pageId, pageSize, sortCol, asc, dateFilter);
+			page = noteService.listNotesByDateFilter(pageId, pageSize, sortCol, asc, dateFilter);
 		} else {
-			page = listNotes(pageId, pageSize, sortCol, asc);
+			page = noteService.listNotes(pageId, pageSize, sortCol, asc);
 		}
 		return page;
 	}
 	
 	private NotesPaginationData buildPaginationDataFromPage(Page<NoteModel> page) {
-		NotesPaginationData paginationData = new NotesPaginationData(DEFAULT_MAX_LINKED_PAGES);
+		NotesPaginationData paginationData = new NotesPaginationData();
 		paginationData.setPage(page);
 		noteService.savePagesDataToSession(paginationData);
 		return paginationData;
-	}
-	
-	private Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
-		Page<NoteModel> result = noteService.listNotes(pageId, pageSize, sortCol, asc);
-		return result;
-	}
-	
-	private Page<NoteModel> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, DateFilterData dateFilter) {
-		if (dateFilter == null) {
-			throw new IllegalArgumentException("datefilter cannot be null.");
-		}
-		
-		Page<NoteModel> result = noteService.listNotesByDateFilter(pageId, pageSize, sortCol, asc, dateFilter);
-		return result;
 	}
 	
 	private String resolveDefaultSortColumn()
