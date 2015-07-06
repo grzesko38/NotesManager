@@ -7,7 +7,9 @@
 <%@ attribute name="iconUrl" required="false" type="java.lang.String" %>
 <%@ attribute name="password" required="false" type="java.lang.Boolean" %>
 <%@ attribute name="showCalendar" required="false" type="java.lang.Boolean"%>
+<%@ attribute name="placeholderKey" required="false" type="java.lang.String"%>
 
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/_templates/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -18,7 +20,11 @@
 			<form:password path="${path}" cssClass="${cssClass}"/>
 		</c:when>
 		<c:otherwise>
-			<form:input path="${path}" cssClass="${cssClass}"/>
+			<c:if test="${not empty placeholderKey}">
+				<spring:message code="${placeholderKey}" var="placeholder"/>
+			</c:if>
+			<form:input path="${path}" cssClass="${cssClass}"
+						placeholder="${not empty placeholderKey?placeholder:''}" />
 		</c:otherwise>
 	</c:choose>
 	<c:if test="${not empty iconUrl}">

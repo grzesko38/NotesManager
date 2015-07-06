@@ -1,10 +1,12 @@
 package pl.arczynskiadam.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,10 +16,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import pl.arczynskiadam.core.model.converters.LocalDateConverter;
+import pl.arczynskiadam.core.model.converters.LocalDateTimeConverter;
+
 @Entity
 @Table(name="NOTES")
 public class NoteModel implements Serializable {
 	
+	private static final long serialVersionUID = -3163891392532378041L;
+
 	@Id
 	@Column(name="ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +37,8 @@ public class NoteModel implements Serializable {
 	private String content;
 	
 	@Column(name="DEADLINE")
-	private Date deadline;
+	@Convert(converter = LocalDateConverter.class)
+	private LocalDate deadline;
 	
 	@Column(name="LONGITUDE")
 	private Double longitude;
@@ -39,10 +47,12 @@ public class NoteModel implements Serializable {
 	private Double latitude;
 	
 	@Column(name="DATE_CREATED")
-	private Date dateCreated;
+	@Convert(converter = LocalDateTimeConverter.class)
+	private LocalDateTime dateCreated;
 
 	@Column(name="LAST_MODIFIED")
-	private Date lastModified;
+	@Convert(converter = LocalDateTimeConverter.class)
+	private LocalDateTime lastModified;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
 	@JoinColumn(name = "USER_FK")
@@ -72,11 +82,11 @@ public class NoteModel implements Serializable {
 		this.content = content;
 	}
 	
-	public Date getDeadline() {
+	public LocalDate getDeadline() {
 		return deadline;
 	}
 
-	public void setDeadline(Date deadline) {
+	public void setDeadline(LocalDate deadline) {
 		this.deadline = deadline;
 	}
 
@@ -96,19 +106,19 @@ public class NoteModel implements Serializable {
 		this.latitude = latitude;
 	}
 
-	public Date getDateCreated() {
+	public LocalDateTime getDateCreated() {
 		return dateCreated;
 	}
 
-	public void setDateCreated(Date dateCreated) {
+	public void setDateCreated(LocalDateTime dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 
-	public Date getLastModified() {
+	public LocalDateTime getLastModified() {
 		return lastModified;
 	}
 
-	public void setLastModified(Date lastModified) {
+	public void setLastModified(LocalDateTime lastModified) {
 		this.lastModified = lastModified;
 	}
 

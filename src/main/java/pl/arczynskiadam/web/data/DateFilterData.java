@@ -1,14 +1,14 @@
 package pl.arczynskiadam.web.data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class DateFilterData {
-	private Date from;
-	private Date to;
+	private LocalDate from;
+	private LocalDate to;
 	
 	public DateFilterData() {}
 	
-	public DateFilterData(Date from, Date to) {
+	public DateFilterData(LocalDate from, LocalDate to) {
 		this.from = from;
 		this.to = to;
 	}
@@ -16,17 +16,20 @@ public class DateFilterData {
 	public boolean isActive() {
 		return !(from == null && to == null);
 	}
-	
-	public Date getFrom() {
+
+	public LocalDate getFrom() {
 		return from;
 	}
-	public void setFrom(Date from) {
+
+	public void setFrom(LocalDate from) {
 		this.from = from;
 	}
-	public Date getTo() {
+
+	public LocalDate getTo() {
 		return to;
 	}
-	public void setTo(Date to) {
+
+	public void setTo(LocalDate to) {
 		this.to = to;
 	}
 }

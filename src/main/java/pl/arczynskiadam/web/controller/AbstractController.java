@@ -6,6 +6,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -18,7 +19,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import pl.arczynskiadam.web.tag.navigation.BreadcrumbsItem;
 
 public abstract class AbstractController {
@@ -48,11 +48,7 @@ public abstract class AbstractController {
 	
 	protected boolean isUserLoggedIn() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth == null) {
-			return false;
-		}
-		
-		return !(auth instanceof AnonymousAuthenticationToken);
+		return Optional.of(auth).map(a -> !(a instanceof AnonymousAuthenticationToken)).orElse(false);
 	}
 	
 	protected String getMessage(String key) {
@@ -65,7 +61,7 @@ public abstract class AbstractController {
 	
 	@ModelAttribute(value = "userName")
 	public String getUserName(Principal principal) {
-		return principal != null ? principal.getName() : "anonymous";
+		return Optional.ofNullable(principal).map(Principal::getName).orElse("anonymous");
 	}
 	
 	@ModelAttribute(value = "themes")

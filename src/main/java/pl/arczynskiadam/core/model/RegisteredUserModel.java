@@ -1,12 +1,15 @@
 package pl.arczynskiadam.core.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import pl.arczynskiadam.core.model.converters.LocalDateTimeConverter;
 
 
 @Entity
@@ -14,11 +17,14 @@ import javax.persistence.Table;
 @DiscriminatorValue("RegisteredUser")
 public class RegisteredUserModel extends AnonymousUserModel implements Serializable {
 	
+	private static final long serialVersionUID = -9104860696486228861L;
+
 	@Column(name="EMAIL")
 	private String email;
 	
 	@Column(name="DATE_REGISTERED")
-	private Date dateRegistered;
+	@Convert(converter = LocalDateTimeConverter.class)
+	private LocalDateTime dateRegistered;
 	
 	@Column(name="PASSWORD_HASH")
 	private String passwordHash;
@@ -44,11 +50,11 @@ public class RegisteredUserModel extends AnonymousUserModel implements Serializa
 		this.email = email;
 	}
 
-	public Date getDateRegistered() {
+	public LocalDateTime getDateRegistered() {
 		return dateRegistered;
 	}
 
-	public void setDateRegistered(Date dateRegistered) {
+	public void setDateRegistered(LocalDateTime dateRegistered) {
 		this.dateRegistered = dateRegistered;
 	}
 

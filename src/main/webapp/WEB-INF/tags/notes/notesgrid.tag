@@ -31,15 +31,17 @@
 	<table class="data">
 		<colgroup>
 			<security:authorize ifAnyGranted="ROLE_ANONYMOUS">
-				<col class="width40" span="1"/>
-				<col class="width250" span="1"/>
-				<col class="width500" span="1"/>
-				<col class="width200" span="2"/>
+				<col style="width: 40px" span="1"/>
+				<col style="width: 220px" span="1"/>
+				<col span="1"/>
+				<col style="width: 200px" span="2"/>
+				<col style="width: 120px" span="1"/>
 			</security:authorize>
 			<security:authorize ifNotGranted="ROLE_ANONYMOUS">
-				<col class="width40" span="2"/>
-				<col class="width600" span="1"/>
-				<col class="width200" span="2"/>
+				<col style="width: 40px" span="2"/>
+				<col span="1"/>
+				<col style="width: 200px" span="2"/>
+				<col style="width: 220px" span="1"/>
 			</security:authorize>
 		</colgroup>
 		<thead>
@@ -102,8 +104,14 @@
 						<td><c:out value="${note.author.nick}" /></td>
 					</security:authorize>
 					<td><c:out value="${note.title}" /></td>
-					<td><fmt:formatDate value="${note.deadline}" pattern="dd/MM/yyyy"/></td>
-					<td><fmt:formatDate value="${note.dateCreated}" pattern="dd/MM/yyyy"/></td>
+					<td>
+						<fmt:parseDate value="${note.deadline}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+						<fmt:formatDate value="${parsedDate}" type="date" pattern="dd/MM/yyyy" />
+					</td>
+					<td>
+						<fmt:parseDate value="${note.dateCreated}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+						<fmt:formatDate value="${parsedDate}" type="date" pattern="dd/MM/yyyy" />
+					</td>
 					<td>
 						<a href="${pageContext.request.contextPath}/notesmanager/details/${note.id}">
 							[<spring:message code="global.details"/>]

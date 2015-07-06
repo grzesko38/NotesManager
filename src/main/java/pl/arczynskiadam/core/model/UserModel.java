@@ -24,6 +24,8 @@ import javax.persistence.Table;
 @Table(name="USERS")
 public abstract class UserModel implements Serializable {
 
+	private static final long serialVersionUID = 6441378387355291115L;
+
 	@Id
 	@Column(name="ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,15 +1,15 @@
 package pl.arczynskiadam.web.form;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.GroupSequence;
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import pl.arczynskiadam.web.form.validation.FirstCharsUpperCase;
 
@@ -30,9 +30,9 @@ public class NoteForm {
 	private String content;
 	
 	@NotNull(message = "{validation.common.required}")
-	@DateTimeFormat(pattern="dd/MM/yyyy")
-	@Future(message = "{note.add.deadline.future.incorrect}")
-	private Date deadline;
+	@DateTimeFormat(iso = ISO.DATE, pattern="dd/MM/yyyy")
+//	@Future(message = "{note.add.deadline.future.incorrect}")
+	private LocalDate deadline;
 	
 	private Double longitude = null;
 	private Double latitude = null;
@@ -65,10 +65,10 @@ public class NoteForm {
 		this.title = title;
 	}
 	
-	public Date getDeadline() {
+	public LocalDate getDeadline() {
 		return deadline;
 	}
-	public void setDeadline(Date deadline) {
+	public void setDeadline(LocalDate deadline) {
 		this.deadline = deadline;
 	}
 	public Double getLongitude() {

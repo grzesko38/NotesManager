@@ -23,7 +23,7 @@
 	</jsp:attribute>
 
 	<jsp:attribute name="banner">
-		<banner:banner bannerClass="listing">
+		<banner:banner bannerClass="new" bannerImgPath="/themes/common/images/banners/quillpen.png">
 			<spring:message code="banner.header.note.edit" />
 		</banner:banner>
     </jsp:attribute>

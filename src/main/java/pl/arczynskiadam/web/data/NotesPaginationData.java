@@ -1,5 +1,7 @@
 package pl.arczynskiadam.web.data;
 
+import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_MAX_LINKED_PAGES;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +21,9 @@ public class NotesPaginationData {
 	private DateFilterData deadlineFilter;
 	private int maxLinkedPages;
 	
-	public NotesPaginationData() { }
+	public NotesPaginationData() {
+		this(DEFAULT_MAX_LINKED_PAGES);
+	}
 	public NotesPaginationData(int maxLinkedPages) {
 		this.maxLinkedPages = maxLinkedPages;
 	}

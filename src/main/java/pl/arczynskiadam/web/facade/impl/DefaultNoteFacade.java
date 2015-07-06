@@ -6,17 +6,19 @@ import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pa
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.DEFAULT_MAX_LINKED_PAGES;
 import static pl.arczynskiadam.web.facade.constants.FacadesConstants.Defaults.Pagination.REGISTERED_USER_DEFAULT_SORT_COLUMN;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
-import pl.arczynskiadam.core.model.AnonymousUserModel;
+import com.google.common.collect.Sets;
+
 import pl.arczynskiadam.core.model.NoteModel;
 import pl.arczynskiadam.core.model.RegisteredUserModel;
 import pl.arczynskiadam.core.model.UserModel;
@@ -28,10 +30,6 @@ import pl.arczynskiadam.web.data.DateFilterData;
 import pl.arczynskiadam.web.data.NotesPaginationData;
 import pl.arczynskiadam.web.facade.NoteFacade;
 import pl.arczynskiadam.web.form.NoteForm;
-
-import com.google.common.base.Function;
-import com.google.common.collect.FluentIterable;
-import com.google.common.collect.Sets;
 
 @Component
 public class DefaultNoteFacade implements NoteFacade {
@@ -68,7 +66,7 @@ public class DefaultNoteFacade implements NoteFacade {
 		note.setDeadline(noteData.getDeadline());
 		note.setLongitude(noteData.getLongitude());
 		note.setLatitude(noteData.getLatitude());
-		note.setDateCreated(new Date());
+		note.setDateCreated(LocalDateTime.now());
 		return note;
 	}
 	
@@ -135,8 +133,8 @@ public class DefaultNoteFacade implements NoteFacade {
 	
 	@Override
 	public NotesPaginationData prepareNotesPaginationData() {
-		NotesPaginationData sessionPaginationData = noteService.retrievePagesDataFromSession();
-		return sessionPaginationData != null ? updatePaginationData(sessionPaginationData) : buildDefaultPaginationData();
+		return noteService.isSessionPaginationDataAvailable() ?
+				updatePaginationData(noteService.retrievePagesDataFromSession()) : buildDefaultPaginationData();
 	}
 	
 	private NotesPaginationData updatePaginationData(NotesPaginationData paginationData) {
@@ -159,32 +157,18 @@ public class DefaultNoteFacade implements NoteFacade {
 	private Page<NoteModel> buildPage(Integer pageId, Integer pageSize, String sortCol, boolean asc, DateFilterData dateFilter) {
 		Page<NoteModel> page = null;
 		if (dateFilter.isActive()) {
-			page = listNotesFromDate(pageId, pageSize, sortCol, asc, dateFilter);
+			page = noteService.listNotesByDateFilter(pageId, pageSize, sortCol, asc, dateFilter);
 		} else {
-			page = listNotes(pageId, pageSize, sortCol, asc);
+			page = noteService.listNotes(pageId, pageSize, sortCol, asc);
 		}
 		return page;
 	}
 	
 	private NotesPaginationData buildPaginationDataFromPage(Page<NoteModel> page) {
-		NotesPaginationData paginationData = new NotesPaginationData(DEFAULT_MAX_LINKED_PAGES);
+		NotesPaginationData paginationData = new NotesPaginationData();
 		paginationData.setPage(page);
 		noteService.savePagesDataToSession(paginationData);
 		return paginationData;
-	}
-	
-	private Page<NoteModel> listNotes(int pageId, int pageSize, String sortCol, boolean asc) {
-		Page<NoteModel> result = noteService.listNotes(pageId, pageSize, sortCol, asc);
-		return result;
-	}
-	
-	private Page<NoteModel> listNotesFromDate(int pageId, int pageSize, String sortCol, boolean asc, DateFilterData dateFilter) {
-		if (dateFilter == null) {
-			throw new IllegalArgumentException("datefilter cannot be null.");
-		}
-		
-		Page<NoteModel> result = noteService.listNotesByDateFilter(pageId, pageSize, sortCol, asc, dateFilter);
-		return result;
 	}
 	
 	private String resolveDefaultSortColumn()
@@ -281,22 +265,12 @@ public class DefaultNoteFacade implements NoteFacade {
 	
 	@Override
 	public Set<Integer> convertSelectionsToNotesIds(Collection<String> selections) {
-		 return FluentIterable.from(selections).transform(new Function<String, Integer>() {
-			@Override
-			public Integer apply(String arg0) {
-				return Integer.parseInt(arg0);
-			}
-		}).toSet();
+		return selections.stream().map(s -> Integer.parseInt(s)).collect(Collectors.toSet());
 	}
 	
 	@Override
 	public Set<String> convertNotesIdsToSelections(Collection<Integer> ids) {
-		return FluentIterable.from(ids).transform(new Function<Integer, String>() {
-			@Override
-			public String apply(Integer arg0) {
-				return Integer.toString(arg0);
-			}
-		}).toSet();
+		return ids.stream().map(i -> Integer.toString(i)).collect(Collectors.toSet());
 	}
 
 	@Override
